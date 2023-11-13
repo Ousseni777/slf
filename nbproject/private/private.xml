@@ -12,12 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/Simulation/sim-fx.php</file>
-            <file>file:/C:/wamp64/www/Simulation/test2.php</file>
-            <file>file:/C:/wamp64/www/Simulation/data_retriever.php</file>
             <file>file:/C:/wamp64/www/Simulation/ax_script.js</file>
-            <file>file:/C:/wamp64/www/Simulation/marque.php</file>
-            <file>file:/C:/wamp64/www/Simulation/calc.php</file>
+            <file>file:/C:/wamp64/www/Simulation/region_retriever.php</file>
+            <file>file:/C:/wamp64/www/Simulation/register.html</file>
+            <file>file:/C:/wamp64/www/Simulation/index.php</file>
+            <file>file:/C:/wamp64/www/Simulation/connectRequest.php</file>
+            <file>file:/C:/wamp64/www/Simulation/login.html</file>
         </group>
     </open-files>
 </project-private>

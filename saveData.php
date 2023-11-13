@@ -3,34 +3,40 @@ session_start();
 $state = 0;
 include_once "./connectToDB.php";
 
-$fname = mysqli_real_escape_string($conn, $_POST['yourFirstName']);
-$lname = mysqli_real_escape_string($conn, $_POST['yourLastName']);
-$email = mysqli_real_escape_string($conn, $_POST['yourEmail']);
-
+$fname = mysqli_real_escape_string($conn, $_POST['yourFullName']);
+$vendeur = mysqli_real_escape_string($conn, $_POST['brand']);
+$region = mysqli_real_escape_string($conn, $_POST['yourRegion']);
+$province = mysqli_real_escape_string($conn, $_POST['yourProvince']);
 $town = mysqli_real_escape_string($conn, $_POST['yourTown']);
 $profession = mysqli_real_escape_string($conn, $_POST['yourProfession']);
+$email = mysqli_real_escape_string($conn, $_POST['yourEmail']);
+$phone = mysqli_real_escape_string($conn, $_POST['yourPhone']);
+// $password = mysqli_real_escape_string($conn, $_POST['password1']);
+// $password2 = mysqli_real_escape_string($conn, $_POST['password2']);
 
+if (isset($email) and isset($fname)  and isset($phone)) {
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {        
 
-$password = mysqli_real_escape_string($conn, $_POST['password1']);
-$password2 = mysqli_real_escape_string($conn, $_POST['password2']);
-
-if (isset($_POST['yourEmail']) and isset($_POST['yourFirstName']) and isset($_POST['yourLastName'])  and isset($_POST['yourTown']) and isset($_POST['password1']) and ($_POST['password1'] == $_POST['password2'])) {
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = mysqli_query($conn, "SELECT * FROM sal_user WHERE email = '{$email}'");
-        if (mysqli_num_rows($sql) > 0) {
+        $query = "SELECT *  FROM SLF_USER  WHERE email = '{$email}'";
+        $result = $conn->query($query);
+    
+        if ($result->num_rows > 0) {                      
             $msg = "$email - This email already exist!";
             $state = 1;
         } else {
+            $rand_text1=generateUniqueID(3);
+            $rand_text2=generateUniqueID(1);
+            $ran_id = rand(time(), 100000000);
+            $ran_id = $rand_text1 . '-'. $ran_id . $rand_text2;
+            $password='v';
             $encrypt_pass = md5($password);
-            $insert_query = mysqli_query($conn, "INSERT INTO sal_user (lname, fname, town, pass,email,profession)
-                VALUES ('{$lname}','{$fname}', '{$town}', '{$encrypt_pass}', '{$email}', '{$profession}')");
-            if ($insert_query) {
-                
-                $select_sql2 = mysqli_query($conn, "SELECT * FROM sal_user WHERE email = '{$email}'");
-                if (mysqli_num_rows($select_sql2) > 0) {
-                    $result = mysqli_fetch_assoc($select_sql2);                    
-                    header("location: marque");
-                }
+            $insert_query = "INSERT INTO `slf_user` (`id_unique`, `id_brand`, `full_name`, `region`, `town`, `profession`, `email`, `tel`, `password`) 
+            VALUES ('{$ran_id}','{$vendeur}','{$fname}', '{$region}', '{$town}', '{$profession}', '{$email}', '{$phone}','{$encrypt_pass}')";
+           
+            $result_insert = $conn->query($insert_query);
+            if (($result_insert)) {                
+                $msg = "Insertion OK !";
+                header("location: ./modal");
             } else {
                 $msg = "Something went wrong. Please try again!";
 
@@ -38,7 +44,7 @@ if (isset($_POST['yourEmail']) and isset($_POST['yourFirstName']) and isset($_PO
             }
         }
     } else {
-        $msg = "All input fields are required!";
+        $msg = "Email incorrect!";
 
         $state = 1;
     }
@@ -49,17 +55,13 @@ if (isset($_POST['yourEmail']) and isset($_POST['yourFirstName']) and isset($_PO
 
 echo $msg;
 
-// if ($state) {
-//     $_SESSION['msg'] = $msg;
-//     $_SESSION['state'] = "echec";
-//     $_SESSION['fname'] = $fname;
-//     $_SESSION['email'] = $email;
-//     $_SESSION['bday'] = $bday;
-//     $_SESSION['town'] = $town;
-//     $_SESSION['quarter'] = $quarter;
-//     $_SESSION['phone'] = $phone;
-//     $_SESSION['password'] = $password;
-//     $_SESSION['lname'] = $lname;
-//     $_SESSION['img'] = $img_name;
-//     header("location: ./aide-domicile");
-// }
+
+function generateUniqueID($k){    
+    $alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $concat='';
+    for ($i = 0; $i < $k; $i++) {
+        $concat= $concat . $alpha[ rand( 0, strlen($alpha) - 1 ) ]; 
+    }
+    return $concat;
+}
+

@@ -1,6 +1,10 @@
 <?php
 
+session_start();
 include './connectToDB.php';
+
+
+$Affiliation = $_SESSION['user'];
 
 switch ($_POST['ID_SCRIPT']) {
     case "brand":
@@ -33,7 +37,8 @@ switch ($_POST['ID_SCRIPT']) {
         $duration = $_POST['ID_DURATION'];
         $apports = fetchApport($brand, $product, $tariff, $duration);
         displayApport($apports);
-        break; 
+        break;
+
     default:
         break;
 }
@@ -43,9 +48,17 @@ switch ($_POST['ID_SCRIPT']) {
 //  Recuperer la liste  des marques 
 // ----------------------------------------------------------------------------
 
-function fetchBrand() {
-    global $conn;
-    $query = "SELECT DISTINCT MARQUE FROM SAL_CREDIT";
+function fetchBrand()
+{
+    global $conn, $Affiliation;
+    if(!isset($_SESSION['user']) || $_SESSION['user']=='ADMIN'){
+        $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT";
+    }else{
+        $Affiliation = $_SESSION['user'];
+        $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT WHERE MARQUE = '$Affiliation'";
+        
+    }
+    
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -60,7 +73,8 @@ function fetchBrand() {
 //  Afficher la liste des marques
 // ----------------------------------------------------------------------------
 
-function displayBrand($brands) {
+function displayBrand($brands)
+{
     if (count($brands) > 0) {
         foreach ($brands as $data) {
             echo '<option value="' . $data['MARQUE'] . '">' . $data['MARQUE'] . '</option>';
@@ -75,9 +89,10 @@ function displayBrand($brands) {
 //  Recuperer la liste des produits 
 // ----------------------------------------------------------------------------
 
-function fetchProduct($IDMARK) {
+function fetchProduct($IDMARK)
+{
     global $conn;
-    $query = "SELECT DISTINCT PRODUIT FROM SAL_CREDIT WHERE MARQUE = '$IDMARK'";
+    $query = "SELECT DISTINCT PRODUIT FROM SLF_CREDIT WHERE MARQUE = '$IDMARK'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -91,7 +106,8 @@ function fetchProduct($IDMARK) {
 // ----------------------------------------------------------------------------
 //  Afficher la liste des produits
 // ----------------------------------------------------------------------------
-function displayProduct($products) {
+function displayProduct($products)
+{
     if (count($products) > 0) {
         foreach ($products as $data) {
             echo '<option>' . $data['PRODUIT'] . '</option>';
@@ -106,9 +122,10 @@ function displayProduct($products) {
 //  Recuperer la liste des barêmes 
 // ----------------------------------------------------------------------------
 
-function fetchTariff($idproduct, $idbrand) {
+function fetchTariff($idproduct, $idbrand)
+{
     global $conn;
-    $query = "SELECT DISTINCT NOM_BAREME FROM SAL_CREDIT WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
+    $query = "SELECT DISTINCT NOM_BAREME FROM SLF_CREDIT WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -123,7 +140,8 @@ function fetchTariff($idproduct, $idbrand) {
 //  Afficher la liste des barêmes
 // ----------------------------------------------------------------------------
 
-function displayTariff($tariffs) {
+function displayTariff($tariffs)
+{
     if (count($tariffs) > 0) {
         foreach ($tariffs as $data) {
             echo '<option>' . $data['NOM_BAREME'] . '</option>';
@@ -137,9 +155,10 @@ function displayTariff($tariffs) {
 // ----------------------------------------------------------------------------
 //  Recuperer la liste des durées 
 // ----------------------------------------------------------------------------
-function fetchDuration($brand, $product, $tariff) {
+function fetchDuration($brand, $product, $tariff)
+{
     global $conn;
-    $query = "SELECT DISTINCT DUREE FROM TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' ORDER BY DUREE";
+    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' ORDER BY DUREE";
 
     $result = $conn->query($query);
 
@@ -156,7 +175,8 @@ function fetchDuration($brand, $product, $tariff) {
 //  Afficher la liste des durées
 // ----------------------------------------------------------------------------
 
-function displayDuration($durations) {
+function displayDuration($durations)
+{
     $ct = 0;
     //$min=min($fetchData);
     //$max= max($fetchData);
@@ -193,10 +213,11 @@ function displayDuration($durations) {
 //  Recuperer la liste des apports 
 // ----------------------------------------------------------------------------
 
-function fetchApport($brand, $product, $tariff, $duration) {
+function fetchApport($brand, $product, $tariff, $duration)
+{
     global $conn;
 
-    $query_apport = "SELECT APPORT, TXFD FROM TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' ORDER BY APPORT";
+    $query_apport = "SELECT APPORT, TXFD FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' ORDER BY APPORT";
     $result_apport = $conn->query($query_apport);
 
     if ($result_apport->num_rows > 0) {
@@ -214,7 +235,8 @@ function fetchApport($brand, $product, $tariff, $duration) {
 //  Afficher la liste des apports
 // ----------------------------------------------------------------------------
 
-function displayApport($apports) {
+function displayApport($apports)
+{
     $ct = 0;
     if (count($apports) > 0) {
         foreach ($apports as $data) {

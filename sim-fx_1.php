@@ -1,5 +1,5 @@
 <?php
-include './connectToDB.php';
+// include './connectToDB.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +109,7 @@ include './connectToDB.php';
                             </li>
 
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <a class="dropdown-item d-flex align-items-center" href="#">
                                     <i class="bi bi-gear"></i>
                                     <span>Mes infos personnelles</span>
                                 </a>
@@ -194,7 +194,7 @@ include './connectToDB.php';
                 <h1>Demander mon crédit en ligne</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Mes infos personnelles</a></li>
+                        <li class="breadcrumb-item"><a href="#">Mes infos personnelles</a></li>
 
                         <li class="breadcrumb-item active">Simulation</li>
                     </ol>

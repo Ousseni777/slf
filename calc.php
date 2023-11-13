@@ -77,7 +77,7 @@ if (empty($error)) {
 
 function fetchData($brand, $product, $tariff, $duration, $DG) {
     global $conn;
-    $query = "SELECT TAUX, TXFD, ADI, Dif FROM TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' AND APPORT ='$DG' ";
+    $query = "SELECT TAUX, TXFD, ADI, Dif FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' AND APPORT ='$DG' ";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

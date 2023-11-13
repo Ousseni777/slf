@@ -1,3 +1,59 @@
+function loadRegions() {
+    $.ajax({
+        url: "region_retriever.php",
+        method: "POST",
+        data: {ID_SCRIPT: 'region'},
+        success: function (data) {
+            $("#yourRegion").html(data);
+            const RegionID = $("#yourRegion").val();
+            $.ajax({
+                url: "region_retriever.php",
+                method: "POST",
+                data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
+                success: function (data) {
+                    $("#yourTown").html(data);                   
+                }
+            });
+        }
+    });
+}
+
+// function loalProvinces() {
+//     const RegionID = $("#yourRegion").val();
+//     $.ajax({
+//         url: "region_retriever.php",
+//         method: "POST",
+//         data: {ID_SCRIPT: 'province', ID_REGION: RegionID},
+//         success: function (data) {
+//             $("#yourProvince").html(data);
+//             loadTowns();
+//         }
+//     });
+// }
+
+function loadTowns() {
+    const RegionID = $("#yourRegion").val();    
+    $.ajax({
+        url: "region_retriever.php",
+        method: "POST",
+        data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
+        success: function (data) {
+            $("#yourTown").html(data);
+        }
+    });
+}
+
+function loadVendeurs() {
+    $.ajax({
+        url: "region_retriever.php",
+        method: "POST",
+        data: {ID_SCRIPT: 'vendeur'},
+        success: function (data) {
+            $("#brand").html(data);
+        }
+    });
+}
+
 function loadBrand() {
     $.ajax({
         url: "data_retriever.php",
@@ -111,24 +167,12 @@ function calcFunction() {
 
 function updateInfo() {
     document.getElementById("rangeInputAmount").value = $("#rangeValueAmount").val();
-    
+
     document.getElementById("infoDuration").textContent = $("#rangeInputDuration").val();
-    
+
     document.getElementById('rangeInputApport').value = $("input[name='apportName']:checked").val();
 
 }
 
 
-const rangeValueAmount = document.getElementById("rangeValueAmount");
-const rangeInputAmount = document.getElementById("rangeInputAmount");
 
-
-rangeInputAmount.addEventListener("input", function () {
-    rangeValueAmount.value = rangeInputAmount.value;
-    calcFunction();
-});
-
-rangeValueAmount.addEventListener("input", function () {
-    rangeInputAmount.value = rangeValueAmount.value;
-    calcFunction();
-});

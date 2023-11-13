@@ -1,5 +1,8 @@
 <?php
+session_start();
 include './connectToDB.php';
+$_SESSION['user']='ADMIN';
+$user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -214,12 +217,15 @@ include './connectToDB.php';
 
                                     <div class="col-md-4">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="brand" name="brand" onchange="loadProduct()" aria-label="State">
+                                            <?php if ($user == 'ADMIN') { ?>
+                                                <select class="form-select" id="brand" name="brand"  onchange="loadProduct()" aria-label="State">
+                                                <?php } else { ?>
 
+                                                    <select class="form-select" id="brand" name="brand" disabled onchange="loadProduct()" aria-label="State">
+                                                    <?php } ?>
 
-
-                                            </select>
-                                            <label for="floatingSelect">Marque</label>
+                                                </select>
+                                                <label for="floatingSelect">Marque</label>
                                         </div> 
 
 
@@ -331,7 +337,7 @@ include './connectToDB.php';
                                     <li class="list-group-item"><span class="infoL">Apport TOTAL  : </span> <span id="infoApport" class="infoR">-</span></li>                
                                     <li class="list-group-item"><span class="infoL">ADI  : </span> <span id="infoADI" class="infoR">-</span></li>                
                                     <li class="list-group-item"><span class="infoL">Cout hors ADI  : </span> <span id="infoCHAD" class="infoR">-</span></li>                
-                                    
+
                                 </ul><!-- End Clean list group -->
                             </div>
                         </div>
@@ -344,13 +350,23 @@ include './connectToDB.php';
 
         <script>
 
-            // Attacher l'événement "load" à la fenêtre
             window.addEventListener("load", function () {
-                // Appeler calcFunction lorsque la page est complètement chargée
-                //loadDefaultData();
                 loadBrand();
 
 
+            });
+            const rangeValueAmount = document.getElementById("rangeValueAmount");
+            const rangeInputAmount = document.getElementById("rangeInputAmount");
+
+
+            rangeInputAmount.addEventListener("input", function () {
+                rangeValueAmount.value = rangeInputAmount.value;
+                calcFunction();
+            });
+
+            rangeValueAmount.addEventListener("input", function () {
+                rangeInputAmount.value = rangeValueAmount.value;
+                calcFunction();
             });
 
         </script>

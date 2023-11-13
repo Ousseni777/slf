@@ -1,2 +1,4 @@
 #Moving database connection
 connectToDB.php
+vendor/phpmailer/
+sendMail.php

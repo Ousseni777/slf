@@ -204,21 +204,7 @@ $user = $_SESSION['user'];
                 </nav>
             </div><!-- End Page Title -->
 
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            
-                            <div class="card-body">
-                                
-                                <h5 class="card-title">Commencez la simulation pour le crédit approprié</h5>
-                                <hr>
-                                <iframe src="./teste.html" frameborder="0" width=100% height=500px></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+           
             <section class="section">
                 <div class="row">
                     <div class="col-lg-8">

@@ -52,9 +52,6 @@ if (in_array($email, $hashedList)) {
 
   <link href="assets/css/style-form.css" rel="stylesheet">
 
-
-
-
 </head>
 
 <body>

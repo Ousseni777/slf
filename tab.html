@@ -1,181 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Time Picker</title>
+  <style>
+    .time-picker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
 
-  <title>Register / salfin</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style-form.css" rel="stylesheet">
-
+    .time-picker-modal {
+      display: none;
+      position: absolute;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 
 <body>
-
-  <main>
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-              <div class="d-flex justify-content-center py-4">
-                <a href="./" class="logo d-flex align-items-center w-auto">
-                  <img style="width: 100%; height: 100%;" src="assets/img/logo.svg" alt="">
-                  <!-- <span class="d-none d-lg-block">SALAFIN</span> -->
-                </a>
-              </div><!-- End Logo -->
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">INSCRIVEZ-VOUS</h5>
-                    <p class="text-center small">Inscrivez-vous afin d'obtenir votre identifiant</p>
-                  </div>
-
-                  <form class="row g-3 needs-validation" action="saveData.php" method="post">
-
-                    <div class="col-12 form-floating mb-3">
-                      <input type="text" name="yourFullName" class="form-control" id="yourFullName" required>
-                      <label for="yourFullName" class="form-label">Votre nom complet</label>
-                    </div>                    
-
-
-                    <div class="col-6 form-floating mb-3">
-                      <select name="yourRegion" onchange="loadTowns()" class="form-select" id="yourRegion"
-                        aria-label="State">
-                      </select>
-                      <label for="yourRegion" class="form-label">Votre région ! </label>
-                    </div>
-
-                    <!-- <div class="col-6 form-floating mb-3">                      
-                      <select name="yourProvince" onchange="loadTowns()" class="form-select" id="yourProvince">
-
-                      </select>
-                      <label for="yourProvince" class="form-label">Choisir la province !</label>
-                    </div> -->
-                    <div class="col-6 form-floating mb-3">
-                      <select class="form-select" id="brand" name="brand" aria-label="State">
-
-                      </select>
-                      <label for="floatingSelect">Vendeur</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">                      
-                      <select name="yourTown" class="form-select" id="yourTown">
-
-                      </select>
-                      <label for="yourTown" class="form-label">Votre ville actuelle !</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">
-                      
-                      <select name="yourProfession" class="form-select" id="yourProfession">
-                        <option value="Salarié">Salarié</option>
-                        <option value="Commerçant">Commerçant</option>
-                        <option value="Personne morale">Personne morale</option>
-                        <option value="Etudiant">Etudiant</option>
-                        <option value="Autres">Autres</option>
-                      </select>
-                      <label for="yourProfession" class="form-label">Dites-nous qui vous êtes?</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">
-                      <input type="text" name="yourPhone" class="form-control" id="yourPhone" required>
-                      <label for="yourPhone" class="form-label">Votre numéro de téléphone !</label>
-                    </div>
-                 
-                    <div class="col-6 form-floating mb-3">                                                     
-                        <input type="email" name="yourEmail" class="form-control" id="yourEmail" required>
-                        <label for="yourEmail" class="form-label">Votre adresse mail</label>                                      
-                    </div>
-
-                    <!-- <div class="col-6 form-floating mb-3">                      
-                      <input type="password" name="password1" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Entrez un mot de passe!</div>
-                      <label for="yourPassword" class="form-label">Votre nouveau mot de passe</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">                      
-                      <input type="password" name="password2" class="form-control" id="yourPassword2" required>
-                      <div class="invalid-feedback">Mot de passe non correspondant!</div>
-                      <label for="yourPassword2" class="form-label">Ré-saisir le mot de passe</label>
-                    </div> -->
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">J'accepte les <a href="#">termes et les
-                            conditions</a></label>
-                        <div class="invalid-feedback">Acceptez avant de soumettre le formulaire.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Créer le compte</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Déjà utilisateur ? <a href="login">Connectez-vous</a></p>
-                    </div>
-                  </form>
-
-                </div>
-              </div>
-
-              <div class="credits">
-                <!-- Designed by <a href="">Ousseni Boro</a> -->
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </section>
-
+  <div class="time-picker">
+    <input type="text" id="timeInput" placeholder="Sélectionner l'heure">
+    <button onclick="openTimePicker()">Choisir l'heure</button>
+    <div class="time-picker-modal" id="timePickerModal">
+      <input type="time" id="time" step="5">
+      <button onclick="closeTimePicker()">OK</button>
     </div>
-  </main><!-- End #main -->
-
-
-  <!-- Vendor JS Files -->
-
-  <!-- Template Main JS File -->
-
-
+  </div>
 
   <script>
+    function openTimePicker() {
+      document.getElementById("timePickerModal").style.display = "block";
+    }
 
-    window.addEventListener("load", function () {
-      
-      loadVendeurs();
-      loadRegions();
-    });
+    function closeTimePicker() {
+      const selectedTime = document.getElementById("time").value;
+      document.getElementById("timeInput").value = selectedTime;
+      document.getElementById("timePickerModal").style.display = "none";
+    }
 
   </script>
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
-
-  <script type="text/javascript" src="ax_script.js"></script>
 </body>
 
 </html>

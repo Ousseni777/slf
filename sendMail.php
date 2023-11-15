@@ -10,7 +10,7 @@ include_once "./connectToDB.php";
 
 $email= $_GET['email'];
 $emailHached= md5($email);
-$link ="http://localhost/Simulation/set-mdp?email=".$emailHached;
+$link ="http://localhost/Simulation/charte?email=".$emailHached;
 
 $mail = new PHPMailer(true);
 
@@ -53,7 +53,7 @@ try {
     </html>';
     $mail->Body    = $html;
 
-    // $mail->send();
+    $mail->send();
     $state=1;
 
     

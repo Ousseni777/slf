@@ -3,14 +3,14 @@ session_start();
 include_once "./connectToDB.php";
 
 $email = mysqli_real_escape_string($conn, $_GET['email']);
-$_SESSION['email']= $email;
+$_SESSION['email'] = $email;
 $sql_mail = "SELECT EMAIL  FROM SLF_USER";
-$sql_result= $conn->query($sql_mail);
-$mails= mysqli_fetch_all($sql_result, MYSQLI_ASSOC);
-$listMail=array();
+$sql_result = $conn->query($sql_mail);
+$mails = mysqli_fetch_all($sql_result, MYSQLI_ASSOC);
+$listMail = array();
 $hashedList = array();
 foreach ($mails as $mail) {
-  $mail=$mail["EMAIL"];
+  $mail = $mail["EMAIL"];
   $hashedMail = md5($mail);
   array_push($listMail, $mail);
   array_push($hashedList, $hashedMail);
@@ -22,136 +22,139 @@ if (in_array($email, $hashedList)) {
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $id_unique=$row['ID_UNIQUE'];
+    $id_unique = $row['ID_UNIQUE'];
     //echo "Le mot '$email' identifiant : ". $row['ID_UNIQUE'] ;
   } else {
     echo "ECHEC.";
     // header("location: ./set-mdp");
   }
- 
+
 } else {
   echo "Le mot '$email' n'est pas dans la liste.";
 }
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Setting || Password</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcours de Boîtes Modales avec Bootstrap</title>
+  <!-- Inclure les fichiers Bootstrap CSS et JavaScript -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
   <link href="assets/css/style-form.css" rel="stylesheet">
+
+
 
 </head>
 
 <body>
 
-  <main>
-    <div class="container">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+  <form action="">
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 1</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <main>
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="d-flex justify-content-center py-4">
-                <a href="./" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.svg" style="width: 100%; height: 100%;" alt="">
-                  <!-- <span class="d-none d-lg-block">SALAFIN</span> -->
-                </a>
-              </div><!-- End Logo -->
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Terminez les options de connexion</h5>
-                    <p class="text-center small">Veuillez definir un nouveau mot de passe afin d'accéder à l'espace
-                      client</p>
+                  <div class="col-12 form-floating mb-3">
+                    <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>" disabled>
+                    <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique"
+                      value="<?php echo $id_unique ?>">
+                    <label for="id_unique" class="form-label">Votre identifiant
+                      est : </label>
                   </div>
 
-                  <form action="update.php" method="post" class="row g-3 needs-validation">
-                    <div class="col-12 form-floating mb-3">
-                      <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
-                        disabled>
-                        <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
-                        >
-                      <label for="id_unique" class="form-label">Votre identifiant est : </label>
-                    </div>
 
+                  <div class="col-12">
+                    <label for="password" class="form-label">Votre nouveau mot
+                      de passe !</label>
+                    <input type="password" name="password" class="form-control" id="password" required>
+                  </div>
+                  <div class="col-12">
+                    <label for="yourPassword2" class="form-label">Ré-saisir le
+                      mot de passe</label>
+                    <input type="password" name="password2" class="form-control" id="yourPassword2" required>
 
-                    <div class="col-12">
-                      <label for="password" class="form-label">Votre nouveau mot de passe !</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
-                    </div>
-                    <div class="col-12">
-                      <label for="yourPassword2" class="form-label">Ré-saisir le mot de passe</label>
-                      <input type="password" name="password2" class="form-control" id="yourPassword2" required>
+                  </div>
 
-                    </div>
+                  <p></p>
 
-                    <p></p>
-
-                    <div class="col-12">
-                      <button style="float: right;" class="btn btn-primary w-100" type="submit">Continuer</button>
-                    </div>
-                  </form>
 
                 </div>
               </div>
-
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                <!-- Designed by <a href="">Ousseni Boro</a> -->
-              </div>
-
             </div>
+          </main><!-- End #main -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" onclick="showModal(2)">Suivant</button>
           </div>
         </div>
-
-      </section>
-
+      </div>
     </div>
-  </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 2</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Contenu de la Boîte Modale 2.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="showModal(1)">Précédent</button>
+            <button type="button" class="btn btn-primary" onclick="showModal(3)">Suivant</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- Ajoutez d'autres boîtes modales Bootstrap si nécessaire -->
+  <!-- Ajoutez les liens vers les fichiers JavaScript de Bootstrap et jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
 
-  <!-- Vendor JS Files -->
+    $(document).ready(function () {
+      $('#modal1').modal('show');
+    });
+    // Fonction pour afficher la boîte modale suivante ou précédente
+    function showModal(index) {
+      // Fermer la boîte modale actuelle si elle est déjà ouverte
+      $('#modal' + currentIndex).modal('hide');
 
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+      // Afficher la boîte modale suivante ou précédente
+      currentIndex = index;
+      $('#modal' + currentIndex).modal('show');
+    }
 
-  <!-- Template Main JS File -->
+    // Index de la boîte modale actuelle
+    var currentIndex = 1;
+  </script>
+
+
 
 
 </body>
 
 </html>
-

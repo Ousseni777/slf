@@ -36,7 +36,8 @@
                         </ul>
                         <form action="set-mdp" method="get">
                             <div class="form-check">
-                            <input style="display : block;" name="email" class="form-check-input" type="text" value="<?php echo $_GET['email'] ?>" >
+                                <input style="display : block;" name="email" class="form-check-input" type="text"
+                                    value="<?php echo $_GET['email'] ?>">
                                 <input class="form-check-input" type="checkbox" id="accepter" required>
                                 <label class="form-check-label" for="accepter">
                                     Je confirme avoir lu et accepté les conditions d'utilisation.
@@ -54,9 +55,8 @@
         </div>
     </div>
 
-    <!-- Ajoutez les liens vers les fichiers JavaScript de Bootstrap et jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
 
     <script>
         // Utilisez jQuery pour déclencher l'affichage de la boîte modale lors du chargement de la page

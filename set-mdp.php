@@ -41,11 +41,17 @@ if (in_array($email, $hashedList)) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parcours de Boîtes Modales avec Bootstrap</title>
-  <!-- Inclure les fichiers Bootstrap CSS et JavaScript -->
+  <title>Parcours</title>
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
 
   <link href="assets/css/style-form.css" rel="stylesheet">
+
 
 
 
@@ -60,58 +66,51 @@ if (in_array($email, $hashedList)) {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 1</h5>
+            <div class="pt-4 pb-2">
+              <h5 class="card-title text-center pb-0 fs-4">Terminez les options de connexion</h5>
+              <p class="text-center small">Veuillez definir un nouveau mot de passe afin d'accéder à
+                l'espace
+                client</p>
+            </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <main>
-            <div class="container">
-              <div class="card mb-3">
 
+
+          <section class="section py-4">
+            <div class="container">
+
+              <div class="col-lg-12">
                 <div class="card-body">
 
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Terminez les options de connexion</h5>
-                    <p class="text-center small">Veuillez definir un nouveau mot de passe afin d'accéder à l'espace
-                      client</p>
+                  <div class="col-12 form-floating mb-3">
+                    <input type="text" name="id_unique" class="form-control" id="id_unique"
+                      value="<?php echo $id_unique ?>" disabled>
+                    <label for="id_unique" class="form-label">Votre identifiant est : </label>
                   </div>
-                  <div class="row justify-content-center">
-                    <div class="col-lg-10 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                      <div class="col-12 form-floating mb-3">
-                        <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
-                          disabled>
-                        <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique"
-                          value="<?php echo $id_unique ?>">
-                        <label for="id_unique" class="form-label">Votre identifiant
-                          est : </label>
-                      </div>
-
-
-                      <div class="col-12">
-                        <label for="password" class="form-label">Votre nouveau mot
-                          de passe !</label>
-                        <input type="password" name="password" class="form-control" id="password" required>
-                      </div>
-                      <div class="col-12">
-                        <label for="yourPassword2" class="form-label">Ré-saisir le
-                          mot de passe</label>
-                        <input type="password" name="password2" class="form-control" id="yourPassword2" required>
-
-                      </div>
-
-                      <p></p>
-
-
-                    </div>
+                  <div class="col-12">
+                    <label for="password" class="form-label">Votre mot de passe !</label>
+                    <input type="password" name="password" class="form-control" id="password" required>
                   </div>
+                  <div class="col-12">
+                    <label for="yourPassword2" class="form-label">Ré-saisir le mot de passe</label>
+                    <input type="password" name="password2" class="form-control" id="yourPassword2" required>
+
+                  </div>
+
                 </div>
+
               </div>
+
             </div>
-          </main><!-- End #main -->
+
+          </section>
+
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
             <button type="button" class="btn btn-primary" onclick="showModal(2)">Suivant</button>
           </div>
         </div>
@@ -119,21 +118,86 @@ if (in_array($email, $hashedList)) {
     </div>
 
     <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
+      aria-hidden="true" data-bs-backdrop="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 2</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Appartenance</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            Contenu de la Boîte Modale 2.
+
+
+            <div class="row no-gutters">
+
+              <div class="col-lg-4 box">
+                <h3>User SALAFIN</h3>
+                
+
+                <input type="checkbox" name="choix" value="option1" onchange="selectionnerOption(this)">
+              </div>
+
+              <div class="col-lg-4 box featured">
+                <h3>Client particulier</h3>
+         
+
+                <input type="checkbox" name="choix" value="option1" onchange="selectionnerOption(this)">
+              </div>
+
+              <div class="col-lg-4 box">
+                <h3>Vendeur</h3>
+
+                <input type="checkbox" name="choix" value="option1" onchange="selectionnerOption(this)">
+              </div>
+
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" onclick="showModal(1)">Précédent</button>
             <button type="button" class="btn btn-primary" onclick="showModal(3)">Suivant</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true" data-bs-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 3</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Contenu de la Boîte Modale 3.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="showModal(2)">Précédent</button>
+            <button type="button" class="btn btn-primary" onclick="showModal(4)">Suivant</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true" data-bs-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 4</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Contenu de la Boîte Modale 4.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="showModal(3)">Précédent</button>
+            <button type="button" class="btn btn-primary" onclick="showModal(5)">Suivant</button>
           </div>
         </div>
       </div>
@@ -144,7 +208,11 @@ if (in_array($email, $hashedList)) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   <script>
 
     $(document).ready(function () {
@@ -162,11 +230,19 @@ if (in_array($email, $hashedList)) {
 
     // Index de la boîte modale actuelle
     var currentIndex = 1;
+
+
+    function selectionnerOption(checkbox) {
+            var checkboxes = document.querySelectorAll('input[name="choix"]');
+            
+            // Désélectionner les autres cases à cocher
+            checkboxes.forEach(function (currentCheckbox) {
+                if (currentCheckbox !== checkbox) {
+                    currentCheckbox.checked = false;
+                }
+            });
+        }
   </script>
-
-
-
-
 </body>
 
 </html>

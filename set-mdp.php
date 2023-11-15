@@ -67,33 +67,45 @@ if (in_array($email, $hashedList)) {
           </div>
           <main>
             <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-lg-10 col-md-6 d-flex flex-column align-items-center justify-content-center">
+              <div class="card mb-3">
 
-                  <div class="col-12 form-floating mb-3">
-                    <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>" disabled>
-                    <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique"
-                      value="<?php echo $id_unique ?>">
-                    <label for="id_unique" class="form-label">Votre identifiant
-                      est : </label>
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Terminez les options de connexion</h5>
+                    <p class="text-center small">Veuillez definir un nouveau mot de passe afin d'accéder à l'espace
+                      client</p>
                   </div>
+                  <div class="row justify-content-center">
+                    <div class="col-lg-10 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                      <div class="col-12 form-floating mb-3">
+                        <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
+                          disabled>
+                        <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique"
+                          value="<?php echo $id_unique ?>">
+                        <label for="id_unique" class="form-label">Votre identifiant
+                          est : </label>
+                      </div>
 
 
-                  <div class="col-12">
-                    <label for="password" class="form-label">Votre nouveau mot
-                      de passe !</label>
-                    <input type="password" name="password" class="form-control" id="password" required>
+                      <div class="col-12">
+                        <label for="password" class="form-label">Votre nouveau mot
+                          de passe !</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                      </div>
+                      <div class="col-12">
+                        <label for="yourPassword2" class="form-label">Ré-saisir le
+                          mot de passe</label>
+                        <input type="password" name="password2" class="form-control" id="yourPassword2" required>
+
+                      </div>
+
+                      <p></p>
+
+
+                    </div>
                   </div>
-                  <div class="col-12">
-                    <label for="yourPassword2" class="form-label">Ré-saisir le
-                      mot de passe</label>
-                    <input type="password" name="password2" class="form-control" id="yourPassword2" required>
-
-                  </div>
-
-                  <p></p>
-
-
                 </div>
               </div>
             </div>

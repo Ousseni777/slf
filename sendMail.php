@@ -24,7 +24,7 @@ try {
     $mail->Port       = 587;
 
     $mail->setFrom('boro10woulo@outlook.fr', ' BORO OUSS ');
-    $mail->addAddress('boro7ousseni@gmail.com', 'BORO');
+    $mail->addAddress($email, 'BORO');
 
     $mail->isHTML(true);
     $mail->Subject = 'VERIFICATION DE MAIL!';
@@ -96,3 +96,4 @@ header("location: ./register");
 </body>
 </html>
 
+  

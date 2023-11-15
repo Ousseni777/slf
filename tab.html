@@ -1,48 +1,477 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Time Picker</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Components / Modal - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="assets/css/styles-forms-step.css">
+  <link href="assets/css/style-form.css" rel="stylesheet">
   <style>
-    .time-picker {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
+    .modal-content {
+      background-color: rgba(231, 231, 227, 0.99);
     }
 
-    .time-picker-modal {
-      display: none;
+    .sidebar,
+    .accordion-item,
+    .col-lg-12 {
+      background-color: rgba(255, 255, 200, .05);
+      border: none;
+      border-radius: 0%;
+      box-shadow: none;
+    }
+
+    .col-lg-4 .card {
+      position: relative;
+    }
+
+
+    .position {
+      padding: 0 5%;
+      padding-top: 10%;
       position: absolute;
-      background: #fff;
-      padding: 20px;
-      border: 1px solid #ccc;
+      width: 90%;
+      height: 90%;
+      text-align: center;
+    }
+
+    .position h3 {
+      color: red;
+      font-size: 20px;
+      margin-top: 10%;
+    }
+
+
+    .position input[type="radio"] {
+      /* Utilisez la couleur de votre choix */
+      background-color: rgba(255, 255, 200, 0);
+      width: 50%;
+      height: 50%;
+    }
+
+    /* Style pour le radio lorsqu'il est coché */
+    .position input[type="radio"]:checked {
+      /* Utilisez la couleur de votre choix */
+      background-color: red;
+    }
+
+    #percent{
+      font-size: 60px;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
-  <div class="time-picker">
-    <input type="text" id="timeInput" placeholder="Sélectionner l'heure">
-    <button onclick="openTimePicker()">Choisir l'heure</button>
-    <div class="time-picker-modal" id="timePickerModal">
-      <input type="time" id="time" step="5">
-      <button onclick="closeTimePicker()">OK</button>
-    </div>
-  </div>
 
+  <!-- ======= Header ======= -->
+
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fullscreenModal">
+        Commencer
+      </button>
+
+    </div><!-- End Logo -->
+
+
+
+
+
+  </header><!-- End Header -->
+
+
+  <main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <!-- Process -->
+
+
+              <div class="modal fade" id="fullscreenModal" tabindex="-1">
+                <div class="modal-dialog modal-fullscreen">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title"></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <!-- ======= Sidebar ======= -->
+                      <aside id="sidebar" class="sidebar">
+                        <div class="col-lg-12">    
+
+
+                          <!-- Accordion without outline borders -->
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                              <h3 style="display: none;"><span class="step-number">1</span></h3>
+                              <ul class="progress-bar">
+                                <li class="active">Type</li>
+                                <li>Nom et prénom</li>
+                                <li>Civilité</li>                                                  
+                                <li>Justificatifs</li>
+                              </ul>
+                            </div>
+
+                          </div><!-- End Accordion without outline borders -->
+
+
+                        </div>
+                        
+
+
+                      </aside><!-- End Sidebar-->
+                      <main id="main" class="" onmouseenter="">
+
+                        <div class="pagetitle">
+                          <h1>Demander mon crédit en ligne</h1>
+                          
+                        </div><!-- End Page Title -->
+
+                        <section class="section">
+                          <div class="row">
+
+                            <div class="col-lg-8" style="background-color: rgba(255, 255, 200, 0);">
+                              <!-- <h5 class="card-title">Commencez la simulation pour le crédit approprié</h5> -->
+                              <hr>
+                              <!-- Commencez la simulation pour le crédit approprié -->
+                              <form action="" class="row g-3" method="post">
+
+                                <div class="form-section row g-3 active">
+                                  <div class="row gy-4">
+
+                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                      <div class="card">
+                                        <div class="card-img">
+                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="position" data-radio-id="clientparticulier">
+                                          <input type="radio" name="checkb" id="clientparticulier"
+                                            class="stretched-link">
+                                          <h3>Espace client</h3>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Card Item -->
+                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                      <div class="card">
+                                        <div class="card-img">
+                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="position" data-radio-id="client">
+                                          <input type="radio" name="checkb" id="client" class="stretched-link">
+                                          <h3> Client
+                                            SALAFIN
+                                          </h3>
+                                        </div>
+
+                                      </div>
+                                    </div><!-- End Card Item -->
+                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                      <div class="card">
+                                        <div class="card-img">
+                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="position" data-radio-id="vendeur">
+                                          <input type="radio" name="checkb" id="vendeur" class="stretched-link">
+                                          <h3> Espace
+                                            vendeur
+                                          </h3>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Card Item -->
+                                  </div>
+                                  <div class="row gy-8">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                 
+                                    <div class="col-md-4">
+                                      <button style="float: right" class="btn btn-outline-primary next_button"
+                                        type="button">Suivant</button>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="form-section row g-3">
+                                  <div class="row gy-4">
+                                    <div class="col-12 form-floating mb-3">
+                                      <input type="text" name="yourName" class="form-control" id="yourName" required>
+                                      <label for="yourName" class="form-label">Votre nom</label>
+                                    </div>
+                                    <div class="col-12 form-floating mb-3">
+                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
+                                      <label for="yourFirst" class="form-label">Votre prénom</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
+
+                                    </div>
+                               
+                                    <div class="col-md-4">
+
+                                      <button style="float: right" class="btn btn-outline-primary next_button"
+                                        type="button">Suivant</button>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+                                <div class="form-section row g-3">
+                                  <div class="row gy-4">
+
+                                    <div class="col-4 form-floating mb-3">
+                                      <input type="text" name="yourName" class="form-control" id="yourName" required>
+                                      <label for="yourName" class="form-label">Votre CIN</label>
+                                    </div>
+                                    <div class="col-4 form-floating mb-3">
+                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
+                                      <label for="yourFirst" class="form-label">Votre ...</label>
+                                    </div>
+                                    <div class="col-4 form-floating mb-3">
+                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
+                                      <label for="yourFirst" class="form-label">Votre ...</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
+
+                                    </div>
+                                    
+                                  
+                                    <div class="col-md-4">
+
+                                      <button style="float: right" class="btn btn-outline-primary next_button"
+                                        type="button">Suivant</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-section row g-3">
+                                  <div class="row gy-4">
+
+                                    <div class="col-md-12">
+
+                                      <div class="mb-2">
+                                        <span>CIN</span>
+                                        <div
+                                          class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
+                                          <div class="absolute">
+                                            <div class="flex flex-col items-center ">
+                                              <i class="fa fa-cloud-upload fa-3x text-gray-200"></i>
+                                              <span class="block text-gray-400 font-normal">Attacher vos fichiers ici</span>
+                                              <span class="block text-gray-400 font-normal">ou</span>
+
+                                              <span class="block text-blue-400 font-normal">Parcourir</span>
+
+                                            </div>
+                                          </div> <input type="file" class="h-full w-full opacity-0" name="">
+                                        </div>
+                                        <div class="flex justify-between items-center text-gray-400">
+                                          <span>Accepted file type:.jpg, .png, .jpeg</span>
+                                          <span class="flex items-center "><i class="fa fa-lock mr-1"></i>
+                                            secure</span>
+                                        </div>
+                                      </div>
+                                      <div class="mb-2">
+                                        <span>Others</span>
+                                        <div
+                                          class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
+                                          <div class="absolute">
+                                            <div class="flex flex-col items-center ">
+                                              <i class="fa fa-cloud-upload fa-3x text-gray-200"></i>
+                                              <span class="block text-gray-400 font-normal">Attacher vos fichiers ici</span>
+                                              <span class="block text-gray-400 font-normal">ou</span>
+
+                                              <span class="block text-blue-400 font-normal">Parcourir</span>
+
+                                            </div>
+                                          </div> <input type="file" class="h-full w-full opacity-0" name="">
+                                        </div>
+                                        <div class="flex justify-between items-center text-gray-400">
+                                          <span>Accepted file type:.jpg, .png, .jpeg</span>
+                                          <span class="flex items-center "><i class="fa fa-lock mr-1"></i>
+                                            secure</span>
+                                        </div>
+                                      </div>
+                                      
+
+                                    </div>
+
+                                    <div class="col-md-8">
+                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
+
+                                    </div>
+                                 
+                                    <div class="col-md-4">
+
+                                      <button style="float: right" class="btn btn-outline-primary next_button"
+                                        type="button">Suivant</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form><!-- End General Form Elements -->
+
+
+                            </div>
+
+                            <div class="col-lg-4" style="text-align: center;"> <span id="percent"></span></div>
+                          </div>
+                        </section>
+
+                      </main><!-- End #main -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-primary">Envoyer</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Process-->
+
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+
+  <!-- Template Main JS File -->
+  <!-- <script src="assets/js/main.js"></script> -->
   <script>
-    function openTimePicker() {
-      document.getElementById("timePickerModal").style.display = "block";
+    var next_click = document.querySelectorAll(".next_button");
+    var main_form = document.querySelectorAll(".form-section");
+    var step_list = document.querySelectorAll(".progress-bar li");
+    var num = document.querySelector(".step-number");
+    var percent=document.getElementById('percent');
+    let formnumber = 0;
+
+    percent.innerHTML="0%";
+    next_click.forEach(function (next_click_form) {
+      next_click_form.addEventListener('click', function () {
+        if (!validateform()) {
+          return false
+        }
+        formnumber++;
+        updateform();
+        progress_forward();
+
+      });
+    });
+
+    var back_click = document.querySelectorAll(".back_button");
+    back_click.forEach(function (back_click_form) {
+      back_click_form.addEventListener('click', function () {
+        formnumber--;
+        updateform();
+        progress_backward();
+
+      });
+    });
+
+
+
+
+    var submit_click = document.querySelectorAll(".submit_button");
+    submit_click.forEach(function (submit_click_form) {
+      submit_click_form.addEventListener('click', function () {
+        formnumber++;
+        updateform();
+      });
+    });
+
+
+
+
+
+
+
+    function updateform() {
+      main_form.forEach(function (mainform_number) {
+        mainform_number.classList.remove('active');
+      })
+      main_form[formnumber].classList.add('active');
     }
 
-    function closeTimePicker() {
-      const selectedTime = document.getElementById("time").value;
-      document.getElementById("timeInput").value = selectedTime;
-      document.getElementById("timePickerModal").style.display = "none";
+    function progress_forward() {
+      // step_list.forEach(list => {
+
+      //     list.classList.remove('active');
+
+      // }); 
+
+
+      num.innerHTML = formnumber + 1;
+      percent.innerHTML=((formnumber+1) / 5) * 100 + "%";
+      step_list[formnumber].classList.add('active');
+    }
+
+    function progress_backward() {
+      var form_num = formnumber + 1;
+      step_list[form_num].classList.remove('active');
+      // num.innerHTML = (form_num / 5) * 100;
+      percent.innerHTML=(form_num / 5) * 100 + "%";
+      num.innerHTML = form_num 
+    }
+
+    function validateform() {
+      validate = true;
+      var validate_inputs = document.querySelectorAll(".form-section.active input");
+      validate_inputs.forEach(function (vaildate_input) {
+        vaildate_input.classList.remove('warning');
+        if (vaildate_input.hasAttribute('')) {
+          if (vaildate_input.value.length == 0) {
+            validate = false;
+            vaildate_input.classList.add('warning');
+          }
+        }
+      });
+      return validate;
+
     }
 
   </script>
+
 </body>
 
 </html>

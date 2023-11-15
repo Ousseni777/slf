@@ -18,18 +18,6 @@ function loadRegions() {
     });
 }
 
-// function loalProvinces() {
-//     const RegionID = $("#yourRegion").val();
-//     $.ajax({
-//         url: "region_retriever.php",
-//         method: "POST",
-//         data: {ID_SCRIPT: 'province', ID_REGION: RegionID},
-//         success: function (data) {
-//             $("#yourProvince").html(data);
-//             loadTowns();
-//         }
-//     });
-// }
 
 function loadTowns() {
     const RegionID = $("#yourRegion").val();    
@@ -96,11 +84,11 @@ function loadTariff() {
 function loadDuration() {
     const BrandID = $("#brand").val();
     const ProductID = $("#product").val();
-    const TariffID = $("#tariff").val();
+    // const TariffID = $("#tariff").val();
     $.ajax({
         url: "data_retriever.php",
         method: "POST",
-        data: {ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID, ID_TARIFF: TariffID},
+        data: {ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID},
         success: function (data) {
             $("#idRadios").html(data);
             loadApport();
@@ -111,7 +99,7 @@ function loadDuration() {
 function loadApport() {
     const BrandID = $("#brand").val();
     const ProductID = $("#product").val();
-    const TariffID = $("#tariff").val();
+    // const TariffID = $("#tariff").val();
     const DurationID = $("input[name='radioBtn']:checked").val();
     $.ajax({
         url: "data_retriever.php",

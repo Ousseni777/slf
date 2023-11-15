@@ -54,74 +54,11 @@
                     <p class="text-center small">Inscrivez-vous afin d'obtenir votre identifiant</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" action="saveData.php" method="post">
-
-                    <div class="col-12 form-floating mb-3">
-                      <input type="text" name="yourFullName" class="form-control" id="yourFullName" required>
-                      <label for="yourFullName" class="form-label">Votre nom complet</label>
-                    </div>                    
-
-
-                    <div class="col-6 form-floating mb-3">
-                      <select name="yourRegion" onchange="loadTowns()" class="form-select" id="yourRegion"
-                        aria-label="State">
-                      </select>
-                      <label for="yourRegion" class="form-label">Votre région ! </label>
-                    </div>
-
-                    <!-- <div class="col-6 form-floating mb-3">                      
-                      <select name="yourProvince" onchange="loadTowns()" class="form-select" id="yourProvince">
-
-                      </select>
-                      <label for="yourProvince" class="form-label">Choisir la province !</label>
-                    </div> -->
-                    <div class="col-6 form-floating mb-3">
-                      <select class="form-select" id="brand" name="brand" aria-label="State">
-
-                      </select>
-                      <label for="floatingSelect">Vendeur</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">                      
-                      <select name="yourTown" class="form-select" id="yourTown">
-
-                      </select>
-                      <label for="yourTown" class="form-label">Votre ville actuelle !</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">
-                      
-                      <select name="yourProfession" class="form-select" id="yourProfession">
-                        <option value="Salarié">Salarié</option>
-                        <option value="Commerçant">Commerçant</option>
-                        <option value="Personne morale">Personne morale</option>
-                        <option value="Etudiant">Etudiant</option>
-                        <option value="Autres">Autres</option>
-                      </select>
-                      <label for="yourProfession" class="form-label">Dites-nous qui vous êtes?</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">
-                      <input type="text" name="yourPhone" class="form-control" id="yourPhone" required>
-                      <label for="yourPhone" class="form-label">Votre numéro de téléphone !</label>
-                    </div>
-                 
-                    <div class="col-6 form-floating mb-3">                                                     
-                        <input type="email" name="yourEmail" class="form-control" id="yourEmail" required>
-                        <label for="yourEmail" class="form-label">Votre adresse mail</label>                                      
-                    </div>
-
-                    <!-- <div class="col-6 form-floating mb-3">                      
-                      <input type="password" name="password1" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Entrez un mot de passe!</div>
-                      <label for="yourPassword" class="form-label">Votre nouveau mot de passe</label>
-                    </div>
-
-                    <div class="col-6 form-floating mb-3">                      
-                      <input type="password" name="password2" class="form-control" id="yourPassword2" required>
-                      <div class="invalid-feedback">Mot de passe non correspondant!</div>
-                      <label for="yourPassword2" class="form-label">Ré-saisir le mot de passe</label>
-                    </div> -->
+                  <form class="row g-3 needs-validation" action="sendMail" method="get">                
+                    <div class="col-12 form-floating mb-3">                                                     
+                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <label for="yourEmail" class="form-label">Votre adresse mail</label>                                      
+                  </div>
 
                     <div class="col-12">
                       <div class="form-check">
@@ -132,7 +69,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Créer le compte</button>
+                      <button class="btn btn-primary w-50" style="float: right;" type="submit">Continuer</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Déjà utilisateur ? <a href="login">Connectez-vous</a></p>

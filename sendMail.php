@@ -1,43 +1,37 @@
-
 <?php
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
 require 'vendor/autoload.php';
 
-//Create an instance; passing `true` enables exceptions
+include_once "./connectToDB.php";
+
+$email= $_GET['email'];
+$emailHached= md5($email);
+$link ="http://localhost/Simulation/set-mdp?email=".$emailHached;
+
 $mail = new PHPMailer(true);
 
 try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'slf7ousseni@gmail.com';                     //SMTP username
-    $mail->Password   = 'Slf@2023slf';                               //SMTP password
-    $mail->SMTPSecure = 'TLS'; // TLS ou SSL            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.office365.com'; // Serveur SMTP d'Outlook
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'serveurqlickview@outlook.fr'; // Votre adresse e-mail Outlook
+    $mail->Password   = 'sql$2022'; // Votre mot de passe Outlook
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
 
-    //Recipients
-    $mail->setFrom('slf7ousseni@gmail.com', 'SLF');
-    $mail->addAddress('boro7ousseni@gmail.net', 'BORO OUSSENI');     //Add a recipient
-        
-    
+    $mail->setFrom('serveurqlickview@outlook.fr', ' BORO OUSS ');
+    $mail->addAddress('boro7ousseni@gmail.com', 'BORO');
 
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->isHTML(true);
+    $mail->Subject = 'Sujet de l\'e-mail';
+    $mail->Body    = 'Contenu de l\'e-mail au format HTML.'. $link;
 
     $mail->send();
-    echo 'Message has been sent';
+    echo 'E-mail envoyé avec succès';
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo "Erreur lors de l'envoi de l'e-mail : {$mail->ErrorInfo}";
 }
+?>

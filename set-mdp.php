@@ -1,8 +1,9 @@
 <?php
-
+session_start();
 include_once "./connectToDB.php";
 
 $email = mysqli_real_escape_string($conn, $_GET['email']);
+$_SESSION['email']= $email;
 $sql_mail = "SELECT EMAIL  FROM SLF_USER";
 $sql_result= $conn->query($sql_mail);
 $mails= mysqli_fetch_all($sql_result, MYSQLI_ASSOC);
@@ -22,7 +23,7 @@ if (in_array($email, $hashedList)) {
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $id_unique=$row['ID_UNIQUE'];
-    echo "Le mot '$email' identifiant : ". $row['ID_UNIQUE'] ;
+    //echo "Le mot '$email' identifiant : ". $row['ID_UNIQUE'] ;
   } else {
     echo "ECHEC.";
     // header("location: ./set-mdp");
@@ -92,24 +93,18 @@ if (in_array($email, $hashedList)) {
                       client</p>
                   </div>
 
-                  <form action="connectRequest" method="post" class="row g-3 needs-validation">
+                  <form action="update.php" method="post" class="row g-3 needs-validation">
                     <div class="col-12 form-floating mb-3">
-                      <input type="text" name="id_unique" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
+                      <input type="text" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
                         disabled>
+                        <input style="display: none;" type="text" name="id_unique" class="form-control" id="id_unique" value="<?php echo $id_unique ?>"
+                        >
                       <label for="id_unique" class="form-label">Votre identifiant est : </label>
                     </div>
 
-                    <!-- <div class="col-12">
-                      <label for="id_unique" class="form-label">Votre identifiant est : </label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="id_unique" class="form-control" id="id_unique" value="ZQZ-1612075898S" disabled>
-                        <div class="invalid-feedback">Entrez votre identifiant.</div>
-                      </div>
-                    </div> -->
 
                     <div class="col-12">
-                      <label for="password" class="form-label">Votre mot de passe !</label>
+                      <label for="password" class="form-label">Votre nouveau mot de passe !</label>
                       <input type="password" name="password" class="form-control" id="password" required>
                     </div>
                     <div class="col-12">
@@ -121,7 +116,7 @@ if (in_array($email, $hashedList)) {
                     <p></p>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Valider</button>
+                      <button style="float: right;" class="btn btn-primary w-100" type="submit">Continuer</button>
                     </div>
                   </form>
 

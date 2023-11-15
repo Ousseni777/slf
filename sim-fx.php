@@ -1,384 +1,543 @@
 <?php
 session_start();
 include './connectToDB.php';
-$_SESSION['user']='ADMIN';
+$_SESSION['user'] = 'ADMIN';
 $user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>sim / Elements</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+    <title>sim / Elements</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-        <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-            rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
 
-        <!-- Vendor CSS Files -->
-        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->ul
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-        <!-- Template Main CSS File -->
-        <link href="assets/css/style-form.css" rel="stylesheet">        
+    <!-- Template Main CSS File -->
+
+    <link rel="stylesheet" href="assets/css/styles-forms-step.css">
+    <link href="assets/css/style-form.css" rel="stylesheet">
 
 
-        <style>
+    <style>
+        /*--------------------------------------------------------------
+    # option
+    --------------------------------------------------------------*/
+        .option .option-item {
+            margin-bottom: 30px;
+        }
+
+        .option #option-flters {
+            padding: 0;
+            margin: 0 auto 25px auto;
+            list-style: none;
+            text-align: center;
+            background: white;
+            border-radius: 50px;
+            padding: 2px 15px;
+        }
+
+        .option #option-flters li {
+            cursor: pointer;
+            display: inline-block;
+            padding: 8px 20px 12px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1;
+            color: #444444;
+            margin: 0 4px 8px 4px;
+            transition: all ease-in-out 0.3s;
+            border-radius: 50px;
+            background: #f2f2f2;
+        }
+
+        .option #option-flters li:hover,
+        .option #option-flters li.filter-active {
+            background: #e96b56;
+            color: #fff;
+        }
+
+        .option #option-flters li:last-child {
+            margin-right: 0;
+        }
+
+        .option .option-wrap {
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            background: rgba(84, 84, 84, 0.6);
+        }
+
+        .option .option-wrap::before {
+            content: "";
+            background: rgba(84, 84, 84, 0.6);
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            top: 30px;
+            bottom: 30px;
+            transition: all ease-in-out 0.3s;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .option .option-wrap .option-info {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            z-index: 3;
+            transition: all ease-in-out 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option .option-wrap .option-info::before {
+            display: block;
+            content: "";
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            border-top: 3px solid #fff;
+            border-left: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .option .option-wrap .option-info::after {
+            display: block;
+            content: "";
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            bottom: 35px;
+            right: 35px;
+            border-bottom: 3px solid #fff;
+            border-right: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .option .option-wrap .option-info h4 {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .option .option-wrap .option-info p {
+            color: #ffffff;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option .option-wrap .option-links {
+            text-align: center;
+            z-index: 4;
+        }
+
+        .option .option-wrap .option-links a {
+            color: #fff;
+            margin: 0 2px;
+            font-size: 28px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .option .option-wrap .option-links a:hover {
+            color: #e96b56;
+        }
+
+        .option .option-wrap:hover::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 1;
+        }
+
+        .option .option-wrap:hover .option-info {
+            opacity: 1;
+        }
+
+        .option .option-wrap:hover .option-info::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .option .option-wrap:hover .option-info::after {
+            bottom: 15px;
+            right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+
+            <img class="logo" src="assets/img/logo.SVG" alt="">
+
+        </div><!-- End Logo -->
 
 
-            .list-group-item .infoR{
-                float: right;
-                font-size: 14px;
 
-                color: rgb(6, 161, 53);
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown pe-3">
 
-            }
-            .logo{
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">B. OUSSENI</span>
+                    </a><!-- End Profile Iamge Icon -->
 
-                width: 150px;
-                height: 100px;
-            }
-            .hr{
-                width: 50%;
-                margin-left: 25%;
-            }
-            .inputFlag{
-                width: 100px;
-                text-align: center;
-                border-radius: 5px;
-            }
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>BORO OUSSENI</h6>
+                            <span>Fonctionnaire</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-            .radios{
-                display: inline-flex;
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-                width: 100%;
-            }
-            .form-check{
-                margin: 2%;
-                width: 30%;
-            }
-            .form-check label{
-                width: 100%;
-
-            }
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Mes infos personnelles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
 
-        </style>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-    </head>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Je me déconnecte</span>
+                            </a>
+                        </li>
 
-    <body onmouseenter="">
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
 
-        <!-- ======= Header ======= -->
-        <header id="header" class="header fixed-top d-flex align-items-center">
+            </ul>
+        </nav><!-- End Icons Navigation -->
 
-            <div class="d-flex align-items-center justify-content-between">
+    </header><!-- End Header -->
 
-                <img class="logo" src="assets/img/logo.SVG" alt="">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">0%</h2>
 
-            </div><!-- End Logo -->
+                    <!-- Accordion without outline borders -->
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h3>Etape <span class="step-number">1</span></h3>
+                            <ul class="progress-bar">
+                                <li class="active">Coordonnées</li>
+                                <li>Infos Personnelles</li>
+                                <li>Appartenance</li>
+                                <li>Justificatifs</li>
+                            </ul>
+                        </div>
 
+                    </div><!-- End Accordion without outline borders -->
 
-
-            <nav class="header-nav ms-auto" >
-                <ul class="d-flex align-items-center">                 
-                    <li class="nav-item dropdown pe-3">
-
-                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">            
-                            <span class="d-none d-md-block dropdown-toggle ps-2">B. OUSSENI</span>
-                        </a><!-- End Profile Iamge Icon -->
-
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                            <li class="dropdown-header">
-                                <h6>BORO OUSSENI</h6>
-                                <span>Fonctionnaire</span>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                    <i class="bi bi-gear"></i>
-                                    <span>Mes infos personnelles</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                </div>
+            </div>
+        </div>
 
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+    </aside><!-- End Sidebar-->
 
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span>Je me déconnecte</span>
-                                </a>
-                            </li>
+    <main id="main" class="" onmouseenter="">
 
-                        </ul><!-- End Profile Dropdown Items -->
-                    </li><!-- End Profile Nav -->
+        <div class="pagetitle">
+            <h1>Demander mon crédit en ligne</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Mes infos personnelles</a></li>
 
-                </ul>
-            </nav><!-- End Icons Navigation -->
+                    <li class="breadcrumb-item active">Simulation</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-        </header><!-- End Header -->
+        <section class="section">
+            <div class="row">
 
-        <!-- ======= Sidebar ======= -->
-        <aside id="sidebar" class="sidebar">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Commencez la simulation pour le crédit approprié</h5>
+                            <hr>
+                            <!-- Commencez la simulation pour le crédit approprié -->
+                            <form action="" class="row g-3" method="post">
 
-            <div class="col-lg-12">
+                                <div class="form-section row g-3 active">
+                                    <div class="row gy-4">
 
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Guide pratique</h5>
+                                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                    <img src="assets/img/img.jfif" alt="" class="img-fluid">
+                                                </div>
+                                                <h3><a href="service-details.html" class="stretched-link">Espace
+                                                        client</a>
+                                                </h3>
+                                                <p>Vous pouvez vous inscrire en tant que client particulier</p>
+                                            </div>
+                                        </div><!-- End Card Item -->
+                                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                    <img src="assets/img/img.jfif" alt="" class="img-fluid">
+                                                </div>
+                                                <h3><a href="service-details.html" class="stretched-link">Client
+                                                        SALAFIN</a>
+                                                </h3>
+                                                <p>Vous pouvez vous inscrire en tant que client particulier</p>
 
-                        <!-- Accordion without outline borders -->
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        Bien comprendre le crédit
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
+                                            </div>
+                                        </div><!-- End Card Item -->
+                                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                    <img src="assets/img/img.jfif" alt="" class="img-fluid">
+                                                </div>
+                                                <h3><a href="service-details.html" class="stretched-link">Espace
+                                                        vendeur</a>
+                                                </h3>
+                                                <p>Vous pouvez vous inscrire en tant que client particulier</p>
+                                            </div>
+                                        </div><!-- End Card Item -->
+                                    </div>
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div style="text-align: center;" class="col-md-4">
+                                        <p>Texte : 100%</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button style="float: right" class="btn btn-outline-primary next_button"
+                                            type="button">Suivant</button>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                        Le glossaire du crédit 
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                        Questions / reponses
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
-                                </div>
-                            </div>
-                        </div><!-- End Accordion without outline borders -->
 
+                                <div class="form-section row g-3">
+                                    <div class="col-12 form-floating mb-3">
+                                        <input type="email" name="yourEmail" class="form-control" id="yourEmail"
+                                            required>
+                                        <label for="yourEmail" class="form-label">Votre adresse mail</label>
+                                    </div>
+                                    <div class="col-6 form-floating mb-3">
+                                        <input type="text" name="yourPhone" class="form-control" id="yourPhone"
+                                            required>
+                                        <label for="yourPhone" class="form-label">Votre numéro de téléphone !</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="product" onchange="loadTariff()"
+                                                name="product" aria-label="State">
+                                            </select>
+                                            <label for="floatingSelect">Vendeur</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <button class="btn btn-outline-warning back_button"
+                                            type="button">Retour</button>
+
+                                    </div>
+                                    <div style="text-align: center;" class="col-md-4">
+                                        <p>Texte : 100%</p>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <button style="float: right" class="btn btn-outline-primary next_button"
+                                            type="button">Suivant</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-section row g-3">
+                                    <div class="col-12 form-floating mb-3">
+                                        <input type="email" name="yourEmail" class="form-control" id="yourEmail"
+                                            required>
+                                        <label for="yourEmail" class="form-label">Votre adresse mail</label>
+                                    </div>
+                                    <div class="col-6 form-floating mb-3">
+                                        <input type="text" name="yourPhone" class="form-control" id="yourPhone"
+                                            required>
+                                        <label for="yourPhone" class="form-label">Votre numéro de téléphone !</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="product" onchange="loadTariff()"
+                                                name="product" aria-label="State">
+                                            </select>
+                                            <label for="floatingSelect">Vendeur</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <button class="btn btn-outline-warning back_button"
+                                            type="button">Retour</button>
+
+                                    </div>
+                                    <div style="text-align: center;" class="col-md-4">
+                                        <p>Texte : 100%</p>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <button style="float: right" class="btn btn-outline-primary next_button"
+                                            type="button">Suivant</button>
+                                    </div>
+                                </div>
+                            </form><!-- End General Form Elements -->
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
+    </main><!-- End #main -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
 
-        </aside><!-- End Sidebar-->
-
-        <main id="main" class="main"  onmouseenter="" >
-
-            <div class="pagetitle">
-                <h1>Demander mon crédit en ligne</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Mes infos personnelles</a></li>
-
-                        <li class="breadcrumb-item active">Simulation</li>
-                    </ol>
-                </nav>
-            </div><!-- End Page Title -->
-
-            <section class="section">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Commencez la simulation pour le crédit approprié</h5>
-                                <hr>
-
-                                <!-- Commencez la simulation pour le crédit approprié -->
-                                <form action="" class="row g-3" method="post">
-
-                                    <div class="col-md-4">
-                                        <div class="form-floating mb-3">
-                                            <?php if ($user == 'ADMIN') { ?>
-                                                <select class="form-select" id="brand" name="brand"  onchange="loadProduct()" aria-label="State">
-                                                <?php } else { ?>
-
-                                                    <select class="form-select" id="brand" name="brand" disabled onchange="loadProduct()" aria-label="State">
-                                                    <?php } ?>
-
-                                                </select>
-                                                <label for="floatingSelect">Marque</label>
-                                        </div> 
-
-
-                                    </div>   
-
-                                    <div class="col-md-4">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-select" id="product" onchange="loadTariff()" name="product" aria-label="State">
+    <!-- <script type="text/javascript" src="ax_script.js"></script> -->
 
 
 
-                                            </select>
-                                            <label for="floatingSelect">Produit</label>
-                                        </div>                  
-                                    </div>   
+    <script>
+        var next_click = document.querySelectorAll(".next_button");
+        var main_form = document.querySelectorAll(".form-section");
+        var step_list = document.querySelectorAll(".progress-bar li");
+        var num = document.querySelector(".step-number");
+        let formnumber = 0;
 
-                                    <div class="col-md-4">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-select" id="tariff" name="tariff" onchange="loadDuration()" aria-label="State">
-
-
-                                            </select>                                          
-
-                                            <label for="floatingSelect">Barême</label>
-                                        </div>
-
-                                    </div>                                  
-
-
-                                    <div class="row mb-5">
-                                        <label class="col-sm-2 col-form-label"> Mon choix </label>
-
-                                        <div class="col-sm-10" >
-
-                                            <div class="block-field"> 
-                                                <div>
-                                                    <label for="rangeInputAmount" class="form-label">PRIX TTC</label><br>
-                                                    <input type="text" class="inputFlag" id="rangeValueAmount" value="100000">
-                                                    <input type="range" class="form-range" min="5000" max="500000" onchange="calcFunction()" step="1000" id="rangeInputAmount">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="block-field"> 
-
-                                                <div>
-                                                    <span  for="rangeInputDuration" class="form-label">Durée (en mois)</span><br>                                                                                         
-                                                </div>   
-                                                <div class="radios" id="idRadios">
-
-                                                </div>                                                                                     
-                                                <div id="idRange">                                                                                                                                           
-                                                    <input type="range" class="form-range" min="0" max="100" value="" step="1" disabled id="rangeInputDuration">
-                                                </div>  
-
-                                            </div> 
-                                            <div class="block-field"> 
-                                                <div>
-                                                    <span for="rangeInputDuration" class="form-label">Apport TOTAL (en %)</span><br>                                                                                         
-                                                </div>   
-                                                <div class="radios" id="apport">
-
-                                                </div>   
-                                                <div id="">                                                                                                                                           
-                                                    <input type="range" class="form-range" min="0" max="100" value="" step="1" disabled id="rangeInputApport">
-                                                </div> 
-                                            </div>
-                                            <div class="block-field"> 
-                                                <div id="InputMonthly">
-                                                    <label for="rangeInputMonthly" class="form-label">Mensualités (en DH)</label><br>                                                
-                                                    <input type="text" class="inputFlag" id="rangeValueMonthly" disabled value="">    
-                                                    <input type="range" min="0" max="43000" class="form-range" step="0.01" value="" disabled  id="rangeInputMonthly">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-grid gap-2 mt-3">
-                                        <button class="btn btn-primary" type="button">Demander ce crédit</button>
-                                    </div>
-                                </form><!-- End General Form Elements -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-
-                        <div class="card">
-
-                            <div class="card-body">
-                                <h2>Mon récapitulatif</h2>
-                                <hr class="hr">              
-                                <h5 class="card-title">Coordonnées et infos personnelles</h5>
-                                <ul class="list-group list-group-flush"> 
-                                    <li class="list-group-item"><span class="infoL">Vous êtes : </span> <span class="infoR">Fonctionnaire</span></li>                
-                                    <li class="list-group-item"><span class="infoL"> Email : </span> <span class="infoR">boro7ousseni@gmail.com</span></li>
-                                    <li class="list-group-item"><span class="infoL"> Téléphone : </span> <span class="infoR">+212605943319</span></li>
-
-                                </ul>
-                                <h5 class="card-title">Détails de mon crédit</h5>
-
-                                <!-- List group with active and disabled items -->
-                                <ul class="list-group list-group-flush">     
-                                    <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <span class="infoR">Auto neuve</span></li>           
-
-                                    <li class="list-group-item"><span class="infoL">Prix TTC  : </span> <span id="infoAmount" class="infoR">-</span></li>
-                                    <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <span id="infoDuration" class="infoR">-</span></li>
-                                    <li class="list-group-item"><span class="infoL">Mensualité  : </span> <span id="infoMonthly" class="infoR">-</span></li>
-                                    <li class="list-group-item"><span class="infoL">Frais de dossier  : </span> <span class="infoR" id="infoFD">-</span></li>
-                                    <li class="list-group-item"><span class="infoL">Apport TOTAL  : </span> <span id="infoApport" class="infoR">-</span></li>                
-                                    <li class="list-group-item"><span class="infoL">ADI  : </span> <span id="infoADI" class="infoR">-</span></li>                
-                                    <li class="list-group-item"><span class="infoL">Cout hors ADI  : </span> <span id="infoCHAD" class="infoR">-</span></li>                
-
-                                </ul><!-- End Clean list group -->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-        </main><!-- End #main -->
-
-        <script>
-
-            window.addEventListener("load", function () {
-                loadBrand();
-
+        next_click.forEach(function (next_click_form) {
+            next_click_form.addEventListener('click', function () {
+                if (!validateform()) {
+                    return false
+                }
+                formnumber++;
+                updateform();
+                progress_forward();
 
             });
-            const rangeValueAmount = document.getElementById("rangeValueAmount");
-            const rangeInputAmount = document.getElementById("rangeInputAmount");
+        });
 
+        var back_click = document.querySelectorAll(".back_button");
+        back_click.forEach(function (back_click_form) {
+            back_click_form.addEventListener('click', function () {
+                formnumber--;
+                updateform();
+                progress_backward();
 
-            rangeInputAmount.addEventListener("input", function () {
-                rangeValueAmount.value = rangeInputAmount.value;
-                calcFunction();
             });
+        });
 
-            rangeValueAmount.addEventListener("input", function () {
-                rangeInputAmount.value = rangeValueAmount.value;
-                calcFunction();
+
+
+
+        var submit_click = document.querySelectorAll(".submit_button");
+        submit_click.forEach(function (submit_click_form) {
+            submit_click_form.addEventListener('click', function () {
+                formnumber++;
+                updateform();
             });
-
-        </script>
-
-
-        <!-- Vendor JS Files -->
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
-
-        <script type="text/javascript" src="ax_script.js"></script>
+        });
 
 
-    </body>
+
+
+
+
+
+        function updateform() {
+            main_form.forEach(function (mainform_number) {
+                mainform_number.classList.remove('active');
+            })
+            main_form[formnumber].classList.add('active');
+        }
+
+        function progress_forward() {
+            // step_list.forEach(list => {
+
+            //     list.classList.remove('active');
+
+            // }); 
+
+
+            num.innerHTML = formnumber + 1;
+            step_list[formnumber].classList.add('active');
+        }
+
+        function progress_backward() {
+            var form_num = formnumber + 1;
+            step_list[form_num].classList.remove('active');
+            num.innerHTML = form_num;
+        }
+
+
+
+
+        function validateform() {
+            validate = true;
+            var validate_inputs = document.querySelectorAll(".form-section.active input");
+            validate_inputs.forEach(function (vaildate_input) {
+                vaildate_input.classList.remove('warning');
+                if (vaildate_input.hasAttribute('')) {
+                    if (vaildate_input.value.length == 0) {
+                        validate = false;
+                        vaildate_input.classList.add('warning');
+                    }
+                }
+            });
+            return validate;
+
+        }
+    </script>
+
+</body>
 
 </html>

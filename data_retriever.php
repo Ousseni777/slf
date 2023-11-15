@@ -25,17 +25,17 @@ switch ($_POST['ID_SCRIPT']) {
     case "duration":
         $brand = $_POST['ID_BRAND'];
         $product = $_POST['ID_PRODUCT'];
-        $tariff = $_POST['ID_TARIFF'];
-        $durations = fetchDuration($brand, $product, $tariff);
+        // $tariff = $_POST['ID_TARIFF'];
+        $durations = fetchDuration($brand, $product);
         displayDuration($durations);
 
         break;
     case "apport":
         $brand = $_POST['ID_BRAND'];
         $product = $_POST['ID_PRODUCT'];
-        $tariff = $_POST['ID_TARIFF'];
+        // $tariff = $_POST['ID_TARIFF'];
         $duration = $_POST['ID_DURATION'];
-        $apports = fetchApport($brand, $product, $tariff, $duration);
+        $apports = fetchApport($brand, $product, $duration);
         displayApport($apports);
         break;
 
@@ -155,10 +155,10 @@ function displayTariff($tariffs)
 // ----------------------------------------------------------------------------
 //  Recuperer la liste des durées 
 // ----------------------------------------------------------------------------
-function fetchDuration($brand, $product, $tariff)
+function fetchDuration($brand, $product)
 {
     global $conn;
-    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' ORDER BY DUREE";
+    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' ORDER BY DUREE";
 
     $result = $conn->query($query);
 
@@ -213,11 +213,11 @@ function displayDuration($durations)
 //  Recuperer la liste des apports 
 // ----------------------------------------------------------------------------
 
-function fetchApport($brand, $product, $tariff, $duration)
+function fetchApport($brand, $product, $duration)
 {
     global $conn;
 
-    $query_apport = "SELECT APPORT, TXFD FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' ORDER BY APPORT";
+    $query_apport = "SELECT APPORT, TXFD FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND DUREE = '$duration' ORDER BY APPORT";
     $result_apport = $conn->query($query_apport);
 
     if ($result_apport->num_rows > 0) {

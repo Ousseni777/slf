@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Components / Modal - NiceAdmin Bootstrap Template</title>
+  <title>Register / salfin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -13,465 +13,169 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
   <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="assets/css/styles-forms-step.css">
   <link href="assets/css/style-form.css" rel="stylesheet">
-  <style>
-    .modal-content {
-      background-color: rgba(231, 231, 227, 0.99);
-    }
 
-    .sidebar,
-    .accordion-item,
-    .col-lg-12 {
-      background-color: rgba(255, 255, 200, .05);
-      border: none;
-      border-radius: 0%;
-      box-shadow: none;
-    }
-
-    .col-lg-4 .card {
-      position: relative;
-    }
-
-
-    .position {
-      padding: 0 5%;
-      padding-top: 10%;
-      position: absolute;
-      width: 90%;
-      height: 90%;
-      text-align: center;
-    }
-
-    .position h3 {
-      color: red;
-      font-size: 20px;
-      margin-top: 10%;
-    }
-
-
-    .position input[type="radio"] {
-      /* Utilisez la couleur de votre choix */
-      background-color: rgba(255, 255, 200, 0);
-      width: 50%;
-      height: 50%;
-    }
-
-    /* Style pour le radio lorsqu'il est coché */
-    .position input[type="radio"]:checked {
-      /* Utilisez la couleur de votre choix */
-      background-color: red;
-    }
-
-    #percent{
-      font-size: 60px;
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
+  <main>
+    <div class="container">
 
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+              <div class="d-flex justify-content-center py-4">
+                <a href="./" class="logo d-flex align-items-center w-auto">
+                  <img style="width: 100%; height: 100%;" src="assets/img/logo.svg" alt="">
+                  <!-- <span class="d-none d-lg-block">SALAFIN</span> -->
+                </a>
+              </div><!-- End Logo -->
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+              <div class="card mb-3">
 
-    <div class="d-flex align-items-center justify-content-between">
+                <div class="card-body">
 
-
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fullscreenModal">
-        Commencer
-      </button>
-
-    </div><!-- End Logo -->
-
-
-
-
-
-  </header><!-- End Header -->
-
-
-  <main id="main" class="main">
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <!-- Process -->
-
-
-              <div class="modal fade" id="fullscreenModal" tabindex="-1">
-                <div class="modal-dialog modal-fullscreen">
-                  <div class="modal-content">
-
-                    <div class="modal-header">
-                      <h5 class="modal-title"></h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                      <!-- ======= Sidebar ======= -->
-                      <aside id="sidebar" class="sidebar">
-                        <div class="col-lg-12">    
-
-
-                          <!-- Accordion without outline borders -->
-                          <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item">
-                              <h3 style="display: none;"><span class="step-number">1</span></h3>
-                              <ul class="progress-bar">
-                                <li class="active">Type</li>
-                                <li>Nom et prénom</li>
-                                <li>Civilité</li>                                                  
-                                <li>Justificatifs</li>
-                              </ul>
-                            </div>
-
-                          </div><!-- End Accordion without outline borders -->
-
-
-                        </div>
-                        
-
-
-                      </aside><!-- End Sidebar-->
-                      <main id="main" class="" onmouseenter="">
-
-                        <div class="pagetitle">
-                          <h1>Demander mon crédit en ligne</h1>
-                          
-                        </div><!-- End Page Title -->
-
-                        <section class="section">
-                          <div class="row">
-
-                            <div class="col-lg-8" style="background-color: rgba(255, 255, 200, 0);">
-                              <!-- <h5 class="card-title">Commencez la simulation pour le crédit approprié</h5> -->
-                              <hr>
-                              <!-- Commencez la simulation pour le crédit approprié -->
-                              <form action="" class="row g-3" method="post">
-
-                                <div class="form-section row g-3 active">
-                                  <div class="row gy-4">
-
-                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                                      <div class="card">
-                                        <div class="card-img">
-                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="position" data-radio-id="clientparticulier">
-                                          <input type="radio" name="checkb" id="clientparticulier"
-                                            class="stretched-link">
-                                          <h3>Espace client</h3>
-                                        </div>
-                                      </div>
-                                    </div><!-- End Card Item -->
-                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                                      <div class="card">
-                                        <div class="card-img">
-                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="position" data-radio-id="client">
-                                          <input type="radio" name="checkb" id="client" class="stretched-link">
-                                          <h3> Client
-                                            SALAFIN
-                                          </h3>
-                                        </div>
-
-                                      </div>
-                                    </div><!-- End Card Item -->
-                                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                                      <div class="card">
-                                        <div class="card-img">
-                                          <img src="assets/img/ddd.jpg" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="position" data-radio-id="vendeur">
-                                          <input type="radio" name="checkb" id="vendeur" class="stretched-link">
-                                          <h3> Espace
-                                            vendeur
-                                          </h3>
-                                        </div>
-                                      </div>
-                                    </div><!-- End Card Item -->
-                                  </div>
-                                  <div class="row gy-8">
-                                    <div class="col-md-4">
-
-                                    </div>
-                                 
-                                    <div class="col-md-4">
-                                      <button style="float: right" class="btn btn-outline-primary next_button"
-                                        type="button">Suivant</button>
-                                    </div>
-                                  </div>
-
-                                </div>
-                                <div class="form-section row g-3">
-                                  <div class="row gy-4">
-                                    <div class="col-12 form-floating mb-3">
-                                      <input type="text" name="yourName" class="form-control" id="yourName" required>
-                                      <label for="yourName" class="form-label">Votre nom</label>
-                                    </div>
-                                    <div class="col-12 form-floating mb-3">
-                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
-                                      <label for="yourFirst" class="form-label">Votre prénom</label>
-                                    </div>
-
-                                    <div class="col-md-8">
-                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
-
-                                    </div>
-                               
-                                    <div class="col-md-4">
-
-                                      <button style="float: right" class="btn btn-outline-primary next_button"
-                                        type="button">Suivant</button>
-                                    </div>
-
-                                  </div>
-                                </div>
-
-                                <div class="form-section row g-3">
-                                  <div class="row gy-4">
-
-                                    <div class="col-4 form-floating mb-3">
-                                      <input type="text" name="yourName" class="form-control" id="yourName" required>
-                                      <label for="yourName" class="form-label">Votre CIN</label>
-                                    </div>
-                                    <div class="col-4 form-floating mb-3">
-                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
-                                      <label for="yourFirst" class="form-label">Votre ...</label>
-                                    </div>
-                                    <div class="col-4 form-floating mb-3">
-                                      <input type="text" name="yourFirst" class="form-control" id="yourFirst" required>
-                                      <label for="yourFirst" class="form-label">Votre ...</label>
-                                    </div>
-
-                                    <div class="col-md-8">
-                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
-
-                                    </div>
-                                    
-                                  
-                                    <div class="col-md-4">
-
-                                      <button style="float: right" class="btn btn-outline-primary next_button"
-                                        type="button">Suivant</button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-section row g-3">
-                                  <div class="row gy-4">
-
-                                    <div class="col-md-12">
-
-                                      <div class="mb-2">
-                                        <span>CIN</span>
-                                        <div
-                                          class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
-                                          <div class="absolute">
-                                            <div class="flex flex-col items-center ">
-                                              <i class="fa fa-cloud-upload fa-3x text-gray-200"></i>
-                                              <span class="block text-gray-400 font-normal">Attacher vos fichiers ici</span>
-                                              <span class="block text-gray-400 font-normal">ou</span>
-
-                                              <span class="block text-blue-400 font-normal">Parcourir</span>
-
-                                            </div>
-                                          </div> <input type="file" class="h-full w-full opacity-0" name="">
-                                        </div>
-                                        <div class="flex justify-between items-center text-gray-400">
-                                          <span>Accepted file type:.jpg, .png, .jpeg</span>
-                                          <span class="flex items-center "><i class="fa fa-lock mr-1"></i>
-                                            secure</span>
-                                        </div>
-                                      </div>
-                                      <div class="mb-2">
-                                        <span>Others</span>
-                                        <div
-                                          class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
-                                          <div class="absolute">
-                                            <div class="flex flex-col items-center ">
-                                              <i class="fa fa-cloud-upload fa-3x text-gray-200"></i>
-                                              <span class="block text-gray-400 font-normal">Attacher vos fichiers ici</span>
-                                              <span class="block text-gray-400 font-normal">ou</span>
-
-                                              <span class="block text-blue-400 font-normal">Parcourir</span>
-
-                                            </div>
-                                          </div> <input type="file" class="h-full w-full opacity-0" name="">
-                                        </div>
-                                        <div class="flex justify-between items-center text-gray-400">
-                                          <span>Accepted file type:.jpg, .png, .jpeg</span>
-                                          <span class="flex items-center "><i class="fa fa-lock mr-1"></i>
-                                            secure</span>
-                                        </div>
-                                      </div>
-                                      
-
-                                    </div>
-
-                                    <div class="col-md-8">
-                                      <button class="btn btn-outline-secondary back_button" type="button">Retour</button>
-
-                                    </div>
-                                 
-                                    <div class="col-md-4">
-
-                                      <button style="float: right" class="btn btn-outline-primary next_button"
-                                        type="button">Suivant</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </form><!-- End General Form Elements -->
-
-
-                            </div>
-
-                            <div class="col-lg-4" style="text-align: center;"> <span id="percent"></span></div>
-                          </div>
-                        </section>
-
-                      </main><!-- End #main -->
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                      <button type="button" class="btn btn-primary">Envoyer</button>
-                    </div>
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">INSCRIVEZ-VOUS</h5>
+                    <p class="text-center small">Inscrivez-vous afin d'obtenir votre identifiant</p>
                   </div>
+
+                  <form class="row g-3 needs-validation" action="saveData.php" method="post">
+
+                    <div class="col-12 form-floating mb-3">
+                      <input type="text" name="yourFullName" class="form-control" id="yourFullName" required>
+                      <label for="yourFullName" class="form-label">Votre nom complet</label>
+                    </div>                    
+
+
+                    <div class="col-6 form-floating mb-3">
+                      <select name="yourRegion" onchange="loadTowns()" class="form-select" id="yourRegion"
+                        aria-label="State">
+                      </select>
+                      <label for="yourRegion" class="form-label">Votre région ! </label>
+                    </div>
+
+                    <!-- <div class="col-6 form-floating mb-3">                      
+                      <select name="yourProvince" onchange="loadTowns()" class="form-select" id="yourProvince">
+
+                      </select>
+                      <label for="yourProvince" class="form-label">Choisir la province !</label>
+                    </div> -->
+                    <div class="col-6 form-floating mb-3">
+                      <select class="form-select" id="brand" name="brand" aria-label="State">
+
+                      </select>
+                      <label for="floatingSelect">Vendeur</label>
+                    </div>
+
+                    <div class="col-6 form-floating mb-3">                      
+                      <select name="yourTown" class="form-select" id="yourTown">
+
+                      </select>
+                      <label for="yourTown" class="form-label">Votre ville actuelle !</label>
+                    </div>
+
+                    <div class="col-6 form-floating mb-3">
+                      
+                      <select name="yourProfession" class="form-select" id="yourProfession">
+                        <option value="Salarié">Salarié</option>
+                        <option value="Commerçant">Commerçant</option>
+                        <option value="Personne morale">Personne morale</option>
+                        <option value="Etudiant">Etudiant</option>
+                        <option value="Autres">Autres</option>
+                      </select>
+                      <label for="yourProfession" class="form-label">Dites-nous qui vous êtes?</label>
+                    </div>
+
+                    <div class="col-6 form-floating mb-3">
+                      <input type="text" name="yourPhone" class="form-control" id="yourPhone" required>
+                      <label for="yourPhone" class="form-label">Votre numéro de téléphone !</label>
+                    </div>
+                 
+                    <div class="col-6 form-floating mb-3">                                                     
+                        <input type="email" name="yourEmail" class="form-control" id="yourEmail" required>
+                        <label for="yourEmail" class="form-label">Votre adresse mail</label>                                      
+                    </div>
+
+                    <!-- <div class="col-6 form-floating mb-3">                      
+                      <input type="password" name="password1" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Entrez un mot de passe!</div>
+                      <label for="yourPassword" class="form-label">Votre nouveau mot de passe</label>
+                    </div>
+
+                    <div class="col-6 form-floating mb-3">                      
+                      <input type="password" name="password2" class="form-control" id="yourPassword2" required>
+                      <div class="invalid-feedback">Mot de passe non correspondant!</div>
+                      <label for="yourPassword2" class="form-label">Ré-saisir le mot de passe</label>
+                    </div> -->
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                        <label class="form-check-label" for="acceptTerms">J'accepte les <a href="#">termes et les
+                            conditions</a></label>
+                        <div class="invalid-feedback">Acceptez avant de soumettre le formulaire.</div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Créer le compte</button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">Déjà utilisateur ? <a href="login">Connectez-vous</a></p>
+                    </div>
+                  </form>
+
                 </div>
-              </div><!-- End Process-->
+              </div>
+
+              <div class="credits">
+                <!-- Designed by <a href="">Ousseni Boro</a> -->
+              </div>
 
             </div>
           </div>
-
-
-
         </div>
-      </div>
-    </section>
 
+      </section>
+
+    </div>
   </main><!-- End #main -->
 
 
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
   <!-- Vendor JS Files -->
 
+  <!-- Template Main JS File -->
+
+
+
+  <script>
+
+    window.addEventListener("load", function () {
+      
+      loadVendeurs();
+      loadRegions();
+    });
+
+  </script>
+  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
 
-  <!-- Template Main JS File -->
-  <!-- <script src="assets/js/main.js"></script> -->
-  <script>
-    var next_click = document.querySelectorAll(".next_button");
-    var main_form = document.querySelectorAll(".form-section");
-    var step_list = document.querySelectorAll(".progress-bar li");
-    var num = document.querySelector(".step-number");
-    var percent=document.getElementById('percent');
-    let formnumber = 0;
-
-    percent.innerHTML="0%";
-    next_click.forEach(function (next_click_form) {
-      next_click_form.addEventListener('click', function () {
-        if (!validateform()) {
-          return false
-        }
-        formnumber++;
-        updateform();
-        progress_forward();
-
-      });
-    });
-
-    var back_click = document.querySelectorAll(".back_button");
-    back_click.forEach(function (back_click_form) {
-      back_click_form.addEventListener('click', function () {
-        formnumber--;
-        updateform();
-        progress_backward();
-
-      });
-    });
-
-
-
-
-    var submit_click = document.querySelectorAll(".submit_button");
-    submit_click.forEach(function (submit_click_form) {
-      submit_click_form.addEventListener('click', function () {
-        formnumber++;
-        updateform();
-      });
-    });
-
-
-
-
-
-
-
-    function updateform() {
-      main_form.forEach(function (mainform_number) {
-        mainform_number.classList.remove('active');
-      })
-      main_form[formnumber].classList.add('active');
-    }
-
-    function progress_forward() {
-      // step_list.forEach(list => {
-
-      //     list.classList.remove('active');
-
-      // }); 
-
-
-      num.innerHTML = formnumber + 1;
-      percent.innerHTML=((formnumber+1) / 5) * 100 + "%";
-      step_list[formnumber].classList.add('active');
-    }
-
-    function progress_backward() {
-      var form_num = formnumber + 1;
-      step_list[form_num].classList.remove('active');
-      // num.innerHTML = (form_num / 5) * 100;
-      percent.innerHTML=(form_num / 5) * 100 + "%";
-      num.innerHTML = form_num 
-    }
-
-    function validateform() {
-      validate = true;
-      var validate_inputs = document.querySelectorAll(".form-section.active input");
-      validate_inputs.forEach(function (vaildate_input) {
-        vaildate_input.classList.remove('warning');
-        if (vaildate_input.hasAttribute('')) {
-          if (vaildate_input.value.length == 0) {
-            validate = false;
-            vaildate_input.classList.add('warning');
-          }
-        }
-      });
-      return validate;
-
-    }
-
-  </script>
-
+  <script type="text/javascript" src="ax_script.js"></script>
 </body>
 
 </html>

@@ -58,7 +58,10 @@ if (in_array($email, $hashedList)) {
 </head>
 
 <body>
-
+<button id="hiddenButton" style="display: none;" type="button" class="btn btn-primary" data-bs-toggle="modal"
+		data-bs-target="#modal1">
+		Afficher la Boîte Modale
+	</button>
  <?php include_once "client-part.php"; ?>
 
   <!-- Ajoutez d'autres boîtes modales Bootstrap si nécessaire -->
@@ -73,9 +76,12 @@ if (in_array($email, $hashedList)) {
 
   <script>
 
-    $(document).ready(function () {
-      $('#modal1').modal('show');
-    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+			// Trouver le bouton caché par son ID et déclencher son clic
+			var hiddenButton = document.getElementById('hiddenButton');
+			hiddenButton.click();
+		});
     // Fonction pour afficher la boîte modale suivante ou précédente
     function showModal(index) {
       // Fermer la boîte modale actuelle si elle est déjà ouverte

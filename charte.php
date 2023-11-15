@@ -36,7 +36,7 @@
                         </ul>
                         <form action="set-mdp" method="get">
                             <div class="form-check">
-                                <input style="display : block;" name="email" class="form-check-input" type="text"
+                                <input style="display : none;" name="email" class="form-check-input" type="text"
                                     value="<?php echo $_GET['email'] ?>">
                                 <input class="form-check-input" type="checkbox" id="accepter" required>
                                 <label class="form-check-label" for="accepter">

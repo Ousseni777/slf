@@ -1,6 +1,34 @@
-<form action="">
-    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+<style>
+    .group {
+        text-align: center;
+        padding-left: 5%;
+    }
+
+    .form-check {
+        margin: 2%;
+        padding: 2%;
+    }
+
+    .valide {
+        text-align: center;
+        width: 100%;
+    }
+
+    .valide i {
+
+        color: greenyellow;
+        font-size: 100px;
+    }
+
+    .alert-success {
+        text-align: center;
+        padding: 5%;
+    }
+</style>
+
+<form action="tabs">
+<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,10 +73,8 @@
                             </div>
 
                         </div>
+                    </section>
                 </div>
-
-                </section>
-
 
                 <div class="modal-footer">
 
@@ -115,33 +141,93 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Contenu de la Boîte Modale 3.
+                    <div class="modal-body">
+                        <section class="section py-6">
+                            <div class="container">
+
+                                <div class="col-lg-12">
+                                    <div class="card-body">
+
+                                        <div class="group col-12" style="display : flex;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="title" id="titleM"
+                                                    value="Masculin" checked>
+                                                <label class="form-check-label" for="titleM">
+                                                    Masculin
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="title" id="titleF"
+                                                    value="Masculin">
+                                                <label class="form-check-label" for="titleF">
+                                                    Feminin
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 form-floating mb-3">
+                                            <input type="text" name="yourFullName" class="form-control"
+                                                id="yourFullName" required>
+                                            <label for="yourFullName" class="form-label">Votre nom complet</label>
+                                        </div>
+
+                                        <div class="col-12 form-floating mb-3">
+                                            <input type="text" name="yourCIN" class="form-control" id="yourCIN"
+                                                required>
+                                            <label for="yourCIN" class="form-label">Numéro CIN / Carte de séjour</label>
+                                        </div>
+
+                                        <div class="col-12 form-floating mb-3">
+
+                                            <select name="yourProfession" class="form-select" id="yourProfession">
+                                                <option value="Salarié">Salarié</option>
+                                                <option value="Commerçant">Commerçant</option>
+                                                <option value="Personne morale">Personne morale</option>
+                                                <option value="Etudiant">Etudiant</option>
+                                                <option value="Autres">Autres</option>
+                                            </select>
+                                            <label for="yourProfession" class="form-label">Dites-nous qui vous
+                                                êtes?</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="accepter" required>
+                                            <label class="form-check-label" for="accepter">
+                                                J'ai lu et j'accepte les conditions générales d'utilisation figurant sur
+                                                les informations légales, notamment la mention relative à la protection
+                                                des données personnelles
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="showModal(2)">Précédent</button>
-                    <button type="button" class="btn btn-primary" onclick="showModal(4)">Suivant</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" data-bs-backdrop="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Boîte Modale 4</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Contenu de la Boîte Modale 4.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="showModal(3)">Précédent</button>
-                    <button type="button" class="btn btn-primary" onclick="showModal(5)">Suivant</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </form>
+
+
+<script>
+
+    window.addEventListener("load", function () {
+
+        loadRegions();
+    });
+
+</script>
+<!-- Vendor JS Files -->
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+
+<script type="text/javascript" src="ax_script.js"></script>

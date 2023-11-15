@@ -7,6 +7,16 @@
     <title>Modal Bootstrap</title>
     <!-- Ajoutez les liens vers les fichiers CSS et JavaScript de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .box{
+            text-align: center;
+        }
+        .box input{
+            font-size: 100px;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
 </head>
 
 <body>

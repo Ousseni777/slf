@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,19 +29,32 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style-form.css" rel="stylesheet">
+  <style>
+        .errors{
+      background-color: rgba(239, 139, 139,.5);   
+      border-radius: 5px;
+      padding: 2%;
+    }
+  </style>
 
 </head>
 
 <body>
-
+    
+  
   <main>
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
+            
             <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            <?php if(isset($_SESSION['state']) && $_SESSION['state']==1){  
+                      echo $_SESSION['sms'];
+                      unset($_SESSION['sms']);
+                      unset($_SESSION['state']);
+                     }  ?>
               <div class="d-flex justify-content-center py-4">
                 <a href="./" class="logo d-flex align-items-center w-auto">
                   <img style="width: 100%; height: 100%;" src="assets/img/logo.svg" alt="">
@@ -51,7 +68,13 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">INSCRIVEZ-VOUS</h5>
-                    <p class="text-center small">Inscrivez-vous afin d'obtenir votre identifiant</p>
+                    
+                    <?php if(isset($_SESSION['sms'])){  
+                      echo '<p class="errors">'.$_SESSION['sms'].'</p>';
+                      unset($_SESSION['sms']);
+                     } else {  ?>
+                        <p class="text-center small">Inscrivez-vous afin d'obtenir votre identifiant</p>
+                        <?php }  ?>
                   </div>
 
                   <form class="row g-3 needs-validation" action="sendMail" method="get">                

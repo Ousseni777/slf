@@ -2,7 +2,8 @@
 session_start();
 include_once "./connectToDB.php";
 
-$email = mysqli_real_escape_string($conn, $_GET['email']);
+$user_type = $_GET['choix'];
+$email = mysqli_real_escape_string($conn, $_SESSION['email']);
 $_SESSION['email'] = $email;
 $sql_mail = "SELECT EMAIL  FROM SLF_USER";
 $sql_result = $conn->query($sql_mail);
@@ -56,7 +57,22 @@ if (in_array($email, $hashedList)) {
 
 <body>
 
- <?php include_once "client-part.php"; ?>
+
+  <?php
+  switch ($user_type) {
+    case "client":
+      include_once "client-part.php";
+      break;
+    case "vendeur":
+      include_once "client-slf.php";
+      break;
+    case "admin":
+      include_once "admin.php";
+      break;
+    default:
+      include_once "client-part.php";
+  }
+  ?>
 
   <!-- Ajoutez d'autres boîtes modales Bootstrap si nécessaire -->
   <!-- Ajoutez les liens vers les fichiers JavaScript de Bootstrap et jQuery -->
@@ -88,15 +104,15 @@ if (in_array($email, $hashedList)) {
 
 
     function selectionnerOption(checkbox) {
-            var checkboxes = document.querySelectorAll('input[name="choix"]');
-            
-            // Désélectionner les autres cases à cocher
-            checkboxes.forEach(function (currentCheckbox) {
-                if (currentCheckbox !== checkbox) {
-                    currentCheckbox.checked = false;
-                }
-            });
+      var checkboxes = document.querySelectorAll('input[name="choix"]');
+
+      // Désélectionner les autres cases à cocher
+      checkboxes.forEach(function (currentCheckbox) {
+        if (currentCheckbox !== checkbox) {
+          currentCheckbox.checked = false;
         }
+      });
+    }
   </script>
 </body>
 

@@ -18,12 +18,12 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.office365.com'; // Serveur SMTP d'Outlook
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'serveurqlickview@outlook.fr'; // Votre adresse e-mail Outlook
-    $mail->Password   = 'sql$2022'; // Votre mot de passe Outlook
+    $mail->Username   = 'boro10woulo@outlook.fr'; // Votre adresse e-mail Outlook
+    $mail->Password   = 'Outlook@2023o'; // Votre mot de passe Outlook
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
-    $mail->setFrom('serveurqlickview@outlook.fr', ' BORO OUSS ');
+    $mail->setFrom('boro10woulo@outlook.fr', ' BORO OUSS ');
     $mail->addAddress('boro7ousseni@gmail.com', 'BORO');
 
     $mail->isHTML(true);
@@ -87,7 +87,7 @@ try {
     </div>
   </div>';
  } else {
-    $_SESSION['sms']="Une erreur s'est rpoduite, Veuillez le réessayer plutard ! ";
+    $_SESSION['sms']="Une erreur s'est produite, Veuillez le réessayer plutard ! ";
     
 }  
 $_SESSION["state"]= $state;

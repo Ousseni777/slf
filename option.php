@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,40 +38,44 @@
                 <div class="modal-body">
                     <section class="section py-4">
                         <div class="container">
-
+                            <form action="set-mdp" method="get">
                             <div class="col-lg-12">
                                 <div class="card-body">
                                     <div class="row no-gutters">
                                         <div class="col-lg-4 box">
-                                            <h3>User SALAFIN</h3>
-                                            <input type="checkbox" name="choix" value="option1"
+                                            <h3>Admin</h3>
+                                            <input type="checkbox" name="choix" checked value="admin"
                                                 onchange="selectionnerOption(this)">
                                         </div>
 
                                         <div class="col-lg-4 box featured">
-                                            <h3>Client particulier</h3>
-                                            <input type="checkbox" name="choix" value="option1"
+                                            <h3>Client</h3>
+                                            <input type="checkbox" name="choix" value="client"
                                                 onchange="selectionnerOption(this)">
                                         </div>
 
                                         <div class="col-lg-4 box">
                                             <h3>Vendeur</h3>
-                                            <input type="checkbox" name="choix" value="option1"
+                                            <input type="checkbox" name="choix" value="vendeur"
                                                 onchange="selectionnerOption(this)">
                                         </div>
-
+                                        
                                     </div>
+                                    
                                 </div>
 
                             </div>
-
+                            <button type="submit" style="float: right" class="btn btn-outline-primary w-50">Continuer</button>
+                            </form>
                         </div>
-
+                        
+                        
                     </section>
                 </div>
 
             </div>
         </div>
+        
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

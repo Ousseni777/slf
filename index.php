@@ -52,8 +52,8 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-      <!-- <a class="buy-tickets scrollto" href="login">Espace client</a> -->
-      <button class="buy-tickets scrollto" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">S'inscrire</button>
+      <a class="buy-tickets scrollto" href="register">S'inscrire</a>
+      <!-- <button class="buy-tickets scrollto" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">S'inscrire</button> -->
 
     </div>
   </header><!-- End Header -->

@@ -47,7 +47,7 @@
 
 	<!-- Boîte Modale -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-		data-bs-backdrop="static" data-bs-keyboard="false">
+		>
 
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -63,7 +63,10 @@
 						<div class="alert alert-success" role="alert">
 							<h4 class="alert-heading">Félicitation</h4>
 							<p>Votre formulaire a été bien enregistré. </p>
-							<h5> Vous pouvez <a href="#">commencer votre simulation</a></h5>
+							<!-- <h5> Vous pouvez <a href="#">commencer votre simulation</a></h5> -->
+							<h5>Vous serez contacté dans 48h</h5>
+							<p>Vous pouvez vous connecter à l'espace client (en saisissant votre identifiant et le mot de passe) pour suivre l'état de traitement de votre demande</p>
+							<p>Bien coordialement !</p>
 						</div>
 					</div>
 				</div>

@@ -24,26 +24,36 @@
         text-align: center;
         padding: 5%;
     }
+
+    .percentage {
+        width: 100%;
+        font-size: 50px;
+        text-align: center;
+        font-weight: bold;
+    }
 </style>
 
 <form action="saveData">
-<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-		data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
+
             <div class="modal-content">
+
+                <span class="percentage">20%</span>
                 <div class="modal-header">
+
                     <div class="pt-4 pb-2">
                         <h5 class="card-title text-center pb-0 fs-4">Terminez les options de connexion</h5>
                         <p class="text-center small">Veuillez definir un nouveau mot de passe afin d'accéder à
                             l'espace
                             client</p>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                   
                 </div>
 
                 <div class="modal-body">
+
                     <section class="section py-4">
                         <div class="container">
 
@@ -88,11 +98,10 @@
         aria-hidden="true" data-bs-backdrop="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <span class="percentage">50%</span>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Situation géographique</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
                 </div>
                 <div class="modal-body">
 
@@ -134,11 +143,10 @@
         aria-hidden="true" data-bs-backdrop="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <span class="percentage">90%</span>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Infos personnelles</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
                 </div>
                 <div class="modal-body">
                     <div class="modal-body">
@@ -180,14 +188,13 @@
                                         <div class="col-12 form-floating mb-3">
 
                                             <select name="yourProfession" class="form-select" id="yourProfession">
-                                                <option value="Salarié">Salarié</option>
-                                                <option value="Commerçant">Commerçant</option>
+                                                <option value="Salarié">18 - 20 ans</option>
+                                                <option value="Commerçant">21 - 25 ans</option>
                                                 <option value="Personne morale">Personne morale</option>
-                                                <option value="Etudiant">Etudiant</option>
-                                                <option value="Autres">Autres</option>
+                                                <option value="Etudiant">26 - 35 ans</option>
+                                                <option value="Autres">+36 ans</option>
                                             </select>
-                                            <label for="yourProfession" class="form-label">Dites-nous qui vous
-                                                êtes?</label>
+                                            <label for="yourProfession" class="form-label">Plage d'âge </label>
                                         </div>
 
                                         <div class="form-check">

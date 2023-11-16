@@ -38,8 +38,7 @@ try {
     <div class="container col-6 mt-5">
       <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Bonjour !</h4>
-        <p>Afin de poursuivre votre inscription merci de cliquer sur <a href="'.$link.'"> ce lien</a> </p>
-       
+        <p>Afin de poursuivre votre inscription merci de cliquer sur <a href="'.$link.'"> ce lien</a> </p>       
         <p> Ou </p>
        
         <p> Copiez cet url ci-dessous et le coller dans un navigateur web </p>

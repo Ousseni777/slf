@@ -1,47 +1,3 @@
-function loadRegions() {
-    $.ajax({
-        url: "region_retriever.php",
-        method: "POST",
-        data: {ID_SCRIPT: 'region'},
-        success: function (data) {
-            $("#yourRegion").html(data);
-            const RegionID = $("#yourRegion").val();
-            $.ajax({
-                url: "region_retriever.php",
-                method: "POST",
-                data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
-                success: function (data) {
-                    $("#yourTown").html(data);                   
-                }
-            });
-        }
-    });
-}
-
-
-function loadTowns() {
-    const RegionID = $("#yourRegion").val();    
-    $.ajax({
-        url: "region_retriever.php",
-        method: "POST",
-        data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
-        success: function (data) {
-            $("#yourTown").html(data);
-        }
-    });
-}
-
-function loadVendeurs() {
-    $.ajax({
-        url: "region_retriever.php",
-        method: "POST",
-        data: {ID_SCRIPT: 'vendeur'},
-        success: function (data) {
-            $("#brand").html(data);
-        }
-    });
-}
-
 function loadBrand() {
     $.ajax({
         url: "data_retriever.php",
@@ -67,24 +23,7 @@ function loadProduct() {
     });
 }
 
-function loadTariff() {
-    const BrandID = $("#brand").val();
-    const ProductID = $("#product").val();
-    $.ajax({
-        url: "data_retriever.php",
-        method: "POST",
-        data: {ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID},
-        success: function (data) {
-            $("#tariff").html(data);
-            loadDuration();
-        }
-    });
-}
-
 function loadDuration() {
-    // const BrandID = $("#brand").val();
-    // const ProductID = $("#product").val();
-    // const TariffID = $("#tariff").val();
     $.ajax({
         url: "data_retriever.php",
         method: "POST",
@@ -97,19 +36,11 @@ function loadDuration() {
 }
 
 function loadApport() {
-    // const BrandID = $("#brand").val();
-    // const ProductID = $("#product").val();
-    // const TariffID = $("#tariff").val();
-    // const DurationID = $("input[name='radioBtn']:checked").val();
     $.ajax({
         url: "data_retriever.php",
         method: "POST",
         data: {
             ID_SCRIPT: 'apport'
-            // ID_PRODUCT: ProductID,
-            // ID_BRAND: BrandID,
-            // ID_TARIFF: TariffID,
-            // ID_DURATION: DurationID
         },
         success: function (data) {
             $("#idApport").html(data);
@@ -122,18 +53,11 @@ function calcFunction() {
     const AmountID = $("#rangeInputTTC").val();
     const DurationID = $("#idDuration").val();
     const ApportID = $("#idApport").val();
-    // document.getElementById('rangeInputDuration').value = DurationID;
-    // const BrandID = $("#brand").val();
-    // const ProductID = $("#product").val();
-    // const TariffID = $("#tariff").val();
 
     $.ajax({
         url: "calc.php",
         method: "POST",
         data: {
-            // ID_PRODUCT: ProductID,
-            // ID_BRAND: BrandID,
-            // ID_TARIFF: TariffID,
             ID_AMOUNT: AmountID,
             ID_DURATION: DurationID,
             ID_APPORT: ApportID
@@ -141,7 +65,7 @@ function calcFunction() {
         success: function (data) {
             // var result = JSON.parse(data);
             // $("#infoAmount").text(result.TTC);
-            console.log(data);
+            // console.log(data);
             // $("#rangeValueMonthly").val(result.payment);
             // $("#rangeInputMonthly").val(result.paymentNoFormat);
             // $("#infoMonthly").text(result.payment);

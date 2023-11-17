@@ -226,7 +226,7 @@
                                         margin: auto;
                                         background-color: rgba(1, 41, 112, 0.1);
                                         text-align: center;
-                                        box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);" data-custom-attribute="Duration">
+                                        box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);" data-custom-attribute="Duration" onchange="calcFunction()">
                                             <!-- <option value="Quel est votre projet ?">Durée -->
                                             <!-- </option> -->
                                             <!-- <option value="Auto">6</option>  
@@ -279,8 +279,8 @@
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
                                     <div class="col-sm-10 group-select">
                                         <p></p>
-                                        <!-- <label for="idDuration">Mensualité (DH) : </label><br> -->
-                                        <select class="custom-select selects" id="idDuration" size="3" style="            
+                                        <!-- <label for="">Mensualité (DH) : </label><br> -->
+                                        <select class="custom-select selects" id="idMonthly" size="3" style="            
                                         padding: 1% 5%;
                                         width: 60%;
                                         border: none;
@@ -406,8 +406,7 @@
         
         custom_select.forEach(function (select) {
             select.addEventListener('change', function () {
-                document.getElementById('span'+select.getAttribute('data-custom-attribute')).textContent=select.value;
-                console.log(select.getAttribute('data-custom-attribute'));
+                document.getElementById('span'+select.getAttribute('data-custom-attribute')).textContent=select.value;                
             });
         });
 

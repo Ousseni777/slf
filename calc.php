@@ -11,8 +11,9 @@ if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
     $principal = $_POST['ID_AMOUNT'];
     $DG = $_POST['ID_APPORT'];
     $TIMB = 25;
-    echo '<script>console.log("'.$number.'")</script>';
+    // echo '<script>console.log("'.$number.'")</script>';
     $results = fetchData($number, $DG);
+    echo '<script>console.log("'.$results.'")</script>';
     $errors = countErrors();
     if (empty($errors)) {
         if (count($results) > 0) {
@@ -65,6 +66,9 @@ if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
         }
 
     }
+}else{
+    $elt='errors';
+    echo '<script>console.log("'.$elt.'")</script>';
 }
 
 function countErrors(){
@@ -100,7 +104,7 @@ function countErrors(){
 function fetchData($duration, $DG)
 {
     global $conn;
-    $query = "SELECT * FROM SLF_TARIFICATION WHERE DUREE = '$duration' AND APPORT ='$DG' ";
+    $query = "SELECT * FROM SLF_TARIFICATION WHERE DUREE = $duration AND APPORT =$DG ";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

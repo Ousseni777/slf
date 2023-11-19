@@ -74,15 +74,11 @@
             width: 100%;
         }
 
-        .custom-select:hover{
-            cursor:all-scroll;
+        .custom-select:hover {
+            cursor: all-scroll;
         }
 
-        .selects::-webkit-scrollbar {
-            width: 0px;
-            padding: 5%;
 
-        }
 
         select option {
             color: rgba(99, 41, 41, .5);
@@ -95,6 +91,9 @@
 
         .display-control {
             display: none;
+        }
+        .selects::-webkit-scrollbar {
+            width: 0;     
         }
     </style>
 </head>
@@ -200,7 +199,7 @@
                                 <div class="col-sm-11">
                                     <div class="range-container">
                                         <label for="customRange2" class="form-label">Montant du crédit</label><br>
-                                        <input type="range" class="form-range custom-range" min="2000" max="50000"
+                                        <input type="range" class="form-range custom-range" min="2000" max="500000"
                                             step="500" id="rangeInputTTC">
                                         <span class="value-display" id="valueDisplayTTC"></span>
                                         <span class="value-display value-min" id="valueMin"></span>
@@ -217,32 +216,11 @@
                                     <div class="col-sm-10 group-select">
                                         <p></p>
                                         <!-- <label for="idDuration">Durée (mois) :</label><br> -->
-                                        <select class="custom-select selects" id="idDuration" size="3" style="            
-                                        padding: 1% 5%;
-                                        width: 60%;
-                                        border: none;
-                                        font-size: 25px;
-                                        border-radius: 10px;
-                                        margin: auto;
-                                        background-color: rgba(1, 41, 112, 0.1);
-                                        text-align: center;
-                                        box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);" data-custom-attribute="Duration" onchange="calcFunction()">
-                                            <!-- <option value="Quel est votre projet ?">Durée -->
-                                            <!-- </option> -->
-                                            <!-- <option value="Auto">6</option>  
-                                            <option value="Auto">12</option>  
-                                            <option value="Auto">20</option>  
-                                            <option value="Auto">24</option>  
-                                            <option value="Auto">30</option>  
-                                            <option selected value="Auto">36</option>  
-                                            <option value="Auto">42</option>  
-                                            <option value="Auto">50</option>  
-                                            <option value="Auto">60</option>  
-                                            <option value="Auto">74</option>  
-                                            <option value="Auto">94</option>   -->
+                                        <select class="custom-select selects" id="idDuration" size="3"
+                                            data-custom-attribute="Duration" onchange="calcFunction()">
                                         </select>
                                         <p class="space"></p>
-                                        <span>Durée : <span id="spanDuration">24</span> mois</span>
+                                        <span>Durée : <span id="spanDuration">-</span> mois</span>
                                         <!-- <input type="text" value="CC"> -->
                                     </div>
 
@@ -252,45 +230,18 @@
                                         <p></p>
                                         <!-- <label for="idApport"> </label><br> -->
                                         <select class="custom-select selects" id="idApport" onchange="calcFunction()"
-                                            size="3" style="
-                                        padding: 1% 5%;
-                                        width: 60%;
-                                        border: none;
-                                        font-size: 25px;
-                                        border-radius: 10px;
-                                        background-color: rgba(1, 41, 112, 0.1);
-                                        text-align: center;
-                                        box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);" data-custom-attribute="Apport">
-                                            <!-- <option value="Quel est votre projet ?">Apport minimum</option> -->
-                                            <!-- <option value="Auto">00</option>
-                                            <option value="Auto">10</option>
-                                            <option selected value="Auto">20</option>
-                                            <option value="Auto">30</option>
-                                            <option value="Auto">40</option>
-                                            <option value="Auto">50</option>
-                                            <option value="Auto">60</option>   -->
+                                            size="3" data-custom-attribute="Apport">
 
                                         </select>
                                         <p class="space"></p>
-                                        <span>Apport : <span id="spanApport">10</span>%</span>
+                                        <span>Apport : <span id="spanApport">-</span>%</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
                                     <div class="col-sm-10 group-select">
-                                        <p></p>
-                                        <!-- <label for="">Mensualité (DH) : </label><br> -->
-                                        <select class="custom-select selects" id="idMonthly" size="3" style="            
-                                        padding: 1% 5%;
-                                        width: 60%;
-                                        border: none;
-                                        font-size: 25px;
-                                        border-radius: 10px;
-                                        background-color: rgba(1, 41, 112, 0.1);
-                                        text-align: center;
-                                        box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);" data-custom-attribute="Monthly">
-                                            <!-- <option value="Quel est votre projet ?">Durée -->
-                                            <!-- </option> -->
+                                        <p></p>                               
+                                        <select class="custom-select selects" id="idMonthly" size="3" data-custom-attribute="Monthly">                                  
                                             <option value="1200">1200</option>
                                             <option value="1500">1500</option>
                                             <option value="2000">2000</option>
@@ -319,15 +270,6 @@
                     </div>
                     <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="info">
-                            <!-- <div class="address">
-                                <i class="bi bi-phone"></i>
-                                <h4>Coordonnées et infos personnelles</h4>
-                                <p><span>Type de crédit :</span><span class="right">Auto neuve</span></p>                                
-                                <p><span>Prix TTC :</span><span class="right">-</span></p>
-        
-                             
-                                
-                            </div>                             -->
                             <div class="address">
                                 <i class="bi bi-phone"></i>
                                 <h4>Détail de la simulation</h4>
@@ -369,24 +311,6 @@
             valueDisplayTTC.textContent = rangeInputTTC.value;
         });
 
-        // var rangeInputMonthly = document.getElementById('rangeInputMonthly');
-        // var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
-
-        // rangeInputMonthly.addEventListener('input', function () {
-        //     var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
-        //     valueDisplayMonthly.style.left = percent + '%';
-        //     valueDisplayMonthly.textContent = rangeInputMonthly.value;
-        // });
-
-        // var rangeInputDuration = document.getElementById('rangeInputDuration');
-        // var valueDisplayDuration = document.getElementById('valueDisplayDuration');
-
-        // rangeInputDuration.addEventListener('input', function () {
-        //     var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
-        //     valueDisplayDuration.style.left = percent + '%';
-        //     valueDisplayDuration.textContent = rangeInputDuration.value;
-        // });
-
         var rangeInputs = document.querySelectorAll('input[type="range"]');
         var val_min = document.querySelectorAll('.value-min');
         var val_max = document.querySelectorAll('.value-max');
@@ -403,10 +327,10 @@
         });
 
         var custom_select = document.querySelectorAll('.custom-select');
-        
+
         custom_select.forEach(function (select) {
             select.addEventListener('change', function () {
-                document.getElementById('span'+select.getAttribute('data-custom-attribute')).textContent=select.value;                
+                document.getElementById('span' + select.getAttribute('data-custom-attribute')).textContent = select.value;
             });
         });
 
@@ -457,6 +381,20 @@
     <script src="assets/js/main.js"></script>
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
     <script type="text/javascript" src="ax_script.js"></script>
+
+    <style>
+        .custom-select {
+            padding: 1% 5%;
+            width: 60%;
+            border: none;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: rgba(1, 41, 112, 0.1);
+            text-align: center;
+            box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);
+        }
+
+    </style>
 
 </body>
 

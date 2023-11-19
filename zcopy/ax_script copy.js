@@ -53,7 +53,7 @@ function calcFunction() {
     const AmountID = $("#rangeInputTTC").val();
     const DurationID = $("#idDuration").val();
     const ApportID = $("#idApport").val();
-    console.log(DurationID);
+
     $.ajax({
         url: "calc.php",
         method: "POST",
@@ -65,7 +65,7 @@ function calcFunction() {
         success: function (data) {
             // var result = JSON.parse(data);
             // $("#infoAmount").text(result.TTC);
-      
+            // console.log(data);
             // $("#rangeValueMonthly").val(result.payment);
             // $("#rangeInputMonthly").val(result.paymentNoFormat);
             // $("#infoMonthly").text(result.payment);

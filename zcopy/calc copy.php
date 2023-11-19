@@ -1,7 +1,7 @@
 <?php
 
 include './connectToDB.php';
-echo '<script>console.log("Click")</script>';
+
 // if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_TARIFF'], $_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
 if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
     // $brand = $_POST['ID_BRAND'];
@@ -13,7 +13,7 @@ if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
     $TIMB = 25;
     // echo '<script>console.log("'.$number.'")</script>';
     $results = fetchData($number, $DG);
-    
+    echo '<script>console.log("'.$results.'")</script>';
     $errors = countErrors();
     if (empty($errors)) {
         if (count($results) > 0) {

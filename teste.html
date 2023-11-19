@@ -1,51 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Input Range avec Valeur Bootstrap</title>
-  <!-- Inclure le fichier Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .range-container {
-      position: relative;
-      width: 80%;
-      margin: 50px auto;
-    }
 
-    .value-display {
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #f8f9fa;
-      padding: 5px;
-      border: 1px solid #ced4da;
-      border-radius: 5px;
-      pointer-events: none;
-    }
-  </style>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Ninestars Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <style>
+        .space {
+            margin-bottom: 40px;
+        }
+
+        .range-container {
+            position: relative;
+
+        }
+
+        .value-display {
+            position: absolute;
+            top: 0px;
+            transform: translateX(-50%);
+            background-color: #f8f9fa;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .value-min,
+        .value-max {
+            position: absolute;
+            top: 48px;
+            transform: translateX(-50%);
+            background-color: #f8f9fa;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .group-select {
+            padding: 2% 0%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-select:hover {
+            cursor: all-scroll;
+        }
+
+        .selects::-webkit-scrollbar {
+            width: 0px;
+            padding: 5%;
+
+        }
+
+        select option {
+            color: rgba(99, 41, 41, .5);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 1px 1px rgba(141, 110, 110, .3);
+            background-color: rgba(255, 255, 200, .05);
+        }
+
+        .display-control {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container">
-  <div class="range-container">
-    <span id="valueDisplay" class="value-display">50</span>
-    <input type="range" class="custom-range" id="customRange1">
-  </div>
-</div>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
 
-<!-- Inclure les fichiers Bootstrap JavaScript (si nécessaire) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-  // Mettez à jour la valeur affichée en fonction de la position du curseur
-  document.getElementById('customRange1').addEventListener('input', function() {
-    var value = this.value;
-    document.getElementById('valueDisplay').innerText = value;
-  });
-</script>
+            <div class="logo">
+                <h1 class="text-light"><a href="index.html"><span>SALAFIN</span></a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <!-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li> -->
+                    <!-- <li><a class="nav-link scrollto" href="#about">About Us</a></li> -->
+                    <li><a class="nav-link scrollto" href="#help">Comment ça marche</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Nos produit</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li> -->
+                    <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
+
+                    <li><a class="nav-link scrollto" href="#contact">Nous contacter</a></li>
+                    <li><a class="getstarted scrollto" href="#register">Espace client</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+
+
+    <main id="main">
+        <!-- ======= Contact Us Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h3 data-aos="fade-up">Simulateur de crédit</h3>
+                    <p data-aos="fade-up" data-aos-delay="100">
+                        Demander mon crédit en ligne
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-7 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <p class="space"></p>
+                            <div class="row" style="margin-left: 5%;">
+                                <div class="form-group col-md-12 mt-3 mt-md-0">
+                                    <div class="col-sm-11">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option value="Quel est votre projet ?">Dites-nous qui vous êtes ?
+                                            </option>
+                                            <option value="Salarié">Salarié</option>
+                                            <option value="Fonctionnaire">Fonctionnaire</option>
+                                            <option value="Commerçant">Commerçant</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 mt-3 mt-md-0" id="controlProject">
+                                    <div class="col-sm-11">
+                                        <select class="form-select" aria-label="Default select example" id="idProject"
+                                            onchange="displayBrand()">
+                                            <option value="0">Quel est votre projet ?</option>
+                                            <option value="Auto">Crédit Auto</option>
+                                            <option value="Crédit personnel">Crédit personnel</option>
+                                            <option value="Crédit renouvelable">Crédit renouvelable</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 mt-3 mt-md-0 display-control" id="controlBrand">
+                                    <div class="col-sm-11">
+                                        <select class="form-select" aria-label="Default select example" id="idBrand"
+                                            onchange="displayProduct()">
+                                            <option value="0">Quelle marque ?</option>
+                                            <option value="Salarié">AUDI</option>
+                                            <option value="Fonctionnaire">KIA</option>
+                                            <option value="Commerçant">FORD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 mt-3 mt-md-0 display-control" id="controlProduct">
+                                    <div class="col-sm-11">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option value="Quel est votre projet ?">Quel produit ?
+                                            </option>
+                                            <option value="Salarié">LOA</option>
+                                            <option value="Fonctionnaire">CA</option>
+                                            <option value="Commerçant">OCCASION</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p class="space"></p>
+                            <div class="row mb-5" style="margin-left: 6%;">
+
+                                <div class="col-sm-11">
+                                    <div class="range-container">
+                                        <label for="customRange2" class="form-label">Montant du crédit</label><br>
+                                        <input type="range" class="form-range custom-range" min="2000" max="500000"
+                                            step="500" id="rangeInputTTC">
+                                        <span class="value-display" id="valueDisplayTTC"></span>
+                                        <span class="value-display value-min" id="valueMin"></span>
+                                        <span class="value-display value-max" id="valueMax"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="space"></p>
+                            <div class="row" style="margin-left: 5%;">
+
+                                <div class="form-group col-md-6 d-flex align-items-stretch">
+                                    <div class="col-sm-10 group-select">
+                                        <p></p>
+                                        <!-- <label for="idDuration">Durée (mois) :</label><br> -->
+                                        <select class="custom-select selects" id="idDuration" size="3"
+                                            data-custom-attribute="Duration" onchange="calcFunction()">
+                                            <option value="1200">1200</option>
+                                            <option value="1500">1500</option>
+
+                                        </select>
+                                        <p class="space"></p>
+                                        <span>Durée : <span id="spanDuration">-</span> mois</span>
+                                        <!-- <input type="text" value="CC"> -->
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-6 d-flex align-items-stretch">
+                                    <div class="col-sm-10 group-select">
+                                        <p></p>
+                                        <!-- <label for="idApport"> </label><br> -->
+                                        <select class="custom-select selects" id="idApport" onchange="calcFunction()"
+                                            size="3" data-custom-attribute="Apport">
+                                            <option value="1200">1200</option>
+                                            <option value="1500">1500</option>
+                                            <option value="2000">2000</option>
+                                            <option value="2400">2400</option>
+                                            <option value="3000">3000</option>
+                                            <option selected value="3600">3600</option>
+                                            <option value="4200">4200</option>
+                                            <option value="5000">5000</option>
+                                            <option value="6000">6000</option>
+                                            <option value="7400">7400</option>
+                                            <option value="9400">9400</option>
+                                        </select>
+                                        <p class="space"></p>
+                                        <span>Apport : <span id="spanApport">-</span>%</span>
+                                    </div>
+                                </div>
+                                <p class="space"></p>
+                                <div class="col-sm-11">
+                                    <div class="range-container">
+                                        <label for="customRange2" class="form-label">Mensualité</label>
+                                        <input type="range" class="form-range custom-range" min="100" max="5000"
+                                            step="5" id="rangeInputMonthly">
+                                        <span class="value-display" id="valueDisplayMonthly"></span>
+                                        <span class="value-display value-min" id="valueMinMonthly"></span>
+                                        <span class="value-display value-max" id="valueMaxMonthly"></span>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group col-md-4 d-flex align-items-stretch">
+                                    <div class="col-sm-10 group-select">
+                                        <p></p>                               
+                                        <select class="custom-select selects" id="idMonthly" size="3" data-custom-attribute="Monthly">                                  
+                                            <option value="1200">1200</option>
+                                            <option value="1500">1500</option>
+                                            <option value="2000">2000</option>
+                                            <option value="2400">2400</option>
+                                            <option value="3000">3000</option>
+                                            <option selected value="3600">3600</option>
+                                            <option value="4200">4200</option>
+                                            <option value="5000">5000</option>
+                                            <option value="6000">6000</option>
+                                            <option value="7400">7400</option>
+                                            <option value="9400">9400</option>
+                                        </select>
+                                        <p class="space"></p>
+                                        <span>Mensualité : <span id="spanMonthly">1200</span></span>
+                                    </div>
+                                </div> -->
+                                <div class="col-11">
+                                    <p class="space"></p>
+                                    <a href="http://localhost/Simulation/charte?email=255baa686ad139b2ffd8a0ac1e89d015"
+                                        class="btn btn-outline-success w-100">Demander ce crédit</a>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div class="info">
+                            <div class="address">
+                                <i class="bi bi-phone"></i>
+                                <h4>Détail de la simulation</h4>
+                                <p><span>Type de crédit :</span><span class="right">Auto neuve</span></p>
+                                <p><span>Prix TTC :</span><span class="right">-</span></p>
+                                <p><span>Durée (mois) :</span><span class="right">-</span></p>
+                                <p><span>Mensualité :</span><span class="right">-</span></p>
+                                <p><span>Frais de dossier :</span><span class="right">-</span></p>
+                                <p><span>Apport TOTAL :</span><span class="right">-</span></p>
+                                <p><span>ADI :</span><span class="right">-</span></p>
+                                <p><span>Cout hors ADI :</span><span class="right">-</span></p>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </section><!-- End Contact Us Section -->
+
+    </main><!-- End #main -->
+
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        var rangeInputTTC = document.getElementById('rangeInputTTC');
+        var valueDisplayTTC = document.getElementById('valueDisplayTTC');
+
+
+        // Mettre à jour la position du span lors du changement de la valeur du curseur
+        rangeInputTTC.addEventListener('input', function () {
+            var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+            valueDisplayTTC.style.left = percent + '%';
+            valueDisplayTTC.textContent = rangeInputTTC.value;
+        });
+
+        var rangeInputs = document.querySelectorAll('input[type="range"]');
+        var val_min = document.querySelectorAll('.value-min');
+        var val_max = document.querySelectorAll('.value-max');
+
+        // Utiliser forEach pour parcourir la NodeList
+        let i = 0;
+        rangeInputs.forEach(function (input) {
+
+            val_max[i].textContent = input.max;
+            val_min[i].textContent = input.min;
+            val_max[i].style.left = 96 + '%';
+            val_min[i].style.left = 4 + '%';
+            i++;
+        });
+
+        var custom_select = document.querySelectorAll('.custom-select');
+
+        custom_select.forEach(function (select) {
+            select.addEventListener('change', function () {
+                document.getElementById('span' + select.getAttribute('data-custom-attribute')).textContent = select.value;
+            });
+        });
+
+        function displayBrand() {
+            let project = document.getElementById('idProject');
+            let brand = document.getElementById('controlBrand');
+            let product = document.getElementById('controlProduct');
+            if (project.value == 'Auto') {
+                brand.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+                brand.style.display = 'none';  // Changement ici pour masquer l'élément
+            }
+        }
+
+        function displayProduct() {
+            let brand = document.getElementById('idBrand');
+            let product = document.getElementById('controlProduct');
+
+            if (brand.value !== '0') {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';  // Changement ici pour masquer l'élément
+            }
+        }
+
+
+        window.addEventListener("load", function () {
+
+            loadDuration();
+            loadApport();
+
+
+        });
+
+
+    </script>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+    <script type="text/javascript" src="ax_script.js"></script>
+
+    <style>
+        .custom-select {
+            padding: 1% 5%;
+            width: 50%;
+
+            /* padding: 5% 0; */
+            border: none;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: rgba(1, 41, 112, 0.1);
+            text-align: center;
+            box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);
+        }
+    </style>
 
 </body>
+
 </html>

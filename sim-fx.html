@@ -39,6 +39,20 @@
 
         }
 
+        input[type="range"]::-webkit-slider-runnable-track{
+                height: 25px;
+            /* background-color: red; */
+            
+        }
+        input[type="range"]::-webkit-slider-thumb {
+
+            height: 30px;
+            width: 5%;
+            -webkit-appearance: none;
+            background-color: rgb(247, 67, 67);
+           
+        }
+
         .value-display {
             position: absolute;
             top: 0px;
@@ -58,7 +72,7 @@
         .value-min,
         .value-max {
             position: absolute;
-            top: 48px;
+            top: 65px;
             transform: translateX(-50%);
             background-color: #f8f9fa;
             padding: 5px;
@@ -79,9 +93,6 @@
             width: 100%;
         }
 
-        .custom-select:hover {
-            cursor: all-scroll;
-        }
 
 
 
@@ -101,6 +112,24 @@
         .selects::-webkit-scrollbar {
             width: 0;
         }
+
+        .radios{
+            
+            padding: 0 2%;
+            text-align: center;
+        }
+        .radios label{
+            /* display: block; */
+            /* float: right; */
+                    
+            width: 100%;
+            
+        }
+        .radios input{
+            height: 100%;
+            width: 30%;
+        }
+
     </style>
 </head>
 
@@ -134,10 +163,10 @@
         </div>
     </header><!-- End Header -->
 
+    <!-- ======= Hero Section ======= -->
 
 
     <main id="main">
-        
         <!-- ======= Contact Us Section ======= -->
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
@@ -149,50 +178,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-
-                        <div class="card info">
-                            <div class="card-body">
-                                <h5 class="card-title">Guide pratique</h5>
-        
-                                <!-- Accordion without outline borders -->
-                                <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                Bien comprendre le crédit
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                                Le glossaire du crédit 
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingThree">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                                Questions / reponses
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis quaerat fugit!  <a href="#">  >> lire la suite ...</a></div>
-                                        </div>
-                                    </div>
-                                </div><!-- End Accordion without outline borders -->
-        
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-lg-7 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                         <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                             <p class="space"></p>
                             <div class="row" style="margin-left: 5%;">
@@ -259,64 +245,118 @@
 
                             </div>
                             <p class="space"></p>
+                            
+                            <div class="row mb-5" style="margin-left: 6%;">
+                                
+                                <div class="col-sm-11">
+                                    <label for="customRange2" class="form-label">Durée (mois) </label><br>
+                                    <div class="row">
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="" type="radio" name="apportName" id="apport" checked value="Apport">
+                                                                
+                                        </div>
+                                       
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                    </div>
+                                    <div class="range-container">
+                                        
+                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
+                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                        <span class="value-display" id="valueDisplayTTC"></span>
+                                        <span class="value-display value-min" id="value-min"></span>
+                                        <span class="value-display value-max" id="value-max"></span>
+                                    </div>
+
+                                </div>
+                                <p class="space"></p>
+                                <div class="col-sm-11">
+                                    <label for="customRange2" class="form-label">Apport (%) </label><br>
+                                    <div class="row">
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="" type="radio" name="apportName" id="apport" checked value="Apport">
+                                                                
+                                        </div>
+                                       
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                        <div class="col-2 radios" >                
+                                            <label class="form-check-label" for="apport">20</label>
+                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
+                                        </div>
+                                    </div>
+                                    <div class="range-container">
+                                        
+                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
+                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                        <span class="value-display" id="valueDisplayTTC"></span>
+                                        <span class="value-display value-min" id="value-min"></span>
+                                        <span class="value-display value-max" id="value-max"></span>
+                                    </div>
+
+                                </div>
+                                <p class="space"></p>
+                                <div class="col-sm-11">
+                                    <label for="customRange2" class="form-label">Mensualité (DH) </label><br>                                 
+                                    <div class="range-container">
+                                        
+                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
+                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                        <span class="value-display" id="valueDisplayTTC"></span>
+                                        <span class="value-display value-min" id="value-min"></span>
+                                        <span class="value-display value-max" id="value-max"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="space"></p>
                             <div class="row" style="margin-left: 5%;">
 
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
-                                    <div class="col-sm-10 group-select">
-                                        <p></p>
-                                        <!-- <label for="idDuration">Durée (mois) :</label><br> -->
-                                        <select class="custom-select selects" id="idDuration" size="3"
-                                            data-custom-attribute="Duration" onchange="myTariff.calcFunction()">
-                                        </select>
-                                        <p class="space"></p>
-                                        <span>Durée (mois) </span>
-                                        <div class="range-container">
-                                            <input type="range" class="form-range custom-range" min="0" max="80"
-                                                step="3" id="rangeInputDuration" disabled>
-                                            <span class="value-display disabled" id="valueDisplayDuration"></span>
-                                            <!-- <span class="value-display value-min" id="valueMin"></span>
-                                            <span class="value-display value-max" id="valueMax"></span> -->
-                                        </div>
-                                    </div>
+
 
                                 </div>
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
-                                    <div class="col-sm-10 group-select">
-                                        <p></p>
-                                        <!-- <label for="idApport"> </label><br> -->
-                                        <select class="custom-select selects" id="idApport" size="3"
-                                            data-custom-attribute="Apport" onchange="myTariff.updateInfoApport()" >
-
-                                        </select>
-                                        <p class="space"></p>
-                                        <span>Apport (%)</span>
-                                        <div class="range-container">
-                                            <input type="range" class="form-range custom-range" min="0" max="60"
-                                                step="1" id="rangeInputApport" disabled>
-                                            <span class="value-display disabled" id="valueDisplayApport"></span>
-                                            <!-- <span class="value-display value-min" id="valueMin"></span>
-                                            <span class="value-display value-max" id="valueMax"></span> -->
-                                        </div>
-                                    </div>
+                                   
                                 </div>
 
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
-                                    <div class="col-sm-10 group-select">
-                                        <p></p>
-                                        <select class="custom-select selects" id="idMonthly" size="3"
-                                            data-custom-attribute="Monthly" onchange="myTariff.updateInfoMonthly()" >
-
-                                        </select>
-                                        <p class="space"></p>
-                                        <span>Mensualité (DH)</span>
-                                        <div class="range-container">
-                                            <input type="range" class="form-range custom-range" min="100" max="4000"
-                                                step=".1" id="rangeInputMonthly" disabled>
-                                            <span class="value-display disabled" id="valueDisplayMonthly"></span>
-                                            <!-- <span class="value-display value-min" id="valueMin"></span>
-                                            <span class="value-display value-max" id="valueMax"></span> -->
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <div class="col-11">
                                     <p class="space"></p>
@@ -328,10 +368,10 @@
 
                         </form>
                     </div>
-                    <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+                    <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="info">
                             <div class="address">
-                                
+                                <i class="bi bi-phone"></i>
                                 <h4>Détail de la simulation</h4>
                                 <p><span>Type de crédit :</span><span class="right">Auto neuve</span></p>
                                 <p><span>Prix TTC :</span><span class="right">-</span></p>
@@ -379,18 +419,9 @@
 
         val_max.textContent = rangeInputTTC.max;
         val_min.textContent = rangeInputTTC.min;
-        val_max.style.left = 96 + '%';
+        val_max.style.left = 94 + '%';
         val_min.style.left = 4 + '%';
 
-
-
-        // var custom_select = document.querySelectorAll('.custom-select');
-
-        // custom_select.forEach(function (select) {
-        //     select.addEventListener('change', function () {
-        //         document.getElementById('span' + select.getAttribute('data-custom-attribute')).textContent = select.value;
-        //     });
-        // });
 
         function displayBrand() {
             let project = document.getElementById('idProject');
@@ -443,20 +474,8 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
-    <script type="text/javascript" src="ax_script.js"></script>
+    <!-- <script type="text/javascript" src="ax_script.js"></script> -->
 
-    <style>
-        .custom-select {
-            padding: 1% 5%;
-            width: 60%;
-            border: none;
-            font-size: 25px;
-            border-radius: 10px;
-            background-color: rgba(1, 41, 112, 0.1);
-            text-align: center;
-            box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);
-        }
-    </style>
 
 </body>
 

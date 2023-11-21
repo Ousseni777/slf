@@ -140,20 +140,15 @@
         <div class="container d-flex align-items-center justify-content-between">
 
             <div class="logo">
-                <h1 class="text-light"><a href="index.html"><span>SALAFIN</span></a></h1>
+                <h1 class="text-light"><a href="./"><span style="color: rgb(228, 79, 79); font-weight: bold;">SALAFIN</span></a></h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <!-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li> -->
-                    <!-- <li><a class="nav-link scrollto" href="#about">About Us</a></li> -->
                     <li><a class="nav-link scrollto" href="#help">Comment ça marche</a></li>
                     <li><a class="nav-link scrollto" href="#services">Nos produit</a></li>
-                    <!-- <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li> -->
-                    <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
-
                     <li><a class="nav-link scrollto" href="#contact">Nous contacter</a></li>
                     <li><a class="getstarted scrollto" href="#register">Espace client</a></li>
                 </ul>
@@ -196,7 +191,7 @@
                                 <div class="form-group col-md-12 mt-3 mt-md-0" id="controlProject">
                                     <div class="col-sm-11">
                                         <select class="form-select" aria-label="Default select example" id="idProject"
-                                            onchange="displayBrand()">
+                                            onchange="myTariff.loadBrand()">
                                             <option value="0">Quel est votre projet ?</option>
                                             <option value="Auto">Crédit Auto</option>
                                             <option value="Crédit personnel">Crédit personnel</option>
@@ -207,22 +202,16 @@
                                 <div class="form-group col-md-12 mt-3 mt-md-0 display-control" id="controlBrand">
                                     <div class="col-sm-11">
                                         <select class="form-select" aria-label="Default select example" id="idBrand"
-                                            onchange="displayProduct()">
-                                            <option value="0">Quelle marque ?</option>
-                                            <option value="Salarié">AUDI</option>
-                                            <option value="Fonctionnaire">KIA</option>
-                                            <option value="Commerçant">FORD</option>
+                                            onchange="myTariff.loadProduct()">
+                                                                                        
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 mt-3 mt-md-0 display-control" id="controlProduct">
                                     <div class="col-sm-11">
-                                        <select class="form-select" aria-label="Default select example" id="idProduct" onchange="myTariff.loadData()" >
-                                            <option value="0">Quel produit ?
-                                            </option>
-                                            <option value="Salarié">LOA</option>
-                                            <option value="Fonctionnaire">CA</option>
-                                            <option value="Commerçant">OCCASION</option>
+                                        <select class="form-select" aria-label="Default select example" id="idProduct" onchange="myTariff.loadDuration()" >
+                                                                                        
+
                                         </select>
                                     </div>
                                 </div>
@@ -250,38 +239,13 @@
                                 
                                 <div class="col-sm-11">
                                     <label for="customRange2" class="form-label">Durée (mois) </label><br>
-                                    <div class="row">
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="" type="radio" name="apportName" id="apport" checked value="Apport">
-                                                                
-                                        </div>
-                                       
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
+                                    <div class="row" id="idDuration">
+                                        
                                     </div>
                                     <div class="range-container">
                                         
                                         <input type="range" class="form-range custom-range" min="2000" max="100000"
-                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                            step="500" id="rangeInputTTC" value="50000" onchange="" >
                                         <span class="value-display" id="valueDisplayTTC"></span>
                                         <span class="value-display value-min" id="value-min"></span>
                                         <span class="value-display value-max" id="value-max"></span>
@@ -291,38 +255,13 @@
                                 <p class="space"></p>
                                 <div class="col-sm-11">
                                     <label for="customRange2" class="form-label">Apport (%) </label><br>
-                                    <div class="row">
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="" type="radio" name="apportName" id="apport" checked value="Apport">
-                                                                
-                                        </div>
-                                       
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
-                                        <div class="col-2 radios" >                
-                                            <label class="form-check-label" for="apport">20</label>
-                                            <input class="check-input" type="radio" name="apportName" id="apport" checked value="Apport">                    
-                                        </div>
+                                    <div class="row" id="idApport">
+
                                     </div>
                                     <div class="range-container">
                                         
                                         <input type="range" class="form-range custom-range" min="2000" max="100000"
-                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                            step="500" id="rangeInputTTC" value="50000" onchange="" >
                                         <span class="value-display" id="valueDisplayTTC"></span>
                                         <span class="value-display value-min" id="value-min"></span>
                                         <span class="value-display value-max" id="value-max"></span>
@@ -334,8 +273,8 @@
                                     <label for="customRange2" class="form-label">Mensualité (DH) </label><br>                                 
                                     <div class="range-container">
                                         
-                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
-                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
+                                        <input type="range" class="form-range custom-range" min="2000" max="50"
+                                            step=".1" id="rangeInputMonthly">
                                         <span class="value-display" id="valueDisplayTTC"></span>
                                         <span class="value-display value-min" id="value-min"></span>
                                         <span class="value-display value-max" id="value-max"></span>
@@ -420,35 +359,7 @@
         val_max.textContent = rangeInputTTC.max;
         val_min.textContent = rangeInputTTC.min;
         val_max.style.left = 94 + '%';
-        val_min.style.left = 4 + '%';
-
-
-        function displayBrand() {
-            let project = document.getElementById('idProject');
-            let brand = document.getElementById('controlBrand');
-            let brandID = document.getElementById('idBrand');
-            let product = document.getElementById('controlProduct');
-            if (project.value == 'Auto') {
-                brand.style.display = 'block';
-            } else {
-                product.style.display = 'none';
-                brand.style.display = 'none'; 
-                brandID.selectedIndex=0;
-            }
-        }
-
-        function displayProduct() {
-            let brand = document.getElementById('idBrand');
-            let product = document.getElementById('controlProduct');
-            let productID = document.getElementById('idProduct');
-
-            if (brand.value !== '0') {
-                product.style.display = 'block';
-            } else {
-                product.style.display = 'none'; 
-                productID.selectedIndex=0;
-            }
-        }
+        val_min.style.left = 4 + '%';  
 
         
         // window.addEventListener("load", function () {
@@ -474,7 +385,7 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
-    <!-- <script type="text/javascript" src="ax_script.js"></script> -->
+    <script type="text/javascript" src="ax_script.js"></script>
 
 
 </body>

@@ -31,17 +31,18 @@
 
     <style>
         .space {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
-
+        
         .range-container {
             position: relative;
+            margin-top: -10px;
 
         }
-
+/* 
         input[type="range"]::-webkit-slider-runnable-track{
                 height: 25px;
-            /* background-color: red; */
+            
             
         }
         input[type="range"]::-webkit-slider-thumb {
@@ -51,7 +52,7 @@
             -webkit-appearance: none;
             background-color: rgb(247, 67, 67);
            
-        }
+        } */
 
         .value-display {
             position: absolute;
@@ -63,6 +64,11 @@
             border-radius: 5px;
             pointer-events: none;
         }
+        .monthly{
+            text-align: center;
+            
+            width: 130px;                    
+        }
         .disabled{
             top: 8px;
             background-color: #2d06ef;
@@ -72,13 +78,16 @@
         .value-min,
         .value-max {
             position: absolute;
-            top: 65px;
+            top: 60px;
             transform: translateX(-50%);
-            background-color: #f8f9fa;
+            background-color: rgba(230, 125, 172, 0.05);
             padding: 5px;
-            border: 1px solid #ced4da;
+            /* border: 1px solid #ced4da; */
             border-radius: 5px;
             pointer-events: none;
+        }
+        .TTC{
+            top: 60px;
         }
 
         .right {
@@ -123,11 +132,15 @@
             /* float: right; */
                     
             width: 100%;
+            padding: 0;
+            margin: 0;
             
         }
-        .radios input{
-            height: 100%;
-            width: 30%;
+        .radios input{            
+            width: 25%;
+            margin-top: -10px;
+            margin-bottom: -20px;
+            padding: 0 20%;
         }
 
     </style>
@@ -223,11 +236,11 @@
                                 <div class="col-sm-11">
                                     <div class="range-container">
                                         <label for="customRange2" class="form-label">Montant du crédit</label><br>
-                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
+                                        <input type="range" class="form-range custom-range range" min="2000" max="100000"
                                             step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
                                         <span class="value-display" id="valueDisplayTTC"></span>
-                                        <span class="value-display value-min" id="value-min"></span>
-                                        <span class="value-display value-max" id="value-max"></span>
+                                        <span class="value-display value-min TTC" id="value-min"></span>
+                                        <span class="value-display value-max TTC" id="value-max"></span>
                                     </div>
 
                                 </div>
@@ -244,11 +257,9 @@
                                     </div>
                                     <div class="range-container">
                                         
-                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
-                                            step="500" id="rangeInputTTC" value="50000" onchange="" >
-                                        <span class="value-display" id="valueDisplayTTC"></span>
-                                        <span class="value-display value-min" id="value-min"></span>
-                                        <span class="value-display value-max" id="value-max"></span>
+                                        <input type="range" class="form-range custom-range" disabled min="6" max="100"
+                                            step="1" id="rangeInputDuree" onchange="" >
+                                        <!-- <span class="value-display" id="valueDisplayDuree"></span> -->
                                     </div>
 
                                 </div>
@@ -258,13 +269,10 @@
                                     <div class="row" id="idApport">
 
                                     </div>
-                                    <div class="range-container">
-                                        
-                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
-                                            step="500" id="rangeInputTTC" value="50000" onchange="" >
-                                        <span class="value-display" id="valueDisplayTTC"></span>
-                                        <span class="value-display value-min" id="value-min"></span>
-                                        <span class="value-display value-max" id="value-max"></span>
+                                    <div class="range-container">                                        
+                                        <input type="range" class="form-range custom-range" disabled min="0" max="60"
+                                            step="1" id="rangeInputApport" onchange="" >
+                                        <!-- <span class="value-display" id="valueDisplayApport"></span> -->
                                     </div>
 
                                 </div>
@@ -272,33 +280,23 @@
                                 <div class="col-sm-11">
                                     <label for="customRange2" class="form-label">Mensualité (DH) </label><br>                                 
                                     <div class="range-container">
-                                        
-                                        <input type="range" class="form-range custom-range" min="2000" max="50"
+                                        <input type="text" disabled value="2001" style="border-radius: 10px;" id="rangeValueMonthly" class="monthly">
+                                        <!-- <span class="monthly" id="valueDisplayMonthly">2001</span><br> -->
+                                        <input type="range" class="form-range custom-range" disabled min="20" max="3000"
                                             step=".1" id="rangeInputMonthly">
-                                        <span class="value-display" id="valueDisplayTTC"></span>
+<!--                                         
                                         <span class="value-display value-min" id="value-min"></span>
-                                        <span class="value-display value-max" id="value-max"></span>
+                                        <span class="value-display value-max" id="value-max"></span> -->
                                     </div>
 
                                 </div>
 
                             </div>
-                            <p class="space"></p>
+                            
                             <div class="row" style="margin-left: 5%;">
 
-                                <div class="form-group col-md-4 d-flex align-items-stretch">
-
-
-                                </div>
-                                <div class="form-group col-md-4 d-flex align-items-stretch">
-                                   
-                                </div>
-
-                                <div class="form-group col-md-4 d-flex align-items-stretch">
-                                   
-                                </div>
                                 <div class="col-11">
-                                    <p class="space"></p>
+                                    
                                     <a href="http://localhost/Simulation/charte?email=255baa686ad139b2ffd8a0ac1e89d015"
                                         class="btn btn-outline-success w-100">Demander ce crédit</a>
                                 </div>
@@ -338,38 +336,51 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
+
+
     <script>
         var rangeInputTTC = document.getElementById('rangeInputTTC');
         var valueDisplayTTC = document.getElementById('valueDisplayTTC');
-
-
-        // Mettre à jour la position du span lors du changement de la valeur du curseur
         rangeInputTTC.addEventListener('input', function () {
             var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
             valueDisplayTTC.style.left = percent + '%';
             valueDisplayTTC.textContent = rangeInputTTC.value;
         });
 
-
-        var val_min = document.getElementById('value-min');
-        var val_max = document.getElementById('value-max');
-
-        // Utiliser forEach pour parcourir la NodeList
-
-        val_max.textContent = rangeInputTTC.max;
-        val_min.textContent = rangeInputTTC.min;
-        val_max.style.left = 94 + '%';
-        val_min.style.left = 4 + '%';  
+        // var rangeInputMonthly = document.getElementById('rangeInputMonthly');
+        // var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+        // rangeInputMonthly.addEventListener('change', function () {
+        //     var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+        //     valueDisplayMonthly.style.left = percent + '%';
+        //     valueDisplayMonthly.textContent = rangeInputMonthly.value;
+        // });
 
         
-        // window.addEventListener("load", function () {
-   
-        //     // myTariff.loadDuration();
-        //     // myTariff.calcFunction();
-        //     // loadApport();
-
-
+        // var valueDisplay = document.querySelectorAll('value-display');
+        
+        // rangeInputs.forEach(function (input) {
+        //     input.addEventListener('input', function () {
+        //     var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+        //     valueDisplayTTC.style.left = percent + '%';
+        //     valueDisplayTTC.textContent = rangeInputTTC.value;
+        //         console.log('La valeur de l\'input a changé :', input.value);
+        //     });
         // });
+        var rangeInputs = document.querySelectorAll('.range');
+        var val_min = document.querySelectorAll('.value-min');
+        var val_max = document.querySelectorAll('.value-max');
+
+        // Utiliser forEach pour parcourir la NodeList
+        let i = 0;
+        rangeInputs.forEach(function (input) {
+
+            val_max[i].textContent = input.max;
+            val_min[i].textContent = input.min;
+            val_max[i].style.left = 96 + '%';
+            val_min[i].style.left = 4 + '%';
+            i++;
+        });
+
 
 
     </script>

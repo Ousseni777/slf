@@ -64,7 +64,7 @@ if (empty($error)) {
    $Cout=$number*$payment+$Apport_Total-$principal;
     $result = [
         // "TTC" => number_format($principal , 2, ".", " "),
-        // "payment" => number_format($payment , 2, ".", " "),
+        "payment" => number_format($payment , 2, ".", " "),
         "paymentNoFormat" => $payment
         // "Apport_Total" => number_format($Apport_Total , 2, ".", " "),
         // "Assurance" => number_format($Ass, 2, ".", ""),

@@ -111,9 +111,11 @@ class Tarification {
             },
             success: (data) => {       
                 var result = JSON.parse(data);
+                console.log(result.paymentNoFormat);
                 // $("#infoAmount").text(result.TTC);
                 // $("#rangeValueMonthly").val(result.payment);
                 $("#rangeInputMonthly").val(result.paymentNoFormat);
+                $("#rangeValueMonthly").val(result.payment);
                 // $("#infoMonthly").text(result.payment);
                 // $("#infoApport").html(result.Apport_Total);
                 // $("#infoADI").html(result.Assurance);

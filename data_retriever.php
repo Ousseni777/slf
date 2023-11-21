@@ -182,8 +182,17 @@ function displayDuration($durations)
     //$max= max($fetchData);
     if (count($durations) > 0) {
         $concat='';
-        foreach ($durations as $data) {            
-            $concat = $concat . '<option value="'.$data["DUREE"].'">'.$data["DUREE"].'</option>';                                   
+        $ct=0;
+        foreach ($durations as $data) {
+            $selectedIndice=number_format(count($durations)/2,0,'.','') ;    
+            if($ct==$selectedIndice)        
+            {
+                $concat = $concat . '<option selected value="'.$data["DUREE"].'">'.$data["DUREE"].'</option>';   
+            }else{
+                $concat = $concat . '<option value="'.$data["DUREE"].'">'.$data["DUREE"].'</option>';   
+            }
+            $ct++;
+                                            
         }
         echo $concat;
     } else {

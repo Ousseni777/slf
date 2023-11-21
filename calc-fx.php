@@ -1,36 +1,33 @@
 <?php
 
 include './connectToDB.php';
-echo '<script>console.log("Click")</script>';
-// if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_TARIFF'], $_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
+
 if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
-    // $brand = $_POST['ID_BRAND'];
-    // $product = $_POST['ID_PRODUCT'];
-    // $tariff = $_POST['ID_TARIFF'];
+
     $number = $_POST['ID_DURATION'];
     $principal = $_POST['ID_AMOUNT'];
     $DG = $_POST['ID_APPORT'];
     $TIMB = 25;
-    // echo '<script>console.log("'.$number.'")</script>';
+
     $results = fetchData($number, $DG);
-    
     $errors = countErrors();
+
     if (empty($errors)) {
         if (count($results) > 0) {
             $elements= array();
+            $apports=array();
             foreach ($results as $data) {
-                ['PRODUIT' => $produit, 'TAUX' => $rate, 'TXFD' => $TXFD, 'ADI' => $ADI, 'Dif' => $Diff] = $data;
-                // ($produit, $rate, $TXFD, $ADI, $Diff)=($data['PRODUIT'],$data['TAUX'],$data['TXFD'],$data['ADI'],$data['Dif']);            
+                ['PRODUIT' => $produit, 'TAUX' => $rate, 'TXFD' => $TXFD, 'ADI' => $ADI, 'Dif' => $Diff,'APPORT' => $DG] = $data;                
 
                 $VR = (float) pow($principal * 0.01 * (1 + $rate), -$number);
                 $differ = (float) pow((1 + ($rate / 100)), $Diff);
-
                 $PHT = $principal / 1.2;
                 $FraisDoss = $PHT * $TXFD / 100;
                 $Avance = $principal * $DG / 100;
                 $Apport_Total = $Avance + $FraisDoss;
                 $Apport_Total = number_format($Apport_Total, 2, ".", "");
                 $FraisDoss = number_format($FraisDoss, 2, ".", "");
+                
                 if ($produit == 'LOA') {
                     $MTF = $principal * (1 - $DG / 100) / 1.2 * $differ + $TIMB / 1.2;
                     $Ass = $principal * (1 - $DG / 100) / 1.2 * $ADI / 100;
@@ -42,33 +39,26 @@ if (isset($_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
                     $payment = calc_payment($MTF, $number, $rate, $VR, 2);
                 }
 
-                $Cout = $number * $payment + $Apport_Total - $principal;
-                $elt = [
-                    "TTC" => number_format($principal, 2, ".", " "),
-                    "payment" => number_format($payment, 2, ".", " ")
-                    // "paymentNoFormat" => $payment,
-                    // "Apport_Total" => number_format($Apport_Total, 2, ".", " "),
-                    // "Assurance" => number_format($Ass, 2, ".", ""),
-                    // "FraisDossier" => number_format($FraisDoss, 2, ".", " "),
-                    // "Cout" => number_format($Cout, 2, ".", " ")
-                ];
-
-                array_push($elements,$elt);
-                echo json_encode($elt);
-                echo '<script>console.log("'.$elt.'")</script>';
+                $Cout = $number * $payment + $Apport_Total - $principal;        
+                array_push($apports,$DG);
+                array_push($elements,number_format($payment, 0, ".", " "));
 
             }
-            
-            // echo json_encode($elt);
+            $table=[
+                "apport"=> $apports,
+                "monthly"=> $elements
+            ];
+            echo json_encode($table);
 
         } else {
             echo '<option>No Data Found</option>';
         }
 
     }
+
+    
 }else{
-    $elt='errors';
-    echo '<script>console.log("'.$elt.'")</script>';
+
 }
 
 function countErrors(){
@@ -104,7 +94,7 @@ function countErrors(){
 function fetchData($duration, $DG)
 {
     global $conn;
-    $query = "SELECT * FROM SLF_TARIFICATION WHERE DUREE = $duration AND APPORT =$DG ";
+    $query = "SELECT * FROM SLF_TARIFICATION WHERE DUREE = '$duration' GROUP BY APPORT ORDER BY APPORT DESC";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

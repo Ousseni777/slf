@@ -49,6 +49,11 @@
             border-radius: 5px;
             pointer-events: none;
         }
+        .disabled{
+            top: 8px;
+            background-color: #2d06ef;
+            color: #ced4da;
+        }
 
         .value-min,
         .value-max {
@@ -92,8 +97,9 @@
         .display-control {
             display: none;
         }
+
         .selects::-webkit-scrollbar {
-            width: 0;     
+            width: 0;
         }
     </style>
 </head>
@@ -182,8 +188,8 @@
                                 </div>
                                 <div class="form-group col-md-12 mt-3 mt-md-0 display-control" id="controlProduct">
                                     <div class="col-sm-11">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option value="Quel est votre projet ?">Quel produit ?
+                                        <select class="form-select" aria-label="Default select example" id="idProduct" onchange="myTariff.loadData()" >
+                                            <option value="0">Quel produit ?
                                             </option>
                                             <option value="Salarié">LOA</option>
                                             <option value="Fonctionnaire">CA</option>
@@ -199,11 +205,11 @@
                                 <div class="col-sm-11">
                                     <div class="range-container">
                                         <label for="customRange2" class="form-label">Montant du crédit</label><br>
-                                        <input type="range" class="form-range custom-range" min="2000" max="500000"
-                                            step="500" id="rangeInputTTC">
+                                        <input type="range" class="form-range custom-range" min="2000" max="100000"
+                                            step="500" id="rangeInputTTC" value="50000" onchange="myTariff.calcFunction()" >
                                         <span class="value-display" id="valueDisplayTTC"></span>
-                                        <span class="value-display value-min" id="valueMin"></span>
-                                        <span class="value-display value-max" id="valueMax"></span>
+                                        <span class="value-display value-min" id="value-min"></span>
+                                        <span class="value-display value-max" id="value-max"></span>
                                     </div>
 
                                 </div>
@@ -217,11 +223,17 @@
                                         <p></p>
                                         <!-- <label for="idDuration">Durée (mois) :</label><br> -->
                                         <select class="custom-select selects" id="idDuration" size="3"
-                                            data-custom-attribute="Duration" onchange="calcFunction()">
+                                            data-custom-attribute="Duration" onchange="myTariff.calcFunction()">
                                         </select>
                                         <p class="space"></p>
-                                        <span>Durée : <span id="spanDuration">-</span> mois</span>
-                                        <!-- <input type="text" value="CC"> -->
+                                        <span>Durée (mois) </span>
+                                        <div class="range-container">
+                                            <input type="range" class="form-range custom-range" min="0" max="80"
+                                                step="3" id="rangeInputDuration" disabled>
+                                            <span class="value-display disabled" id="valueDisplayDuration"></span>
+                                            <!-- <span class="value-display value-min" id="valueMin"></span>
+                                            <span class="value-display value-max" id="valueMax"></span> -->
+                                        </div>
                                     </div>
 
                                 </div>
@@ -229,33 +241,38 @@
                                     <div class="col-sm-10 group-select">
                                         <p></p>
                                         <!-- <label for="idApport"> </label><br> -->
-                                        <select class="custom-select selects" id="idApport" onchange="calcFunction()"
-                                            size="3" data-custom-attribute="Apport">
+                                        <select class="custom-select selects" id="idApport" size="3"
+                                            data-custom-attribute="Apport" onchange="myTariff.updateInfoApport()" >
 
                                         </select>
                                         <p class="space"></p>
-                                        <span>Apport : <span id="spanApport">-</span>%</span>
+                                        <span>Apport (%)</span>
+                                        <div class="range-container">
+                                            <input type="range" class="form-range custom-range" min="0" max="60"
+                                                step="1" id="rangeInputApport" disabled>
+                                            <span class="value-display disabled" id="valueDisplayApport"></span>
+                                            <!-- <span class="value-display value-min" id="valueMin"></span>
+                                            <span class="value-display value-max" id="valueMax"></span> -->
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-4 d-flex align-items-stretch">
                                     <div class="col-sm-10 group-select">
-                                        <p></p>                               
-                                        <select class="custom-select selects" id="idMonthly" size="3" data-custom-attribute="Monthly">                                  
-                                            <option value="1200">1200</option>
-                                            <option value="1500">1500</option>
-                                            <option value="2000">2000</option>
-                                            <option value="2400">2400</option>
-                                            <option value="3000">3000</option>
-                                            <option selected value="3600">3600</option>
-                                            <option value="4200">4200</option>
-                                            <option value="5000">5000</option>
-                                            <option value="6000">6000</option>
-                                            <option value="7400">7400</option>
-                                            <option value="9400">9400</option>
+                                        <p></p>
+                                        <select class="custom-select selects" id="idMonthly" size="3"
+                                            data-custom-attribute="Monthly" onchange="myTariff.updateInfoMonthly()" >
+
                                         </select>
                                         <p class="space"></p>
-                                        <span>Mensualité : <span id="spanMonthly">1200</span></span>
+                                        <span>Mensualité (DH)</span>
+                                        <div class="range-container">
+                                            <input type="range" class="form-range custom-range" min="100" max="4000"
+                                                step=".1" id="rangeInputMonthly" disabled>
+                                            <span class="value-display disabled" id="valueDisplayMonthly"></span>
+                                            <!-- <span class="value-display value-min" id="valueMin"></span>
+                                            <span class="value-display value-max" id="valueMax"></span> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-11">
@@ -268,7 +285,7 @@
 
                         </form>
                     </div>
-                    <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="info">
                             <div class="address">
                                 <i class="bi bi-phone"></i>
@@ -311,60 +328,63 @@
             valueDisplayTTC.textContent = rangeInputTTC.value;
         });
 
-        var rangeInputs = document.querySelectorAll('input[type="range"]');
-        var val_min = document.querySelectorAll('.value-min');
-        var val_max = document.querySelectorAll('.value-max');
+
+        var val_min = document.getElementById('value-min');
+        var val_max = document.getElementById('value-max');
 
         // Utiliser forEach pour parcourir la NodeList
-        let i = 0;
-        rangeInputs.forEach(function (input) {
 
-            val_max[i].textContent = input.max;
-            val_min[i].textContent = input.min;
-            val_max[i].style.left = 96 + '%';
-            val_min[i].style.left = 4 + '%';
-            i++;
-        });
+        val_max.textContent = rangeInputTTC.max;
+        val_min.textContent = rangeInputTTC.min;
+        val_max.style.left = 96 + '%';
+        val_min.style.left = 4 + '%';
 
-        var custom_select = document.querySelectorAll('.custom-select');
 
-        custom_select.forEach(function (select) {
-            select.addEventListener('change', function () {
-                document.getElementById('span' + select.getAttribute('data-custom-attribute')).textContent = select.value;
-            });
-        });
+
+        // var custom_select = document.querySelectorAll('.custom-select');
+
+        // custom_select.forEach(function (select) {
+        //     select.addEventListener('change', function () {
+        //         document.getElementById('span' + select.getAttribute('data-custom-attribute')).textContent = select.value;
+        //     });
+        // });
 
         function displayBrand() {
             let project = document.getElementById('idProject');
             let brand = document.getElementById('controlBrand');
+            let brandID = document.getElementById('idBrand');
             let product = document.getElementById('controlProduct');
             if (project.value == 'Auto') {
                 brand.style.display = 'block';
             } else {
                 product.style.display = 'none';
-                brand.style.display = 'none';  // Changement ici pour masquer l'élément
+                brand.style.display = 'none'; 
+                brandID.selectedIndex=0;
             }
         }
 
         function displayProduct() {
             let brand = document.getElementById('idBrand');
             let product = document.getElementById('controlProduct');
+            let productID = document.getElementById('idProduct');
 
             if (brand.value !== '0') {
                 product.style.display = 'block';
             } else {
-                product.style.display = 'none';  // Changement ici pour masquer l'élément
+                product.style.display = 'none'; 
+                productID.selectedIndex=0;
             }
         }
 
+        
+        // window.addEventListener("load", function () {
+   
+        //     // myTariff.loadDuration();
+        //     // myTariff.calcFunction();
+        //     // loadApport();
 
-        window.addEventListener("load", function () {
 
-            loadDuration();
-            loadApport();
-
-
-        });
+        // });
 
 
     </script>
@@ -393,7 +413,6 @@
             text-align: center;
             box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);
         }
-
     </style>
 
 </body>

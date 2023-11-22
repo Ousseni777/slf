@@ -5,7 +5,15 @@ include './connectToDB.php';
 if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
     $brand = $_POST['ID_BRAND'];
     $product = $_POST['ID_PRODUCT'];
-    $tariff = 'LOA STANDARD';
+    if($_POST['ID_BRAND'] == 'KIA') {
+        $tariff='CREDIT GRATUIT ';
+    }
+    if($_POST['ID_BRAND'] == 'FORD') {
+        $tariff = 'LOCATION GRATUITE ENTREPRISES';
+    }
+    if($_POST['ID_BRAND'] == 'AUDI' || $_POST['ID_BRAND'] == 'MERCEDES') {
+        $tariff = 'CA OCCASION STANDARD';
+    }
     $number = $_POST['ID_DURATION'];
     $principal = $_POST['ID_AMOUNT'];
     $DG = $_POST['ID_APPORT'];
@@ -66,7 +74,7 @@ if (empty($error)) {
    $Cout=$number*$payment+$Apport_Total-$principal;
     $result = [
         // "TTC" => number_format($principal , 2, ".", " "),
-        "payment" => $TXFD / 100,
+        "payment" => number_format($payment , 2, ".", " "),
         "paymentNoFormat" => $payment
         // "Apport_Total" => number_format($Apport_Total , 2, ".", " "),
         // "Assurance" => number_format($Ass, 2, ".", ""),

@@ -81,7 +81,7 @@ $user = $_SESSION['user'];
 
 </head>
 
-<body onmouseenter="">
+<body>
 
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -265,7 +265,7 @@ $user = $_SESSION['user'];
                                     </div>
                                     <div class="col-md-4" id="controlBrand"    >
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="brand" name="brand" onchange="loadProduct()"
+                                            <select class="form-select" id="idBrand" name="brand" onchange="myTariff.loadProduct()"
                                                 aria-label="State">
 
                                             </select>
@@ -277,7 +277,7 @@ $user = $_SESSION['user'];
 
                                     <div class="col-md-4" id="controlProduct" >
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="product" onchange="loadTariff()" name="product"
+                                            <select class="form-select" id="idProduct" name="product"
                                                 aria-label="State">
 
 
@@ -438,6 +438,7 @@ $user = $_SESSION['user'];
                 brand.style.display = 'block';
                 product.style.display = 'block';
                 profession.style.display = 'none';
+                myTariff.loadBrand();
                 
             } else {
                 profession.style.display = 'block';

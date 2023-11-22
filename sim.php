@@ -265,7 +265,7 @@ $user = $_SESSION['user'];
                                     </div>
                                     <div class="col-md-4" id="controlBrand"    >
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="idBrand" name="brand" onchange="myTariff.loadProduct()"
+                                            <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
                                                 aria-label="State">
 
                                             </select>
@@ -438,7 +438,7 @@ $user = $_SESSION['user'];
                 brand.style.display = 'block';
                 product.style.display = 'block';
                 profession.style.display = 'none';
-                myTariff.loadBrand();
+                loadBrand();
                 
             } else {
                 profession.style.display = 'block';
@@ -452,7 +452,7 @@ $user = $_SESSION['user'];
 
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>    
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
 
     <script type="text/javascript" src="ax_script.js"></script>

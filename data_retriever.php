@@ -48,16 +48,9 @@ switch ($_POST['ID_SCRIPT']) {
 //  Recuperer la liste  des marques 
 // ----------------------------------------------------------------------------
 
-function fetchBrand()
-{
+function fetchBrand(){
     global $conn, $Affiliation;
-    if(!isset($_SESSION['user']) || $_SESSION['user']=='ADMIN'){
-        $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT";
-    }else{
-        $Affiliation = $_SESSION['user'];
-        $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT WHERE MARQUE = '$Affiliation'";
-        
-    }
+    $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT";
     
     $result = $conn->query($query);
 
@@ -73,8 +66,7 @@ function fetchBrand()
 //  Afficher la liste des marques
 // ----------------------------------------------------------------------------
 
-function displayBrand($brands)
-{
+function displayBrand($brands){
     if (count($brands) > 0) {
         foreach ($brands as $data) {
             echo '<option value="' . $data['MARQUE'] . '">' . $data['MARQUE'] . '</option>';
@@ -89,8 +81,7 @@ function displayBrand($brands)
 //  Recuperer la liste des produits 
 // ----------------------------------------------------------------------------
 
-function fetchProduct($IDMARK)
-{
+function fetchProduct($IDMARK){
     global $conn;
     $query = "SELECT DISTINCT PRODUIT FROM SLF_CREDIT WHERE MARQUE = '$IDMARK'";
     $result = $conn->query($query);
@@ -106,8 +97,7 @@ function fetchProduct($IDMARK)
 // ----------------------------------------------------------------------------
 //  Afficher la liste des produits
 // ----------------------------------------------------------------------------
-function displayProduct($products)
-{
+function displayProduct($products){
     if (count($products) > 0) {
         foreach ($products as $data) {
             echo '<option>' . $data['PRODUIT'] . '</option>';
@@ -122,8 +112,7 @@ function displayProduct($products)
 //  Recuperer la liste des barêmes 
 // ----------------------------------------------------------------------------
 
-function fetchTariff($idproduct, $idbrand)
-{
+function fetchTariff($idproduct, $idbrand){
     global $conn;
     $query = "SELECT DISTINCT NOM_BAREME FROM SLF_CREDIT WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
     $result = $conn->query($query);
@@ -140,8 +129,7 @@ function fetchTariff($idproduct, $idbrand)
 //  Afficher la liste des barêmes
 // ----------------------------------------------------------------------------
 
-function displayTariff($tariffs)
-{
+function displayTariff($tariffs){
     if (count($tariffs) > 0) {
         foreach ($tariffs as $data) {
             echo '<option>' . $data['NOM_BAREME'] . '</option>';

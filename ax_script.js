@@ -35,7 +35,7 @@ function loadDuration() {
         method: "POST",
         data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val() },
         success: (data) => {
-            DurationID.html(data);
+            $("#controlDuration").html(data);
             loadApport();
         },
         error: (error) => {
@@ -47,14 +47,13 @@ function loadDuration() {
 function loadApport() {
     BrandID = $("#idBrand");
     ProductID = $("#idProduct");
-    const Duration = $("input[name='durationName']:checked").val();
-    console.log(DurationID.val())
+    const Duration = $("input[name='durationName']:checked").val();    
     $.ajax({
         url: "data_retriever.php",
         method: "POST",
         data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_DURATION: Duration },
         success: (data) => {
-            ApportID.html(data);
+            $("#controlApport").html(data);
             calcFunction();
         },
         error: (error) => {
@@ -67,8 +66,8 @@ function constructor() {
     ProjetctID = $("#idProject");
     BrandID = $("#idBrand");
     ProductID = $("#idProduct");
-    DurationID = $("#idDuration");
-    ApportID = $("#idApport");
+    DurationID = $("#controlDuration");
+    ApportID = $("#controlApport");
     AmountID = $("#rangeInputTTC");
 
     brandControl = document.getElementById('controlBrand');
@@ -83,13 +82,16 @@ function constructor() {
     DisplayM = document.getElementById("valueDisplayMonthly");
 
     selectMonthly = document.getElementById('idMonthly');
-    selectApport = document.getElementById('idApport');
+    selectApport = document.getElementById('controlApport');
 }
 
 
-
-
 function calcFunction() {
+    
+    BrandID = $("#idBrand");
+    ProductID = $("#idProduct");
+    AmountID = $("#rangeInputAmount");
+
     const DurationValue = $("input[name='durationName']:checked").val();
     const ApportValue = $("input[name='durationName']:checked").val();
 
@@ -105,7 +107,7 @@ function calcFunction() {
         },
         success: (data) => {
             var result = JSON.parse(data);
-            console.log(result.paymentNoFormat);
+            // console.log(result.paymentNoFormat);
             // $("#infoAmount").text(result.TTC);
             // $("#rangeValueMonthly").val(result.payment);
             $("#rangeInputMonthly").val(result.paymentNoFormat);

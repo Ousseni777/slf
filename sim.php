@@ -59,11 +59,6 @@ $user = $_SESSION['user'];
             border-radius: 5px;
         }
 
-        .radios {
-            display: inline-flex;
-
-            width: 100%;
-        }
 
         .form-check {
             margin: 2%;
@@ -72,9 +67,12 @@ $user = $_SESSION['user'];
 
         .form-check label {
             width: 100%;
-            
+
         }
-        #controlProfession{
+
+        #controlProfession,
+        #controlValueDuration,
+        #controlValueApport {
             display: none;
         }
     </style>
@@ -237,8 +235,8 @@ $user = $_SESSION['user'];
                                 <?php if (isset($user) && $user == 'client') { ?>
                                     <div class="col-md-4">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="idProject" name="project" onchange="displayControl()"
-                                                aria-label="State">
+                                            <select class="form-select" id="idProject" name="project"
+                                                onchange="controller()" aria-label="State">
                                                 <option value="auto">Crédit Auto</option>
                                                 <option value="personnel">Crédit personnel</option>
                                                 <option value="renouvelable">Crédit renouvelable</option>
@@ -249,7 +247,7 @@ $user = $_SESSION['user'];
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4" id="controlProfession" >
+                                    <div class="col-md-4" id="controlProfession">
                                         <div class="form-floating mb-3">
                                             <select class="form-select" id="idProfession" name="profession" onchange=""
                                                 aria-label="State">
@@ -263,7 +261,7 @@ $user = $_SESSION['user'];
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4" id="controlBrand"    >
+                                    <div class="col-md-4 controlAutos" id="controlBrand">
                                         <div class="form-floating mb-3">
                                             <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
                                                 aria-label="State">
@@ -275,10 +273,9 @@ $user = $_SESSION['user'];
 
                                     </div>
 
-                                    <div class="col-md-4" id="controlProduct" >
+                                    <div class="col-md-4 controlAutos" id="controlProduct">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" id="idProduct" name="product"
-                                                aria-label="State">
+                                            <select class="form-select" id="idProduct" name="product" aria-label="State">
 
 
 
@@ -299,7 +296,8 @@ $user = $_SESSION['user'];
                                     <div class="col-sm-10">
 
                                         <div class="block-field">
-                                            <div>
+
+                                            <div class="group-select">
                                                 <label for="rangeInputAmount" class="form-label">PRIX TTC</label><br>
                                                 <input type="text" class="inputFlag" id="rangeValueAmount"
                                                     value="100000">
@@ -311,34 +309,61 @@ $user = $_SESSION['user'];
 
                                         <div class="block-field">
 
-                                            <div>
+                                            <div class="col-sm-10 group-select">
                                                 <span for="rangeInputDuration" class="form-label">Durée (en
                                                     mois)</span><br>
-                                            </div>
-                                            <div class="radios" id="idRadios">
+                                                <select class="custom-select selects" id="idDuration" size="3"
+                                                    data-custom-attribute="Duration">
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                </select>
+                                                <div class="row controlRadios" id="controlDuration">
 
+                                                </div>
+                                                <div id="idRange">
+                                                    <input type="text" class="inputFlag controlFlag"
+                                                        id="controlValueDuration">
+                                                    <input type="range" class="form-range" min="0" max="100" value=""
+                                                        step="1" disabled id="rangeInputDuration">
+                                                </div>
                                             </div>
-                                            <div id="idRange">
-                                                <input type="range" class="form-range" min="0" max="100" value=""
-                                                    step="1" disabled id="rangeInputDuration">
-                                            </div>
+
+
 
                                         </div>
                                         <div class="block-field">
-                                            <div>
+                                            <div class="col-sm-10 group-select">
                                                 <span for="rangeInputDuration" class="form-label">Apport TOTAL (en
                                                     %)</span><br>
-                                            </div>
-                                            <div class="radios" id="apport">
+                                                <select class="custom-select selects" id="idApportM" size="3"
+                                                    data-custom-attribute="Duration">
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                    <option value="20">20</option>
+                                                </select>
+                                                <div class="row controlRadios" id="controlApport">
 
+                                                </div>
+                                                <div id="">
+                                                    <input type="text" class="inputFlag controlFlag"
+                                                        id="controlValueApport">
+                                                    <input type="range" class="form-range" min="0" max="100" value=""
+                                                        step="1" disabled id="rangeInputApport">
+                                                </div>
                                             </div>
-                                            <div id="">
-                                                <input type="range" class="form-range" min="0" max="100" value=""
-                                                    step="1" disabled id="rangeInputApport">
-                                            </div>
+
                                         </div>
                                         <div class="block-field">
-                                            <div id="InputMonthly">
+                                            <div id="InputMonthly" class="group-select" >
                                                 <label for="rangeInputMonthly" class="form-label">Mensualités (en
                                                     DH)</label><br>
                                                 <input type="text" class="inputFlag" id="rangeValueMonthly" disabled
@@ -412,7 +437,7 @@ $user = $_SESSION['user'];
 
         window.addEventListener("load", function () {
             // loadBrand();
-            displayControl();
+            controller();
 
         });
         const rangeValueAmount = document.getElementById("rangeValueAmount");
@@ -421,41 +446,156 @@ $user = $_SESSION['user'];
 
         rangeInputAmount.addEventListener("input", function () {
             rangeValueAmount.value = rangeInputAmount.value;
-            // calcFunction();
+            calcFunction();
         });
 
         rangeValueAmount.addEventListener("input", function () {
             rangeInputAmount.value = rangeValueAmount.value;
-            // calcFunction();
+            calcFunction();
         });
 
-        function displayControl() {
+        function controller() {
             let project = document.getElementById('idProject');
-            let brand = document.getElementById('controlBrand');
-            let product = document.getElementById('controlProduct');
             let profession = document.getElementById('controlProfession');
+
+            let autos = document.querySelectorAll('.controlAutos');
+            let radios = document.querySelectorAll('.controlRadios');
+            let flags = document.querySelectorAll('.controlFlag');
+
+
             if (project.value == 'auto') {
-                brand.style.display = 'block';
-                product.style.display = 'block';
+                displayAutos(autos);
+                displayRadios(radios);
+                hideFlags(flags);
+
                 profession.style.display = 'none';
+
                 loadBrand();
-                
+
             } else {
                 profession.style.display = 'block';
-                product.style.display = 'none';
-                brand.style.display = 'none';
-                
+                hideAutos(autos);
+
+                hideRadios(radios);
+                displayFlags(flags);
+
+            }
+            if (window.innerWidth < 1200) {
+                hideRadios(radios);
+                hideFlags(flags);
             }
         }
+
+
+        function hideAutos(autos) {
+            for (let i = 0; i < autos.length; i++) {
+                autos[i].style.display = 'none';
+            }
+        }
+
+        function displayAutos(autos) {
+            for (let i = 0; i < autos.length; i++) {
+                autos[i].style.display = 'block';
+            }
+        }
+
+        function hideRadios(radios) {
+            for (let i = 0; i < radios.length; i++) {
+                radios[i].style.display = 'none';
+            }
+        }
+        function displayRadios(radios) {
+            for (let i = 0; i < radios.length; i++) {
+                radios[i].style.display = 'flex';
+            }
+        }
+        function hideFlags(flags) {
+            for (let i = 0; i < flags.length; i++) {
+                flags[i].style.display = 'none';
+            }
+        }
+        function displayFlags(flags) {
+            for (let i = 0; i < flags.length; i++) {
+                flags[i].style.display = 'block';
+            }
+        }
+
+
 
     </script>
 
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>    
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
 
     <script type="text/javascript" src="ax_script.js"></script>
+    <style>
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+
+        }
+
+        .group-select {
+            padding: 2% 0%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-select {
+            padding: 1% 5%;
+            width: 60%;
+            border: none;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: rgba(1, 41, 112, 0.1);
+            text-align: center;
+            box-shadow: 0px 8px 20px rgba(1, 41, 112, 0.1);
+        }
+
+        .selects::-webkit-scrollbar {
+            width: 0;
+        }
+
+        @media (min-width: 1200px) {
+
+            .selects {
+                display: none;
+            }
+
+            .controlRadios {
+                display: flex;
+            }
+
+            .controlFlags {
+                display: block;
+            }
+
+            .group-select {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 1199px) {
+
+            .selects {
+                display: inline;
+            }
+
+            .group-select {
+
+                text-align: center;
+            }
+
+            .controlRadios,
+            .controlFlags {
+                display: none;
+            }
+        }
+    </style>
 
 
 </body>

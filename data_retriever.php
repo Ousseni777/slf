@@ -23,19 +23,19 @@ switch ($_POST['ID_SCRIPT']) {
         displayTariff($tariffs);
         break;
     case "duration":
-        // $brand = $_POST['ID_BRAND'];
-        // $product = $_POST['ID_PRODUCT'];
+        $brand = $_POST['ID_BRAND'];
+        $product = $_POST['ID_PRODUCT'];
         // $tariff = $_POST['ID_TARIFF'];
-        $durations = fetchDuration();
+        $durations =fetchDuration($brand, $product);
         displayDuration($durations);
 
         break;
     case "apport":
-        // $brand = $_POST['ID_BRAND'];
-        // $product = $_POST['ID_PRODUCT'];
+        $brand = $_POST['ID_BRAND'];
+        $product = $_POST['ID_PRODUCT'];
         // $tariff = $_POST['ID_TARIFF'];
         $duration = $_POST['ID_DURATION'];
-        $apports = fetchApport();
+        $apports = fetchApport($brand,$product,$duration);
         displayApport($apports);
         break;
 
@@ -50,7 +50,7 @@ switch ($_POST['ID_SCRIPT']) {
 
 function fetchBrand(){
     global $conn, $Affiliation;
-    $query = "SELECT DISTINCT MARQUE FROM SLF_CREDIT";
+    $query = "SELECT DISTINCT MARQUE FROM SLF_TARIFICATION";
     
     $result = $conn->query($query);
 
@@ -83,7 +83,7 @@ function displayBrand($brands){
 
 function fetchProduct($IDMARK){
     global $conn;
-    $query = "SELECT DISTINCT PRODUIT FROM SLF_CREDIT WHERE MARQUE = '$IDMARK'";
+    $query = "SELECT DISTINCT PRODUIT FROM SLF_TARIFICATION WHERE MARQUE = '$IDMARK'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -114,7 +114,7 @@ function displayProduct($products){
 
 function fetchTariff($idproduct, $idbrand){
     global $conn;
-    $query = "SELECT DISTINCT NOM_BAREME FROM SLF_CREDIT WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
+    $query = "SELECT DISTINCT NOM_BAREME FROM SLF_TARIFICATION WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -143,10 +143,10 @@ function displayTariff($tariffs){
 // ----------------------------------------------------------------------------
 //  Recuperer la liste des durées 
 // ----------------------------------------------------------------------------
-function fetchDuration()
+function fetchDuration($brand, $product)
 {
     global $conn;
-    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION ORDER BY DUREE";
+    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' ORDER BY DUREE";
 
     $result = $conn->query($query);
 
@@ -170,14 +170,22 @@ function displayDuration($durations)
     //$max= max($fetchData);
     if (count($durations) > 0) {
         $concat='';
-        $ct=0;
+        $ct=1;
         foreach ($durations as $data) {
             $selectedIndice=number_format(count($durations)/2,0,'.','') ;    
             if($ct==$selectedIndice)        
             {
-                $concat = $concat . '<option selected value="'.$data["DUREE"].'">'.$data["DUREE"].'</option>';   
+                $concat.= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="durationName" id="duration'.$data["DUREE"].'" onchange="loadApport()" checked value="'.$data["DUREE"].'">                                                                
+                    <label class="form-check-label" for="duration'.$data["DUREE"].'">'.$data["DUREE"].'</label>
+                </div>';   
             }else{
-                $concat = $concat . '<option value="'.$data["DUREE"].'">'.$data["DUREE"].'</option>';   
+                $concat.= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="durationName" id="duration'.$data["DUREE"].'" onchange="loadApport()" value="'.$data["DUREE"].'">                                                                
+                    <label class="form-check-label" for="duration'.$data["DUREE"].'">'.$data["DUREE"].'</label>
+                </div>';  
             }
             $ct++;
                                             
@@ -193,11 +201,11 @@ function displayDuration($durations)
 //  Recuperer la liste des apports 
 // ----------------------------------------------------------------------------
 
-function fetchApport()
+function fetchApport($brand,$product,$duration)
 {
     global $conn;
 
-    $query_apport = "SELECT DISTINCT APPORT FROM SLF_TARIFICATION ORDER BY APPORT";
+    $query_apport = "SELECT DISTINCT APPORT FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND DUREE = '$duration' ORDER BY APPORT";
     $result_apport = $conn->query($query_apport);
 
     if ($result_apport->num_rows > 0) {
@@ -220,10 +228,25 @@ function displayApport($apports)
     $ct = 0;
     if (count($apports) > 0) {
         $concat='';
+        $ct=1;
         foreach ($apports as $data) {
-            // $apport = $data['APPORT'];
-            // $TFD = $data['TXFD'];
-            $concat = $concat . '<option value="'.$data["APPORT"].'">'.$data["APPORT"].'</option>';                                   
+            $selectedIndice=number_format(count($apports)/2,0,'.','') ;    
+            if($ct==$selectedIndice)        
+            {
+                $concat.= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="apportName" id="apport'.$data["APPORT"].'" onchange="calcFunction()" checked value="'.$data["APPORT"].'">                                                                
+                    <label class="form-check-label" for="apport'.$data["APPORT"].'">'.$data["APPORT"].'</label>
+                </div>';   
+            }else{
+                $concat.= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="apportName" id="apport'.$data["APPORT"].'" onchange="calcFunction()" value="'.$data["APPORT"].'">                                                                
+                    <label class="form-check-label" for="apport'.$data["APPORT"].'">'.$data["APPORT"].'</label>
+                </div>';    
+            }
+            $ct++;
+                                            
         }
         echo $concat;
     } else {

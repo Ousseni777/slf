@@ -1,4 +1,4 @@
 #Moving database connection
-connectToDB.php
-vendor/phpmailer/
-sendMail.php
+git rm --cached connectToDB.php
+git rm --cached vendor/
+git rm --cached sendMail.php

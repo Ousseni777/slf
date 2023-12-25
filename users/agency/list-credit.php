@@ -1,0 +1,280 @@
+<style>
+    .chevron {
+        /* display: flex; */
+        position: relative;
+
+
+    }
+
+    .chevron-elt {
+        width: 20px;
+        position: absolute;
+        right: 0px;
+        top: -5px;
+    }
+
+    .chevron:hover {
+        cursor: pointer;
+        background-color: #f6f9ff;
+    }
+</style>
+<main class="main" id="main">
+    <section class="section">
+        <div class="row" id="listDemande">
+            <div class="pagetitle ">
+                <h1>Liste des crédits demandés</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Infos</a></li>
+                        <li class="breadcrumb-item active">Justificatifs</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+            <div class="col-4">
+                <div class="row mb-3">
+                    <label class="col-sm-5 col-form-label">Nombre de lignes</label>
+                    <div class="col-sm-4">
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-4"></div>
+
+            <div class="col-4">
+                <div class="row">
+                    <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="searchInput" class="form-control">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card recent-sales overflow-auto">
+                    <!-- <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filtre par</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Marque</a></li>
+                            <li><a class="dropdown-item" href="#">Produit</a></li>
+                            <li><a class="dropdown-item" href="#">Barême</a></li>
+                        </ul>
+
+                    </div> -->
+
+                    <div class="card-body">
+                        <table class="table table-border mt-3" id="myTable">
+                            <thead>
+
+                                <tr>
+                                    <th onclick="sortTable(0)" class="chevron" scope="col">#Référence <span
+                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </th>
+                                    <td style="width: 150px;" onclick="sortTable(1)" class="chevron" scope="col">Date
+                                        création<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </td>
+                                    <td style="width: 100px;" onclick="sortTable(2)" class="chevron" scope="col">
+                                        Autheur<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </td>
+                                    <td style="width: 100px;" onclick="sortTable(3)" class="chevron" scope="col">
+                                        Marque<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </td>
+                                    <td onclick="sortTable(4)" class="chevron" scope="col">Barême<span
+                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </td>
+                                    <td onclick="sortTable(5)" class="chevron" scope="col">Montant<span
+                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                                class="bi bi-caret-down-fill"></i></span> </td>
+                                    <td style="text-align: center;" class="chevron" scope="col">Statut
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody id="">
+
+
+                                <?php
+                                $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id'";
+                                $result_select_credit = $conn->query($select_credit);
+                                if ($result_select_credit->num_rows > 0) {
+                                    $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
+                                }
+                                if (count($credits) > 0) {
+
+                                    foreach ($credits as $credit) {
+                                        $tariff_id = $credit['tariff_id'];
+                                        $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
+                                        $result_select_tariff = $conn->query($select_tariff);
+                                        $tariff = $result_select_tariff->fetch_assoc();
+                                        ?>
+                                        <tr>
+                                            <td scope="row"><a href="detail-cr?id=<?php echo $credit['credit_id'] ?>">#
+                                                    <?php echo $credit['credit_id'] ?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?php echo (string) $credit['up_date'] ?>
+                                            </td>
+                                            <td>
+                                                <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="text-primary">
+                                                    <?php echo $credit['client_id'] ?>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <?php echo $tariff['MARQUE'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $tariff['BAREME'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($credit['amount'], 2, ".", " ") ?>
+                                            </td>
+
+                                            <td style="text-align: right;">
+
+                                                <?php if ($credit['state'] == "Demande traitée") {
+                                                    echo '<span class="badge bg-success">';
+                                                } else if ($credit['state'] == "Demande rejetée") {
+                                                    echo '<span class="badge bg-danger">';
+                                                } else {
+                                                    echo '<span class="badge bg-warning">';
+                                                }
+
+                                                ?>
+                                                <?php echo $credit['state'] ?>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            // Ajoutez la gestion du survol avec JavaScript
+            $('tbody tr').hover(
+
+                function () {
+                    $(this).find('td').each(function () {
+                        $(this).replaceWith(function () {
+                            return $("<th>", { html: $(this).html() });
+                        });
+
+                    });
+
+
+                },
+                function () {
+                    // Revertir au survol
+                    $(this).find('th').each(function () {
+                        $(this).find('td:first').removeClass('highlighted');
+                        $(this).replaceWith(function () {
+                            return $("<td>", { html: $(this).html() });
+                        });
+                    });
+                }
+            );
+        });
+
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+
+            rows_th = table.rows[0];
+            span = rows_th.getElementsByTagName("span")[columnIndex];
+            i_up = span.getElementsByTagName("i")[0];
+            i_down = span.getElementsByTagName("i")[1];
+
+            sortDec = false;
+
+            if (i_up.classList.contains("bi-caret-up")) {
+                i_up.classList.remove("bi-caret-up");
+                i_up.classList.add("bi-caret-up-fill");
+                sortDec = false;
+
+                i_down.classList.remove("bi-caret-down-fill");
+                i_down.classList.add("bi-caret-down");
+            } else {
+                sortDec = true;
+                i_up.classList.add("bi-caret-up");
+                i_up.classList.remove("bi-caret-up-fill");
+
+
+                i_down.classList.add("bi-caret-down-fill");
+                i_down.classList.remove("bi-caret-down");
+            }
+
+
+            // i_up = rows[i].getElementsByTagName("td")[columnIndex]
+
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("td")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+                    if (sortDec) {
+                        if (isNaN(x.innerHTML)) {
+
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else {
+                            if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        if (isNaN(x.innerHTML)) {
+                            // Si c'est une chaîne, comparez les chaînes en ignorant la casse
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else {
+                            // Si c'est un nombre, comparez les nombres
+                            if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+
+                if (shouldSwitch) {
+
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+</main>

@@ -1,4 +1,16 @@
 <style>
+        #myTable tbody {
+        max-height: 380px;
+        overflow-y: auto;
+        display: block;
+    }
+
+    #myTable thead,
+    #myTable tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
     .chevron {
         /* display: flex; */
         position: relative;
@@ -72,8 +84,8 @@
                     </div> -->
 
                     <div class="card-body">
-                        <table class="table table-border mt-3" id="myTable">
-                            <thead>
+                        <table class="table table-striped table-border mt-3" id="myTable">
+                            <thead class="thead-dark" >
 
                                 <tr>
                                     <th onclick="sortTable(0)" class="chevron" scope="col">#Référence <span

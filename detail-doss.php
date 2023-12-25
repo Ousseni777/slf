@@ -2,18 +2,14 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$credit_id = $_GET["id"];
+$num_doss = $_GET["id"];
 $seller_id = $_SESSION['seller_id'];
-$query_credit = "SELECT * FROM `credit_client` WHERE credit_id = '{$credit_id}' AND seller_id='$seller_id'";
+$query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);
-// $_SESSION['page'] = "detail-cr?id=".$credit_id;
+// $_SESSION['page'] = "detail-doss?id=".$num_doss;
 
 if ($result_credit->num_rows > 0) {
-    $credit = $result_credit->fetch_assoc();
-    $tariff_id = $credit['tariff_id'];
-    $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
-    $result_select_tariff = $conn->query($select_tariff);
-    $tariff = $result_select_tariff->fetch_assoc();
+    $dossier = $result_credit->fetch_assoc();
 }
 ?>
 
@@ -44,12 +40,14 @@ if ($result_credit->num_rows > 0) {
     <link href="styles/style.css" rel="stylesheet">
 
     <style>
-                .card-body .form-hide {
+        .card-body .form-hide {
             display: none;
         }
-                .success-text {
+
+        .success-text {
             display: none;
         }
+
         #mainPreloader {
             margin-left: 55%;
             margin-top: 25%;
@@ -274,111 +272,139 @@ if ($result_credit->num_rows > 0) {
 
     <main class="main" id="main">
         <section class="section">
-            <div class="pagetitle">
-                <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a>  Récapitulatif de la demande N°: <b><?php echo $credit['credit_id'] ?></b> </h1>
+            <div class="row pagetitle">
+                <h1 class="col-lg-9" ><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a>Dossier N°: <b>
+                        <?php echo $dossier['NUMDOSS'] ?>
+                    </b> </h1>
+                    <div class="col-lg-3">
+                    <a href="amort-fx?id=<?php echo $dossier["NUMDOSS"]?> " class="btn btn-outline-success" id="amortissement" >
+                        <!-- <i class="bi bi-download"></i> Sauver Amortissement -->
+                        Amortissement
+
+                    </a>
+                </div>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="sim">Simulation</a></li>
                         <li class="breadcrumb-item">Emprunteur</li>
                     </ol>
                 </nav>
+               
+                
             </div><!-- End Page Title -->
-            <div class="row mt-5">
-                <!-- <div class="col-3"></div> -->
+            <div class="row mt-3">
+                <!-- <div class="col-3"></div> -->                
+
 
                 <div class="col-lg-6">
 
                     <div class="card">
                         <div class="card-body">
                             <!-- List group with active and disabled items -->
+
                             <ul class="mt-3 list-group list-group-flush">
-                                <li class="list-group-item"><span class="infoL"> Référence de la demande : </span>
-                                    <input type="text" readonly value="<?php echo $credit['credit_id'] ?>"
+                                <!-- <li class="list-group-item"><span class="infoL"> Référence du dossier : </span>
+                                    <input type="text" readonly value="<?php echo $dossier['NUMDOSS'] ?>"
                                         id="idRefDemande" class="infoR">
-
-                                </li>
-                                <li class="list-group-item"><span class="infoL"> Date demande crédit : </span> <input
-                                        type="text" name="up_date" readonly value="<?php echo $credit['up_date'] ?>"
-                                        class="infoR">
-                                </li>
+                                </li> -->
 
                                 <li class="list-group-item"><span class="infoL"> Date demande crédit : </span> <input
-                                        type="text" name="project" readonly
-                                        value="<?php echo $credit['project'] . 'Auto' ?>" class="infoR">
+                                        type="text" name="up_date" readonly
+                                        value="<?php echo $dossier['DATECREATION'] ?>" class="infoR">
                                 </li>
 
                                 <li class="list-group-item"><span class="infoL">Marque auto : </span> <input type="text"
-                                        readonly value="<?php echo $tariff['MARQUE'] ?>" class="infoR"></li>
+                                        readonly value="<?php echo $dossier['MARQUE'] ?>" class="infoR"></li>
 
                                 <li class="list-group-item"><span class="infoL">Type produit : </span> <input
-                                        type="text" readonly value="<?php echo $tariff['PRODUIT'] ?>" class="infoR">
+                                        type="text" readonly value="<?php echo $dossier['PRODUIT'] ?>" class="infoR">
                                 </li>
 
                                 <li class="list-group-item"><span class="infoL">Barême attribué : </span> <input
-                                        type="text" readonly value="<?php echo $tariff['BAREME'] ?>" class="infoR"></li>
+                                        type="text" readonly value="<?php echo $dossier['BAREME'] ?>" class="infoR">
+                                </li>
 
                                 <li class="list-group-item"><span class="infoL">Montant demandé (DH) : </span> <input
                                         type="text" id="infoAmount" name="amount" readonly
-                                        value="<?php echo $credit['amount'] ?>" class="infoR"></li>
+                                        value="<?php echo $dossier['PRIXTTC'] ?>" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Durée du crédit (mois) : </span> <input
                                         type="text" id="infoDuration" name="duration" readonly
-                                        value="<?php echo $credit['duration'] ?>" class="infoR">
+                                        value="<?php echo $dossier['DUREE'] ?>" class="infoR">
                                 </li>
                                 <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
                                         id="infoMonthly" name="monthly" readonly
-                                        value="<?php echo $credit['monthly'] ?>" class="infoR"></li>
+                                        value="<?php echo $dossier['MENSUALITE'] ?>" class="infoR"></li>
 
                                 <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
                                     <input type="text" name="app_fees" class="infoR" readonly
-                                        value="<?php echo $credit['app_fees'] ?>" id="infoFD">
+                                        value="<?php echo $dossier['FRAISDOSS'] ?>" id="infoFD">
                                 </li>
-                                <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="down_pmt" readonly
-                                        value="<?php echo $credit['down_pmt'] ?>" class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL">TAUX : </span> <input type="text"
+                                        id="infoApport" name="down_pmt" readonly
+                                        value="<?php echo $dossier['TAUXINT'] ?>" class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
+
                         </div>
 
                     </div>
 
                 </div>
-                <div class="row col-lg-4">
+                <div class="row col-lg-3">
+                    <div class="card">
 
-                    <div class="col-lg-12 card">
+                        <div class="card-body">
+                            <h5 class="card-title">#ETAT PRODUCTION</h5>
+                            <input type="text" id="infoPROD" name="down_pmt" readonly
+                                value="<?php echo $dossier['ETATPRODLIB'] ?>" class="form-control status">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">#ETAT ENGAGEMENT</h5>
+                            <input type="text" id="infoENG" name="down_pmt" readonly
+                                value="<?php echo $dossier['ETATENGLIB'] ?>" class="form-control status">
+
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">#ETAT INSTRUCTION</h5>
+                            <input type="text" id="infoINST" name="down_pmt" readonly
+                                value="<?php echo $dossier['ETATINSTLIB'] ?>" class="form-control status">
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-lg-3">
+
+                    <div class="card">
+
                         <div class="card-body">
                             <h5 class="card-title">#ID Autheur crédit</h5>
-                            <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="form-control status">#
-                                <?php echo $credit['client_id'] ?>
+                            <a href="detail-cl?id=<?php echo $dossier['IDCLIENT'] ?>" class="form-control status">#
+                                <?php echo $dossier['IDCLIENT'] ?>
                             </a>
                         </div>
-                    </div>
-
-
-                    <div class="col-lg-12 card">
                         <div class="card-body">
-                            <h5 class="card-title">Statut de la demande</h5>
-                            <input type="text" id="infoApport" name="down_pmt" readonly
-                                value="<?php echo $credit['state'] ?>" class="form-control status">
+                            <h5 class="card-title">#ID VENDEUR</h5>
+                            <a href="detail-cl?id=<?php echo $dossier['IDVENDEUR'] ?>" class="form-control status">#
+                                <?php echo $dossier['IDVENDEUR'] ?>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">#Agence Correspondants</h5>
+                            <input type="text" id="infoINST" name="down_pmt" readonly
+                                value="<?php echo $dossier['RIS'] ?>" class="form-control status">
 
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Cause du rejet</h5>
-                            <textarea name="reason" cols="30" rows="7" class="form-control">
-                                <?php echo $credit['reason'] ?>
-                            </textarea>
+                            <h5 class="card-title">#DATE ECHEANCE</h5>
+                            <input type="text" id="infoINST" name="down_pmt" readonly
+                                value="<?php echo $dossier['DATEECH1'] ?>" class="form-control status">
 
                         </div>
                     </div>
-                    
-
                 </div>
-                <div class="col-lg-2">
-
-                        <a href="sim-fx?tag=fx&credit=<?php echo $credit['credit_id'] ?>" class="btn btn-primary col-12"><i class="bi bi-pencil-square"></i>Modifier</a>
-                        <br><br>
-                        <button class="btn btn-danger col-12" id="btn-delete"><i class="bi bi-x-circle"></i>Supprimer</button>
-
-                    </div>
 
 
             </div>
@@ -386,71 +412,6 @@ if ($result_credit->num_rows > 0) {
     </main>
     <div class="main spinner-grow text-danger" id="mainPreloader" role="status">
         <span class="visually-hidden">Loading...</span>
-    </div>
-
-    <div class="modal fade mt-5" id="deleteModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
-        data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="row modal-header" style="text-align: center;">
-                    <i class="col-12 bi bi-exclamation-circle" style="font-size: 100px;"></i>
-                    <div class="col-12">
-                        <div class="row">
-                            <p class="info-dialog">Vous allez supprimer la demande N°
-                                <span id="idDemande"></span>
-                            </p>
-                            <p>Cette action est irreversible !</p>
-                        </div>
-
-                        <form action="#" class="row" id="form-delete" method="post">
-                            <div class="error-text col-12"></div>
-                            <input type="text" style="display: none;" name="credit_id" value="" id="credit_id">
-                            <div class="col-12">
-                                <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
-                                    required>
-                                <label class="form-check-label" for="accepter">
-                                    Oui j'en suis sûr !
-                                </label>
-                            </div>
-
-                            <div class="col-12 mt-5">
-                                <a href="" class="btn btn-secondary" id="back">Revenir</a>
-                                <input type="submit" name="exec-action" class="btn btn-primary btn-delete-action"
-                                    value="Valider l'action">
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
-        data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="row modal-header" style="text-align: center;">
-                    <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
-                    <div class="col-12">
-                        <div class="row">
-                            <p class="info-dialog">Suppression effectuée 
-                            </p>                            
-                        </div>
-
-                        <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
     </div>
 
     <?php include 'users/agency/new-client.php'; ?>
@@ -505,55 +466,6 @@ if ($result_credit->num_rows > 0) {
                 document.getElementById('main').classList.add('show');
             }, 800);
 
-
-        }
-
-
-        var deleteButton = document.getElementById('btn-delete');
-
-        deleteButton.addEventListener('click', function () {
-            $("#idDemande").text($("#idRefDemande").val());
-            $("#credit_id").val($("#idRefDemande").val());
-            $("#deleteModal").modal("show");
-            document.getElementById('back').href = "detail-cr?id=" + $("#idRefDemande").val();
-        });
-
-
-
-        const form = document.getElementById("form-delete"),
-            btnDelete = form.querySelector(".btn-delete-action"),
-            errorText = form.querySelector(".error-text");
-
-
-        form.onsubmit = (e) => {
-            e.preventDefault();
-        }
-
-        btnDelete.onclick = () => {
-            errorText.style.display = "none";
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "./users/agency/delete-credit.php", true);
-            xhr.onload = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-
-                        let data = xhr.response.trim();
-                        if (data === "success") {
-                            $("#deleteModal").modal("hide");
-                            $("#feedbackModal").modal("show");                            
-                        } else {
-                            setTimeout(function () {
-                                errorText.style.display = "block";
-                                errorText.innerHTML = data;
-
-                            }, 200);
-                        }
-
-                    }
-                }
-            }
-            let formData = new FormData(form);
-            xhr.send(formData);
 
         }
     </script>

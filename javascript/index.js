@@ -128,8 +128,8 @@ rangeInputs.forEach(function (input) {
 
     val_max[i].textContent = input.max;
     val_min[i].textContent = input.min;
-    val_max[i].style.left = 96 + '%';
-    val_min[i].style.left = 4 + '%';
+    val_max[i].style.left = 91 + '%';
+    val_min[i].style.left = 9 + '%';
     i++;
 });
 

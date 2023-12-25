@@ -80,11 +80,11 @@
             </div>
 
 
-            <div class="col-lg-7">
+            <div class="col-lg-8">
 
                 <div class="card row">
 
-                    <table class="table table-bordered" id="myTable">
+                    <table class="table table-striped" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">#NUM DOSSIER </th>
@@ -110,14 +110,14 @@
 
                                             <tr>
                                                 <td scope="row">
-                                                    <?php echo '<i class="bi bi-info-circle"></i> <a class="numdoss" href="./detail-cl?id=' . $dossier["NUMDOSS"] . ' "> ' . $dossier["NUMDOSS"] . '</a>' ?>
+                                                    <?php echo '<i class="bi bi-info-circle"></i> <a class="numdoss" href="./detail-doss?id=' . $dossier["NUMDOSS"] . ' "> ' . $dossier["NUMDOSS"] . '</a>' ?>
                                                 </td>
 
                                                 <td scope="row">
                                                     <?php echo '<i class="bi bi-info-circle"></i> <a  href="./detail-cl?id=' . $dossier["IDCLIENT"] . ' "> ' . $dossier["IDCLIENT"] . '</a>' ?>
                                                 </td>
                                                 <td scope="row">
-                                                    <?php echo '<i class="bi bi-info-circle"></i> <a href="./detail-cl?id=' . $dossier["IDVENDEUR"] . ' "> ' . $dossier["IDVENDEUR"] . '</a>' ?>
+                                                    <?php echo '<i class="bi bi-info-circle"></i> <a href="./detail-sl?id=' . $dossier["IDVENDEUR"] . ' "> ' . $dossier["IDVENDEUR"] . '</a>' ?>
                                                 </td>
 
 
@@ -133,12 +133,12 @@
 
 
             </div>
-            <div class="col-lg-1">
+            <!-- <div class="col-lg-1">
 
-            </div>
+            </div> -->
             <div class="row col-lg-4">
                 <div class="card">
-                    <h5 class="card-title">Aperçu rapide en survol</h5>
+                    
                     <div class="card-body">
                         <h5 class="card-title">#DATE PRODUCTION</h5>
                         <input type="text" id="infoPROD" name="down_pmt" readonly

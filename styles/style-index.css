@@ -41,7 +41,7 @@
 .value-min,
 .value-max {
     position: absolute;
-    top: 48px;
+    top: 55px;
     width: 60px;
     text-align: center;
     transform: translateX(-50%);

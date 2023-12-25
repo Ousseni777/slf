@@ -11,7 +11,7 @@ switch ($_POST['ID_SCRIPT']) {
         $results = [
             "monthlyNOFormat" => $monthlyPayment,
             "monthly" => number_format($monthlyPayment, 2),
-            "duration" => $loanTerm            
+            "duration" => $loanTerm
         ];
         echo json_encode($results);
         break;
@@ -19,11 +19,11 @@ switch ($_POST['ID_SCRIPT']) {
         $loanAmount = $_POST['ID_AMOUNT'];
         $loanMonthly = $_POST['ID_MONTHLY'];
         $interestRate = 5; // Taux d'intérêt MENSUEL en pourcentage
-        $duration = calculateDuration($loanAmount, $loanMonthly, $interestRate);  
+        $duration = calc_number($loanAmount, $interestRate,$loanMonthly);
         $results = [
             "duration" => $duration,
-            "monthly"  => $loanMonthly    
-        ];      
+            "monthly" => $loanMonthly
+        ];
         echo json_encode($results);
         break;
 
@@ -44,15 +44,43 @@ function calculateMonthlyPayment($principal, $InterestRate, $loanTermInMonths)
 }
 
 
-function calculateDuration($montantPret, $mensualite, $tauxInteret)
-{
-    $tauxInteretMensuel = $tauxInteret / 100; 
-    $numerator = log($mensualite / ($mensualite - $tauxInteretMensuel * $montantPret));
-    $denominator = log(1 + $tauxInteretMensuel);
-    $duree = $numerator / $denominator;
+// function calculateDuration($montantPret, $mensualite, $tauxInteret)
+// {
+//     $tauxInteretMensuel = $tauxInteret / 100;
+//     $numerator = log($mensualite / ($mensualite - $tauxInteretMensuel * $montantPret));
+//     $denominator = log(1 + $tauxInteretMensuel);
+//     $duree = $numerator / $denominator;
 
-    return round($duree);
-}
+//     return round($duree);
+// }
+
+function calc_number($pv, $int, $pmt)
+{
+
+    //******************************************
+
+    //         log(1 - INT * PV/PMT)
+
+    // PAYNO = ---------------------
+
+    //             log(1 + INT)
+
+    //******************************************
+
+    $int = $int / 100;
+
+    $value1 = log(1 - $int * ($pv / $pmt));
+
+    $value2 = log(1 + $int);
+
+    $payno = $value1 / $value2;
+
+    $payno = abs(round($payno));
+
+    // $payno = number_format($payno, 0, ".", "");
+
+    return $payno;
+} // calc_number =====================================================================
 
 
 ?>

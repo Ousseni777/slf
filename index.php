@@ -43,7 +43,21 @@ if (isset($_GET['tag'])) {
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/preloader.css" rel="stylesheet">
     <link href="styles/style-index.css" rel="stylesheet">
-
+<style>
+    .value-min,
+.value-max {
+    position: absolute;
+    top: 60px;
+    width: 60px;
+    text-align: center;
+    transform: translateX(-50%);
+    background-color: #f8f9fa;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    pointer-events: none;
+}
+</style>
 
 </head>
 

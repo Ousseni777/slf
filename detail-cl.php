@@ -6,7 +6,7 @@ $client_id = $_GET["id"];
 $seller_id = $_SESSION['seller_id'];
 $query_client = "SELECT * FROM `slf_user_client` WHERE cin = '{$client_id}' AND seller_id='$seller_id' ";
 $result_client = $conn->query($query_client);
-
+// $_SESSION['page'] = "detail-cl?id=".$client_id;
 
 if ($result_client->num_rows > 0) {
     $client = $result_client->fetch_assoc();

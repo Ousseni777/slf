@@ -173,9 +173,9 @@
 
                             </div>
                             <div class="modal-footer">
-                                <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary">Revenir</a>
-                                <button type="submit" class="btn btn-primary btn-send-infos-client" name="">Envoyer
-                                    la demande</button>
+                                <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary"><i class="bi bi-arrow-left-circle"></i> Revenir</a>
+                                <button type="submit" class="btn btn-primary btn-send-infos-client" name=""> <i class="bi bi-plus-circle"></i> Ajouter
+                                    ce client</button>
                             </div>
                         </form>
                     </section>

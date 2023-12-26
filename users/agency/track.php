@@ -1,4 +1,7 @@
 <style>
+       ::-webkit-scrollbar {
+        width: 0px;
+    }
     .status {
         text-align: center;
         color: green;

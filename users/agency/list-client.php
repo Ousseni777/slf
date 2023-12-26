@@ -75,14 +75,15 @@
 
             <div class="col-lg-12 mt-3">
 
-                <table class="table table-striped" id="myTable">
+                <table class="table table-striped table-bordered" id="myTable">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">#ID Client (CIN) </th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Nom suite</th>
                             <th scope="col">Téléphone </th>
-                            <th scope="col">Email</th>
-                            <th style="text-align: center; " scope="col" colspan="2">Actions </th>
-
+                            <th style="width: 220px; " scope="col">Email</th>
+                            <th style="text-align: center; width: 250px; " scope="col" colspan="2">Actions </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,25 +104,33 @@
                                             </th>
 
                                             <td>
-                                                <?php echo $data["phone"] ?>
+                                                <?php echo $data["lname"] ?>
                                             </td>
                                             <td>
+                                                <?php echo $data["fname"] ?>
+                                            </td>
+
+                                            <td>
+                                                <?php echo $data["phone"] ?>
+                                            </td>
+                                            <td style="width: 220px; ">
                                                 <?php echo $data["email"] ?>
                                             </td>
-                                            <td style="text-align: center; width: 150px; ">
-                                                <a href="./detail-cl?edit=1&id=<?php echo $data["cin"] ?>" id="btn-edit"
+                                            <td style="text-align: center; width: 120px; ">
+                                                <a style="margin : 0; padding: 0 3px;" href="./detail-cl?edit=1&id=<?php echo $data["cin"] ?>" id="btn-edit"
                                                     class="btn btn-outline-primary btn-edit">
                                                     <i class="bi bi-pencil-square"></i> Modifier
                                                 </a>
                                             </td>
-                                            <td style="text-align: center; width: 150px; ">
-                                                <button class="btn btn-outline-danger btn-delete">
+                                            <td style="text-align: center; width: 130px; ">
+                                                <button style="margin : 0; padding: 0 3px;" class="btn btn-outline-danger btn-delete">
                                                     <i class="bi bi-x-circle"></i> Supprimer
 
                                                 </button>
                                             </td>
 
                                         </tr>
+                                        
                                     
                                         <?php
                                     }

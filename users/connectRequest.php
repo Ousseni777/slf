@@ -10,7 +10,7 @@ $cin = mysqli_real_escape_string($conn, $_POST['cin']);
 if (!empty($id_unique) && !empty($cin)) {
     //Chercher dans la table agence
 
-    $query = "SELECT *  FROM SLF_USER_SALAFIN  WHERE seller_id = '{$id_unique}' AND cin= '{$cin}'";
+    $query = "SELECT *  FROM SLF_USER_SALAFIN  WHERE seller_id = '{$id_unique}' AND seller_cin= '{$cin}'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

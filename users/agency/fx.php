@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="block-field">
                                         <div class="col-sm-10 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Apport TOTAL (en
+                                            <span for="" class="form-label">Apport TOTAL (en
                                                 %)</span><br>
                                             <div class="row controlRadios" id="controlApport">
 

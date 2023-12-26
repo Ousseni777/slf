@@ -94,7 +94,7 @@
                 <table class="table table-striped table-border mt-3" id="myTable">
                     <thead class="thead-dark">
 
-                        <tr>
+                        <tr style="font-weight: bold ;">
                             <th style="width: 150px;" onclick="sortTable(0)" class="chevron" scope="col">#Référence
                                 <span class="chevron-elt"><i class="bi bi-caret-up"></i><i
                                         class="bi bi-caret-down-fill"></i></span>
@@ -108,7 +108,7 @@
                             <td style="width: 100px;" onclick="sortTable(3)" class="chevron" scope="col">
                                 Marque<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
                                         class="bi bi-caret-down-fill"></i></span> </td>
-                            <td style="width: 300px;" onclick="sortTable(4)" class="chevron" scope="col">Barême<span
+                            <td style="width: 250px;" onclick="sortTable(4)" class="chevron" scope="col">Barême<span
                                     class="chevron-elt"><i class="bi bi-caret-up"></i><i
                                         class="bi bi-caret-down-fill"></i></span> </td>
                             <td onclick="sortTable(5)" class="chevron" scope="col">Montant<span class="chevron-elt"><i
@@ -140,19 +140,19 @@
                                             <?php echo $credit['credit_id'] ?>
                                         </a>
                                     </th>
-                                    <td>
+                                    <td style="width: 150px;">
                                         <?php echo (string) $credit['up_date'] ?>
                                     </td>
-                                    <td>
+                                    <td style="width: 100px;">
                                         <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="text-primary">
                                             <?php echo $credit['client_id'] ?>
                                         </a>
                                     </td>
 
-                                    <td>
+                                    <td style="width: 100px;">
                                         <?php echo $tariff['MARQUE'] ?>
                                     </td>
-                                    <td style="width: 300px;">
+                                    <td style="width: 250px;">
                                         <?php echo $tariff['BAREME'] ?>
                                     </td>
                                     <td>

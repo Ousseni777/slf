@@ -47,7 +47,7 @@ if ($result_client->num_rows > 0) {
     <link href="styles/style.css" rel="stylesheet">
     <style>
         .spinner-edit {
-            position: absolute;
+            position: fixed;
             z-index: 1;
             left: 56%;
             top: 45%;
@@ -231,6 +231,9 @@ if ($result_client->num_rows > 0) {
 </head>
 
 <body>
+    <div class="spinner-border text-danger spinner-edit" id="preloaderForEdit" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
 
     <?php
     include 'header.php';
@@ -239,12 +242,11 @@ if ($result_client->num_rows > 0) {
     ?>
 
     <main class="main" id="main">
+
         <section class="section">
 
             <div class="container" id="panelEdit">
-                <div class="spinner-border text-danger spinner-edit" id="preloaderForEdit" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+
                 <div class="pagetitle">
 
                     <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Panel
@@ -333,7 +335,7 @@ if ($result_client->num_rows > 0) {
                                                 class="bi right bi-plus reference-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 reference">
                                             <input type="text" name="cin" placeholder=""
-                                                value="<?php echo $client['cin'] ?>" class="form-control" id="cin"
+                                                value="<?php echo $client['cin'] ?>" class="form-control"
                                                 required>
                                             <label for="cin" class="form-label">Numéro CIN / Carte de
                                                 séjour</label>
@@ -495,7 +497,8 @@ if ($result_client->num_rows > 0) {
                     <div class="card">
                         <div class="card-body mt-3">
                             <span class="infoL"> Identifiant du client : </span>
-                            <input type="text" readonly value="<?php echo $client['client_id'] ?>" class="infoR">
+                            <input type="text" readonly value="<?php echo $client['client_id'] ?>"
+                                class="infoR">
                         </div>
 
                         <div class="card-body">
@@ -509,7 +512,7 @@ if ($result_client->num_rows > 0) {
                         </div>
 
                         <div class="card-body">
-                            <span class="infoL">CIN / Carte de séjour : </span> <input type="text" readonly
+                            <span class="infoL">CIN / Carte de séjour : </span> <input id="cin_client"  type="text" readonly
                                 value="<?php echo $client['cin'] ?>" class="infoR">
                         </div>
 
@@ -559,7 +562,7 @@ if ($result_client->num_rows > 0) {
 
                         <button class="btn btn-primary" id="btn-edit"><i
                                 class="bi bi-pencil-square"></i>Modifier</button>
-                        <button class="btn btn-danger"><i class="bi bi-x-circle"></i>Supprimer</button>
+                        <button class="btn btn-danger" id="btn-delete"><i class="bi bi-x-circle"></i>Supprimer</button>
 
                     </div>
 
@@ -571,6 +574,48 @@ if ($result_client->num_rows > 0) {
     </main>
     <div class="main spinner-grow text-danger" id="mainPreloader" role="status">
         <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <div class="modal fade mt-5" id="deleteModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
+        data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row modal-header" style="text-align: center;">
+                    <i class="col-12 bi bi-exclamation-circle" style="font-size: 100px;"></i>
+                    <div class="col-12">
+                        <div class="row">
+                            <p class="info-dialog">Vous allez supprimer le client CIN : <span id="idDemande"></span>
+                                <!-- <?php echo $_COOKIE['cin'] ?> -->
+                            </p>
+                            <p>Cette action est irreversible !</p>
+                        </div>
+
+                        <form action="#" class="row" id="form-delete" method="post">
+                            <div class="error-text col-12"></div>
+                            <input type="text" style="display: none ;" name="cin" value="" id="cin">
+                            <div class="col-12">
+                                <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
+                                    required>
+                                <label class="form-check-label" for="accepter">
+                                    Oui j'en suis sûr !
+                                </label>
+                            </div>
+
+                            <div class="col-12 mt-5">
+                                <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary">Revenir</a>
+                                <input type="submit" name="exec-action" class="btn btn-primary btn-delete-action"
+                                    value="Valider l'action">
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
     </div>
 
     <div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -624,6 +669,16 @@ if ($result_client->num_rows > 0) {
             } ?>
         });
 
+        var deleteButton = document.getElementById('btn-delete');
+        deleteButton.addEventListener("click", function () {
+            valle = $("#cin_client").val();
+            $("#idDemande").text(valle);
+            $("#cin").val(valle);
+            // document.cookie="cin="+valle;
+            $("#deleteModal").modal("show");
+            // e.preventDefault();
+        });
+
         btnEdit = document.getElementById('btn-edit');
         btnEdit.addEventListener("click", function () {
             loadRegions();
@@ -631,6 +686,42 @@ if ($result_client->num_rows > 0) {
             $("#panelEdit").show();
             $("#panelDetail").hide();
         });
+
+        const form = document.getElementById("form-delete"),
+            btnDelete = form.querySelector(".btn-delete-action"),
+            errorTextDelete = form.querySelector(".error-text");
+
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+        }
+
+        btnDelete.onclick = () => {
+            errorTextDelete.style.display = "none";
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "./users/agency/delete-client.php", true);
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+
+                        let data = xhr.response.trim();
+                        if (data === "success") {                            
+                            location.href = "<?php echo $_SESSION['page'] ?>";
+                        } else {
+                            setTimeout(function () {
+                                errorTextDelete.style.display = "block";
+                                errorTextDelete.innerHTML = data;
+
+                            }, 200);
+                        }
+
+                    }
+                }
+            }
+            let formData = new FormData(form);
+            xhr.send(formData);
+
+        }
 
         const form_client = document.getElementById("form-client"),
             btnSend = form_client.querySelector(".btn-send-infos-client"),

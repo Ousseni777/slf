@@ -11,7 +11,7 @@ $seller = $_SESSION['product'];
 
 
 $tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track");
-$tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
+$tagListSearch = array("list-cl", "list-cr", "rejected", "processed", "track");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +45,21 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
     <!-- Template Main CSS File -->
     <link href="assets/css/style-form.css" rel="stylesheet">
     <link href="assets/css/preloader.css" rel="stylesheet">
-    
-    
+
+
     <!-- <link href="styles/style.css" rel="stylesheet"> -->
 
     <style>
-            ::-webkit-scrollbar {
-        width: 2px;
-    }
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
 
-    ::-webkit-scrollbar-thumb {
-        background-color: purple;
-        /* border-radius: 6px; */
+        ::-webkit-scrollbar-thumb {
+            background-color: purple;
+            /* border-radius: 6px; */
 
-    }
+        }
+
         .valide {
             text-align: center;
             width: 100%;
@@ -340,7 +341,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
     } else if (isset($_GET["tag"]) && $_GET["tag"] == "track") {
         $_SESSION['page'] = "sim-fx?tag=track";
         include 'users/agency/track.php';
-    }?>
+    } ?>
 
     <div class="main spinner-grow text-danger" id="mainPreloader" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -361,7 +362,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 
     <script>
-        
+
         <?php if (in_array($_GET["tag"], $tagListSearch)) { ?>
 
             const searchInput = document.getElementById('searchInput');
@@ -573,9 +574,12 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
                 },
                 success: (data) => {
                     var result = JSON.parse(data);
-                    // console.log(result.paymentNoFormat);
-                    $("#infoAmount").val(result.TTC);
+                    
                     $("#rangeValueAmount").val(AmountID.val());
+                    $("#rangeInputDuration").val(DurationValue);
+                    $("#rangeInputApport").val(ApportValue);
+
+                    $("#infoAmount").val(result.TTC);
                     $("#infoDuration").val(DurationValue);
                     $("#rangeInputMonthly").val(result.paymentNoFormat);
                     $("#rangeValueMonthly").val(result.payment);
@@ -670,9 +674,9 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
                     $("#idTown").html(data);
                 }
             });
-        }        
+        }
 
-        
+
 
     </script>
 

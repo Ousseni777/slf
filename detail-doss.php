@@ -298,7 +298,7 @@ if ($result_credit->num_rows > 0) {
 
                 <div class="col-lg-6">
 
-                    <div class="card">
+                    <div class="card row">
                         <div class="card-body">
                             <!-- List group with active and disabled items -->
 
@@ -344,9 +344,14 @@ if ($result_credit->num_rows > 0) {
                                         value="<?php echo $dossier['TAUXINT'] ?>" class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
+                            
 
                         </div>
-
+                        <div class="col-lg-6">
+                        <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-primary">
+                            Modifier le crédit
+    </a>
+                    </div>
                     </div>
 
                 </div>
@@ -452,8 +457,6 @@ if ($result_credit->num_rows > 0) {
             }
         }
         function displayPreloader() {
-
-
             $('#main').hide();
             $('#mainPreloader').show();
             document.getElementById('main').classList.remove('show');

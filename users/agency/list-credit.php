@@ -1,5 +1,15 @@
 <style>
-        #myTable tbody {
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: purple;
+        /* border-radius: 6px; */
+
+    }
+
+    #myTable tbody {
         max-height: 380px;
         overflow-y: auto;
         display: block;
@@ -11,18 +21,29 @@
         width: 100%;
         table-layout: fixed;
     }
+
+    tr td,
+    tr th {
+        font-size: 14px;
+    }
+
+    tr td:hover,
+    tr th:hover {
+        background-color: bisque;
+        /* color: white; */
+        font-weight: bold;
+    }
+
     .chevron {
         /* display: flex; */
         position: relative;
-
-
     }
 
     .chevron-elt {
         width: 20px;
         position: absolute;
         right: 0px;
-        top: -5px;
+        top: 0px;
     }
 
     .chevron:hover {
@@ -30,6 +51,7 @@
         background-color: #f6f9ff;
     }
 </style>
+
 <main class="main" id="main">
     <section class="section">
         <div class="row" id="listDemande">
@@ -68,112 +90,94 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="card recent-sales overflow-auto">
-                    <!-- <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filtre par</h6>
-                            </li>
+                <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+                <table class="table table-striped table-border mt-3" id="myTable">
+                    <thead class="thead-dark">
 
-                            <li><a class="dropdown-item" href="#">Marque</a></li>
-                            <li><a class="dropdown-item" href="#">Produit</a></li>
-                            <li><a class="dropdown-item" href="#">Barême</a></li>
-                        </ul>
+                        <tr>
+                            <th style="width: 150px;" onclick="sortTable(0)" class="chevron" scope="col">#Référence
+                                <span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                        class="bi bi-caret-down-fill"></i></span>
+                            </th>
+                            <td style="width: 150px;" onclick="sortTable(1)" class="chevron" scope="col">Date
+                                création<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                        class="bi bi-caret-down-fill"></i></span> </td>
+                            <td style="width: 100px;" onclick="sortTable(2)" class="chevron" scope="col">
+                                Autheur<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                        class="bi bi-caret-down-fill"></i></span> </td>
+                            <td style="width: 100px;" onclick="sortTable(3)" class="chevron" scope="col">
+                                Marque<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                        class="bi bi-caret-down-fill"></i></span> </td>
+                            <td style="width: 300px;" onclick="sortTable(4)" class="chevron" scope="col">Barême<span
+                                    class="chevron-elt"><i class="bi bi-caret-up"></i><i
+                                        class="bi bi-caret-down-fill"></i></span> </td>
+                            <td onclick="sortTable(5)" class="chevron" scope="col">Montant<span class="chevron-elt"><i
+                                        class="bi bi-caret-up"></i><i class="bi bi-caret-down-fill"></i></span> </td>
+                            <td style="text-align: center;" class="chevron" scope="col">Statut
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="">
 
-                    </div> -->
 
-                    <div class="card-body">
-                        <table class="table table-striped table-border mt-3" id="myTable">
-                            <thead class="thead-dark" >
+                        <?php
+                        $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id'";
+                        $result_select_credit = $conn->query($select_credit);
+                        if ($result_select_credit->num_rows > 0) {
+                            $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
+                        }
+                        if (count($credits) > 0) {
 
+                            foreach ($credits as $credit) {
+                                $tariff_id = $credit['tariff_id'];
+                                $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
+                                $result_select_tariff = $conn->query($select_tariff);
+                                $tariff = $result_select_tariff->fetch_assoc();
+                                ?>
                                 <tr>
-                                    <th onclick="sortTable(0)" class="chevron" scope="col">#Référence <span
-                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </th>
-                                    <td style="width: 150px;" onclick="sortTable(1)" class="chevron" scope="col">Date
-                                        création<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </td>
-                                    <td style="width: 100px;" onclick="sortTable(2)" class="chevron" scope="col">
-                                        Autheur<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </td>
-                                    <td style="width: 100px;" onclick="sortTable(3)" class="chevron" scope="col">
-                                        Marque<span class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </td>
-                                    <td onclick="sortTable(4)" class="chevron" scope="col">Barême<span
-                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </td>
-                                    <td onclick="sortTable(5)" class="chevron" scope="col">Montant<span
-                                            class="chevron-elt"><i class="bi bi-caret-up"></i><i
-                                                class="bi bi-caret-down-fill"></i></span> </td>
-                                    <td style="text-align: center;" class="chevron" scope="col">Statut
+                                    <th style="width: 150px;" scope="row"><a
+                                            href="detail-cr?id=<?php echo $credit['credit_id'] ?>">#
+                                            <?php echo $credit['credit_id'] ?>
+                                        </a>
+                                    </th>
+                                    <td>
+                                        <?php echo (string) $credit['up_date'] ?>
+                                    </td>
+                                    <td>
+                                        <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="text-primary">
+                                            <?php echo $credit['client_id'] ?>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <?php echo $tariff['MARQUE'] ?>
+                                    </td>
+                                    <td style="width: 300px;">
+                                        <?php echo $tariff['BAREME'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo number_format($credit['amount'], 2, ".", " ") ?>
+                                    </td>
+
+                                    <td style="text-align: right; font-size: 18px;">
+
+                                        <?php if ($credit['state'] == "Demande traitée") {
+                                            echo '<span class="badge bg-success">';
+                                        } else if ($credit['state'] == "Demande rejetée") {
+                                            echo '<span class="badge bg-danger">';
+                                        } else {
+                                            echo '<span class="badge bg-warning">';
+                                        }
+
+                                        ?>
+                                        <?php echo $credit['state'] ?>
+                                        </span>
                                     </td>
                                 </tr>
-                            </thead>
-                            <tbody id="">
-
-
-                                <?php
-                                $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id'";
-                                $result_select_credit = $conn->query($select_credit);
-                                if ($result_select_credit->num_rows > 0) {
-                                    $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
-                                }
-                                if (count($credits) > 0) {
-
-                                    foreach ($credits as $credit) {
-                                        $tariff_id = $credit['tariff_id'];
-                                        $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
-                                        $result_select_tariff = $conn->query($select_tariff);
-                                        $tariff = $result_select_tariff->fetch_assoc();
-                                        ?>
-                                        <tr>
-                                            <td scope="row"><a href="detail-cr?id=<?php echo $credit['credit_id'] ?>">#
-                                                    <?php echo $credit['credit_id'] ?>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <?php echo (string) $credit['up_date'] ?>
-                                            </td>
-                                            <td>
-                                                <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="text-primary">
-                                                    <?php echo $credit['client_id'] ?>
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <?php echo $tariff['MARQUE'] ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $tariff['BAREME'] ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($credit['amount'], 2, ".", " ") ?>
-                                            </td>
-
-                                            <td style="text-align: right;">
-
-                                                <?php if ($credit['state'] == "Demande traitée") {
-                                                    echo '<span class="badge bg-success">';
-                                                } else if ($credit['state'] == "Demande rejetée") {
-                                                    echo '<span class="badge bg-danger">';
-                                                } else {
-                                                    echo '<span class="badge bg-warning">';
-                                                }
-
-                                                ?>
-                                                <?php echo $credit['state'] ?>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    <?php }
-                                } ?>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
+                            <?php }
+                        } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -181,31 +185,31 @@
     <script>
 
 
-        $(document).ready(function () {
-            // Ajoutez la gestion du survol avec JavaScript
-            $('tbody tr').hover(
+        // $(document).ready(function () {
 
-                function () {
-                    $(this).find('td').each(function () {
-                        $(this).replaceWith(function () {
-                            return $("<th>", { html: $(this).html() });
-                        });
+        //     $('tbody tr').hover(
 
-                    });
+        //         function () {
+        //             $(this).find('td').each(function () {
+        //                 $(this).replaceWith(function () {
+        //                     return $("<th>", { html: $(this).html() });
+        //                 });
+
+        //             });
 
 
-                },
-                function () {
-                    // Revertir au survol
-                    $(this).find('th').each(function () {
-                        $(this).find('td:first').removeClass('highlighted');
-                        $(this).replaceWith(function () {
-                            return $("<td>", { html: $(this).html() });
-                        });
-                    });
-                }
-            );
-        });
+        //         },
+        //         function () {
+
+        //             $(this).find('th').each(function () {
+        //                 $(this).find('td:first').removeClass('highlighted');
+        //                 $(this).replaceWith(function () {
+        //                     return $("<td>", { html: $(this).html() });
+        //                 });
+        //             });
+        //         }
+        //     );
+        // });
 
         function sortTable(columnIndex) {
             var table, rows, switching, i, x, y, shouldSwitch;

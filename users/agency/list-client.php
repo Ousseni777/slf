@@ -1,4 +1,13 @@
 <style>
+        ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: purple;
+        /* border-radius: 6px; */
+
+    }
     .error-text {
         color: #721c24;
         padding: 8px 10px;

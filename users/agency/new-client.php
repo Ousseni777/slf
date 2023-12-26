@@ -4,15 +4,6 @@
         <span class="visually-hidden">Loading...</span>
     </div>
     <div class="modal-dialog modal-dialog-scrollable">
-        <!-- <div class="success-text" id="success-infos">
-            <div class="alert alert-success" role="alert" style="text-align:center;">
-                <h4 class="alert-heading">Félicitation !</h4>
-                <p>Le client N°
-                    <?php echo $_SESSION['cin'] ?> a été ajouté avec succès, merci de lui affecter un crédit
-                    !
-                </p>
-            </div>
-        </div> -->
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pagetitle">

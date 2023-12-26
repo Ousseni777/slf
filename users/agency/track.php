@@ -72,7 +72,7 @@
                 <div class="row">
                     <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label>
                     <div class="col-sm-9">
-                        <input type="text" id="searchInput" placeholder="num doss, id client ou id vendeur"
+                        <input type="text" id="searchInput" placeholder="Num doss, id client ou id vendeur"
                             class="form-control">
 
                     </div>
@@ -90,7 +90,6 @@
                                 <th scope="col">#NUM DOSSIER </th>
                                 <th scope="col">#ID AUTHEUR </th>
                                 <th scope="col">#ID VENDEUR</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +105,6 @@
                                     if (count($dossiers) > 0) {
                                         $i = 0;
                                         foreach ($dossiers as $dossier) { ?>
-
 
                                             <tr>
                                                 <td scope="row">
@@ -129,6 +127,7 @@
                             ?>
                         </tbody>
                     </table>
+ 
                 </div>
 
 

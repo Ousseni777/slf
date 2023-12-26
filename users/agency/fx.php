@@ -158,10 +158,22 @@
                                                     name="author" value="<?php echo $credit['client_id'] ?>"
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                             <?php }
+                                        } else if (isset($_GET['numdoss'])) {
+                                            $num_doss = $_GET['numdoss'];
+                                            $select_numdoss = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
+                                            $result_select_numdoss = $conn->query($select_numdoss);
+                                            if ($result_select_numdoss->num_rows > 0) {
+                                                $dossier = $result_select_numdoss->fetch_assoc(); ?>
+                                                    <input type="text" style="display: none;" name="credit_id"
+                                                        value="<?php echo $dossier['NUMDOSS'] ?>">
+                                                    <input type="text" style="background-color: gray;" id="mySearchInput" readonly
+                                                        name="author" value="<?php echo $dossier['IDCLIENT'] ?>"
+                                                        placeholder="Rechercher (CIN) " class="form-control">
+                                            <?php }
                                         } else { ?>
-                                            <input type="text" style="display: none;" name="credit_id" value="">
-                                            <input type="text" id="mySearchInput" name="author" required
-                                                placeholder="Rechercher (CIN) " class="form-control">
+                                                <input type="text" style="display: none;" name="credit_id" value="">
+                                                <input type="text" id="mySearchInput" name="author" required
+                                                    placeholder="Rechercher (CIN) " class="form-control">
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -299,7 +311,7 @@
                 <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
                 <div class="col-12">
                     <div class="row">
-                        <p class="info-dialog" id="successMessage" > </p>
+                        <p class="info-dialog" id="successMessage"> </p>
                     </div>
 
                     <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
@@ -339,11 +351,11 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         let responseData = JSON.parse(xhr.responseText);
-                        let data = responseData.status.trim();                        
-                        if (data  === "success") {
+                        let data = responseData.status.trim();
+                        if (data === "success") {
                             $("#successMessage").html(responseData.message);
                             $("#feedbackModal").modal("show");
-                            
+
                         } else {
                             errorText.style.display = "block";
                             errorText.innerHTML = responseData.message;

@@ -50,6 +50,15 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed","track");
     <!-- <link href="styles/style.css" rel="stylesheet"> -->
 
     <style>
+            ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: purple;
+        /* border-radius: 6px; */
+
+    }
         .valide {
             text-align: center;
             width: 100%;

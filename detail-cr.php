@@ -361,13 +361,13 @@ if ($result_credit->num_rows > 0) {
                                 value="<?php echo $credit['state'] ?>" class="form-control status">
 
                         </div>
-                        <div class="card-body">
+                        <!-- <div class="card-body">
                             <h5 class="card-title">Cause du rejet</h5>
                             <textarea name="reason" cols="30" rows="7" class="form-control">
                                 <?php echo $credit['reason'] ?>
                             </textarea>
 
-                        </div>
+                        </div> -->
                     </div>
                     
 
@@ -466,8 +466,6 @@ if ($result_credit->num_rows > 0) {
     <script type="text/javascript" src="ax_script_auto.js"></script>
     <script type="text/javascript" src="assets/js/main-form.js"></script>
 
-    <!-- Template Main JS File -->
-    <!-- <script src="assets/js/main.js"></script> -->
     <script>
 
         window.addEventListener("load", function () {
@@ -500,7 +498,6 @@ if ($result_credit->num_rows > 0) {
 
             setTimeout(function () {
                 $('#mainPreloader').hide();
-
                 $('#main').show();
                 document.getElementById('main').classList.add('show');
             }, 800);

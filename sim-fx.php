@@ -11,7 +11,7 @@ $seller = $_SESSION['product'];
 
 
 $tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track");
-$tagListSearch = array("list-cl", "list-cr", "rejected", "processed", "track");
+$tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 ?>
 <!DOCTYPE html>
 <html lang="en">

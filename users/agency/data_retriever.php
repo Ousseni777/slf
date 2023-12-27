@@ -43,6 +43,10 @@ switch ($_POST['ID_SCRIPT']) {
         displayCIN(fetchCIN());
         break;
 
+    case "numdoss":
+            displayNUMDOSS(fetchNUMDOSS());
+            break;
+
     default:
         break;
 }
@@ -302,6 +306,43 @@ function displayCIN($brands)
         
         foreach ($brands as $data) {
             $elements[] = $data['cin'];            
+        }
+    }
+    $jsonListe = json_encode($elements);
+
+    echo $jsonListe;
+
+}
+
+
+function fetchNUMDOSS()
+{
+    global $conn;
+
+    // $seller_id = $_SESSION['seller_id'];
+    $query = "SELECT * FROM `viewsim` WHERE NUMDOSS is not NULL";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        $sql = [];
+    }
+    return $sql;
+}
+
+// ----------------------------------------------------------------------------
+//  Afficher la liste des marques
+// ----------------------------------------------------------------------------
+
+function displayNUMDOSS($numdoss)
+{
+    $elements = array();
+
+    if (count($numdoss) > 0) {
+        
+        foreach ($numdoss as $data) {
+            $elements[] = $data['NUMDOSS'];            
         }
     }
     $jsonListe = json_encode($elements);

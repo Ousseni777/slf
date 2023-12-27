@@ -28,7 +28,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="sim-fx?tag=list-cl">
                         <i class="bi bi-app-indicator"></i>
-                        <span>Liste clients</span>
+                        <span>Mes clients</span>
                     </a>
                 </li>
             </ul>
@@ -45,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="sim-fx?tag=track">
                         <i class="bi bi-list-ol"></i>
-                        <span>Suivi de demande </span>
+                        <span>Suivre une demande </span>
                     </a>
                 </li>
 

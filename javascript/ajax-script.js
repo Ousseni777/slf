@@ -114,6 +114,8 @@ function calcFunctionAuto() {
             // console.log(result.tariff_id);
             $("#infoAmount").val(result.TTC);
             $("#rangeValueAmount").val(AmountID.val());
+            $("#rangeInputDuration").val(DurationValue);
+            $("#rangeInputApport").val(ApportValue);
             // $("#rangeValueMonthly").val(result.payment);
             $("#infoDuration").val(DurationValue);    
             $("#infoTariffID").val(result.tariff_id);

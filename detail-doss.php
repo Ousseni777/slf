@@ -273,14 +273,15 @@ if ($result_credit->num_rows > 0) {
     <main class="main" id="main">
         <section class="section">
             <div class="row pagetitle">
-                <h1 class="col-lg-9" ><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a>Dossier N°: <b>
+                <h1 class="col-lg-9"><a href="<?php echo $_SESSION['page'] ?>"><i
+                            class="bi bi-arrow-left"></i></a>Dossier N°: <b>
                         <?php echo $dossier['NUMDOSS'] ?>
                     </b> </h1>
-                    <div class="col-lg-3">
-                    <a href="amort-fx?id=<?php echo $dossier["NUMDOSS"]?> " class="btn btn-outline-success" id="amortissement" >
+                <div class="col-lg-3">
+                    <a href="amort-fx?id=<?php echo $dossier["NUMDOSS"] ?> " class="btn btn-outline-success"
+                        id="amortissement">
                         <!-- <i class="bi bi-download"></i> Sauver Amortissement -->
                         Amortissement
-
                     </a>
                 </div>
                 <nav>
@@ -289,11 +290,11 @@ if ($result_credit->num_rows > 0) {
                         <li class="breadcrumb-item">Emprunteur</li>
                     </ol>
                 </nav>
-               
-                
+
+
             </div><!-- End Page Title -->
             <div class="row mt-3">
-                <!-- <div class="col-3"></div> -->                
+                <!-- <div class="col-3"></div> -->
 
 
                 <div class="col-lg-6">
@@ -344,14 +345,14 @@ if ($result_credit->num_rows > 0) {
                                         value="<?php echo $dossier['TAUXINT'] ?>" class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
-                            
+
 
                         </div>
                         <div class="col-lg-6">
-                        <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-primary">
-                            Modifier le crédit
-    </a>
-                    </div>
+                            <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-primary">
+                                Modifier le crédit
+                            </a>
+                        </div>
                     </div>
 
                 </div>

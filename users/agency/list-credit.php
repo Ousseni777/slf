@@ -10,7 +10,7 @@
     }
 
     #myTable tbody {
-        max-height: 380px;
+        max-height: 55vh ;
         overflow-y: auto;
         display: block;
     }
@@ -64,9 +64,9 @@
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="row mb-3">
-                    <label class="col-sm-5 col-form-label">Nombre de lignes</label>
+                    <label class="col-sm-6 col-form-label">Nombre de lignes</label>
                     <div class="col-sm-4">
                         <select class="form-select" aria-label="Default select example">
                             <option value="10" selected>10</option>
@@ -78,9 +78,9 @@
 
                 </div>
             </div>
-            <div class="col-4"></div>
+            <div class="col-lg-4"></div>
 
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="row">
                     <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label>
                     <div class="col-sm-9">
@@ -121,7 +121,7 @@
 
 
                         <?php
-                        $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id'";
+                        $select_credit = "SELECT * FROM `viewsim` WHERE seller_id='$seller_id'";
                         $result_select_credit = $conn->query($select_credit);
                         if ($result_select_credit->num_rows > 0) {
                             $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);

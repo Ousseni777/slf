@@ -1,167 +1,212 @@
-<style>
-       ::-webkit-scrollbar {
-        width: 0px;
-    }
-    .status {
-        text-align: center;
-        color: green;
-        border-radius: 5px;
-    }
+<?php
 
-    .error-text {
-        color: #721c24;
-        padding: 8px 10px;
-        text-align: center;
-        border-radius: 5px;
-        background: #f8d7da;
-        border: 1px solid #f5c6cb;
-        margin-bottom: 10px;
+include './connectToDB.php';
+$num_doss = '790551';
+$seller_id = $_SESSION['seller_id'];
+$query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
+$result_credit = $conn->query($query_credit);
+// $_SESSION['page'] = "detail-doss?id=".$num_doss;
+
+if ($result_credit->num_rows > 0) {
+    $dossier = $result_credit->fetch_assoc();
+}
+
+?>
+<style>
+    #section-detail, #section-undefuned {
         display: none;
     }
 
-    .activite-label {
-        width: 120px;
-    }
-
-    #myTable tbody {
-        max-height: 330px;
-        overflow-y: auto;
-        display: block;
-    }
-
-    #myTable thead,
-    #myTable tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    table.table tbody tr:hover {
-        background-color: red;
+    #num-dossier {
+        display: none;
     }
 </style>
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Liste des dossiers en traitement</h1>
+        <h1>Saisir le numéro de dossier que vous souhaitez suivre</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Etat</li>
-                <li class="breadcrumb-item">En attente d'une validation</li>
+                <li class="breadcrumb-item">Detail dossier</li>
             </ol>
         </nav>
+        <div class="col-lg-12 mt-5">
+            <div class="row">
+                <!-- <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label> -->
+                <div class="col-lg-4">
+                    <input type="text" id="searchInput" placeholder="Rechercher N° Dossier ici..." class="form-control">
+
+                </div>
+                <div class="col-lg-3">
+
+                </div>
+                <div class="col-lg-4" id="num-dossier">
+                    <h1>Dossier N°:
+                        <!-- <?php echo $dossier['NUMDOSS'] ?> -->
+                        <span id="NUMDOSS"></span>
+                    </h1>
+                </div>
+            </div>
+        </div>
     </div>
-    <section class="section">
+    <section class="section" id="section-detail">
         <div class="row mt-5">
+            <div class="col-lg-7">
+                <table class="table table-striped">
+                    <legend>Crédit demandé</legend>
 
-            <div class="col-4">
-                <div class="row mb-3">
-                    <label class="col-sm-5 col-form-label">Nombre de lignes</label>
-                    <div class="col-sm-4">
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                        </select>
-                    </div>
+                    <tbody>
+                        <tr>
+                            <th>Date demande crédit :</th>
+                            <td id="DATECREATION">
 
-                </div>
-            </div>
-            <div class="col-3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Marque auto :</th>
+                            <td id="MARQUE">
 
-            <div class="col-5">
-                <div class="row">
-                    <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label>
-                    <div class="col-sm-9">
-                        <input type="text" id="searchInput" placeholder="Num doss, id client ou id vendeur"
-                            class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
 
-                    </div>
-                </div>
-            </div>
+                            <th scope="col">Type produit : </th>
+                            <td id="PRODUIT">
 
+                            </td>
+                        </tr>
+                        <tr>
 
-            <div class="col-lg-8">
+                            <th>Barême attribué : </th>
+                            <td id="BAREME">
 
-                <div class="card row">
+                            </td>
+                        </tr>
+                        <tr>
 
-                    <table class="table table-striped" id="myTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#NUM DOSSIER </th>
-                                <th scope="col">#ID AUTHEUR </th>
-                                <th scope="col">#ID VENDEUR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                            <th scope="col">Montant demandé (DH) :</th>
+                            <td id="MNT_DEMANDE">
 
-                            if (isset($_SESSION['seller_id'])) {
-                                $seller_id = $_SESSION['seller_id'];
-                                $query_doss = "SELECT * FROM `majestic` WHERE 1";
-                                $result_doss = $conn->query($query_doss);
+                            </td>
+                        </tr>
+                        <tr>
 
-                                if ($result_doss->num_rows > 0) {
-                                    $dossiers = mysqli_fetch_all($result_doss, MYSQLI_ASSOC);
-                                    if (count($dossiers) > 0) {
-                                        $i = 0;
-                                        foreach ($dossiers as $dossier) { ?>
+                            <th scope="col">Durée du crédit (mois) :</th>
+                            <td id="DUREE">
 
-                                            <tr>
-                                                <td scope="row">
-                                                    <?php echo '<i class="bi bi-info-circle"></i> <a class="numdoss" href="./detail-doss?id=' . $dossier["NUMDOSS"] . ' "> ' . $dossier["NUMDOSS"] . '</a>' ?>
-                                                </td>
+                            </td>
+                        </tr>
+                        <tr>
 
-                                                <td scope="row">
-                                                    <?php echo '<i class="bi bi-info-circle"></i> <a  href="./detail-cl?id=' . $dossier["IDCLIENT"] . ' "> ' . $dossier["IDCLIENT"] . '</a>' ?>
-                                                </td>
-                                                <td scope="row">
-                                                    <?php echo '<i class="bi bi-info-circle"></i> <a href="./detail-sl?id=' . $dossier["IDVENDEUR"] . ' "> ' . $dossier["IDVENDEUR"] . '</a>' ?>
-                                                </td>
+                            <th scope="col">Mensualité (DH) :</th>
+                            <td id="MENSUALITE">
 
+                            </td>
+                        </tr>
+                        <tr>
 
-                                            </tr>
-                                        <?php }
-                                    }
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
- 
+                            <th scope="col">Frais de dossier (DH) :</th>
+                            <td id="FRAISDOSS">
+
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th scope="col">TAUX (%) : </th>
+                            <td id="TAUXINT">
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="col-lg-6">
+                    <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
+                        Modifier le crédit
+                    </a>
                 </div>
 
 
+                <!-- <div class="col-lg-6">
+                    <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
+                        Modifier les infos du client
+                    </a>
+                </div> -->
             </div>
-            <!-- <div class="col-lg-1">
+            <div class="col-lg-4">
+                <table class="table table-striped">
+                    <legend>Etat de demande</legend>
+                    <tbody>
+                        <tr>
+                            <td>
+                                #ETAT PRODUCTION
+                            </td>
+                            <td id="ETATPRODLIB">
 
-            </div> -->
-            <div class="row col-lg-4">
-                <div class="card">
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">#DATE PRODUCTION</h5>
-                        <input type="text" id="infoPROD" name="down_pmt" readonly
-                            value="<?php echo $dossier['DATEPROD'] ?>" class="form-control status">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">#DATE ENGAGEMENT</h5>
-                        <input type="text" id="infoENG" name="down_pmt" readonly
-                            value="<?php echo $dossier['DATEENG'] ?>" class="form-control status">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">#DATE INSTRUCTION</h5>
-                        <input type="text" id="infoINST" name="down_pmt" readonly
-                            value="<?php echo $dossier['DATEINST'] ?>" class="form-control status">
+                    <tbody>
+                        <tr>
+                            <td>#ETAT ENGAGEMENT</td>
+                            <td id="ETATENGLIB">
 
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>#ETAT INSTRUCTION</td>
+                            <td id="ETATINSTLIB">
 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <legend class="mt-5">Autheur du crédit</legend>
+                    <tbody>
+                        <tr>
+
+                            <th scope="col">ID CLIENT :</th>
+                            <td id="IDCLIENT">
+
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th>Nom de l'autheur :</th>
+                            <td id="NOM">
+
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th scope="col">Nom suite :</th>
+                            <td id="NOMSUITE">
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
 
             </div>
+
+        </div>
+    </section>
+    <section style="margin-top: 15%;" class="flex-column align-items-center justify-content-center" id="section-undefuned">
+        <div class="">
+            <h5 class="card-title text-center pb-0">DOSSIER INTROUVABLE</h5>
+            <p class="text-center small">Merci de saisir un numéro de dossier</p>
 
         </div>
     </section>
@@ -170,98 +215,88 @@
 
 
 </main><!-- End #main -->
-
-
 <script type="text/javascript" src="jquery.min.js"></script>
 <script>
+    const searchInput = document.getElementById('searchInput');
 
-    $(document).ready(function () {
-        // Ajoutez la gestion du survol avec JavaScript
-        $('tbody tr').hover(
+    searchInput.addEventListener('keypress', function (event) {
+        if (event.key === "Enter") {
+            const filter = searchInput.value.toLowerCase();
 
-            function () {
-                $(this).find('td').each(function () {
-                    let numdoss = $(this).find('a.numdoss');
-                    // console.log(numdoss.text());
-                    
-                    $(this).replaceWith(function () {
-                        return $("<th>", { html: $(this).html() });
+            $.ajax({
+                url: "users/agency/fetch-doss.php",
+                method: "POST",
+                data: { NUMDOSS: filter },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    console.log(result);
+                    if (result.state == "success") {
+                        $("#NUMDOSS").text(result.NUMDOSS);
+                        $("#DATECREATION").text(result.DATECREATION);
+                        $("#MARQUE").text(result.MARQUE);
+                        $("#PRODUIT").text(result.PRODUIT);
+                        $("#BAREME").text(result.BAREME);
+                        $("#MNT_DEMANDE").text(result.MNT_DEMANDE);
+                        $("#NUMDOSS").text(result.NUMDOSS);
+                        $("#DUREE").text(result.DUREE);
+                        $("#MENSUALITE").text(result.MENSUALITE);
+                        $("#FRAISDOSS").text(result.FRAISDOSS);
+                        $("#TAUXINT").text(result.TAUXINT);
+                        $("#ETATPRODLIB").text(result.ETATPRODLIB);
+                        $("#ETATENGLIB").text(result.ETATENGLIB);
+                        $("#ETATINSTLIB").text(result.ETATINSTLIB);
+                        $("#IDCLIENT").text(result.IDCLIENT);
+                        $("#NOM").text(result.NOM);
 
-                    });
-                    loadDate(numdoss.text());
+                        $("#NOMSUITE").text(result.NOMSUITE);
+                        $("#IDVENDEUR").text(result.IDVENDEUR);
+                        // $("#RIS").text(result.RIS);
+                        $("#section-undefuned").hide();
+                        $("#section-detail").show();
+                        $("#num-dossier").show();
+                    } else {
+                        $("#section-undefuned").show();
+                        $("#section-detail").hide();
+                        $("#num-dossier").hide();
+                    }
 
-                });
-                
-                
-            },
-            function () {
-                // Revertir au survol
-                $(this).find('th').each(function () {
-                    $(this).find('td:first').removeClass('highlighted');
-                    $(this).replaceWith(function () {
-                        return $("<td>", { html: $(this).html() });
-                    });
-                });
-            }
-        );
+                }
+            });
+
+
+        }
     });
 
-    function loadDateA(numdoss) {
-        numdoss = numdoss.trim();
-        console.log(numdoss.length)
+    
+    searchInput.addEventListener('input', function () {
+
         $.ajax({
-            url: "users/agency/date.php",
+            url: "users/agency/data_retriever.php",
             method: "POST",
-            data: { NUMDOSS: numdoss },
+            data: { ID_SCRIPT: 'numdoss' },
             success: function (data) {
                 var result = JSON.parse(data);
-                $("#infoPROD").val(result.prod);
-                $("#infoENG").val(result.eng);
-                $("#infoINST").val(result.inst);
+                var autocompleteData = result;
 
+                // Activer le composant de typeahead
+                $('#searchInput').typeahead({
+                    source: autocompleteData,
+                    minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
+                    highlight: true, // Met en surbrillance les correspondances dans les résultats
+                    hint: true // Affiche une suggestion en surbrillance
+                });
             }
         });
-    }
 
-    function loadDate(numdoss) {
-        numdoss = numdoss.trim();
-        // console.log(numdoss)
-        let xhr = new XMLHttpRequest();
-        let url = "users/agency/date.php";
-        let params = "NUMDOSS=" + numdoss;
-        xhr.open("POST", url, true);
 
-        // Ajouter un en-tête pour indiquer que le contenu est de type formulaire
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    });
 
-        xhr.onload = function () {
-            // console.log("Contenu de la réponse :", xhr.responseText.trim());
-
-            let result;
-
-            if (xhr.status === 200) {
-                try {
-                    result = JSON.parse(xhr.responseText.trim());                    
-                    $("#infoPROD").val(result.prod);
-                    $("#infoENG").val(result.eng);
-                    $("#infoINST").val(result.inst);
-                } catch (e) {
-                    console.error("Erreur lors de l'analyse du JSON :", e);
-                }
-            } else {
-                console.error("La requête a échoué avec le statut :", xhr.status);
-            }
-
-            // Utilisez la variable 'result' comme nécessaire
-
-        };
-
-        xhr.onerror = function () {
-            console.error("Une erreur réseau s'est produite");
-        };
-
-        xhr.send(params);
-
-    }
+    // searchInput.addEventListener("input", function () {
+    //     const filter = searchInput.value.toLowerCase();
+    //     if (filter.length < 6) {
+    //         $("#section-detail").hide();
+    //         $("#num-dossier").hide();
+    //     }
+    // })
 
 </script>

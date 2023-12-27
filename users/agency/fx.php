@@ -328,6 +328,7 @@
 
 
 <script type="text/javascript" src="jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script>
     const form = document.getElementById("form"),
         btnCreditAuto = form.querySelector(".btn-credit"),
@@ -370,33 +371,26 @@
             xhr.send(formData);
         }, 2000);
     }
-    const mySearchInput = document.getElementById('mySearchInput');
-    mySearchInput.addEventListener('input', function () {
-
-        $.ajax({
-            url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'cin' },
-            success: function (data) {
-                var result = JSON.parse(data);
-
-                // Exemple de données pour l'autocomplétion (remplacez cela par vos propres données)
-                var autocompleteData = result;
-
-                // Activer le composant de typeahead
-                $('#mySearchInput').typeahead({
-                    source: autocompleteData,
-                    minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
-                    highlight: true, // Met en surbrillance les correspondances dans les résultats
-                    hint: true // Affiche une suggestion en surbrillance
-                });
-            }
-        });
 
 
+
+    $('#mySearchInput').typeahead({
+        source: function (query, process) {
+            $.ajax({
+                url: "users/agency/data_retriever.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'cin' },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    var autocompleteData = result;
+                    process(autocompleteData);
+                }
+            });
+        },
+        minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
+        highlight: true, // Met en surbrillance les correspondances dans les résultats
+        hint: true // Affiche une suggestion en surbrillance
     });
-
-
 
 
 

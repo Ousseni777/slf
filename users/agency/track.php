@@ -13,7 +13,8 @@ if ($result_credit->num_rows > 0) {
 
 ?>
 <style>
-    #section-detail, #section-undefuned {
+    #section-detail,
+    #section-undefuned {
         display: none;
     }
 
@@ -203,7 +204,8 @@ if ($result_credit->num_rows > 0) {
 
         </div>
     </section>
-    <section style="margin-top: 15%;" class="flex-column align-items-center justify-content-center" id="section-undefuned">
+    <section style="margin-top: 15%;" class="flex-column align-items-center justify-content-center"
+        id="section-undefuned">
         <div class="">
             <h5 class="card-title text-center pb-0">DOSSIER INTROUVABLE</h5>
             <p class="text-center small">Merci de saisir un numéro de dossier</p>
@@ -216,6 +218,8 @@ if ($result_credit->num_rows > 0) {
 
 </main><!-- End #main -->
 <script type="text/javascript" src="jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script>
     const searchInput = document.getElementById('searchInput');
 
@@ -268,28 +272,24 @@ if ($result_credit->num_rows > 0) {
     });
 
     
-    searchInput.addEventListener('input', function () {
-
+    $('#searchInput').typeahead({
+    source: function(query, process) {
         $.ajax({
-            url: "users/agency/data_retriever.php",
+   url: "users/agency/data_retriever.php",
             method: "POST",
             data: { ID_SCRIPT: 'numdoss' },
-            success: function (data) {
+            success: function(data) {
                 var result = JSON.parse(data);
                 var autocompleteData = result;
-
-                // Activer le composant de typeahead
-                $('#searchInput').typeahead({
-                    source: autocompleteData,
-                    minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
-                    highlight: true, // Met en surbrillance les correspondances dans les résultats
-                    hint: true // Affiche une suggestion en surbrillance
-                });
+                process(autocompleteData);
             }
         });
+    },
+    minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
+    highlight: true, // Met en surbrillance les correspondances dans les résultats
+    hint: true // Affiche une suggestion en surbrillance
+});
 
-
-    });
 
     // searchInput.addEventListener("input", function () {
     //     const filter = searchInput.value.toLowerCase();

@@ -36,23 +36,25 @@ if ($result_credit->num_rows > 0) {
         <div class="col-lg-12 mt-5">
             <div class="row">
                 <!-- <label for="inputText" class="col-sm-3 col-form-label">Rechercher</label> -->
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <input type="text" id="searchInput" placeholder="Rechercher N° Dossier ici..." class="form-control">
 
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
 
                 </div>
                 <div class="col-lg-4" id="num-dossier">
-                    <h1>Dossier N°:
-                        <!-- <?php echo $dossier['NUMDOSS'] ?> -->
+                    <h1>Dossier N°:                        
                         <span id="NUMDOSS"></span>
                     </h1>
                 </div>
             </div>
         </div>
     </div>
-    <section class="section" id="section-detail">
+    <table class="table table-striped"  id="section-detail">
+        <tr style="display: none;"><td  ></td></tr>
+        <tr><td>
+    <section class="section">
         <div class="row mt-5">
             <div class="col-lg-7">
                 <table class="table table-striped">
@@ -204,6 +206,8 @@ if ($result_credit->num_rows > 0) {
 
         </div>
     </section>
+    </td></tr>
+    </table>
     <section style="margin-top: 15%;" class="flex-column align-items-center justify-content-center"
         id="section-undefuned">
         <div class="">

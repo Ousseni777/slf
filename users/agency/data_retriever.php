@@ -320,7 +320,7 @@ function fetchNUMDOSS()
     global $conn;
 
     // $seller_id = $_SESSION['seller_id'];
-    $query = "SELECT * FROM `viewsim` WHERE NUMDOSS is not NULL";
+    $query = "SELECT * FROM `majestic` WHERE NUMDOSS is not NULL";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

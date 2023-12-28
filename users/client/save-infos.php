@@ -15,8 +15,7 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
 
     $select_region = "SELECT * FROM `codes_postaux` WHERE REGION_POSTALE= '$region' AND LOCALITE= '$town' ";
     $result_select_region = $conn->query($select_region);
-    $region = $result_select_region->fetch_assoc();
-    $region_id = $region['region_id'];
+    $region = $result_select_region->fetch_assoc();    
 
     $select_query_temp = "SELECT * FROM `temp_verification` WHERE id_unique= '$client_id' ";
     $result_select_temp = $conn->query($select_query_temp);
@@ -27,7 +26,7 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
         $phone = $data_tempo['phone'];
 
         $insert_query = "INSERT INTO `slf_user_client` (`client_id`,`seller_id`, `email`, `phone`, `lname`, `fname`, `title`, `cin`, `income`, `region`, `town`) 
-        VALUES ('{$client_id}','{$client_id}','{$email}','{$phone}','{$lname}','{$fname}','{$title}','{$cin}','{$income}','{$region}','{$town}')";
+        VALUES ('{$client_id}','{ANONYME}','{$email}','{$phone}','{$lname}','{$fname}','{$title}','{$cin}','{$income}','{$region}','{$town}')";
 
         $result_insert = $conn->query($insert_query);
         if (($result_insert)) {

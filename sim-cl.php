@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$_SESSION['client_id']="MOZ-619356449";
+// $_SESSION['client_id']="MOZ-619356449";
 
 if (!isset($_SESSION["client_id"])) {
   header('location: ./login');
@@ -273,7 +273,7 @@ if ($result_select_client->num_rows > 0) {
                 <div class="card-body">
 
 
-                  <table class="table table-borderless datatable">
+                  <table class="table table-borderless table-striped datatable">
                     <thead>
                       <tr>
                         <th scope="col">#Référence</th>
@@ -481,13 +481,6 @@ if ($result_select_client->num_rows > 0) {
                       <h5 class="card-title" onclick="displayElement('.justificatifs')"><i
                           class="bi bi-file-earmark-text left"></i>Justificatifs<i
                           class="bi right bi-plus justificatifs-bi"></i></h5>
-
-                      <div class="col-12 form-floating mb-3 justificatifs">
-                        <input type="file" name="yourPicture" accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                          class="form-control" id="yourPicture" >
-                        <label for="yourPicture" class="form-label">Photo d'identité
-                          récente</label>
-                      </div>
 
                       <div class="col-12 form-floating mb-3 justificatifs">
                         <input type="file" name="yourCIN" class="form-control"

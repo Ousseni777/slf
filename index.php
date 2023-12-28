@@ -402,7 +402,7 @@ if (isset($_GET['tag'])) {
                                     <p class="space"></p>
                                     <div class="range-container group-select">
                                         <label for="customRange2" class="form-label">Durée</label>
-                                        <input type="range" class="form-range custom-range" min="6" max="120" value="24"
+                                        <input type="range" class="form-range custom-range" min="2" max="120" value="24"
                                             step="1" id="rangeInputDurationPerso">
                                         <span class="value-display" id="valueDisplayDuration"></span>
                                         <span class="value-display value-min" id="valueMinMonthly"></span>
@@ -411,7 +411,7 @@ if (isset($_GET['tag'])) {
                                     <p class="space"></p>
                                     <div class="range-container group-select">
                                         <label for="customRange2" class="form-label">Mensualité</label>
-                                        <input type="range" class="form-range custom-range" min="100" max="5000"
+                                        <input type="range" class="form-range custom-range" min="100" max="30000"
                                             step=".1" id="rangeInputMonthlyPerso"
                                             onchange="calcFunctionPerso('duration')">
                                         <span class="value-display" id="valueDisplayMonthly"></span>

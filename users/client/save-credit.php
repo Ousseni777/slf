@@ -24,14 +24,14 @@ if (isset($_POST['project'], $_POST['amount'], $_POST['duration'], $_POST['month
             $down_pmt = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['down_pmt'])));
             $down_pmt_perc = mysqli_real_escape_string($conn, $_POST['down_pmt_perc']);
 
-            $insert_query = "INSERT INTO `credit_client`(`IDCREDIT`, `IDTARIFF`, `IDCLIENT`, `IDSELLER`, `STATE`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`, `DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
-        VALUES ('{$ran_id}','{$tariff_id}','{$ran_id}','{$ran_id}', 0,'En attente','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$down_pmt_perc}','{$down_pmt}','{$adi}','{$cost_ex_adi}','{$today}')";
+            $insert_query = "INSERT INTO `credit_client`(`credit_id`, `tariff_id`, `client_id`, `seller_id`, `state`, `amount`, `duration`, `monthly`, `project`, `app_fees`,`down_pmt_perc`, `down_pmt`, `adi`, `cost_ex_adi`, `up_date`) 
+        VALUES ('{$ran_id}','{$tariff_id}','{$ran_id}','{$ran_id}','En attente','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$down_pmt_perc}','{$down_pmt}','{$adi}','{$cost_ex_adi}','{$today}')";
         } else {
             $msg = "Une erreur est survenue, merci de réessayer encore !";
         }
     } else {
-        $insert_query = "INSERT INTO `credit_client`(`IDCREDIT`, `IDTARIFF`, `IDCLIENT`, `IDSELLER`, `STATE`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`, `UP_DATE`) 
-    VALUES ('{$ran_id}','{$ran_id}','{$ran_id}','{$ran_id}', 0,'tempo','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$today}')";
+        $insert_query = "INSERT INTO `credit_client`(`credit_id`, `tariff_id`, `client_id`, `seller_id`, `state`, `amount`, `duration`, `monthly`, `project`, `app_fees`, `up_date`) 
+    VALUES ('{$ran_id}','{$ran_id}','{$ran_id}','{$ran_id}','tempo','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$today}')";
     }
 
 

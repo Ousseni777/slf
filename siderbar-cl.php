@@ -6,7 +6,7 @@
     <li class="nav-item">
       <a class="nav-link " href="./sim-cl?tag=chrono">
         <i class="bi bi-pencil"></i>
-        <span>Acceuil</span>
+        <span>Mon compte Salafin</span>
       </a>
     </li>
     <li class="nav-item">

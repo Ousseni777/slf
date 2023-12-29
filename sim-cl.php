@@ -12,21 +12,21 @@ include './connectToDB.php';
 $client_id = $_SESSION['client_id'];
 
 $tagList = array("chrono", "list","new");
-$isOK = false;
-$select_client = "SELECT * FROM `slf_user_client` WHERE client_id='$client_id' ";
-$result_select_client = $conn->query($select_client);
-if ($result_select_client->num_rows > 0) {
-  $client = $result_select_client->fetch_assoc();
+// $isOK = false;
+// $select_client = "SELECT * FROM `credit_client` WHERE client_id='$client_id' ";
+// $result_select_client = $conn->query($select_client);
+// if ($result_select_client->num_rows > 0) {
+//   $client = $result_select_client->fetch_assoc();
   
-  $isClient = true;
-  if ($client['cin_piece'] == null) {
-    $isOK = false;
-  } else {
-    $isOK = true;
-  }
-} else {
-  $isClient = false;
-}
+//   $isClient = true;
+//   if ($client['cin_piece'] == null) {
+//     $isOK = false;
+//   } else {
+//     $isOK = true;
+//   }
+// } else {
+//   $isClient = false;
+// }
 
 ?>
 

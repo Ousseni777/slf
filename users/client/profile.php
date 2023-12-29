@@ -1,26 +1,111 @@
 <?php
 
 
-// $client_id = $_SESSION["client_id"];
+$client_id = "OUP-1677027504S";
 // $seller_id = $_SESSION['seller_id'];
 $query_client = "SELECT * FROM `slf_user_client` WHERE client_id = '{$client_id}' ";
 $result_client = $conn->query($query_client);
+$client = $result_client->fetch_assoc();
 // $_SESSION['page'] = "detail-cl?id=".$client_id;
 
 
-$_SESSION['cin_piece'] = $client['cin_piece'];
-$_SESSION['rib_piece'] = $client['rib_piece'];
-$_SESSION['adress_piece'] = $client['adress_piece'];
+// $_SESSION['cin_piece'] = $client['cin_piece'];
+// $_SESSION['rib_piece'] = $client['rib_piece'];
+// $_SESSION['adress_piece'] = $client['adress_piece'];
 $select_credit = "SELECT * FROM `credit_client` WHERE client_id='$client_id'";
 $result_select_credit = $conn->query($select_credit);
 $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
 ?>
 
+<style>
+    .inputImage {
+        display: none;
+    }
+
+    .labelInputImage:hover {
+        cursor: pointer;
+    }
+
+    .card-body .form-hide {
+        display: none;
+    }
+
+    .portfolio-wrap {
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+        /* padding: 5%; */
+        z-index: 1;
+    }
+
+
+    .portfolio-wrap::before {
+        content: "";
+        background: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transition: all ease-in-out 0.3s;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .portfolio-wrap img {
+        height: 160px;
+        width: 96%;
+        margin: 2%;
+    }
+
+    .portfolio-wrap .portfolio-links {
+        opacity: 1;
+        left: 0;
+        right: 0;
+        bottom: -60px;
+        z-index: 3;
+        position: absolute;
+        transition: all ease-in-out 0.3s;
+        display: flex;
+        justify-content: center;
+    }
+
+    .portfolio-wrap .portfolio-links a {
+        color: #fff;
+        font-size: 28px;
+        text-align: center;
+        background: rgba(20, 157, 221, 0.75);
+        transition: 0.3s;
+        width: 100%;
+    }
+
+    .portfolio-wrap .portfolio-links a:hover {
+        background: rgba(20, 157, 221, 0.95);
+    }
+
+    .portfolio-wrap .portfolio-links a+a {
+        border-left: 1px solid #37b3ed;
+    }
+
+    .portfolio-wrap:hover::before {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 1;
+    }
+
+    .portfolio-wrap:hover .portfolio-links {
+        opacity: 1;
+        bottom: 0;
+    }
+</style>
+
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h1>Complétez vos informations personnelles pour finaliser votre demande</h1>
-        <h1><?php echo $client_id ?></h1>
+
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Infos</li>
@@ -33,7 +118,7 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
         <div class="row">
 
 
-            <div class="col-xl-8">
+            <div class="col-xl-9">
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -223,33 +308,6 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
                                                         </div>
                                                     </div>
 
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title infos-client"
-                                                                onclick="displayElement('.coordonnee')"><i
-                                                                    class="bi bi-geo-alt left"></i>Coordonnées<i
-                                                                    class="bi right bi-plus coordonnee-bi"></i></h5>
-                                                            <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                                                <select name="region" onchange="loadTowns()"
-                                                                    class="form-select" id="idRegion"
-                                                                    aria-label="State">
-                                                                    <!-- <option value="<?php echo $client['region'] ?>"><?php echo $client['region'] ?></option> -->
-                                                                </select>
-                                                                <label for="yourRegion" class="form-label">Votre région
-                                                                    !
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                                                <select name="town" class="form-select" placeholder=""
-                                                                    id="idTown">
-
-                                                                </select>
-                                                                <label for="yourTown" class="form-label">Votre ville
-                                                                    actuelle
-                                                                    !</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
 
                                                 </div>
@@ -278,78 +336,30 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
                                                     </div>
 
                                                     <div class="card">
-                                                        <div class="card-body row">
-                                                            <h5 class="card-title infos-client col-lg-12"
-                                                                onclick="displayElement('.justificatifs')">
-                                                                <i
-                                                                    class="bi bi-file-earmark-text left"></i>Justificatifs<i
-                                                                    class="bi right bi-plus justificatifs-bi"></i>
-                                                            </h5>
-
-                                                            <div class="col-lg-4 justificatifs">
-                                                                <div class="portfolio-wrap col-8 form-control">
-                                                                    <img id="preview-inputImageCIN"
-                                                                        src="users/agency/images/<?php echo $client["cin_piece"] ?>"
-                                                                        class="pieces img-fluid" alt="">
-                                                                    <div class="portfolio-links">
-                                                                        <a href="users/agency/images/<?php echo $client["cin_piece"] ?>"
-                                                                            class="portfolio-lightbox"><i
-                                                                                class="bi bi-plus"></i></a>
-
-                                                                    </div>
-
-                                                                </div>
-                                                                <label class="btn btn-outline-primary"
-                                                                    for="inputImageCIN"><i
-                                                                        class="bi bi-file-image"></i>Changer</label>
-                                                                <input type="file" name="yourCIN"
-                                                                    accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                                    class="form-control inputImage" id="inputImageCIN"
-                                                                    required>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title infos-client"
+                                                                onclick="displayElement('.coordonnee')"><i
+                                                                    class="bi bi-geo-alt left"></i>Coordonnées<i
+                                                                    class="bi right bi-plus coordonnee-bi"></i></h5>
+                                                            <div class="col-12 form-floating form-hide mb-3 coordonnee">
+                                                                <select name="region" onchange="loadTowns()"
+                                                                    class="form-select" id="idRegion"
+                                                                    aria-label="State">
+                                                                    <!-- <option value="<?php echo $client['region'] ?>"><?php echo $client['region'] ?></option> -->
+                                                                </select>
+                                                                <label for="yourRegion" class="form-label">Votre région
+                                                                    !
+                                                                </label>
                                                             </div>
-                                                            <div class="col-lg-4 justificatifs">
-                                                                <div class="portfolio-wrap col-8 form-control">
-                                                                    <img id="preview-inputImageRib"
-                                                                        src="users/agency/images/<?php echo $client["rib_piece"] ?>"
-                                                                        class="pieces img-fluid" alt="">
-                                                                    <div class="portfolio-links">
-                                                                        <a href="users/agency/images/<?php echo $client["rib_piece"] ?>"
-                                                                            class="portfolio-lightbox"><i
-                                                                                class="bi bi-plus"></i></a>
+                                                            <div class="col-12 form-floating form-hide mb-3 coordonnee">
+                                                                <select name="town" class="form-select" placeholder=""
+                                                                    id="idTown">
 
-                                                                    </div>
-
-                                                                </div>
-                                                                <label class="btn btn-outline-primary"
-                                                                    for="inputImageRib"><i
-                                                                        class="bi bi-file-image"></i>Changer</label>
-                                                                <input type="file" name="yourRIB"
-                                                                    accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                                    class="form-control inputImage" id="inputImageRib"
-                                                                    required>
+                                                                </select>
+                                                                <label for="yourTown" class="form-label">Votre ville
+                                                                    actuelle
+                                                                    !</label>
                                                             </div>
-                                                            <div class="col-lg-4 justificatifs">
-                                                                <div class="portfolio-wrap col-8 form-control">
-                                                                    <img id="preview-inputImageAdress"
-                                                                        src="users/agency/images/<?php echo $client["adress_piece"] ?>"
-                                                                        class="pieces img-fluid" alt="">
-                                                                    <div class="portfolio-links">
-                                                                        <a href="users/agency/images/<?php echo $client["adress_piece"] ?>"
-                                                                            class="portfolio-lightbox"><i
-                                                                                class="bi bi-plus"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                                <label class="btn btn-outline-primary"
-                                                                    for="inputImageAdress"><i
-                                                                        class="bi bi-file-image"></i>Changer</label>
-
-                                                                <input type="file" name="yourAdress"
-                                                                    accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                                    class="form-control inputImage"
-                                                                    id="inputImageAdress" required>
-                                                            </div>
-
-
                                                         </div>
                                                     </div>
 
@@ -359,10 +369,6 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
                                                             name="">Sauvegarder les modifications</button>
                                                     </div>
                                                 </div>
-
-
-
-
                                             </div>
 
                                         </form>
@@ -373,6 +379,72 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
                             </div>
 
                             <div class="tab-pane fade pt-3" id="profile-pieces">
+
+                                <div class="card">
+                                    <div class="card-body row">
+                                        <h5 class="card-title infos-client col-lg-12"
+                                            onclick="displayElement('.justificatifs')">
+                                            <i class="bi bi-file-earmark-text left"></i>Justificatifs<i
+                                                class="bi right bi-plus justificatifs-bi"></i>
+                                        </h5>
+
+                                        <div class="col-lg-4 justificatifs">
+                                            <div class="portfolio-wrap col-8 form-control">
+                                                <img id="preview-inputImageCIN"
+                                                    src="users/agency/images/<?php echo $client["cin_piece"] ?>"
+                                                    class="pieces img-fluid" alt="">
+                                                <div class="portfolio-links">
+                                                    <a href="users/agency/images/<?php echo $client["cin_piece"] ?>"
+                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
+
+                                                </div>
+
+                                            </div>
+                                            <label class="btn btn-outline-primary" for="inputImageCIN"><i
+                                                    class="bi bi-file-image"></i>Changer</label>
+                                            <input type="file" name="yourCIN"
+                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                class="form-control inputImage" id="inputImageCIN" required>
+                                        </div>
+                                        <div class="col-lg-4 justificatifs">
+                                            <div class="portfolio-wrap col-8 form-control">
+                                                <img id="preview-inputImageRib"
+                                                    src="users/agency/images/<?php echo $client["rib_piece"] ?>"
+                                                    class="pieces img-fluid" alt="">
+                                                <div class="portfolio-links">
+                                                    <a href="users/agency/images/<?php echo $client["rib_piece"] ?>"
+                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
+
+                                                </div>
+
+                                            </div>
+                                            <label class="btn btn-outline-primary" for="inputImageRib"><i
+                                                    class="bi bi-file-image"></i>Changer</label>
+                                            <input type="file" name="yourRIB"
+                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                class="form-control inputImage" id="inputImageRib" required>
+                                        </div>
+                                        <div class="col-lg-4 justificatifs">
+                                            <div class="portfolio-wrap col-8 form-control">
+                                                <img id="preview-inputImageAdress"
+                                                    src="users/agency/images/<?php echo $client["adress_piece"] ?>"
+                                                    class="pieces img-fluid" alt="">
+                                                <div class="portfolio-links">
+                                                    <a href="users/agency/images/<?php echo $client["adress_piece"] ?>"
+                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
+                                                </div>
+                                            </div>
+                                            <label class="btn btn-outline-primary" for="inputImageAdress"><i
+                                                    class="bi bi-file-image"></i>Changer</label>
+
+                                            <input type="file" name="yourAdress"
+                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                class="form-control inputImage" id="inputImageAdress" required>
+                                        </div>
+
+
+                                    </div>
+                                </div>
 
                                 <div class="row mb-3">
                                     <label for="profileImage"
@@ -463,3 +535,94 @@ $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
     </section>
 
 </main><!-- End #main -->
+
+<script>
+
+    window.addEventListener("load", function () {
+        $(".control").hide();
+        // displayPreloader();
+        loadRegions();
+    });
+
+    function chargerImage(elementId) {
+        var inputImage = document.getElementById(elementId);
+        imagePreviewID = "preview-" + elementId;
+        var imagePreview = document.getElementById(imagePreviewID);
+
+        var fichierImage = inputImage.files[0];
+
+        // Vérifiez si un fichier a été sélectionné
+        if (fichierImage) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+            };
+
+            // Lire le contenu du fichier comme une URL de données
+            reader.readAsDataURL(fichierImage);
+        }
+    }
+
+    // Fonction appelée lorsqu'on clique sur le bouton "Enregistrer"
+    function sauvegarderImage(inputImage) {
+        var inputImage = document.getElementById(inputImage);
+        var fichierImage = inputImage.files[0];
+
+        // Vérifiez si un fichier a été sélectionné
+        if (fichierImage) {
+            console.log('Image sélectionnée:', fichierImage);
+        } else {
+            console.log('Aucune image sélectionnée.');
+        }
+    }
+
+    // Ajoutez un écouteur d'événement pour détecter les changements dans le champ d'entrée de type "file"
+    document.getElementById('inputImageCIN').addEventListener('change', function () {
+        chargerImage('inputImageCIN');
+    });
+    document.getElementById('inputImageRib').addEventListener('change', function () {
+        chargerImage('inputImageRib');
+
+    });
+    document.getElementById('inputImageAdress').addEventListener('change', function () {
+        chargerImage('inputImageAdress');
+
+    });
+
+    function loadRegions() {
+        $(".form-hide").show();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region'] ?>" },
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        console.log(data);
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
+    function loadTowns() {
+        const RegionID = $("#idRegion").val();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+            success: function (data) {
+                $("#idTown").html(data);
+            }
+        });
+    }
+
+</script>

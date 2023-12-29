@@ -1,7 +1,7 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
-  <ul class="sidebar-nav" id="sidebar-nav">
+  <!-- <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
       <a class="nav-link " href="./sim-cl?tag=chrono">
@@ -21,46 +21,8 @@
         <span>Suivre mes demandes</span>
       </a>
     </li>
-  </ul>
-  <div class="col-lg-12 mt-5 order-1 order-lg-2 hero-img">
-      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="assets/img/salafin.jpg" class="img-fluid animated" alt="...">
+  </ul> -->
 
-          </div>
-          <div class="carousel-item">
-            <img src="assets/img/salafin2.jpg" class="img-fluid animated" alt="...">
-
-          </div>
-          <div class="carousel-item">
-            <img src="assets/img/salafin3.jpg" class="img-fluid animated" alt="...">
-
-          </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-
-      </div><!-- End Slides with captions -->
-      <!-- <img src="assets/img/salafin.jpg" class="img-fluid animated" alt=""> -->
-    </div>
   <div class="card mt-3">
 
     <div class="card-body">
@@ -112,6 +74,45 @@
       </div>
 
     </div>
+  </div>
+  <div class="col-lg-12 mt-5 order-1 order-lg-2 hero-img">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/img/salafin.jpg" class="img-fluid animated" alt="...">
+
+        </div>
+        <div class="carousel-item">
+          <img src="assets/img/salafin2.jpg" class="img-fluid animated" alt="...">
+
+        </div>
+        <div class="carousel-item">
+          <img src="assets/img/salafin3.jpg" class="img-fluid animated" alt="...">
+
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div><!-- End Slides with captions -->
+    <!-- <img src="assets/img/salafin.jpg" class="img-fluid animated" alt=""> -->
   </div>
 
 </aside><!-- End Sidebar-->

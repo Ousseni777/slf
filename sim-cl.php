@@ -95,7 +95,7 @@ $tagList = array("chrono", "list","new");
   <script type="text/javascript" src="jquery.min.js"></script>
   <!-- Template Main JS File -->
   <script src="assets/js/main-form.js"></script>
-  <script type="text/javascript" src="javascript/sim-cl.js"></script>
+  <!-- <script type="text/javascript" src="javascript/sim-cl.js"></script> -->
 
 </body>
 

@@ -35,13 +35,13 @@ if (isset($_GET['ticket'])) {
             $result_update = $conn->query($update_query);
             if (($result_update)) {                
 
-                $_SESSION['client_id'] = $client_id;
+                $_SESSION['client_id_temp'] = $client_id;
                 $verification_status = true;
                 $msg = "success";
             } else {
                 $verification_status = false;
             }
-        } else { //Le lien n'est pas expiré
+        } else { //Le lien est expiré
             
             //Annuler le credit demandé
             $delete_query = "DELETE FROM `credit_client` WHERE credit_id= '$credit_id' ";

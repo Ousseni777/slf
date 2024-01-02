@@ -99,15 +99,15 @@ if (!$shouldBeUser) {
 
 
   <?php if (isset($client['client_id']) && $isOK) {
-    include 'users/client/profile-edit.php';
+    include 'users/client/tab-edit-profile.php';
 
   } else if (isset($client['client_id']) && !$isOK) {
 
-    include 'users/client/profile-edit-infos.php';
+    include 'users/client/tab-edit-infos.php';
 
   } else if (!isset($client['client_id'])) {
 
-    include 'users/client/profile-new.php';
+    include 'users/client/tab-completion-profile.php';
   }
   ?>
 

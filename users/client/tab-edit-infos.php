@@ -315,7 +315,7 @@
 
                             </div>
 
-
+                            <?php include("tab-new-credit.php") ?>
                             <?php include("tab-overview.php") ?>
 
                             <div class="modal fade" id="modalPieces" role="dialog" tabindex="-1"

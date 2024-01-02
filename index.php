@@ -43,21 +43,28 @@ if (isset($_GET['tag'])) {
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/preloader.css" rel="stylesheet">
     <link href="styles/style-index.css" rel="stylesheet">
-<style>
-    .value-min,
-.value-max {
-    position: absolute;
-    top: 60px;
-    width: 60px;
-    text-align: center;
-    transform: translateX(-50%);
-    background-color: #f8f9fa;
-    padding: 5px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    pointer-events: none;
-}
-</style>
+    <style>
+        .value-min,
+        .value-max {
+            position: absolute;
+            top: 60px;
+            width: 60px;
+            text-align: center;
+            transform: translateX(-50%);
+            background-color: #f8f9fa;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        .spinner-pieces {
+        position: absolute;
+        z-index: 1;
+        left: 48%;
+        top: 45%;
+        display: none;
+    }
+    </style>
 
 </head>
 
@@ -155,6 +162,10 @@ if (isset($_GET['tag'])) {
                         <img src="assets/img/app.png" class="img-fluid" alt="" id="imgFluid" data-aos="zoom-in">
 
                         <div class="card" id="cardPerso">
+                            <div class="spinner-border text-danger spinner-pieces" id="preloaderCreditPerso"
+                                role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
 
                             <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
                                 récapitulatif</h3>
@@ -197,7 +208,10 @@ if (isset($_GET['tag'])) {
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <div class="card" id="cardAuto">
-
+                            <div class="spinner-border text-danger spinner-pieces" id="preloaderCreditAuto"
+                                role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
 
                             <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
                                 récapitulatif</h3>

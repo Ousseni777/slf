@@ -1,7 +1,7 @@
 
 //Après chargement de la page
 
-window.addEventListener("load", function () {            
+window.addEventListener("load", function () {
     $('#spinnerRecap').hide();
     calcFunctionPerso();
     controller();
@@ -10,62 +10,69 @@ window.addEventListener("load", function () {
 //Formulaire crédit personnel ou renouvellable
 
 const formP = document.getElementById("formPerso"),
-btnCreditPerso = formP.querySelector(".btn_credit_perso");
+    btnCreditPerso = formP.querySelector(".btn_credit_perso");
 errorText = formP.querySelector(".error-text");
 
-formP.onsubmit = (e)=>{
+formP.onsubmit = (e) => {
     e.preventDefault();
 }
 
-btnCreditPerso.onclick = ()=>{
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "users/client/save-credit.php", true);
-    xhr.onload = ()=>{
-      if(xhr.readyState === XMLHttpRequest.DONE){
-          if(xhr.status === 200){
-              let data = xhr.response.trim();     
-              console.log(data);
-              if(data === "success"){
-                location.href="signup";
-                
-              }else{   
-                errorText.style.display = "block";
-                errorText.textContent = data;
-              }
-          }
-      }
-    }
-    let formData = new FormData(formP);
-    xhr.send(formData);
+btnCreditPerso.onclick = () => {
+    formP.style.pointerEvents = "none";
+    $('#preloaderCreditPerso').show();
+    errorText.style.display = "none";
+    formP.style.opacity = .5;
+    setTimeout(function () {
+        $('#preloaderCreditPerso').hide();
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "users/client/save-credit.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+                    let data = responseData.status.trim();
+                    if (data === "success") {
+                        location.href = "signup";
+
+                    } else {
+                        errorText.style.display = "block";
+                        errorText.textContent = data;
+                    }
+                }
+            }
+        }
+        let formData = new FormData(formP);
+        xhr.send(formData);
+    }, 2000);
 }
 
 //Formulaire crédit auto
 
 const form = document.getElementById("formAuto"),
-btnCreditAuto = form.querySelector(".btn_credit_auto");
+    btnCreditAuto = form.querySelector(".btn_credit_auto");
 errorText = form.querySelector(".error-text");
 
-form.onsubmit = (e)=>{
+form.onsubmit = (e) => {
     e.preventDefault();
 }
 
-btnCreditAuto.onclick = ()=>{
+btnCreditAuto.onclick = () => {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "users/client/save-credit.php", true);
-    xhr.onload = ()=>{
-      if(xhr.readyState === XMLHttpRequest.DONE){
-          if(xhr.status === 200){
-              let data = xhr.response.trim();    
-              console.log(data);                        
-              if(data === "success"){
-                location.href="signup";
-                
-              }else{   
-                errorText.style.display = "block";
-                errorText.textContent = data;
-              }
-          }
-      }
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let data = xhr.response.trim();
+                console.log(data);
+                if (data === "success") {
+                    location.href = "signup";
+
+                } else {
+                    errorText.style.display = "block";
+                    errorText.textContent = data;
+                }
+            }
+        }
     }
     let formData = new FormData(form);
     xhr.send(formData);
@@ -154,7 +161,7 @@ function controller() {
     let auto_block = document.getElementById('auto-block');
     let perso_block = document.getElementById('perso-block');
 
-    let autos = document.querySelectorAll('.controlAutos');    
+    let autos = document.querySelectorAll('.controlAutos');
 
 
     if (project.value == "auto") {
@@ -170,7 +177,7 @@ function controller() {
         auto_block.style.display = "none";
         perso_block.style.display = "inline";
         hideAutos(autos);
-        
+
 
         calcFunctionPerso();
 

@@ -504,6 +504,22 @@
 
     });
 
+    function displayElement(elt) {
+        icone = elt + "-bi";
+        if ($(elt).hasClass("active")) {
+            $(elt).hide();
+            $(elt).removeClass('active');
+            $(icone).removeClass('bi-dash');
+            $(icone).addClass('bi-plus');
+
+        } else {
+            $(elt).show();
+            $(elt).addClass('active');
+            $(icone).addClass('bi-dash');
+            $(icone).removeClass('bi-plus');
+        }
+    }
+
 
 
 </script>

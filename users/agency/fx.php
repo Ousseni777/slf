@@ -356,7 +356,6 @@
                         if (data === "success") {
                             $("#successMessage").html(responseData.message);
                             $("#feedbackModal").modal("show");
-
                         } else {
                             errorText.style.display = "block";
                             errorText.innerHTML = responseData.message;

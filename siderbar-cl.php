@@ -1,5 +1,5 @@
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar" style="margin-top: -5%;" >
+<aside id="sidebar" class="sidebar" style="margin-top: -5%; padding: 1%;" >
 
   <!-- <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -25,7 +25,7 @@
 
   <div class="card mt-3">
 
-    <div class="card-body">
+    <div class="card-body" >
       <h5 class="card-title">Guide pratique</h5>
 
       <div class="accordion accordion-flush" id="accordionFlushExample">

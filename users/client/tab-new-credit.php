@@ -1,3 +1,35 @@
+<style>
+    .space {
+        margin-bottom: 50px;
+    }
+
+    .value-display {
+    position: absolute;
+    top: 10px;
+    width: 85px;
+    text-align: center;
+    transform: translateX(-50%);
+    background-color: #f8f9fa;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+    .value-min,
+    .value-max {
+        position: absolute;
+        top: 60px;
+        width: 60px;
+        text-align: center;
+        transform: translateX(-50%);
+        background-color: #f8f9fa;
+        padding: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        pointer-events: none;
+    }
+</style>
 <div class="col-lg-12 mt-3 tab-pane fade" id="new-credit">
     <h3 class="card-title">Demander mon crédit en ligne</h3>
     <nav>
@@ -192,185 +224,189 @@
 </div>
 <script type="text/javascript" src="./javascript/ajax-script.js"></script>
 <script>
-    
-//Après chargement de la page
 
-window.addEventListener("load", function () {            
-    $('#spinnerRecap').hide();    
-    controller();
-});
+    //Après chargement de la page
 
-//Pour le crédit personnel
-var rangeInputTTC = document.getElementById('rangeInputTTC');
-var valueDisplayTTC = document.getElementById('valueDisplayTTC');
+    window.addEventListener("load", function () {
+        $('#spinnerRecap').hide();
+        controller();
+    });
 
-var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
-valueDisplayTTC.style.left = percent + '%';
-valueDisplayTTC.textContent = rangeInputTTC.value;
+    //Pour le crédit personnel
+    var rangeInputTTC = document.getElementById('rangeInputTTC');
+    var valueDisplayTTC = document.getElementById('valueDisplayTTC');
 
-
-rangeInputTTC.addEventListener('input', function () {
     var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
     valueDisplayTTC.style.left = percent + '%';
     valueDisplayTTC.textContent = rangeInputTTC.value;
 
-    calcFunctionPerso();
-});
 
-var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
-var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+    rangeInputTTC.addEventListener('input', function () {
+        var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+        valueDisplayTTC.style.left = percent + '%';
+        valueDisplayTTC.textContent = rangeInputTTC.value;
 
-var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
-valueDisplayMonthly.style.left = percent + '%';
-valueDisplayMonthly.textContent = rangeInputMonthly.value;
+        calcFunctionPerso();
+    });
 
-rangeInputMonthly.addEventListener('input', function () {
+    var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
+    var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+
     var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
     valueDisplayMonthly.style.left = percent + '%';
     valueDisplayMonthly.textContent = rangeInputMonthly.value;
-    calcFunctionPerso('duration');
-});
+
+    rangeInputMonthly.addEventListener('input', function () {
+        var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+        valueDisplayMonthly.style.left = percent + '%';
+        valueDisplayMonthly.textContent = rangeInputMonthly.value;
+        calcFunctionPerso('duration');
+    });
 
 
 
-var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
-var valueDisplayDuration = document.getElementById('valueDisplayDuration');
+    var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
+    var valueDisplayDuration = document.getElementById('valueDisplayDuration');
 
 
-var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
-valueDisplayDuration.style.left = percent + '%';
-valueDisplayDuration.textContent = rangeInputDuration.value;
-rangeInputDuration.addEventListener('input', function () {
     var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
     valueDisplayDuration.style.left = percent + '%';
     valueDisplayDuration.textContent = rangeInputDuration.value;
-    calcFunctionPerso();
-});
-
-var rangeInputs = document.querySelectorAll('.custom-range');
-var val_min = document.querySelectorAll('.value-min');
-var val_max = document.querySelectorAll('.value-max');
-
-let i = 0;
-rangeInputs.forEach(function (input) {
-
-    val_max[i].textContent = input.max;
-    val_min[i].textContent = input.min;
-    val_max[i].style.left = 91 + '%';
-    val_min[i].style.left = 9 + '%';
-    i++;
-});
-
-
-//Pour le crédit auto
-const rangeValueAmount = document.getElementById("rangeValueAmount");
-const rangeInputAmount = document.getElementById("rangeInputAmount");
-rangeInputAmount.addEventListener("input", function () {
-    rangeValueAmount.value = rangeInputAmount.value;
-    calcFunctionAuto();
-});
-
-rangeValueAmount.addEventListener("input", function () {
-    rangeInputAmount.value = rangeValueAmount.value;
-    calcFunctionAuto();
-});
-
-function controller() {
-
-    let project = document.getElementById('idProject');
-    let profession = document.getElementById('controlProfession');
-    let auto_block = document.getElementById('auto-block');
-    let perso_block = document.getElementById('perso-block');
-
-    let autos = document.querySelectorAll('.controlAutos');    
-
-
-    if (project.value == "auto") {
-        displayAutos(autos);
-        profession.style.display = 'none';
-        auto_block.style.display = "inline";
-        perso_block.style.display = "none";
-
-        loadBrand();
-
-    } else {
-        profession.style.display = 'block';
-        auto_block.style.display = "none";
-        perso_block.style.display = "inline";
-        hideAutos(autos);
-        
-
+    rangeInputDuration.addEventListener('input', function () {
+        var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
+        valueDisplayDuration.style.left = percent + '%';
+        valueDisplayDuration.textContent = rangeInputDuration.value;
         calcFunctionPerso();
-
-    }
-    hideCard();
-}
-
-
-function hideAutos(autos) {
-    for (let i = 0; i < autos.length; i++) {
-        autos[i].style.display = 'none';
-    }
-}
-
-function displayAutos(autos) {
-    for (let i = 0; i < autos.length; i++) {
-        autos[i].style.display = 'block';
-    }
-}
-
-
-function displayAuto() {
-
-    document.getElementById('cardPerso').style.display = "none";    
-
-
-    document.getElementById('cardAuto').style.display = "none";
-    $('#spinnerBtnAuto').show();
-    $('#spinnerRecap').show();
-
-
-    setTimeout(function () {
-        $('#spinnerBtnAuto').hide();
-        // scrollToTop();
-    }, 2000);
-
-    setTimeout(function () {
-
-        $('#spinnerRecap').hide();
-        $('#cardAuto').show();
-    }, 4000);
-}
-function displayPerso() {
-
-    document.getElementById('cardAuto').style.display = "none";
-    document.getElementById('cardPerso').style.display = "none";    
-    $('#spinnerBtnPerso').show();
-    $('#spinnerRecap').show();
-
-    setTimeout(function () {
-        $('#spinnerBtnPerso').hide();
-        // scrollToTop();
-    }, 2000);
-
-    setTimeout(function () {
-
-        $('#spinnerRecap').hide();
-        $('#cardPerso').show();
-    }, 4000);
-
-}
-function hideCard() {
-    document.getElementById('cardAuto').style.display = "none";
-    document.getElementById('cardPerso').style.display = "none";    
-}
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 500,
-        behavior: 'smooth'
     });
-}
+
+    var rangeInputs = document.querySelectorAll('.custom-range');
+    var val_min = document.querySelectorAll('.value-min');
+    var val_max = document.querySelectorAll('.value-max');
+
+    let i = 0;
+    rangeInputs.forEach(function (input) {
+
+        val_max[i].textContent = input.max;
+        val_min[i].textContent = input.min;
+        val_max[i].style.left = 91 + '%';
+        val_min[i].style.left = 9 + '%';
+        i++;
+    });
+
+
+    //Pour le crédit auto
+    const rangeValueAmount = document.getElementById("rangeValueAmount");
+    const rangeInputAmount = document.getElementById("rangeInputAmount");
+    rangeInputAmount.addEventListener("input", function () {
+        rangeValueAmount.value = rangeInputAmount.value;
+        calcFunctionAuto();
+    });
+
+    rangeValueAmount.addEventListener("input", function () {
+        rangeInputAmount.value = rangeValueAmount.value;
+        calcFunctionAuto();
+    });
+
+    function controller() {
+
+        let project = document.getElementById('idProject');
+        let profession = document.getElementById('controlProfession');
+        let auto_block = document.getElementById('auto-block');
+        let perso_block = document.getElementById('perso-block');
+
+        let autos = document.querySelectorAll('.controlAutos');
+
+
+        if (project.value == "auto") {
+            displayAutos(autos);
+            profession.style.display = 'none';
+            auto_block.style.display = "inline";
+            perso_block.style.display = "none";
+
+            loadBrand();
+
+        } else {
+            profession.style.display = 'block';
+            auto_block.style.display = "none";
+            perso_block.style.display = "inline";
+            hideAutos(autos);
+
+
+            calcFunctionPerso();
+
+        }
+        hideCard();
+    }
+
+
+    function hideAutos(autos) {
+        for (let i = 0; i < autos.length; i++) {
+            autos[i].style.display = 'none';
+        }
+    }
+
+    function displayAutos(autos) {
+        for (let i = 0; i < autos.length; i++) {
+            autos[i].style.display = 'block';
+        }
+    }
+
+
+    function displayAuto() {
+
+        document.getElementById('cardPerso').style.display = "none";
+
+
+        document.getElementById('cardAuto').style.display = "none";
+        $('#spinnerBtnAuto').show();
+        $('#spinnerRecap').show();
+
+
+        setTimeout(function () {
+            $('#spinnerBtnAuto').hide();
+            // scrollToTop();
+            $('#spinnerRecap').hide();
+            $('#cardAuto').show();
+        }, 2000);
+
+        // setTimeout(function () {
+
+        //     $('#spinnerRecap').hide();
+        //     $('#cardAuto').show();
+        // }, 4000);
+    }
+    function displayPerso() {
+
+        document.getElementById('cardAuto').style.display = "none";
+        document.getElementById('cardPerso').style.display = "none";
+        $('#spinnerBtnPerso').show();
+        $('#spinnerRecap').show();
+
+        setTimeout(function () {
+            $('#spinnerBtnPerso').hide();
+            // scrollToTop();
+            $('#spinnerRecap').hide();
+            $('#cardPerso').show();
+        }, 2000);
+
+        // setTimeout(function () {
+
+        //     $('#spinnerRecap').hide();
+        //     $('#cardPerso').show();
+        // }, 2000);
+
+    }
+    function hideCard() {
+        document.getElementById('cardAuto').style.display = "none";
+        document.getElementById('cardPerso').style.display = "none";
+    }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 500,
+            behavior: 'smooth'
+        });
+    }
 
 
 

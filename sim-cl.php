@@ -9,6 +9,7 @@ include './connectToDB.php';
 $shouldBeUser = false;
 $isOK = false;
 $tagList = array("chrono");
+unset($_SESSION['client_id_temp']);
 
 if (isset($_SESSION['client_id_temp'])) {
 
@@ -25,14 +26,7 @@ if (isset($_SESSION['client_id_temp'])) {
     $result_client = $conn->query($query_client);
     $client = $result_client->fetch_assoc();
 
-    $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id}' ";
-    $result_credit = $conn->query($query_credit);
-    $credit = $result_credit->fetch_assoc();
 
-    $tariff_id = $credit['tariff_id'];
-    $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
-    $result_select_tariff = $conn->query($select_tariff);
-    $tariff = $result_select_tariff->fetch_assoc();
 
     if (empty($client['cin_piece'])) {
       $isOK = false;

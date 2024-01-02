@@ -19,7 +19,7 @@
         demandes</button>
 </li>
 <li class="nav-item">
-    <button class="nav-link" data-bs-toggle="tab" id="nav-link-track"
+    <button class="nav-link" data-bs-toggle="tab" id="nav-link-new"
         data-bs-target="#new-credit">Nouvelle
         demande</button>
 </li>

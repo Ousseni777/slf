@@ -122,7 +122,7 @@
 
 
 
-    <section class="section profile mt-5">
+    <section class="section profile mt-3">
         <div class="row">
 
 
@@ -130,7 +130,7 @@
 
                 <div class="card">
                     <div class="card-body pt-3">
-                    <?php include("nav-tabs.php") ?>
+                        <?php include("nav-tabs.php") ?>
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade profile-new card show" id="profile-new">
                                 <div class="card-body">
@@ -428,6 +428,101 @@
                 </div>
 
             </div>
+            <div class="col-xl-3">
+                <div class="card" id="cardPerso">
+
+                    <h3 class="card-title" style="padding: 2%;  text-align: center; ">Mon
+                        récapitulatif</h3>
+                    <div class="error-text"></div>
+                    <div class="card-body" style="padding: 1%;">
+
+                        <hr class="hr">
+
+                        <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
+                        <form action="#" id="formPerso" method="POST">
+                            <!-- List group with active and disabled items -->
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input
+                                        type="text" name="project" readonly class="infoR" value="Personnel"
+                                        id="infoProjectP">
+                                </li>
+
+                                <li class="list-group-item"><span class="infoL">Montant crédit: </span>
+                                    <input type="text" name="amount" readonly id="infoAmountP" value="20000"
+                                        class="infoR">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
+                                        type="text" name="duration" readonly id="infoDurationP" value="24"
+                                        class="infoR">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Mensualité (DH) : </span> <input
+                                        type="text" name="monthly" readonly id="infoMonthlyP" value="200.25"
+                                        class="infoR">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
+                                    <input type="text" name="app_fees" value="200" readonly class="infoR" id="infoFDP">
+                                </li>
+
+                            </ul><!-- End Clean list group -->
+                            <div class="d-grid gap-2 mt-3">
+                                <button class="btn btn-outline-success w-100 btn_credit_perso" type="submit"
+                                    name="btn_credit_perso">Demander ce crédit </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="card" id="cardAuto">
+
+
+                    <h3 class="card-title" style="padding: 2%;  text-align: center; ">Mon
+                        récapitulatif</h3>
+                    <div class="error-text"></div>
+                    <div class="card-body" style="padding: 1%;">
+
+                        <hr class="hr">
+
+                        <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
+                        <form action="#" method="POST" id="formAuto">
+                            <!-- List group with active and disabled items -->
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
+                                        : </span> <input type="text" name="tariff_id" readonly id="infoTariffID"
+                                        class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input
+                                        type="text" name="project" readonly class="infoR" value="Auto">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text"
+                                        name="amount" readonly id="infoAmount" class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
+                                        type="text" name="duration" readonly id="infoDuration" class="infoR">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
+                                        name="monthly" readonly id="infoMonthly" class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
+                                    <input type="text" name="app_fees" readonly class="infoR" id="infoFD">
+                                </li>
+                                <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
+                                        type="text" name="down_pmt" readonly id="infoApport" class="infoR"></li>
+                                <li class="list-group-item" style="display: none;"><span class="infoL">Apport
+                                        (%) : </span> <input type="text" name="down_pmt_perc" readonly
+                                        id="infoApportPerc" class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
+                                        name="adi" readonly id="infoADI" class="infoR"></li>
+                                <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
+                                        type="text" name="cost_ex_adi" readonly id="infoCHAD" class="infoR">
+                                </li>
+
+                            </ul><!-- End Clean list group -->
+                            <div class="d-grid gap-2 mt-3">
+                                <button class="btn btn-outline-success w-100 btn_credit_auto" type="submit"
+                                    name="btn_credit_auto" id="btn_credit_auto">Demander ce crédit </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -440,7 +535,6 @@
 
     window.addEventListener("load", function () {
         $(".form-hide").show();
-        $("#profile-new").hide();
         loadRegions();
     });
     document.getElementById("nav-link-track").addEventListener("click", function () {
@@ -454,6 +548,11 @@
     document.getElementById("nav-link-infos").addEventListener("click", function () {
         $("#profile-new").hide();
     })
+
+    document.getElementById("nav-link-new").addEventListener("click", function () {
+        $("#profile-new").hide();
+    })
+
     function chargerImage(elementId) {
         var inputImage = document.getElementById(elementId);
         imagePreviewID = "preview-" + elementId;

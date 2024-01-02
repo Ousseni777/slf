@@ -305,14 +305,14 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
         }
 
-        #main {
+        /* #main {
             opacity: 0;
             transition: opacity .8s ease .3s;
         }
 
         #main.show {
             opacity: 1;
-        }
+        } */
     </style>
 
 </head>

@@ -28,9 +28,9 @@ if ($result_credit->num_rows > 0) {
     <div class="pagetitle">
         <h1>Saisir le numéro de dossier que vous souhaitez suivre</h1>
         <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">Etat</li>
+            <ol class="breadcrumb">                
                 <li class="breadcrumb-item">Detail dossier</li>
+                <li class="breadcrumb-item">Rechercher un dossier quelconque par son numéro</li>
             </ol>
         </nav>
         <div class="col-lg-12 mt-5">

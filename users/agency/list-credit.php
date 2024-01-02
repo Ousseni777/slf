@@ -10,7 +10,7 @@
     }
 
     #myTable tbody {
-        max-height: 55vh ;
+        max-height: 60vh ;
         overflow-y: auto;
         display: block;
     }
@@ -59,8 +59,8 @@
                 <h1>Liste des crédits demandés</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Infos</a></li>
-                        <li class="breadcrumb-item active">Justificatifs</li>
+                        <li class="breadcrumb-item"><a href="index.html">Aperçu demandes</a></li>
+                        <li class="breadcrumb-item active">Liste des demandes de vos clients</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->

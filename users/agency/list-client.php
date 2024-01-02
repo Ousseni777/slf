@@ -20,7 +20,7 @@
     }
     
     #myTable tbody {
-        max-height: 380px;
+        max-height: 65vh;
         overflow-y: auto;
         display: block;
     }
@@ -39,8 +39,8 @@
         <h1>Liste des clients</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">Etat</li>
-                <li class="breadcrumb-item">En attente d'une validation</li>
+                <li class="breadcrumb-item">Aperçu client</li>
+                <li class="breadcrumb-item">Liste de vos clients</li>
             </ol>
         </nav>
     </div>

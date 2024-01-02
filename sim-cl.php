@@ -1,32 +1,53 @@
 <?php
+
 ob_start();
 session_start();
-// $_SESSION['client_id']="MOZ-619356449";
-
-if (!isset($_SESSION["client_id"])) {
-  header('location: ./login');
-}
 
 include './connectToDB.php';
+// $_SESSION['client_id_temp'] = "WV-692634956";
 
-$client_id = $_SESSION['client_id'];
+$shouldBeUser = false;
+$isOK = false;
+$tagList = array("chrono");
 
-$tagList = array("chrono", "list","new");
-// $isOK = false;
-// $select_client = "SELECT * FROM `credit_client` WHERE client_id='$client_id' ";
-// $result_select_client = $conn->query($select_client);
-// if ($result_select_client->num_rows > 0) {
-//   $client = $result_select_client->fetch_assoc();
-  
-//   $isClient = true;
-//   if ($client['cin_piece'] == null) {
-//     $isOK = false;
-//   } else {
-//     $isOK = true;
-//   }
-// } else {
-//   $isClient = false;
-// }
+if (isset($_SESSION['client_id_temp'])) {
+
+  $client_id_temp = $_SESSION['client_id_temp'];
+  $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id_temp}' ";
+  $result_credit = $conn->query($query_credit);
+  $credit = $result_credit->fetch_assoc();
+  $isClient = false;
+  $shouldBeUser = true;
+} else {
+  if (isset($_SESSION['client_id'])) {
+    $client_id = $_SESSION['client_id'];
+    $query_client = "SELECT * FROM `slf_user_client` WHERE client_id = '{$client_id}' ";
+    $result_client = $conn->query($query_client);
+    $client = $result_client->fetch_assoc();
+
+    $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id}' ";
+    $result_credit = $conn->query($query_credit);
+    $credit = $result_credit->fetch_assoc();
+
+    $tariff_id = $credit['tariff_id'];
+    $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
+    $result_select_tariff = $conn->query($select_tariff);
+    $tariff = $result_select_tariff->fetch_assoc();
+
+    if (empty($client['cin_piece'])) {
+      $isOK = false;
+    } else {
+      $isOK = true;
+    }
+    $isClient = true;
+    $shouldBeUser = true;
+  }
+
+}
+
+if (!$shouldBeUser) {
+  header('location: ./login');
+}
 
 ?>
 
@@ -54,7 +75,7 @@ $tagList = array("chrono", "list","new");
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  
+
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style-form.css" rel="stylesheet">
@@ -70,14 +91,25 @@ $tagList = array("chrono", "list","new");
     include 'siderbar-cl.php';
   } else {
     header('location: ./404');
-  } 
-  if ($_GET["tag"] == "new") { 
+  }
+  if ($_GET["tag"] == "new") {
     include "new-credit-client.php";
-   } ?>
+  } ?>
 
 
-  
-<?php  include 'users/client/profile.php'; ?>
+
+  <?php if (isset($client['client_id']) && $isOK) {
+    include 'users/client/profile-edit.php';
+
+  } else if (isset($client['client_id']) && !$isOK) {
+
+    include 'users/client/profile-edit-infos.php';
+
+  } else if (!isset($client['client_id'])) {
+
+    include 'users/client/profile-new.php';
+  }
+  ?>
 
 
 
@@ -86,16 +118,53 @@ $tagList = array("chrono", "list","new");
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  
+
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-  
+
+
 
   <!-- <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script> -->
   <script type="text/javascript" src="jquery.min.js"></script>
   <!-- Template Main JS File -->
   <script src="assets/js/main-form.js"></script>
   <!-- <script type="text/javascript" src="javascript/sim-cl.js"></script> -->
+
+  <script>
+        function loadRegions() {
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region'] ?>" },
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        console.log(data);
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
+    function loadTowns() {
+        const RegionID = $("#idRegion").val();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+            success: function (data) {
+                $("#idTown").html(data);
+            }
+        });
+    }
+  </script>
 
 </body>
 

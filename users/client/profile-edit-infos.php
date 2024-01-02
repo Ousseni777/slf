@@ -1,5 +1,110 @@
 <style>
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
 
+    ::-webkit-scrollbar-thumb {
+        background-color: purple;
+        /* border-radius: 6px; */
+
+    }
+
+    .error-text {
+        color: #721c24;
+        padding: 8px 10px;
+        text-align: center;
+        border-radius: 5px;
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .profile-new {
+        padding: 20% 30%;
+    }
+
+    .inputImage {
+        display: none;
+    }
+
+    .labelInputImage:hover {
+        cursor: pointer;
+    }
+
+    .card-body .form-hide {
+        display: none;
+    }
+
+    .portfolio-wrap {
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+        /* padding: 5%; */
+        z-index: 1;
+    }
+
+
+    .portfolio-wrap::before {
+        content: "";
+        background: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transition: all ease-in-out 0.3s;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .portfolio-wrap img {
+        height: 160px;
+        width: 96%;
+        margin: 2%;
+    }
+
+    .portfolio-wrap .portfolio-links {
+        opacity: 1;
+        left: 0;
+        right: 0;
+        bottom: -60px;
+        z-index: 3;
+        position: absolute;
+        transition: all ease-in-out 0.3s;
+        display: flex;
+        justify-content: center;
+    }
+
+    .portfolio-wrap .portfolio-links a {
+        color: #fff;
+        font-size: 28px;
+        text-align: center;
+        background: rgba(20, 157, 221, 0.75);
+        transition: 0.3s;
+        width: 100%;
+    }
+
+    .portfolio-wrap .portfolio-links a:hover {
+        background: rgba(20, 157, 221, 0.95);
+    }
+
+    .portfolio-wrap .portfolio-links a+a {
+        border-left: 1px solid #37b3ed;
+    }
+
+    .portfolio-wrap:hover::before {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 1;
+    }
+
+    .portfolio-wrap:hover .portfolio-links {
+        opacity: 1;
+        bottom: 0;
+    }
 </style>
 
 <main id="main" class="main">
@@ -49,8 +154,12 @@
 
                         </ul>
                         <div class="tab-content pt-2">
-              
-
+                            <div class="tab-pane fade profile-new card show" id="profile-new">
+                                <div class="card-body">
+                                    <button class="btn btn-primary" style="padding: 5%;" data-bs-toggle="modal"
+                                        data-bs-target="#modalPieces">Finalisez votre demande</button>
+                                </div>
+                            </div>
 
                             <div class="tab-pane fade profile-edit show active pt-3" id="profile-edit">
 
@@ -229,129 +338,163 @@
                             </div>
 
 
-                            <div class="tab-pane fade pt-3" id="profile-pieces">
-
-                                <div class="card" id="profile-pieces-edit">
-                                    <div class="card-body row">
-                                        <h5 class="card-title infos-client col-lg-12"
-                                            onclick="displayElement('.justificatifs')">
-                                            <i class="bi bi-file-earmark-text left"></i>Justificatifs<i
-                                                class="bi right bi-dash justificatifs-bi"></i>
-                                        </h5>
-
-                                        <div class="col-lg-4 justificatifs">
-                                            <div class="portfolio-wrap col-8 form-control">
-                                                <img id="preview-inputImageCIN"
-                                                    src="users/agency/images/<?php echo $client["cin_piece"] ?>"
-                                                    class="pieces img-fluid" alt="">
-                                                <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["cin_piece"] ?>"
-                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
-
-                                                </div>
-
-                                            </div>
-                                            <label class="btn btn-outline-primary" for="inputImageCIN"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
-                                            <input type="file" name="yourCIN"
-                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                class="form-control inputImage" id="inputImageCIN" required>
-                                        </div>
-                                        <div class="col-lg-4 justificatifs">
-                                            <div class="portfolio-wrap col-8 form-control">
-                                                <img id="preview-inputImageRib"
-                                                    src="users/agency/images/<?php echo $client["rib_piece"] ?>"
-                                                    class="pieces img-fluid" alt="">
-                                                <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["rib_piece"] ?>"
-                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
-
-                                                </div>
-
-                                            </div>
-                                            <label class="btn btn-outline-primary" for="inputImageRib"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
-                                            <input type="file" name="yourRIB"
-                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                class="form-control inputImage" id="inputImageRib" required>
-                                        </div>
-                                        <div class="col-lg-4 justificatifs">
-                                            <div class="portfolio-wrap col-8 form-control">
-                                                <img id="preview-inputImageAdress"
-                                                    src="users/agency/images/<?php echo $client["adress_piece"] ?>"
-                                                    class="pieces img-fluid" alt="">
-                                                <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["adress_piece"] ?>"
-                                                        class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                                                </div>
-                                            </div>
-                                            <label class="btn btn-outline-primary" for="inputImageAdress"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
-
-                                            <input type="file" name="yourAdress"
-                                                accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                                class="form-control inputImage" id="inputImageAdress" required>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-outline-success btn-send-infos-client"
-                                            name="">Sauvegarder les
-                                            modifications</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
                             <div class="tab-pane fade profile-overview" id="profile-overview">
-                                <h5 class="card-title">About</h5>
-                                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
+                                
+                                <!-- <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
                                     cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure
                                     rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at
-                                    unde.</p>
+                                    unde.</p> -->
 
-                                <h5 class="card-title">Profile Details</h5>
+                                <h5 class="card-title">Référence de demande : <?php echo $credit['credit_id'] ?> </h5>
 
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                                    <div class="col-lg-3 col-md-4 label ">Date demande crédit :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['up_date'] ?> </div>
                                 </div>
 
                                 <div class="row">
 
-                                    <div class="col-lg-3 col-md-4 label">Company</div>
-                                    <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                                    <div class="col-lg-3 col-md-4 label">Type de demande :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['project'] ?> </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Job</div>
-                                    <div class="col-lg-9 col-md-8">Web Designer</div>
+                                    <div class="col-lg-3 col-md-4 label">Marque :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $tariff['MARQUE'] ?>   </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Country</div>
-                                    <div class="col-lg-9 col-md-8">USA</div>
+                                    <div class="col-lg-3 col-md-4 label">Type produit :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $tariff['PRODUIT'] ?> </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                                    <div class="col-lg-3 col-md-4 label">Montant demandé (DH) :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['amount'] ?> </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                                    <div class="col-lg-3 col-md-4 label">Durée du crédit (mois) :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['duration'] ?> </div>
+                                </div>
+
+                            
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Mensualité :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['monthly'] ?> </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                                    <div class="col-lg-3 col-md-4 label">Frais de dossier :</div>
+                                    <div class="col-lg-9 col-md-8"><?php echo $credit['app_fees'] ?> </div>
                                 </div>
 
                             </div>
 
+                            <div class="modal fade" id="modalPieces" role="dialog" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true"
+                                data-bs-backdrop="false">
+                                <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderPieces"
+                                    role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="success-text" id="success-pieces">
+                                        <div class="alert alert-success" role="alert" style="text-align:center;">
+                                            <h4 class="alert-heading">Félicitation !</h4>
+                                            <p>Vos données personnelles ont été envoyées avec succès, merci de nous
+                                                faire part les justificatifs !
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="pagetitle">
+                                                <h1>Justificatifs</h1>
+                                                <nav>
+                                                    <ol class="breadcrumb">
+                                                        <li class="breadcrumb-item">Infos</li>
+                                                        <li class="breadcrumb-item active">Justificatifs</li>
+                                                    </ol>
+                                                </nav>
+                                            </div><!-- End Page Title -->
+                                            <a href="./sim-cl?tag=chrono" class="btn-close" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div
+                                                class="row d-flex flex-column align-items-center justify-content-center">
+                                                <div class="col-md-8 col-lg-6 row mt-3">
+                                                    <!-- <span>CIN / Carte séjour</span> -->
+                                                    <div
+                                                        class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
+
+                                                        <img id="preview-inputImageCIN" class="mt-3"
+                                                            src="users/client/images/cin.jpg"
+                                                            style="width: 130px; height: 100px;" alt="Profile">
+
+                                                    </div>
+                                                    <label class="btn btn-outline-primary" for="inputImageCIN"><i
+                                                            class="bi bi-upload"></i> Charger
+                                                        le CIN</label>
+
+                                                    <input type="file" name="yourCIN"
+                                                        accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                        class="form-control inputImage" id="inputImageCIN" required>
+
+                                                </div>
+                                                <div class="col-md-8 col-lg-6 row mt-3">
+                                                    <!-- <span>RIB</span> -->
+                                                    <div
+                                                        class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
+
+                                                        <img id="preview-inputImageRib" class="mt-3"
+                                                            src="users/client/images/rib.png"
+                                                            style="width: 130px; height: 100px;" alt="Profile">
+
+                                                    </div>
+
+                                                    <label class="btn btn-outline-primary" for="inputImageRib"><i
+                                                            class="bi bi-upload"></i> Charger
+                                                        le RIB</label>
+                                                    <input type="file" name="yourRIB"
+                                                        accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                        class="form-control inputImage" id="inputImageRib" required>
+
+                                                </div>
+                                                <div class="col-md-8 col-lg-6 row mt-3">
+                                                    <!-- <span>Adresse</span> -->
+                                                    <div
+                                                        class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
+
+                                                        <img id="preview-inputImageAdress" class="mt-3"
+                                                            src="users/client/images/adress.png"
+                                                            style="width: 130px; height: 100px;" alt="Profile">
+
+                                                    </div>
+
+                                                    <label class="btn btn-outline-primary" for="inputImageAdress"><i
+                                                            class="bi bi-upload"></i>
+                                                        Charger l'adresse</label>
+
+                                                    <input type="file" name="yourAdress"
+                                                        accept="image/x-png,image/gif,image/jpeg,image/jpg"
+                                                        class="form-control inputImage" id="inputImageAdress" required>
+                                                </div>
+                                                <!-- <div class="col-lg-3"></div> -->
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#modalInfos">Retour</button>
+                                            <button type="submit" class="btn btn-primary btn-send-pieces"
+                                                name="btn-send-pieces">Terminer</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -363,30 +506,72 @@
     </section>
 
 
-</main>
+</main><!-- End #main -->
+
 
 
 <script>
+
     window.addEventListener("load", function () {
         $(".form-hide").show();
+        $("#profile-new").hide();
         loadRegions();
     });
+    document.getElementById("nav-link-track").addEventListener("click", function () {
+        $("#profile-new").hide();
+    })
 
-    function displayElement(elt) {
-        icone = elt + "-bi";
-        if ($(elt).hasClass("active")) {
-            $(elt).hide();
-            $(elt).removeClass('active');
-            $(icone).removeClass('bi-dash');
-            $(icone).addClass('bi-plus');
+    document.getElementById("nav-link-pieces").addEventListener("click", function () {
+        $("#profile-new").show();
 
-        } else {
-            $(elt).show();
-            $(elt).addClass('active');
-            $(icone).addClass('bi-dash');
-            $(icone).removeClass('bi-plus');
+    })
+    document.getElementById("nav-link-infos").addEventListener("click", function () {
+        $("#profile-new").hide();
+    })
+    function chargerImage(elementId) {
+        var inputImage = document.getElementById(elementId);
+        imagePreviewID = "preview-" + elementId;
+        var imagePreview = document.getElementById(imagePreviewID);
+
+        var fichierImage = inputImage.files[0];
+
+        // Vérifiez si un fichier a été sélectionné
+        if (fichierImage) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+            };
+
+            // Lire le contenu du fichier comme une URL de données
+            reader.readAsDataURL(fichierImage);
         }
     }
+
+    // Fonction appelée lorsqu'on clique sur le bouton "Enregistrer"
+    function sauvegarderImage(inputImage) {
+        var inputImage = document.getElementById(inputImage);
+        var fichierImage = inputImage.files[0];
+
+        // Vérifiez si un fichier a été sélectionné
+        if (fichierImage) {
+            console.log('Image sélectionnée:', fichierImage);
+        } else {
+            console.log('Aucune image sélectionnée.');
+        }
+    }
+
+    // Ajoutez un écouteur d'événement pour détecter les changements dans le champ d'entrée de type "file"
+    document.getElementById('inputImageCIN').addEventListener('change', function () {
+        chargerImage('inputImageCIN');
+    });
+    document.getElementById('inputImageRib').addEventListener('change', function () {
+        chargerImage('inputImageRib');
+
+    });
+    document.getElementById('inputImageAdress').addEventListener('change', function () {
+        chargerImage('inputImageAdress');
+
+    });
 
 
 

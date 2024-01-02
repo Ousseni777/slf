@@ -1,5 +1,5 @@
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar" style="margin-top: -5%;" >
 
   <!-- <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -31,14 +31,14 @@
       <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
               data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
               Bien comprendre le crédit
             </button>
           </h2>
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+          <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne"
             data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            <div class="accordion-body ">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Dolores sint, cum, dignissimos in omnis consectetur, dolore voluptas nulla corporis
               quaerat fugit! <a href="#"> >> lire la suite ...</a></div>
           </div>

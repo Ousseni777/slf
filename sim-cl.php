@@ -83,10 +83,10 @@ if (!$shouldBeUser) {
 
 </head>
 
-<body>
+<body style="padding: 0;" >
 
   <?php if (isset($_GET["tag"]) && in_array($_GET["tag"], $tagList)) {
-    include 'header-cl.php';
+    // include 'header-cl.php';
 
     include 'siderbar-cl.php';
   } else {

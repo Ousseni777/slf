@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <?php include("overview.php") ?>
-                        
+
                             <div class="modal fade" id="modalInfos" role="dialog" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true"
                                 data-bs-backdrop="false">
@@ -363,8 +363,8 @@
     }
 
     const formInfos = document.getElementById("formInfos"),
-        btnContinuous = formInfos.querySelector(".btn-send-infos");
-    errorText = formInfos.querySelector(".errors");
+        btnContinuous = formInfos.querySelector(".btn-send-infos"),
+        errorText = formInfos.querySelector(".errors");
 
     formInfos.onsubmit = (e) => {
         e.preventDefault();

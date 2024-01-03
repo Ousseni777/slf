@@ -424,7 +424,9 @@
                                                                     id="inputImageAdress" required>
                                                             </div>
                                                             <!-- <div class="col-lg-3"></div> -->
+                                                            <div class="card errors">
 
+</div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" id="back">Revenir</button>
@@ -437,8 +439,6 @@
                                             </div>
 
                                         </div>
-
-
                                     </div>
 
                                 </div>
@@ -548,6 +548,48 @@
         }
     }
 
+    const formPieces = document.getElementById("formPieces"),
+        btnContinuous = formPieces.querySelector(".btn-send-pieces"),
+        errorText = formPieces.querySelector(".errors");
+
+    formPieces.onsubmit = (e) => {
+        e.preventDefault();
+    }
+
+    btnContinuous.onclick = () => {
+        formPieces.style.pointerEvents = "none";
+        $('#mainPreloaderPieces').show();
+        errorText.style.display = "none";
+        formPieces.style.opacity = .5;        
+
+        setTimeout(function () {
+            $('#mainPreloaderPieces').hide();
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "./users/client/save-pieces.php", true);
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+
+                        let data = xhr.response.trim();
+                        if (data === "success") {
+                            
+                            $("#modalPieces").modal("hide");
+                        } else {
+                            formPieces.style.pointerEvents = "all";
+                            formPieces.style.opacity = 1;
+                            errorText.style.display = "block";
+                            errorText.innerHTML = data;
+
+                        }
+                    }
+                }
+            }
+
+            let formData = new FormData(formPieces);
+            xhr.send(formData);
+        }, 2000);
+
+    }
 
 
 </script>

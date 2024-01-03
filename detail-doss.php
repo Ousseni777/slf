@@ -286,8 +286,8 @@ if ($result_credit->num_rows > 0) {
                 </div>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="sim">Simulation</a></li>
-                        <li class="breadcrumb-item">Emprunteur</li>
+                        <li class="breadcrumb-item">Dossier</li>
+                        <li class="breadcrumb-item active">Detail dossier</li>
                     </ol>
                 </nav>
 

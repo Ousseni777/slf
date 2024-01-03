@@ -278,8 +278,8 @@ if ($result_credit->num_rows > 0) {
                 <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a>  Récapitulatif de la demande N°: <b><?php echo $credit['credit_id'] ?></b> </h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="sim">Simulation</a></li>
-                        <li class="breadcrumb-item">Emprunteur</li>
+                        <li class="breadcrumb-item"><a href="sim">Crédit</a></li>
+                        <li class="breadcrumb-item active">Detail crédit</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->

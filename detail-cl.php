@@ -256,8 +256,8 @@ if ($result_client->num_rows > 0) {
                         </b>) </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="sim-fx?tag=fx">Simulation </a></li>
-                            <li class="breadcrumb-item">Référence Emprunteur </li>
+                            <li class="breadcrumb-item"><a href="sim-fx?tag=fx">Client </a></li>
+                            <li class="breadcrumb-item active">Référence Emprunteur </li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->
@@ -485,8 +485,8 @@ if ($result_client->num_rows > 0) {
                         </b> </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="sim-fx?tag=fx">Simulation</a></li>
-                            <li class="breadcrumb-item">Emprunteur</li>
+                            <li class="breadcrumb-item">Client</li>
+                            <li class="breadcrumb-item active">Detail client</li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->

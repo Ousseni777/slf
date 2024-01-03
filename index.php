@@ -169,13 +169,14 @@ if (isset($_GET['tag'])) {
 
                             <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
                                 récapitulatif</h3>
-                            <div class="error-text"></div>
+                            
                             <div class="card-body">
 
                                 <hr class="hr">
 
                                 <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
                                 <form action="#" id="formPerso" method="POST">
+                                <div class="error-text"></div>
                                     <!-- List group with active and disabled items -->
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input
@@ -215,13 +216,14 @@ if (isset($_GET['tag'])) {
 
                             <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
                                 récapitulatif</h3>
-                            <div class="error-text"></div>
+                            
                             <div class="card-body">
 
                                 <hr class="hr">
 
                                 <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
                                 <form action="#" method="POST" id="formAuto">
+                                <div class="error-text"></div>
                                     <!-- List group with active and disabled items -->
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID

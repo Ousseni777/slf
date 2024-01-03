@@ -20,7 +20,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>BORO OUSSENI</h6>
-                        <span>Fonctionnaire</span>
+                        <span>Commerçant</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -31,7 +31,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="#">
                             <i class="bi bi-gear"></i>
                             <span>Mes infos personnelles</span>
                         </a>

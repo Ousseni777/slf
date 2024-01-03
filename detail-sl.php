@@ -240,8 +240,8 @@ if ($result_seller->num_rows > 0) {
                         </b> </h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="sim-fx?tag=fx">Simulation</a></li>
-                            <li class="breadcrumb-item">Emprunteur</li>
+                            <li class="breadcrumb-item">Vendeur</li>
+                            <li class="breadcrumb-item active">Detail vendeur</li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->

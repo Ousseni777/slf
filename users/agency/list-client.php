@@ -40,7 +40,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Aperçu client</li>
-                <li class="breadcrumb-item">Liste de vos clients</li>
+                <li class="breadcrumb-item active">Liste de vos clients</li>
             </ol>
         </nav>
     </div>

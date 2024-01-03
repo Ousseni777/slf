@@ -10,8 +10,8 @@ window.addEventListener("load", function () {
 //Formulaire crédit personnel ou renouvellable
 
 const formP = document.getElementById("formPerso"),
-    btnCreditPerso = formP.querySelector(".btn_credit_perso");
-errorText = formP.querySelector(".error-text");
+    btnCreditPerso = formP.querySelector(".btn_credit_perso"),
+    errorTextP = formP.querySelector(".error-text");
 
 formP.onsubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ formP.onsubmit = (e) => {
 btnCreditPerso.onclick = () => {
     formP.style.pointerEvents = "none";
     $('#preloaderCreditPerso').show();
-    errorText.style.display = "none";
+    errorTextP.style.display = "none";
     formP.style.opacity = .5;
     setTimeout(function () {
         $('#preloaderCreditPerso').hide();
@@ -35,8 +35,8 @@ btnCreditPerso.onclick = () => {
                         location.href = "signup";
 
                     } else {
-                        errorText.style.display = "block";
-                        errorText.textContent = data;
+                        errorTextP.style.display = "block";
+                        errorTextP.textContent = data;
                     }
                 }
             }
@@ -49,8 +49,8 @@ btnCreditPerso.onclick = () => {
 //Formulaire crédit auto
 
 const form = document.getElementById("formAuto"),
-    btnCreditAuto = form.querySelector(".btn_credit_auto");
-errorText = form.querySelector(".error-text");
+    btnCreditAuto = form.querySelector(".btn_credit_auto"),
+    errorText = form.querySelector(".error-text");
 
 form.onsubmit = (e) => {
     e.preventDefault();
@@ -62,8 +62,8 @@ btnCreditAuto.onclick = () => {
     xhr.onload = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                let data = xhr.response.trim();
-                console.log(data);
+                let responseData = JSON.parse(xhr.responseText);
+                let data = responseData.status.trim();
                 if (data === "success") {
                     location.href = "signup";
 

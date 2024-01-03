@@ -33,16 +33,16 @@ switch ($_POST['ID_SCRIPT']) {
 }
 
 
-function calculateMonthlyPayment($principal, $InterestRate, $loanTermInMonths)
-{
+// function calculateMonthlyPayment($principal, $InterestRate, $loanTermInMonths)
+// {
 
-    $monthlyInterestRate = $InterestRate / 100;
+//     $monthlyInterestRate = $InterestRate / 100;
 
-    // Calculer la mensualité en utilisant la formule du prêt amortissable
-    $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$loanTermInMonths));
+    
+//     $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$loanTermInMonths));
 
-    return $monthlyPayment;
-}
+//     return $monthlyPayment;
+// }
 
 function calc_payment($pv, $payno, $int, $RV, $accuracy)
 {

@@ -324,6 +324,7 @@
                                     role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
+
                                 <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="success-text" id="success-pieces">
                                         <div class="alert alert-success" role="alert" style="text-align:center;">
@@ -333,6 +334,7 @@
                                             </p>
                                         </div>
                                     </div>
+
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div class="pagetitle">
@@ -347,6 +349,7 @@
                                             <a href="./sim-cl?tag=chrono" class="btn-close" aria-label="Close"></a>
                                         </div>
                                         <div class="modal-body">
+
                                             <div
                                                 class="row d-flex flex-column align-items-center justify-content-center">
                                                 <div class="col-md-8 col-lg-6 row mt-3">
@@ -409,17 +412,20 @@
                                                 <!-- <div class="col-lg-3"></div> -->
 
                                             </div>
+
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#modalInfos">Retour</button>
+                                            <button class="btn btn-secondary" id="back" >Revenir</button>
                                             <button type="submit" class="btn btn-primary btn-send-pieces"
                                                 name="btn-send-pieces">Terminer</button>
                                         </div>
 
                                     </div>
+
                                 </div>
+
                             </div>
+
 
                         </div>
 
@@ -443,6 +449,9 @@
         $(".form-hide").show();
         loadRegions();
     });
+    document.getElementById("back").addEventListener("click", function () {
+        $("#modalPieces").modal('hide');
+    })
     document.getElementById("nav-link-track").addEventListener("click", function () {
         $("#profile-new").hide();
     })

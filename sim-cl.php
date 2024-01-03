@@ -139,7 +139,7 @@ if (!$shouldBeUser) {
                     method: "POST",
                     data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         $("#idTown").html(data);
                     }
                 });

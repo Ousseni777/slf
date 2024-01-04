@@ -300,10 +300,6 @@
 
 
 <script>
-    window.addEventListener("load", function () {
-        $(".form-hide").show();
-        loadRegions();
-    });
 
     function displayElement(elt) {
         icone = elt + "-bi";

@@ -219,14 +219,8 @@
 
 </div>
 <script type="text/javascript" src="./javascript/ajax-script.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
 <script>
-
-    //Après chargement de la page
-
-    window.addEventListener("load", function () {
-        $('#spinnerRecap').hide();
-        controller();
-    });
 
     //Pour le crédit personnel
     var rangeInputTTC = document.getElementById('rangeInputTTC');
@@ -364,12 +358,6 @@
             $('#spinnerRecap').hide();
             $('#cardAuto').show();
         }, 2000);
-
-        // setTimeout(function () {
-
-        //     $('#spinnerRecap').hide();
-        //     $('#cardAuto').show();
-        // }, 4000);
     }
     function displayPerso() {
 
@@ -384,13 +372,6 @@
             $('#spinnerRecap').hide();
             $('#cardPerso').show();
         }, 2000);
-
-        // setTimeout(function () {
-
-        //     $('#spinnerRecap').hide();
-        //     $('#cardPerso').show();
-        // }, 2000);
-
     }
     function hideCard() {
         document.getElementById('cardAuto').style.display = "none";
@@ -404,7 +385,21 @@
         });
     }
 
+    function displayElement(elt) {
+        icone = elt + "-bi";
+        if ($(elt).hasClass("active")) {
+            $(elt).hide();
+            $(elt).removeClass('active');
+            $(icone).removeClass('bi-dash');
+            $(icone).addClass('bi-plus');
 
+        } else {
+            $(elt).show();
+            $(elt).addClass('active');
+            $(icone).addClass('bi-dash');
+            $(icone).removeClass('bi-plus');
+        }
+    }
 
 
 </script>

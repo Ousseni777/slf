@@ -36,7 +36,8 @@
                                         data-bs-target="#modalInfos">Completez votre demande</button>
                                 </div>
                             </div>
-                            <?php include("overview.php") ?>
+                            
+                            <?php include("tab-overview.php") ?>
 
                             <div class="modal fade" id="modalInfos" role="dialog" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true"
@@ -158,6 +159,7 @@
                                                                         </h5>
                                                                         <div
                                                                             class="col-12  form-hide form-floating mb-3 coordonnee">
+                                                                            <select name="" style="display: none ;" id="isNew"></select>
                                                                             <select name="region" onchange="loadTowns()"
                                                                                 class="form-select" id="idRegion"
                                                                                 aria-label="State">
@@ -318,7 +320,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>            
         </div>
     </section>
 
@@ -327,11 +329,7 @@
 
 
 <script>
-    window.addEventListener("load", function () {
-        $(".form-hide").hide();
 
-        loadRegions();
-    });
 
     document.getElementById("nav-link-track").addEventListener("click", function () {
         $("#profile-new").hide();
@@ -345,6 +343,9 @@
         $("#profile-new").show();
     })
 
+    document.getElementById("nav-link-new").addEventListener("click", function () {
+        $("#profile-new").show();
+    })
 
     function displayElement(elt) {
         icone = elt + "-bi";
@@ -406,5 +407,29 @@
         }, 2000);
 
     }
+
+    function loadRegionsNew() {
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: "region"},
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        // console.log(data);
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
 
 </script>

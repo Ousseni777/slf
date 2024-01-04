@@ -9,7 +9,7 @@ include './connectToDB.php';
 $shouldBeUser = false;
 $isOK = false;
 $tagList = array("chrono");
-unset($_SESSION['client_id_temp']);
+// unset($_SESSION['client_id_temp']);
 
 if (isset($_SESSION['client_id_temp'])) {
 
@@ -74,14 +74,23 @@ if (!$shouldBeUser) {
   <!-- Template Main CSS File -->
   <link href="assets/css/style-form.css" rel="stylesheet">
   <link href="styles/sim-cl.css" rel="stylesheet">
+  <style>
+    .spinner-pieces {
+      position: absolute;
+      z-index: 1;
+      left: 48%;
+      top: 45%;
+      display: none;
+    }
+  </style>
 
 </head>
 
-<body style="padding: 0;" >
+<body style="padding: 0;">
 
   <?php if (isset($_GET["tag"]) && in_array($_GET["tag"], $tagList)) {
     // include 'header-cl.php';
-
+  
     include 'siderbar-cl.php';
   } else {
     header('location: ./404');
@@ -105,58 +114,70 @@ if (!$shouldBeUser) {
   }
   ?>
 
-
-
-
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-
-  <!-- <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script> -->
   <script type="text/javascript" src="jquery.min.js"></script>
-  <!-- Template Main JS File -->
+
   <script src="assets/js/main-form.js"></script>
-  <!-- <script type="text/javascript" src="javascript/sim-cl.js"></script> -->
 
   <script>
-        function loadRegions() {
-        $.ajax({
-            url: "users/region_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region'] ?>" },
-            success: function (data) {
-                $("#idRegion").html(data);
+    window.addEventListener("load", function () {
+      if (document.getElementById("spinnerRecap")) {
+        $('#spinnerRecap').hide();
+        controller();
+        console.log("spinnerRecap");
+      } else {
+        $(".form-hide").show();
+        loadRegions();
 
-                const RegionID = $("#idRegion").val();
+      }
 
-                $.ajax({
-                    url: "users/region_retriever.php",
-                    method: "POST",
-                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
-                    success: function (data) {
-                        // console.log(data);
-                        $("#idTown").html(data);
-                    }
-                });
-            }
-        });
-    }
+    });
 
-    function loadTowns() {
-        const RegionID = $("#idRegion").val();
-        $.ajax({
+
+    function loadRegions() {
+      var isNew = $("#isNew").val();
+
+      $.ajax({
+        url: "users/region_retriever.php",
+        method: "POST",
+        data: isNew ? {
+          ID_SCRIPT: 'town', ID_REGION: RegionID
+        } : {
+          ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php if (isset($client)) {
+            echo $client['region'];
+          }
+          ?> " },
+        success: function (data) {
+          $("#idRegion").html(data);
+
+          const RegionID = $("#idRegion").val();
+
+          $.ajax({
             url: "users/region_retriever.php",
             method: "POST",
             data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
             success: function (data) {
-                $("#idTown").html(data);
+              $("#idTown").html(data);
             }
-        });
+          });
+        }
+      });
+    }
+
+
+    function loadTowns() {
+      const RegionID = $("#idRegion").val();
+      $.ajax({
+        url: "users/region_retriever.php",
+        method: "POST",
+        data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+        success: function (data) {
+          $("#idTown").html(data);
+        }
+      });
     }
   </script>
 

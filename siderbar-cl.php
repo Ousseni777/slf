@@ -1,5 +1,5 @@
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar" style="margin-top: -5%; padding: 1%;" >
+<aside id="sidebar" class="sidebar" style="margin-top: -5%; padding: 1%;">
 
   <!-- <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -25,7 +25,7 @@
 
   <div class="card mt-3">
 
-    <div class="card-body" >
+    <div class="card-body">
       <h5 class="card-title">Guide pratique</h5>
 
       <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -84,6 +84,8 @@
           aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
           aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="3" aria-label="Slide 4"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -96,6 +98,10 @@
         </div>
         <div class="carousel-item">
           <img src="assets/img/salafin3.jpg" class="img-fluid animated" alt="...">
+
+        </div>
+        <div class="carousel-item">
+          <img src="assets/img/app.png" class="img-fluid animated" alt="...">
 
         </div>
       </div>

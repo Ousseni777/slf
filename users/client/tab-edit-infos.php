@@ -33,7 +33,7 @@
     }
 
     .card-body .form-hide {
-        display: none;
+        /* display: none; */
     }
 
     .portfolio-wrap {
@@ -110,7 +110,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Complétez vos informations personnelles pour finaliser votre demande</h1>
+        <h1>Complétez vos informations personnelles pour finaliser votre demande </h1>
 
         <nav>
             <ol class="breadcrumb">
@@ -464,10 +464,7 @@
 
 <script>
 
-    window.addEventListener("load", function () {
-        $(".form-hide").show();
-        loadRegions();
-    });
+
     document.getElementById("back").addEventListener("click", function () {
         $("#modalPieces").modal('hide');
     })
@@ -550,7 +547,7 @@
 
     const formPieces = document.getElementById("formPieces"),
         btnContinuous = formPieces.querySelector(".btn-send-pieces"),
-        errorText = formPieces.querySelector(".errors");
+        errorTextPieces = formPieces.querySelector(".errors");
 
     formPieces.onsubmit = (e) => {
         e.preventDefault();
@@ -559,7 +556,7 @@
     btnContinuous.onclick = () => {
         formPieces.style.pointerEvents = "none";
         $('#mainPreloaderPieces').show();
-        errorText.style.display = "none";
+        errorTextPieces.style.display = "none";
         formPieces.style.opacity = .5;        
 
         setTimeout(function () {
@@ -577,8 +574,8 @@
                         } else {
                             formPieces.style.pointerEvents = "all";
                             formPieces.style.opacity = 1;
-                            errorText.style.display = "block";
-                            errorText.innerHTML = data;
+                            errorTextPieces.style.display = "block";
+                            errorTextPieces.innerHTML = data;
 
                         }
                     }

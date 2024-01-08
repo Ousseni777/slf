@@ -273,7 +273,7 @@ if (isset($_GET['tag'])) {
 
                             <p class="space"></p>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="idProject" name="project"
                                             onchange="controller()" aria-label="State">
@@ -287,21 +287,8 @@ if (isset($_GET['tag'])) {
                                     </div>
 
                                 </div>
-                                <div class="form-group col-md-4" id="controlProfession">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProfession" name="profession"
-                                            aria-label="State">
-                                            <option value="Salarié">Salarié</option>
-                                            <option value="Fonctionnaire">Fonctionnaire</option>
-                                            <option value="Commerçant">Commerçant</option>
-
-                                        </select>
-
-                                        <label for="floatingSelect">Dites-nous qui vous êtes ?</label>
-                                    </div>
-
-                                </div>
-                                <div class="form-group col-md-4 controlAutos" id="controlBrand">
+                                
+                                <div class="form-group col-md-3 controlAutos" id="controlBrand">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
                                             aria-label="State">
@@ -313,16 +300,29 @@ if (isset($_GET['tag'])) {
 
                                 </div>
 
-                                <div class="form-group col-md-4 controlAutos" id="controlProduct">
+                                <div class="form-group col-md-3 controlAutos" id="controlProduct">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="idProduct" onchange="loadTariff()"
                                             name="product" aria-label="State">
 
-
-
                                         </select>
                                         <label for="floatingSelect">Produit</label>
                                     </div>
+                                </div>
+                                <div class="form-group col-md-3" id="controlProfession">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="idProfession" name="profession"
+                                            aria-label="State">
+                                            <option value="Salarié">Salarié</option>
+                                            <option value="Fonctionnaire">Fonctionnaire</option>
+                                            <option value="Commerçant">Commerçant</option>
+                                            <option value="Société">Société</option>
+
+                                        </select>
+
+                                        <label for="floatingSelect">Dites-nous qui vous êtes ?</label>
+                                    </div>
+
                                 </div>
                                 <div class="form-group col-md-4" style="display: none;">
                                     <div class="form-floating mb-3">
@@ -831,6 +831,39 @@ if (isset($_GET['tag'])) {
     <script type="text/javascript" src="javascript/index.js"></script>
 
     <script type="text/javascript" src="assets/js/preloader.js"></script>
+
+    <script>
+        function controller() {
+
+let project = document.getElementById('idProject');
+let profession = document.getElementById('controlProfession');
+let auto_block = document.getElementById('auto-block');
+let perso_block = document.getElementById('perso-block');
+
+let autos = document.querySelectorAll('.controlAutos');
+
+
+if (project.value == "auto") {
+    displayAutos(autos);
+    // profession.style.display = 'none';
+    auto_block.style.display = "inline";
+    perso_block.style.display = "none";
+
+    loadBrand();
+
+} else {
+    profession.style.display = 'block';
+    auto_block.style.display = "none";
+    perso_block.style.display = "inline";
+    hideAutos(autos);
+
+
+    calcFunctionPerso();
+
+}
+hideCard();
+}
+    </script>
 
 
 </body>

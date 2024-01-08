@@ -112,7 +112,7 @@ if (!$shouldBeUser) {
 
   } else if ($isClient && !$isOK) {
 
-    include 'users/client/tab-edit-infos.php';
+    include 'users/client/tab-completion-pieces.php';
 
   } else if (!$isClient) {
 

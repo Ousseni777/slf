@@ -173,7 +173,7 @@ function controller() {
 
     if (project.value == "auto") {
         displayAutos(autos);
-        profession.style.display = 'none';
+        // profession.style.display = 'none';
         auto_block.style.display = "inline";
         perso_block.style.display = "none";
 

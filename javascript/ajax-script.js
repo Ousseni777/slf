@@ -134,6 +134,7 @@ function calcFunctionAuto() {
 function calcFunctionPerso(script = "monthly") {
 
     AmountID = $("#rangeInputTTC").val();
+    ProfessionID= $("#idProfession").val();
     DurationValue = $("#rangeInputDurationPerso").val();
     Monthly = $("#rangeInputMonthlyPerso").val();
     var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
@@ -149,7 +150,8 @@ function calcFunctionPerso(script = "monthly") {
             ID_SCRIPT: script,
             ID_AMOUNT: AmountID,
             ID_DURATION: DurationValue,
-            ID_MONTHLY: Monthly
+            ID_MONTHLY: Monthly,
+            ID_PROFESSION: ProfessionID
 
         },
         success: (data) => {

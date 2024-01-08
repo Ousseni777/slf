@@ -311,12 +311,12 @@ if (isset($_GET['tag'])) {
                                 </div>
                                 <div class="form-group col-md-3" id="controlProfession">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProfession" name="profession"
+                                        <select class="form-select" id="idProfession" onchange="calcFunctionPerso('monthly')" name="profession"
                                             aria-label="State">
-                                            <option value="Salarié">Salarié</option>
-                                            <option value="Fonctionnaire">Fonctionnaire</option>
-                                            <option value="Commerçant">Commerçant</option>
-                                            <option value="Société">Société</option>
+                                            <option value="SALARIE">Salarié</option>
+                                            <option value="FONCTIONNAIRE">Fonctionnaire</option>
+                                            <option value="COMMERCANT">Commerçant</option>
+                                            <option value="SOCIETE">Société</option>
 
                                         </select>
 

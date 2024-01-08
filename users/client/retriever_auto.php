@@ -50,7 +50,7 @@ switch ($_POST['ID_SCRIPT']) {
 
 function fetchBrand(){
     global $conn, $Affiliation;
-    $query = "SELECT DISTINCT MARQUE FROM SLF_TARIFICATION";
+    $query = "SELECT DISTINCT MARQUE FROM SLF_TARIFICATION WHERE MARQUE is not NULL";
 
     
     

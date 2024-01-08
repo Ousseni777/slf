@@ -60,7 +60,7 @@ function fetchBrand()
 {
     global $conn, $affiliation;
     if (!isset($_SESSION['product']) || $_SESSION['product'] == 'SALAFIN') {
-        $query = "SELECT DISTINCT MARQUE FROM slf_tarification";
+        $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE is not NULL ";
     } else {
         $affiliation = $_SESSION['product'];
         $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE = '$affiliation'";

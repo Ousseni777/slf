@@ -1,35 +1,50 @@
 <?php
 include '../../connectToDB.php';
 
-$interestRate = 5; // Taux d'intérêt MENSUEL en pourcentage
+if (isset($_POST['ID_SCRIPT'])) {
+    $produit = $_POST['ID_PROFESSION'];
 
-switch ($_POST['ID_SCRIPT']) {
-    case "monthly":
-        $loanTerm = $_POST['ID_DURATION'];
-        $loanAmount = $_POST['ID_AMOUNT'];
-        $R_Value =  (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
-        $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
-        $results = [
-            "monthlyNOFormat" => $monthlyPayment,
-            "monthly" => number_format($monthlyPayment, 2),
-            "duration" => $loanTerm
-        ];
-        echo json_encode($results);
-        break;
-    case "duration":
-        $loanAmount = $_POST['ID_AMOUNT'];
-        $loanMonthly = $_POST['ID_MONTHLY'];
-        $interestRate = 5; // Taux d'intérêt MENSUEL en pourcentage
-        $duration = calc_number($loanAmount, $interestRate,$loanMonthly);
-        $results = [
-            "duration" => $duration,
-            "monthly" => $loanMonthly
-        ];
-        echo json_encode($results);
-        break;
+    $query = "SELECT * FROM SLF_TARIFICATION WHERE PRODUIT = '$produit'";
+    $result = $conn->query($query);
 
-    default:
-        break;
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        $interestRate = $data['TAUX'];
+        $data_dg = $data['TXFD'];
+
+        switch ($_POST['ID_SCRIPT']) {
+            case "monthly":
+                $loanTerm = $_POST['ID_DURATION'];
+                $loanAmount = $_POST['ID_AMOUNT'];
+
+                $R_Value = (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
+                $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
+                $results = [
+                    "monthlyNOFormat" => $monthlyPayment,
+                    "monthly" => number_format($monthlyPayment, 2),
+                    "duration" => $loanTerm
+                ];
+                echo json_encode($results);
+                break;
+            case "duration":
+                $loanAmount = $_POST['ID_AMOUNT'];
+                $loanMonthly = $_POST['ID_MONTHLY'];
+                $interestRate = 5; // Taux d'intérêt MENSUEL en pourcentage
+                $duration = calc_number($loanAmount, $interestRate, $loanMonthly);
+                $results = [
+                    "duration" => $duration,
+                    "monthly" => $loanMonthly
+                ];
+                echo json_encode($results);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+
 }
 
 
@@ -38,7 +53,7 @@ switch ($_POST['ID_SCRIPT']) {
 
 //     $monthlyInterestRate = $InterestRate / 100;
 
-    
+
 //     $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$loanTermInMonths));
 
 //     return $monthlyPayment;
@@ -110,7 +125,7 @@ function calc_payment($pv, $payno, $int, $RV, $accuracy)
     $pmt = number_format($pmt, $accuracy, ".", "");
 
     return $pmt;
-} 
+}
 
 // function calculateDuration($montantPret, $mensualite, $tauxInteret)
 // {

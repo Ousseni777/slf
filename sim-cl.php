@@ -5,9 +5,11 @@ session_start();
 
 include './connectToDB.php';
 // $_SESSION['client_id_temp'] = "WV-692634956";
-
+$_SESSION['client_id']="GZ-415474418";
 $shouldBeUser = false;
+$isClient = false;
 $isOK = false;
+
 $tagList = array("chrono");
 // unset($_SESSION['client_id_temp']);
 
@@ -16,25 +18,31 @@ if (isset($_SESSION['client_id_temp'])) {
   $client_id_temp = $_SESSION['client_id_temp'];
   $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id_temp}' ";
   $result_credit = $conn->query($query_credit);
-  $credit = $result_credit->fetch_assoc();
-  $isClient = false;
-  $shouldBeUser = true;
+
+  if ($result_credit->num_rows > 0) {
+    $credit = $result_credit->fetch_assoc();
+    $shouldBeUser = true;
+    $isClient = false;
+  }
+  
 } else {
   if (isset($_SESSION['client_id'])) {
     $client_id = $_SESSION['client_id'];
     $query_client = "SELECT * FROM `slf_user_client` WHERE client_id = '{$client_id}' ";
     $result_client = $conn->query($query_client);
-    $client = $result_client->fetch_assoc();
 
+    if ($result_client->num_rows > 0) {
 
-
-    if (empty($client['cin_piece'])) {
-      $isOK = false;
-    } else {
-      $isOK = true;
-    }
-    $isClient = true;
-    $shouldBeUser = true;
+      $client = $result_client->fetch_assoc();
+      $shouldBeUser = true;
+      $isClient = true;
+  
+      if (empty($client['cin_piece']) || empty($client['rib_piece']) || empty($client['adress_piece']) ) {
+        $isOK = false;
+      } else {
+        $isOK = true;
+      }
+    }        
   }
 
 }
@@ -86,11 +94,9 @@ if (!$shouldBeUser) {
 
 </head>
 
-<body style="padding: 0;">
-
+<body>
   <?php if (isset($_GET["tag"]) && in_array($_GET["tag"], $tagList)) {
     // include 'header-cl.php';
-  
     include 'siderbar-cl.php';
   } else {
     header('location: ./404');
@@ -101,14 +107,14 @@ if (!$shouldBeUser) {
 
 
 
-  <?php if (isset($client['client_id']) && $isOK) {
+  <?php if ($isClient && $isOK) {
     include 'users/client/tab-edit-profile.php';
 
-  } else if (isset($client['client_id']) && !$isOK) {
+  } else if ($isClient && !$isOK) {
 
     include 'users/client/tab-edit-infos.php';
 
-  } else if (!isset($client['client_id'])) {
+  } else if (!$isClient) {
 
     include 'users/client/tab-completion-profile.php';
   }

@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             
-                            <?php include("tab-overview.php") ?>
+                            <?php include("tab-overview-credit.php") ?>
 
                             <div class="modal fade" id="modalInfos" role="dialog" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true"

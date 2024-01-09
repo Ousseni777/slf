@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-outline-success btn-send-infos-client"
+                            <button type="submit" class="btn btn-outline-success btn-send-infos"
                                 name="">Sauvegarder les modifications</button>
                         </div>
                     </div>

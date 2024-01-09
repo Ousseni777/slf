@@ -5,7 +5,8 @@ session_start();
 
 include './connectToDB.php';
 // $_SESSION['client_id_temp'] = "WV-692634956";
-$_SESSION['client_id']="WV-692634956";
+$_SESSION['client_id'] = "WV-692634956";
+$_SESSION['page'] = "./sim-cl?tag=chrono";
 $shouldBeUser = false;
 $isClient = false;
 $isOK = false;
@@ -24,7 +25,7 @@ if (isset($_SESSION['client_id_temp'])) {
     $shouldBeUser = true;
     $isClient = false;
   }
-  
+
 } else {
   if (isset($_SESSION['client_id'])) {
     $client_id = $_SESSION['client_id'];
@@ -34,15 +35,18 @@ if (isset($_SESSION['client_id_temp'])) {
     if ($result_client->num_rows > 0) {
 
       $client = $result_client->fetch_assoc();
+      $_SESSION['cin_piece'] = $client['cin_piece'];
+      $_SESSION['rib_piece'] = $client['rib_piece'];
+      $_SESSION['adress_piece'] = $client['adress_piece'];
       $shouldBeUser = true;
       $isClient = true;
-  
-      if (empty($client['cin_piece']) || empty($client['rib_piece']) || empty($client['adress_piece']) ) {
+
+      if (empty($client['cin_piece']) || empty($client['rib_piece']) || empty($client['adress_piece'])) {
         $isOK = false;
       } else {
         $isOK = true;
       }
-    }        
+    }
   }
 
 }
@@ -90,110 +94,112 @@ if (!$shouldBeUser) {
       top: 45%;
       display: none;
     }
+
     ::-webkit-scrollbar {
-        width: 2px;
+      width: 2px;
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: purple;
-        /* border-radius: 6px; */
+      background-color: purple;
+      /* border-radius: 6px; */
 
     }
 
     .error-text {
-        color: #721c24;
-        padding: 8px 10px;
-        text-align: center;
-        border-radius: 5px;
-        background: #f8d7da;
-        border: 1px solid #f5c6cb;
-        margin-bottom: 10px;
-        display: none;
+      color: #721c24;
+      padding: 8px 10px;
+      text-align: center;
+      border-radius: 5px;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      margin-bottom: 10px;
+      display: none;
     }
 
     .profile-new {
-        padding: 20% 30%;
+      padding: 20% 30%;
     }
+
     .inputImage {
-        display: none;
+      display: none;
     }
 
     .labelInputImage:hover {
-        cursor: pointer;
+      cursor: pointer;
     }
 
     .card-body .form-hide {
-        /* display: none; */
+      /* display: none; */
     }
 
     .portfolio-wrap {
-        transition: 0.3s;
-        position: relative;
-        overflow: hidden;
-        /* padding: 5%; */
-        z-index: 1;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+      /* padding: 5%; */
+      z-index: 1;
     }
 
 
     .portfolio-wrap::before {
-        content: "";
-        background: rgba(255, 255, 255, 0.5);
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        transition: all ease-in-out 0.3s;
-        z-index: 2;
-        opacity: 0;
+      content: "";
+      background: rgba(255, 255, 255, 0.5);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      transition: all ease-in-out 0.3s;
+      z-index: 2;
+      opacity: 0;
     }
 
     .portfolio-wrap img {
-        height: 160px;
-        width: 96%;
-        margin: 2%;
+      height: 160px;
+      width: 96%;
+      margin: 2%;
     }
 
     .portfolio-wrap .portfolio-links {
-        opacity: 1;
-        left: 0;
-        right: 0;
-        bottom: -60px;
-        z-index: 3;
-        position: absolute;
-        transition: all ease-in-out 0.3s;
-        display: flex;
-        justify-content: center;
+      opacity: 1;
+      left: 0;
+      right: 0;
+      bottom: -60px;
+      z-index: 3;
+      position: absolute;
+      transition: all ease-in-out 0.3s;
+      display: flex;
+      justify-content: center;
     }
 
     .portfolio-wrap .portfolio-links a {
-        color: #fff;
-        font-size: 28px;
-        text-align: center;
-        background: rgba(20, 157, 221, 0.75);
-        transition: 0.3s;
-        width: 100%;
+      color: #fff;
+      font-size: 28px;
+      text-align: center;
+      background: rgba(20, 157, 221, 0.75);
+      transition: 0.3s;
+      width: 100%;
     }
 
     .portfolio-wrap .portfolio-links a:hover {
-        background: rgba(20, 157, 221, 0.95);
+      background: rgba(20, 157, 221, 0.95);
     }
 
     .portfolio-wrap .portfolio-links a+a {
-        border-left: 1px solid #37b3ed;
+      border-left: 1px solid #37b3ed;
     }
 
     .portfolio-wrap:hover::before {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 1;
     }
 
     .portfolio-wrap:hover .portfolio-links {
-        opacity: 1;
-        bottom: 0;
+      opacity: 1;
+      bottom: 0;
     }
   </style>
 
@@ -236,50 +242,141 @@ if (!$shouldBeUser) {
 </body>
 <script>
 
-    function chargerImage(elementId) {
-        var inputImage = document.getElementById(elementId);
-        imagePreviewID = "preview-" + elementId;
-        var imagePreview = document.getElementById(imagePreviewID);
+  function chargerImage(elementId) {
+    var inputImage = document.getElementById(elementId);
+    imagePreviewID = "preview-" + elementId;
+    var imagePreview = document.getElementById(imagePreviewID);
 
-        var fichierImage = inputImage.files[0];
+    var fichierImage = inputImage.files[0];
 
-        // Vérifiez si un fichier a été sélectionné
-        if (fichierImage) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-            };
+    // Vérifiez si un fichier a été sélectionné
+    if (fichierImage) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+      };
 
-            // Lire le contenu du fichier comme une URL de données
-            reader.readAsDataURL(fichierImage);
-        }
+      // Lire le contenu du fichier comme une URL de données
+      reader.readAsDataURL(fichierImage);
     }
+  }
 
-    // Fonction appelée lorsqu'on clique sur le bouton "Enregistrer"
-    function sauvegarderImage(inputImage) {
-        var inputImage = document.getElementById(inputImage);
-        var fichierImage = inputImage.files[0];
+  // Fonction appelée lorsqu'on clique sur le bouton "Enregistrer"
+  function sauvegarderImage(inputImage) {
+    var inputImage = document.getElementById(inputImage);
+    var fichierImage = inputImage.files[0];
 
-        // Vérifiez si un fichier a été sélectionné
-        if (fichierImage) {
-            console.log('Image sélectionnée:', fichierImage);
-        } else {
-            console.log('Aucune image sélectionnée.');
-        }
+    // Vérifiez si un fichier a été sélectionné
+    if (fichierImage) {
+      console.log('Image sélectionnée:', fichierImage);
+    } else {
+      console.log('Aucune image sélectionnée.');
     }
+  }
 
-    // Ajoutez un écouteur d'événement pour détecter les changements dans le champ d'entrée de type "file"
-    document.getElementById('inputImageCIN').addEventListener('change', function () {
-        chargerImage('inputImageCIN');
-    });
-    document.getElementById('inputImageRib').addEventListener('change', function () {
-        chargerImage('inputImageRib');
+  // Ajoutez un écouteur d'événement pour détecter les changements dans le champ d'entrée de type "file"
+  document.getElementById('inputImageCIN').addEventListener('change', function () {
+    chargerImage('inputImageCIN');
+  });
+  document.getElementById('inputImageRib').addEventListener('change', function () {
+    chargerImage('inputImageRib');
 
-    });
-    document.getElementById('inputImageAdress').addEventListener('change', function () {
-        chargerImage('inputImageAdress');
+  });
+  document.getElementById('inputImageAdress').addEventListener('change', function () {
+    chargerImage('inputImageAdress');
 
-    });
+  });
+
+  const formPieces = document.getElementById("formPieces"),
+    btnContinuousPieces = formPieces.querySelector(".btn-send-pieces"),
+    errorTextPieces = formPieces.querySelector(".errors");
+
+  formPieces.onsubmit = (e) => {
+    e.preventDefault();
+  }
+
+  btnContinuousPieces.onclick = () => {
+    formPieces.style.pointerEvents = "none";
+    $('#mainPreloaderPieces').show();
+    errorTextPieces.style.display = "none";
+    formPieces.style.opacity = .5;
+
+    setTimeout(function () {
+      $('#mainPreloaderPieces').hide();
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "./users/client/save-pieces.php", true);
+      xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+
+            let responseData = JSON.parse(xhr.responseText);
+            let data = responseData.status.trim();
+
+            if (data === "success") {
+              $("#modalPieces").modal("hide");
+              $("#successMessage").html(responseData.message);
+              $("#feedbackModal").modal("show");
+            } else {
+              formPieces.style.pointerEvents = "all";
+              formPieces.style.opacity = 1;
+              errorTextPieces.style.display = "block";
+              errorTextPieces.innerHTML = responseData.message;
+
+            }
+          }
+        }
+      }
+
+      let formData = new FormData(formPieces);
+      xhr.send(formData);
+    }, 2000);
+
+  }
+
+  const formInfos = document.getElementById("formInfos"),
+    btnContinuous = formInfos.querySelector(".btn-send-infos"),
+    errorTextInfos = formInfos.querySelector(".errors");
+
+  formInfos.onsubmit = (e) => {
+    e.preventDefault();
+  }
+
+  btnContinuous.onclick = () => {
+    formInfos.style.pointerEvents = "none";
+    $('#mainPreloaderInfos').show();
+    errorTextInfos.style.display = "none";
+    formInfos.style.opacity = .5;
+    console.log("cliquer");
+
+    setTimeout(function () {
+      $('#mainPreloaderInfos').hide();
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "./users/client/save-infos.php", true);
+      xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+
+            let data = xhr.response.trim();
+            if (data === "success") {
+
+              $("#modalInfos").modal("hide");
+              $("#modalPieces").modal("show");
+            } else {
+              formInfos.style.pointerEvents = "all";
+              formInfos.style.opacity = 1;
+              errorTextInfos.style.display = "block";
+              errorTextInfos.innerHTML = data;
+
+            }
+          }
+        }
+      }
+
+      let formData = new FormData(formInfos);
+      xhr.send(formData);
+    }, 2000);
+
+  }
 </script>
 
 </html>

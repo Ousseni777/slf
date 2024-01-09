@@ -43,7 +43,7 @@
                                 le CIN</label>
 
                             <input type="file" name="yourCIN" accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                class="form-control inputImage" id="inputImageCIN" >
+                                class="form-control inputImage" id="inputImageCIN">
 
                         </div>
                         <div class="col-md-8 col-lg-6 row mt-3">
@@ -60,7 +60,7 @@
                                 Charger
                                 le RIB</label>
                             <input type="file" name="yourRIB" accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                class="form-control inputImage" id="inputImageRib" >
+                                class="form-control inputImage" id="inputImageRib">
 
                         </div>
                         <div class="col-md-8 col-lg-6 row mt-3">
@@ -77,7 +77,7 @@
                                 Charger l'adresse</label>
 
                             <input type="file" name="yourAdress" accept="image/x-png,image/gif,image/jpeg,image/jpg"
-                                class="form-control inputImage" id="inputImageAdress" >
+                                class="form-control inputImage" id="inputImageAdress">
                         </div>
                         <div class="card errors">
 
@@ -97,48 +97,24 @@
     </div>
 </div>
 
-<script>
+<div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
+    data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row modal-header" style="text-align: center;">
+                <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
+                <div class="col-12">
+                    <div class="row">
+                        <p class="info-dialog" id="successMessage"> </p>
+                    </div>
 
-    const formPieces = document.getElementById("formPieces"),
-        btnContinuous = formPieces.querySelector(".btn-send-pieces"),
-        errorTextPieces = formPieces.querySelector(".errors");
+                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
 
-    formPieces.onsubmit = (e) => {
-        e.preventDefault();
-    }
+                </div>
 
-    btnContinuous.onclick = () => {
-        formPieces.style.pointerEvents = "none";
-        $('#mainPreloaderPieces').show();
-        errorTextPieces.style.display = "none";
-        formPieces.style.opacity = .5;
+            </div>
 
-        setTimeout(function () {
-            $('#mainPreloaderPieces').hide();
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "./users/client/save-pieces.php", true);
-            xhr.onload = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
 
-                        let data = xhr.response.trim();
-                        if (data === "success") {
-
-                            $("#modalPieces").modal("hide");
-                        } else {
-                            formPieces.style.pointerEvents = "all";
-                            formPieces.style.opacity = 1;
-                            errorTextPieces.style.display = "block";
-                            errorTextPieces.innerHTML = data;
-
-                        }
-                    }
-                }
-            }
-
-            let formData = new FormData(formPieces);
-            xhr.send(formData);
-        }, 2000);
-
-    }
-</script>
+        </div>
+    </div>
+</div>

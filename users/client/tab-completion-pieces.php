@@ -129,7 +129,9 @@
 
                 <div class="card">
                     <div class="card-body pt-3">
+                        
                         <?php include("nav-tabs.php") ?>
+
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade profile-new card show" id="profile-new">
                                 <div class="card-body">
@@ -140,7 +142,7 @@
 
                             <?php include("edit-infos.php") ?>
                             <?php include("tab-overview-credit.php") ?>
-
+                            <?php include("tab-new-credit.php") ?>
                             <?php include("modal-pieces.php") ?>
 
                         </div>
@@ -150,7 +152,7 @@
 
             </div>
 
-            <?php include("tab-recap.php") ?>
+            <?php include("recap-credit.php") ?>
         </div>
     </section>
 
@@ -162,9 +164,9 @@
 <script>
 
 
-    document.getElementById("back").addEventListener("click", function () {
-        $("#modalPieces").modal('hide');
-    })
+    // document.getElementById("back").addEventListener("click", function () {
+    //     $("#modalPieces").modal('hide');
+    // })
     document.getElementById("nav-link-track").addEventListener("click", function () {
         $("#profile-new").hide();
     })
@@ -180,110 +182,5 @@
     document.getElementById("nav-link-new").addEventListener("click", function () {
         $("#profile-new").hide();
     })
-
-    function chargerImage(elementId) {
-        var inputImage = document.getElementById(elementId);
-        imagePreviewID = "preview-" + elementId;
-        var imagePreview = document.getElementById(imagePreviewID);
-
-        var fichierImage = inputImage.files[0];
-
-        // Vérifiez si un fichier a été sélectionné
-        if (fichierImage) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-            };
-
-            // Lire le contenu du fichier comme une URL de données
-            reader.readAsDataURL(fichierImage);
-        }
-    }
-
-    // Fonction appelée lorsqu'on clique sur le bouton "Enregistrer"
-    function sauvegarderImage(inputImage) {
-        var inputImage = document.getElementById(inputImage);
-        var fichierImage = inputImage.files[0];
-
-        // Vérifiez si un fichier a été sélectionné
-        if (fichierImage) {
-            console.log('Image sélectionnée:', fichierImage);
-        } else {
-            console.log('Aucune image sélectionnée.');
-        }
-    }
-
-    // Ajoutez un écouteur d'événement pour détecter les changements dans le champ d'entrée de type "file"
-    document.getElementById('inputImageCIN').addEventListener('change', function () {
-        chargerImage('inputImageCIN');
-    });
-    document.getElementById('inputImageRib').addEventListener('change', function () {
-        chargerImage('inputImageRib');
-
-    });
-    document.getElementById('inputImageAdress').addEventListener('change', function () {
-        chargerImage('inputImageAdress');
-
-    });
-
-    function displayElement(elt) {
-        icone = elt + "-bi";
-        if ($(elt).hasClass("active")) {
-            $(elt).hide();
-            $(elt).removeClass('active');
-            $(icone).removeClass('bi-dash');
-            $(icone).addClass('bi-plus');
-
-        } else {
-            $(elt).show();
-            $(elt).addClass('active');
-            $(icone).addClass('bi-dash');
-            $(icone).removeClass('bi-plus');
-        }
-    }
-
-    const formPieces = document.getElementById("formPieces"),
-        btnContinuous = formPieces.querySelector(".btn-send-pieces"),
-        errorTextPieces = formPieces.querySelector(".errors");
-
-    formPieces.onsubmit = (e) => {
-        e.preventDefault();
-    }
-
-    btnContinuous.onclick = () => {
-        formPieces.style.pointerEvents = "none";
-        $('#mainPreloaderPieces').show();
-        errorTextPieces.style.display = "none";
-        formPieces.style.opacity = .5;        
-
-        setTimeout(function () {
-            $('#mainPreloaderPieces').hide();
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "./users/client/save-pieces.php", true);
-            xhr.onload = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-
-                        let data = xhr.response.trim();
-                        if (data === "success") {
-                            
-                            $("#modalPieces").modal("hide");
-                        } else {
-                            formPieces.style.pointerEvents = "all";
-                            formPieces.style.opacity = 1;
-                            errorTextPieces.style.display = "block";
-                            errorTextPieces.innerHTML = data;
-
-                        }
-                    }
-                }
-            }
-
-            let formData = new FormData(formPieces);
-            xhr.send(formData);
-        }, 2000);
-
-    }
-
 
 </script>

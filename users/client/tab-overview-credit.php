@@ -8,7 +8,7 @@
 <div class="tab-pane fade profile-overview mt-5" id="profile-overview">
     <?php
 
-    if (isset($client)) {
+    if (isset($client) ) {
 
         $query_credit = "SELECT * FROM `client_credit` WHERE client_id = '{$client_id}' ";
         $result_credit = $conn->query($query_credit);

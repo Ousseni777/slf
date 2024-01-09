@@ -27,6 +27,7 @@
                     <div class="card-body pt-3">
                         
                         <?php include("nav-tabs.php") ?>
+                        
                         <div class="tab-content pt-2">                    
 
                             <?php include("edit-infos.php") ?>

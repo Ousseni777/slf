@@ -129,6 +129,7 @@ if (!$shouldBeUser) {
   <script src="assets/js/main-form.js"></script>
 
   <script>
+    
     window.addEventListener("load", function () {
       if (document.getElementById("spinnerRecap")) {
         $('#spinnerRecap').hide();

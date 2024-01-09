@@ -154,8 +154,10 @@
                                                 $credit = $result_select_credit->fetch_assoc(); ?>
                                                 <input type="text" style="display: none;" name="credit_id"
                                                     value="<?php echo $credit['credit_id'] ?>">
-                                                <input type="text" style="background-color: gray;" id="mySearchInput" readonly
-                                                    name="author" value="<?php echo $credit['client_id'] ?>"
+                                                <input type="text" style="display: none;" name="author_id"
+                                                    value="<?php echo $credit['client_id'] ?>">
+                                                <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput" readonly
+                                                    name="author_cin" value="<?php echo $credit['client_cin'] ?>"
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                             <?php }
                                         } else if (isset($_GET['numdoss'])) {
@@ -172,7 +174,7 @@
                                             <?php }
                                         } else { ?>
                                                 <input type="text" style="display: none;" name="credit_id" value="">
-                                                <input type="text" id="mySearchInput" name="author" required
+                                                <input type="text" id="mySearchInput" name="author_id" required
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                         <?php } ?>
                                     </div>

@@ -90,50 +90,6 @@
         }
     }
 
-    const formInfos = document.getElementById("formInfos"),
-        btnContinuous = formInfos.querySelector(".btn-send-infos"),
-        errorText = formInfos.querySelector(".errors");
-
-    formInfos.onsubmit = (e) => {
-        e.preventDefault();
-    }
-
-    btnContinuous.onclick = () => {
-        formInfos.style.pointerEvents = "none";
-        $('#mainPreloaderInfos').show();
-        errorText.style.display = "none";
-        formInfos.style.opacity = .5;
-        console.log("cliquer");
-
-        setTimeout(function () {
-            $('#mainPreloaderInfos').hide();
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "./users/client/save-infos.php", true);
-            xhr.onload = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-
-                        let data = xhr.response.trim();
-                        if (data === "success") {
-
-                            $("#modalInfos").modal("hide");
-                            $("#modalPieces").modal("show");
-                        } else {
-                            formInfos.style.pointerEvents = "all";
-                            formInfos.style.opacity = 1;
-                            errorText.style.display = "block";
-                            errorText.innerHTML = data;
-
-                        }
-                    }
-                }
-            }
-
-            let formData = new FormData(formInfos);
-            xhr.send(formData);
-        }, 2000);
-
-    }
 
     function loadRegionsNew() {
         $.ajax({

@@ -32,6 +32,7 @@
 
                             <?php include("edit-infos.php") ?>
                             <?php include("edit-pieces.php") ?>
+                            <?php include("tab-new-credit.php") ?>
                             <?php include("tab-overview-credit.php") ?>
 
                         </div>
@@ -40,6 +41,7 @@
                 </div>
 
             </div>
+            <?php include("recap-credit.php") ?>
         </div>
     </section>
 

@@ -170,7 +170,8 @@
                             <div class="spinner-border" style="width: 15px; height: 15px; display: none; "
                                 id="spinnerBtnAuto" role="status">
                                 <span class="visually-hidden">Loading...</span>
-                            </div></button>
+                            </div>
+                        </button>
                     </div>
                 </div>
 
@@ -221,6 +222,11 @@
 <script type="text/javascript" src="./javascript/ajax-script.js"></script>
 <script type="text/javascript" src="jquery.min.js"></script>
 <script>
+
+
+    window.addEventListener("load", function () {
+        controller();
+    });
 
     //Pour le crédit personnel
     var rangeInputTTC = document.getElementById('rangeInputTTC');
@@ -345,13 +351,9 @@
     function displayAuto() {
 
         document.getElementById('cardPerso').style.display = "none";
-
-
         document.getElementById('cardAuto').style.display = "none";
         $('#spinnerBtnAuto').show();
         $('#spinnerRecap').show();
-
-
         setTimeout(function () {
             $('#spinnerBtnAuto').hide();
             // scrollToTop();
@@ -365,7 +367,6 @@
         document.getElementById('cardPerso').style.display = "none";
         $('#spinnerBtnPerso').show();
         $('#spinnerRecap').show();
-
         setTimeout(function () {
             $('#spinnerBtnPerso').hide();
             // scrollToTop();

@@ -1,112 +1,3 @@
-<style>
-    ::-webkit-scrollbar {
-        width: 2px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: purple;
-        /* border-radius: 6px; */
-
-    }
-
-    .error-text {
-        color: #721c24;
-        padding: 8px 10px;
-        text-align: center;
-        border-radius: 5px;
-        background: #f8d7da;
-        border: 1px solid #f5c6cb;
-        margin-bottom: 10px;
-        display: none;
-    }
-
-    .profile-new {
-        padding: 20% 30%;
-    }
-
-    .inputImage {
-        display: none;
-    }
-
-    .labelInputImage:hover {
-        cursor: pointer;
-    }
-
-    .card-body .form-hide {
-        /* display: none; */
-    }
-
-    .portfolio-wrap {
-        transition: 0.3s;
-        position: relative;
-        overflow: hidden;
-        /* padding: 5%; */
-        z-index: 1;
-    }
-
-
-    .portfolio-wrap::before {
-        content: "";
-        background: rgba(255, 255, 255, 0.5);
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        transition: all ease-in-out 0.3s;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    .portfolio-wrap img {
-        height: 160px;
-        width: 96%;
-        margin: 2%;
-    }
-
-    .portfolio-wrap .portfolio-links {
-        opacity: 1;
-        left: 0;
-        right: 0;
-        bottom: -60px;
-        z-index: 3;
-        position: absolute;
-        transition: all ease-in-out 0.3s;
-        display: flex;
-        justify-content: center;
-    }
-
-    .portfolio-wrap .portfolio-links a {
-        color: #fff;
-        font-size: 28px;
-        text-align: center;
-        background: rgba(20, 157, 221, 0.75);
-        transition: 0.3s;
-        width: 100%;
-    }
-
-    .portfolio-wrap .portfolio-links a:hover {
-        background: rgba(20, 157, 221, 0.95);
-    }
-
-    .portfolio-wrap .portfolio-links a+a {
-        border-left: 1px solid #37b3ed;
-    }
-
-    .portfolio-wrap:hover::before {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 1;
-    }
-
-    .portfolio-wrap:hover .portfolio-links {
-        opacity: 1;
-        bottom: 0;
-    }
-</style>
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -129,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-body pt-3">
-                        
+
                         <?php include("nav-tabs.php") ?>
 
                         <div class="tab-content pt-2">
@@ -138,11 +29,10 @@
                                     <button class="btn btn-primary" style="padding: 5%;" data-bs-toggle="modal"
                                         data-bs-target="#modalPieces">Finalisez votre demande</button>
                                 </div>
-                            </div>                    
+                            </div>
 
                             <?php include("edit-infos.php") ?>
-                            <?php include("tab-overview-credit.php") ?>
-                            <?php include("tab-new-credit.php") ?>
+                            <?php include("tab-overview-credit.php") ?>              
                             <?php include("modal-pieces.php") ?>
 
                         </div>
@@ -151,8 +41,6 @@
                 </div>
 
             </div>
-
-            <?php include("recap-credit.php") ?>
         </div>
     </section>
 
@@ -163,10 +51,13 @@
 
 <script>
 
+    window.addEventListener("load", function () {
+        loadRegions();
+    });
 
-    // document.getElementById("back").addEventListener("click", function () {
-    //     $("#modalPieces").modal('hide');
-    // })
+    document.getElementById("back").addEventListener("click", function () {
+        $("#modalPieces").modal('hide');
+    })
     document.getElementById("nav-link-track").addEventListener("click", function () {
         $("#profile-new").hide();
     })
@@ -180,7 +71,65 @@
     })
 
     document.getElementById("nav-link-new").addEventListener("click", function () {
-        $("#profile-new").hide();
+        $("#profile-new").show();
     })
+
+    function loadRegions() {
+
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: {
+                ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php if (isset($client)) {
+                    echo $client['region'];
+                }
+                ?> " },
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
+
+    function loadTowns() {
+        const RegionID = $("#idRegion").val();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+            success: function (data) {
+                $("#idTown").html(data);
+            }
+        });
+    }
+
+    function displayElement(elt) {
+        icone = elt + "-bi";
+        if ($(elt).hasClass("active")) {
+            $(elt).hide();
+            $(elt).removeClass('active');
+            $(icone).removeClass('bi-dash');
+            $(icone).addClass('bi-plus');
+
+        } else {
+            $(elt).show();
+            $(elt).addClass('active');
+            $(icone).addClass('bi-dash');
+            $(icone).removeClass('bi-plus');
+        }
+    }
+
+
 
 </script>

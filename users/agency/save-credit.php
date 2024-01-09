@@ -3,9 +3,9 @@ session_start();
 include '../../connectToDB.php';
 $seller_id = $_SESSION['seller_id'];
 
-if (!empty($_POST['author'])) {
+if (!empty($_POST['author_id'])) {
 
-    $author_id = mysqli_real_escape_string($conn, $_POST['author']);
+    $author_id = mysqli_real_escape_string($conn, $_POST['author_id']);
 
     $brand = mysqli_real_escape_string($conn, $_POST['brand']);
     $product = mysqli_real_escape_string($conn, $_POST['product']);

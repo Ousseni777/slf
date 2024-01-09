@@ -11,9 +11,9 @@ $img_name_rib = $_FILES['yourRIB']['name'];
 $img_type_rib = $_FILES['yourRIB']['type'];
 $tmp_name_rib = $_FILES['yourRIB']['tmp_name'];
 
-$img_name_adress = $_FILES['yourAdresse']['name'];
-$img_type_adress = $_FILES['yourAdresse']['type'];
-$tmp_name_adress = $_FILES['yourAdresse']['tmp_name'];
+$img_name_adress = $_FILES['yourAdress']['name'];
+$img_type_adress = $_FILES['yourAdress']['type'];
+$tmp_name_adress = $_FILES['yourAdress']['tmp_name'];
 
 
 $img_explode_cin = explode('.', $img_name_cin);

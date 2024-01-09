@@ -10,7 +10,7 @@
 
     if (isset($client) ) {
 
-        $query_credit = "SELECT * FROM `client_credit` WHERE client_id = '{$client_id}' ";
+        $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id}' ";
         $result_credit = $conn->query($query_credit);
         if ($result_credit->num_rows > 0) {
             $credits = mysqli_fetch_all($result_credit, MYSQLI_ASSOC);

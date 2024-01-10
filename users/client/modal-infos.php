@@ -23,7 +23,7 @@
 
                 <div class="container">
                     <section class="section">
-                        <form action="#" enctype="multipart/form-data" id="formInfos" method="post">
+                        <form action="#" enctype="multipart/form-data" id="form-client-infos" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card">
@@ -34,12 +34,12 @@
                                             </h5>
                                             <div class="col-12  form-hide form-floating mb-3 civilite">
                                                 <input type="text" name="lname" class="form-control" id="lname"
-                                                    required>
+                                                    >
                                                 <label for="lname" class="form-label">Nom</label>
                                             </div>
                                             <div class="col-12  form-hide form-floating mb-3 civilite">
                                                 <input type="text" name="fname" class="form-control" id="fname"
-                                                    required>
+                                                    >
                                                 <label for="fname" class="form-label">Prénom</label>
                                             </div>
                                             <div class="col-6  form-hide form-floating mb-3 civilite">
@@ -70,14 +70,14 @@
                                                     class="bi right bi-plus reference-bi"></i>
                                             </h5>
                                             <div class="col-12  form-hide form-floating mb-3 reference">
-                                                <input type="text" name="cin" class="form-control" id="cin" required>
+                                                <input type="text" name="cin" class="form-control" id="cin" >
                                                 <label for="cin" class="form-label">Numéro
                                                     CIN / Carte de
                                                     séjour</label>
                                             </div>
                                             <div class="col-12  form-hide form-floating mb-3 reference">
                                                 <input type="text" name="income" class="form-control" id="income"
-                                                    required>
+                                                    >
                                                 <label for="income" class="form-label">Total
                                                     revenus mensuels
                                                     (net en DH)</label>

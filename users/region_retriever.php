@@ -60,7 +60,7 @@ function editRegion($regions){
     $region=$_POST['REGION_POSTALE'];
     if (count($regions) > 0) {
         foreach ($regions as $data) {
-            if($data['REGION_POSTALE']==$region){
+            if($data['REGION_POSTALE'] == $region){
                 echo '<option selected value="' . $data['REGION_POSTALE'] . '">' . $data['REGION_POSTALE'] . '</option>';
             }else{
                 echo '<option value="' . $data['REGION_POSTALE'] . '">' . $data['REGION_POSTALE'] . '</option>';

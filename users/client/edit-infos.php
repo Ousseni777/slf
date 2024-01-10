@@ -1,9 +1,11 @@
 <div class="tab-pane fade profile-edit show active pt-3" id="profile-edit">
-
+    <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderInfos" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
     <div class="container" id="panelEdit">
         <section class="section">
 
-            <form action="#" id="form-client" enctype="multipart/form-data" method="POST">
+            <form action="#" id="form-client-infos" enctype="multipart/form-data" method="POST">
 
                 <div class="row">
                     <div class="success-text" id="success-infos">
@@ -138,10 +140,15 @@
                         </div>
 
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-outline-success btn-send-infos"
-                                name="">Sauvegarder les modifications</button>
+                            <input style="display: none;" type="text" name="flagUpdate"
+                                value="<?php echo $client['client_id'] ?>">
+                            <button type="submit" class="btn btn-outline-success btn-send-infos" name="">Sauvegarder les
+                                modifications</button>
                         </div>
                     </div>
+                </div>
+                <div class="card errors">
+
                 </div>
 
             </form>

@@ -5,14 +5,14 @@ session_start();
 
 include './connectToDB.php';
 // $_SESSION['client_id_temp'] = "WV-692634956";
-$_SESSION['client_id'] = "WV-692634956";
+// $_SESSION['client_id'] = "WV-692634956";
 $_SESSION['page'] = "./sim-cl?tag=chrono";
 $shouldBeUser = false;
 $isClient = false;
 $isOK = false;
 
 $tagList = array("chrono");
-// unset($_SESSION['client_id_temp']);
+// unset($_SESSION['client_id']);
 
 if (isset($_SESSION['client_id_temp'])) {
 
@@ -231,6 +231,28 @@ if (!$shouldBeUser) {
   }
   ?>
 
+<div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
+    data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row modal-header" style="text-align: center;">
+                <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
+                <div class="col-12">
+                    <div class="row">
+                        <p class="info-dialog" id="successMessage"> </p>
+                    </div>
+
+                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
@@ -333,7 +355,7 @@ if (!$shouldBeUser) {
 
   }
 
-  const formInfos = document.getElementById("formInfos"),
+  const formInfos = document.getElementById("form-client-infos"),
     btnContinuous = formInfos.querySelector(".btn-send-infos"),
     errorTextInfos = formInfos.querySelector(".errors");
 
@@ -346,7 +368,6 @@ if (!$shouldBeUser) {
     $('#mainPreloaderInfos').show();
     errorTextInfos.style.display = "none";
     formInfos.style.opacity = .5;
-    console.log("cliquer");
 
     setTimeout(function () {
       $('#mainPreloaderInfos').hide();
@@ -356,16 +377,18 @@ if (!$shouldBeUser) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
 
-            let data = xhr.response.trim();
+            let responseData = JSON.parse(xhr.responseText);
+            let data = responseData.status.trim();
             if (data === "success") {
 
               $("#modalInfos").modal("hide");
-              $("#modalPieces").modal("show");
+              $("#successMessage").html(responseData.message);
+              $("#feedbackModal").modal("show");
             } else {
               formInfos.style.pointerEvents = "all";
               formInfos.style.opacity = 1;
               errorTextInfos.style.display = "block";
-              errorTextInfos.innerHTML = data;
+              errorTextInfos.innerHTML = responseData.message;
 
             }
           }

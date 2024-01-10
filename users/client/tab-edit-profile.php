@@ -4,7 +4,7 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
+    <div class="pagetitle" >
         <h1>Complétez vos informations personnelles pour finaliser votre demande</h1>
 
         <nav>
@@ -25,10 +25,10 @@
 
                 <div class="card">
                     <div class="card-body pt-3">
-                        
+
                         <?php include("nav-tabs.php") ?>
-                        
-                        <div class="tab-content pt-2">                    
+
+                        <div class="tab-content pt-2">
 
                             <?php include("edit-infos.php") ?>
                             <?php include("edit-pieces.php") ?>
@@ -49,7 +49,48 @@
 </main>
 
 
+
 <script>
+    window.addEventListener("load", function () {
+        loadRegions();
+    });
+
+    function loadRegions() {
+
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: {
+                ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region']; ?>" },
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
+
+    function loadTowns() {
+        const RegionID = $("#idRegion").val();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+            success: function (data) {
+                $("#idTown").html(data);
+            }
+        });
+    }
 
     function displayElement(elt) {
         icone = elt + "-bi";

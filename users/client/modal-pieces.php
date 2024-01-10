@@ -96,25 +96,3 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
-    data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="row modal-header" style="text-align: center;">
-                <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
-                <div class="col-12">
-                    <div class="row">
-                        <p class="info-dialog" id="successMessage"> </p>
-                    </div>
-
-                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
-
-                </div>
-
-            </div>
-
-
-        </div>
-    </div>
-</div>

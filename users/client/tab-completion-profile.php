@@ -36,18 +36,18 @@
                                         data-bs-target="#modalInfos">Completez votre demande</button>
                                 </div>
                             </div>
-                            
+
                             <?php include("tab-overview-credit.php") ?>
 
                             <?php include("modal-infos.php") ?>
                             <?php include("modal-pieces.php") ?>
-                           
+
                         </div>
 
                     </div>
                 </div>
 
-            </div>            
+            </div>
         </div>
     </section>
 
@@ -56,6 +56,9 @@
 
 
 <script>
+    window.addEventListener("load", function () {
+        loadRegions();
+    });
 
 
     document.getElementById("nav-link-track").addEventListener("click", function () {
@@ -74,6 +77,45 @@
         $("#profile-new").show();
     })
 
+
+    function loadRegions() {
+
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: {
+                ID_SCRIPT: "region"
+            },
+            success: function (data) {
+                $("#idRegion").html(data);
+
+                const RegionID = $("#idRegion").val();
+
+                $.ajax({
+                    url: "users/region_retriever.php",
+                    method: "POST",
+                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                    success: function (data) {
+                        $("#idTown").html(data);
+                    }
+                });
+            }
+        });
+    }
+
+
+    function loadTowns() {
+        const RegionID = $("#idRegion").val();
+        $.ajax({
+            url: "users/region_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+            success: function (data) {
+                $("#idTown").html(data);
+            }
+        });
+    }
+
     function displayElement(elt) {
         icone = elt + "-bi";
         if ($(elt).hasClass("active")) {
@@ -90,29 +132,6 @@
         }
     }
 
-
-    function loadRegionsNew() {
-        $.ajax({
-            url: "users/region_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: "region"},
-            success: function (data) {
-                $("#idRegion").html(data);
-
-                const RegionID = $("#idRegion").val();
-
-                $.ajax({
-                    url: "users/region_retriever.php",
-                    method: "POST",
-                    data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
-                    success: function (data) {
-                        // console.log(data);
-                        $("#idTown").html(data);
-                    }
-                });
-            }
-        });
-    }
 
 
 </script>

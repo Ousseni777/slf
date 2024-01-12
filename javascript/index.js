@@ -10,7 +10,7 @@ window.addEventListener("load", function () {
 //Formulaire crédit personnel ou renouvellable
 
 const formP = document.getElementById("formPerso"),
-    btnCreditPerso = formP.querySelector(".btn_credit_perso"),
+    btnCreditPerso = formP.querySelector(".btn-credit-perso"),
     errorTextP = formP.querySelector(".error-text");
 
 formP.onsubmit = (e) => {
@@ -49,7 +49,7 @@ btnCreditPerso.onclick = () => {
 //Formulaire crédit auto
 
 const form = document.getElementById("formAuto"),
-    btnCreditAuto = form.querySelector(".btn_credit_auto"),
+    btnCreditAuto = form.querySelector(".btn-credit-auto"),
     errorText = form.querySelector(".error-text");
 
 form.onsubmit = (e) => {

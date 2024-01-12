@@ -57,13 +57,14 @@ if (isset($_GET['tag'])) {
             border-radius: 5px;
             pointer-events: none;
         }
+
         .spinner-pieces {
-        position: absolute;
-        z-index: 1;
-        left: 48%;
-        top: 45%;
-        display: none;
-    }
+            position: absolute;
+            z-index: 1;
+            left: 48%;
+            top: 45%;
+            display: none;
+        }
     </style>
 
 </head>
@@ -161,106 +162,12 @@ if (isset($_GET['tag'])) {
 
                         <img src="assets/img/app.png" class="img-fluid" alt="" id="imgFluid" data-aos="zoom-in">
 
-                        <div class="card" id="cardPerso">
-                            <div class="spinner-border text-danger spinner-pieces" id="preloaderCreditPerso"
-                                role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-
-                            <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
-                                récapitulatif</h3>
-                            
-                            <div class="card-body">
-
-                                <hr class="hr">
-
-                                <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
-                                <form action="#" id="formPerso" method="POST">
-                                <div class="error-text"></div>
-                                    <!-- List group with active and disabled items -->
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input
-                                                type="text" name="project" readonly class="infoR" id="infoProjectP">
-                                        </li>
-
-                                        <li class="list-group-item"><span class="infoL">Montant crédit (DH) : </span>
-                                            <input type="text" name="amount" readonly id="infoAmountP" class="infoR">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                                type="text" name="duration" readonly id="infoDurationP" class="infoR">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Mensualité (DH) : </span> <input
-                                                type="text" name="monthly" readonly id="infoMonthlyP" class="infoR">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Frais de dossier (DH) : </span>
-                                            <input type="text" name="app_fees" readonly class="infoR" id="infoFDP">
-                                        </li>
-
-                                    </ul><!-- End Clean list group -->
-                                    <div class="d-grid gap-2 mt-3">
-                                        <button class="btn btn-outline-success w-100 btn_credit_perso" type="submit"
-                                            name="btn_credit_perso">Demander ce crédit </button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
+                        <?php include "./users/client/recap-credit-perso.php" ?>
+                        <?php include "./users/client/recap-credit-auto.php" ?>
                         <div class="spinner-grow text-danger" id="spinnerRecap" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <div class="card" id="cardAuto">
-                            <div class="spinner-border text-danger spinner-pieces" id="preloaderCreditAuto"
-                                role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
 
-                            <h3 data-aos="fade-up" style="padding: 2%; color : #eb5d1e; text-align: center; ">Mon
-                                récapitulatif</h3>
-                            
-                            <div class="card-body">
-
-                                <hr class="hr">
-
-                                <!-- <h5 class="card-title">Détails de mon crédit</h5> -->
-                                <form action="#" method="POST" id="formAuto">
-                                <div class="error-text"></div>
-                                    <!-- List group with active and disabled items -->
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                                                : </span> <input type="text" name="tariff_id" readonly id="infoTariffID"
-                                                class="infoR"></li>
-                                        <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input
-                                                type="text" name="project" readonly class="infoR" value="auto">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input
-                                                type="text" name="amount" readonly id="infoAmount" class="infoR"></li>
-                                        <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                                type="text" name="duration" readonly id="infoDuration" class="infoR">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Mensualité : </span> <input
-                                                type="text" name="monthly" readonly id="infoMonthly" class="infoR"></li>
-                                        <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
-                                            <input type="text" name="app_fees" readonly class="infoR" id="infoFD">
-                                        </li>
-                                        <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                                type="text" name="down_pmt" readonly id="infoApport" class="infoR"></li>
-                                        <li class="list-group-item" style="display: none;"><span class="infoL">Apport
-                                                (%) : </span> <input type="text" name="down_pmt_perc" readonly
-                                                id="infoApportPerc" class="infoR"></li>
-                                        <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
-                                                name="adi" readonly id="infoADI" class="infoR"></li>
-                                        <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
-                                                type="text" name="cost_ex_adi" readonly id="infoCHAD" class="infoR">
-                                        </li>
-
-                                    </ul><!-- End Clean list group -->
-                                    <div class="d-grid gap-2 mt-3">
-                                        <button class="btn btn-outline-success w-100 btn_credit_auto" type="submit"
-                                            name="btn_credit_auto" id="btn_credit_auto">Demander ce crédit </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
 
                     </div>
                     <div class="col-lg-7 pt-5 pt-lg-0">
@@ -287,7 +194,7 @@ if (isset($_GET['tag'])) {
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="form-group col-md-3 controlAutos" id="controlBrand">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
@@ -311,7 +218,8 @@ if (isset($_GET['tag'])) {
                                 </div>
                                 <div class="form-group col-md-3" id="controlProfession">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProfession" onchange="calcFunctionPerso('monthly')" name="profession"
+                                        <select class="form-select" id="idProfession"
+                                            onchange="calcFunctionPerso('monthly')" name="profession"
                                             aria-label="State">
                                             <option value="SALARIE">Salarié</option>
                                             <option value="FONCTIONNAIRE">Fonctionnaire</option>
@@ -338,113 +246,8 @@ if (isset($_GET['tag'])) {
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-12" id="auto-block">
-
-                                    <div class="block-field">
-
-                                        <div class="group-select">
-                                            <label for="rangeInputAmount" class="form-label">PRIX TTC</label><br>
-                                            <input type="text" class="inputFlag" id="rangeValueAmount" value="100000">
-                                            <input type="range" class="form-range" min="5000" max="500000"
-                                                onchange="calcFunctionAuto()" step="1000" id="rangeInputAmount">
-
-                                        </div>
-                                    </div>
-
-                                    <div class="block-field">
-
-                                        <div class="col-sm-12 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Durée (en
-                                                mois)</span><br>
-
-                                            <div class="row controlRadios" id="controlDuration">
-
-                                            </div>
-                                            <div class="" id="idRange">
-                                                <input type="range" class="form-range" min="0" max="100" value=""
-                                                    step="1" disabled id="rangeInputDuration">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="block-field">
-                                        <div class="col-sm-12 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Apport TOTAL (en
-                                                %)</span><br>
-
-
-                                            <div class="row controlRadios" id="controlApport">
-
-                                            </div>
-                                            <div id="">
-
-                                                <input type="range" class="form-range" min="0" max="100" value=""
-                                                    step="1" disabled id="rangeInputApport">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="block-field">
-                                        <div id="InputMonthly" class="group-select">
-                                            <label for="rangeInputMonthly" class="form-label">Mensualités (en
-                                                DH)</label><br>
-                                            <input type="text" class="inputFlag" id="rangeValueMonthly" disabled
-                                                value="">
-                                            <input type="range" min="0" max="43000" class="form-range" step="0.01"
-                                                value="" disabled id="rangeInputMonthly">
-                                        </div>
-                                    </div>
-                                    <div class="d-grid gap-2 mt-3">
-                                        <!-- <button class="btn btn-outline-success w-100" id="simulerAuto"
-                                            onclick="displayAuto()">Simuler </button> -->
-                                        <button class="btn btn-outline-success w-100" id="simulerAuto"
-                                            onclick="displayAuto()">Simuler <div class="spinner-border"
-                                                style="width: 15px; height: 15px; display: none; " id="spinnerBtnAuto"
-                                                role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div></button>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12" id="perso-block">
-                                    <div class="range-container group-select">
-                                        <label for="customRange2" class="form-label">Montant du crédit</label>
-                                        <input type="range" class="form-range custom-range" min="2000" max="50000"
-                                            step="500" id="rangeInputTTC" value="40000">
-                                        <span class="value-display" id="valueDisplayTTC"></span>
-                                        <span class="value-display value-min" id="valueMin"></span>
-                                        <span class="value-display value-max" id="valueMax"></span>
-                                    </div>
-                                    <p class="space"></p>
-                                    <div class="range-container group-select">
-                                        <label for="customRange2" class="form-label">Durée</label>
-                                        <input type="range" class="form-range custom-range" min="2" max="120" value="24"
-                                            step="1" id="rangeInputDurationPerso">
-                                        <span class="value-display" id="valueDisplayDuration"></span>
-                                        <span class="value-display value-min" id="valueMinMonthly"></span>
-                                        <span class="value-display value-max" id="valueMaxMonthly"></span>
-                                    </div>
-                                    <p class="space"></p>
-                                    <div class="range-container group-select">
-                                        <label for="customRange2" class="form-label">Mensualité</label>
-                                        <input type="range" class="form-range custom-range" min="100" max="30000"
-                                            step=".1" id="rangeInputMonthlyPerso"
-                                            onchange="calcFunctionPerso('duration')">
-                                        <span class="value-display" id="valueDisplayMonthly"></span>
-                                        <span class="value-display value-min" id="valueMinMonthly"></span>
-                                        <span class="value-display value-max" id="valueMaxMonthly"></span>
-                                    </div>
-
-                                    <div class="col-12 group-select">
-                                        <p class="space"></p>
-                                        <button class="btn btn-outline-success w-100" id="simulerPerso"
-                                            onclick="displayPerso()">Simuler <div class="spinner-border"
-                                                style="width: 15px; height: 15px; display: none; " id="spinnerBtnPerso"
-                                                role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div></button>
-                                    </div>
-                                </div>
+                                <?php include "./users/client/sim-credit-perso.php" ?>
+                                <?php include "./users/client/sim-credit-auto.php" ?>
                             </div>
 
                         </div>
@@ -828,41 +631,278 @@ if (isset($_GET['tag'])) {
     <script type="text/javascript" src="jquery.min.js"></script>
     <!-- <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script> -->
     <script type="text/javascript" src="./javascript/ajax-script.js"></script>
-    <script type="text/javascript" src="javascript/index.js"></script>
+    <!-- <script type="text/javascript" src="javascript/index.js"></script> -->
 
     <script type="text/javascript" src="assets/js/preloader.js"></script>
 
     <script>
-        function controller() {
-
-let project = document.getElementById('idProject');
-let profession = document.getElementById('controlProfession');
-let auto_block = document.getElementById('auto-block');
-let perso_block = document.getElementById('perso-block');
-
-let autos = document.querySelectorAll('.controlAutos');
 
 
-if (project.value == "auto") {
-    displayAutos(autos);
-    // profession.style.display = 'none';
-    auto_block.style.display = "inline";
-    perso_block.style.display = "none";
+//Après chargement de la page
 
-    loadBrand();
+window.addEventListener("load", function () {
+    $('#spinnerRecap').hide();
+    calcFunctionPerso();
+    controller();
+});
 
-} else {
-    profession.style.display = 'block';
-    auto_block.style.display = "none";
-    perso_block.style.display = "inline";
-    hideAutos(autos);
+//Formulaire crédit personnel ou renouvellable
 
+const formP = document.getElementById("formPerso"),
+    btnCreditPerso = formP.querySelector(".btn-credit-perso"),
+    errorTextP = formP.querySelector(".error-text");
+
+formP.onsubmit = (e) => {
+    e.preventDefault();
+}
+
+btnCreditPerso.onclick = () => {
+    formP.style.pointerEvents = "none";
+    $('#preloaderCreditPerso').show();
+    errorTextP.style.display = "none";
+    formP.style.opacity = .5;
+    setTimeout(function () {
+        $('#preloaderCreditPerso').hide();
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "users/client/save-credit.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+                    let data = responseData.status.trim();
+                    if (data === "success") {
+                        location.href = "signup";
+
+                    } else {
+                        errorTextP.style.display = "block";
+                        errorTextP.textContent = data;
+                    }
+                }
+            }
+        }
+        let formData = new FormData(formP);
+        xhr.send(formData);
+    }, 2000);
+}
+
+//Formulaire crédit auto
+
+const form = document.getElementById("formAuto"),
+    btnCreditAuto = form.querySelector(".btn-credit-auto"),
+    errorText = form.querySelector(".error-text");
+
+form.onsubmit = (e) => {
+    e.preventDefault();
+}
+
+btnCreditAuto.onclick = () => {
+    form.style.pointerEvents = "none";
+    $('#preloaderCreditAuto').show();
+    errorTextP.style.display = "none";
+    form.style.opacity = .5;
+    setTimeout(function () {
+        $('#preloaderCreditAuto').hide();
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "users/client/save-credit.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+                    let data = responseData.status.trim();
+                    if (data === "success") {
+                        location.href = "signup";
+
+                    } else {
+                        errorText.style.display = "block";
+                        errorText.textContent = data;
+                    }
+                }
+            }
+        }
+        let formData = new FormData(form);
+        xhr.send(formData);
+    }, 2000);
+}
+
+
+//Pour le crédit personnel
+var rangeInputTTC = document.getElementById('rangeInputTTC');
+var valueDisplayTTC = document.getElementById('valueDisplayTTC');
+
+var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+valueDisplayTTC.style.left = percent + '%';
+valueDisplayTTC.textContent = rangeInputTTC.value;
+
+
+rangeInputTTC.addEventListener('input', function () {
+    var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+    valueDisplayTTC.style.left = percent + '%';
+    valueDisplayTTC.textContent = rangeInputTTC.value;
 
     calcFunctionPerso();
+});
+
+var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
+var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+
+var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+valueDisplayMonthly.style.left = percent + '%';
+valueDisplayMonthly.textContent = rangeInputMonthly.value;
+
+rangeInputMonthly.addEventListener('input', function () {
+    var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+    valueDisplayMonthly.style.left = percent + '%';
+    valueDisplayMonthly.textContent = rangeInputMonthly.value;
+    calcFunctionPerso('duration');
+});
+
+
+
+var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
+var valueDisplayDuration = document.getElementById('valueDisplayDuration');
+
+
+var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
+valueDisplayDuration.style.left = percent + '%';
+valueDisplayDuration.textContent = rangeInputDuration.value;
+rangeInputDuration.addEventListener('input', function () {
+    var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
+    valueDisplayDuration.style.left = percent + '%';
+    valueDisplayDuration.textContent = rangeInputDuration.value;
+    calcFunctionPerso();
+});
+
+var rangeInputs = document.querySelectorAll('.custom-range');
+var val_min = document.querySelectorAll('.value-min');
+var val_max = document.querySelectorAll('.value-max');
+
+let i = 0;
+rangeInputs.forEach(function (input) {
+
+    val_max[i].textContent = input.max;
+    val_min[i].textContent = input.min;
+    val_max[i].style.left = 91 + '%';
+    val_min[i].style.left = 9 + '%';
+    i++;
+});
+
+
+//Pour le crédit auto
+const rangeValueAmount = document.getElementById("rangeValueAmount");
+const rangeInputAmount = document.getElementById("rangeInputAmount");
+rangeInputAmount.addEventListener("input", function () {
+    rangeValueAmount.value = rangeInputAmount.value;
+    calcFunctionAuto();
+});
+
+rangeValueAmount.addEventListener("input", function () {
+    rangeInputAmount.value = rangeValueAmount.value;
+    calcFunctionAuto();
+});
+
+
+function hideAutos(autos) {
+    for (let i = 0; i < autos.length; i++) {
+        autos[i].style.display = 'none';
+    }
+}
+
+function displayAutos(autos) {
+    for (let i = 0; i < autos.length; i++) {
+        autos[i].style.display = 'block';
+    }
+}
+
+
+function displayAuto() {
+
+    document.getElementById('cardPerso').style.display = "none";
+    document.getElementById('imgFluid').style.display = "none";
+
+
+    document.getElementById('cardAuto').style.display = "none";
+    $('#spinnerBtnAuto').show();
+    $('#spinnerRecap').show();
+
+
+    setTimeout(function () {
+        $('#spinnerBtnAuto').hide();
+        // scrollToTop();
+    }, 2000);
+
+    setTimeout(function () {
+
+        $('#spinnerRecap').hide();
+        $('#cardAuto').show();
+    }, 4000);
+}
+function displayPerso() {
+
+    document.getElementById('cardAuto').style.display = "none";
+    document.getElementById('cardPerso').style.display = "none";
+    document.getElementById('imgFluid').style.display = "none";
+    $('#spinnerBtnPerso').show();
+    $('#spinnerRecap').show();
+
+    setTimeout(function () {
+        $('#spinnerBtnPerso').hide();
+        // scrollToTop();
+    }, 2000);
+
+    setTimeout(function () {
+
+        $('#spinnerRecap').hide();
+        $('#cardPerso').show();
+    }, 4000);
 
 }
-hideCard();
+function hideCard() {
+    document.getElementById('cardAuto').style.display = "none";
+    document.getElementById('cardPerso').style.display = "none";
+    document.getElementById('imgFluid').style.display = "block";
 }
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 500,
+        behavior: 'smooth'
+    });
+}
+
+
+
+
+
+        function controller() {
+
+            let project = document.getElementById('idProject');
+            let profession = document.getElementById('controlProfession');
+            let auto_block = document.getElementById('auto-block');
+            let perso_block = document.getElementById('perso-block');
+
+            let autos = document.querySelectorAll('.controlAutos');
+
+
+            if (project.value == "auto") {
+                displayAutos(autos);
+                // profession.style.display = 'none';
+                auto_block.style.display = "inline";
+                perso_block.style.display = "none";
+
+                loadBrand();
+
+            } else {
+                profession.style.display = 'block';
+                auto_block.style.display = "none";
+                perso_block.style.display = "inline";
+                hideAutos(autos);
+
+
+                calcFunctionPerso();
+
+            }
+            hideCard();
+        }
     </script>
 
 

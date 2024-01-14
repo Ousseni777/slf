@@ -1,13 +1,13 @@
 <?php
 ob_start();
 session_start();
-if (!isset($_SESSION['seller_id'])) {
+if (!isset($_SESSION['SELLER_ID_UK'])) {
     header('location: ./login');
 }
 include './connectToDB.php';
-// $user = $_SESSION['seller_id'];
-$seller_id = $_SESSION['seller_id'];
-$seller = $_SESSION['product'];
+// $user = $_SESSION['SELLER_ID_UK'];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$SELLER_PRODUCT= $_SESSION['PRODUCT'];
 
 
 $tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track");

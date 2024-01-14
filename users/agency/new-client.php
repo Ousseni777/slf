@@ -32,12 +32,12 @@
                                                     class="bi bi-person left"></i>Civilité<i
                                                     class="bi right bi-plus civilite-bi"></i></h5>
                                             <div class="col-12 form-floating form-hide mb-3 civilite">
-                                                <input type="text" name="lname" placeholder="" class="form-control"
+                                                <input type="text" name="LNAME" placeholder="" class="form-control"
                                                     id="lname" required oninvalid="displayError()">
                                                 <label for="lname" class="form-label">Nom</label>
                                             </div>
                                             <div class="col-12 form-floating form-hide mb-3 civilite">
-                                                <input type="text" name="fname" placeholder="" class="form-control"
+                                                <input type="text" name="FNAME" placeholder="" class="form-control"
                                                     id="fname" required oninvalid="displayError()">
                                                 <label for="fname" class="form-label">Prénom</label>
                                             </div>
@@ -46,14 +46,14 @@
                                                 <span> Titre</span>
                                                 <br>
                                                 <div class="form-check" style="float: left;">
-                                                    <input class="form-check-input" type="radio" name="title"
+                                                    <input class="form-check-input" type="radio" name="TITLE"
                                                         id="titleM" value="Homme" checked>
                                                     <label class="form-check-label" for="titleM">
                                                         Homme
                                                     </label>
                                                 </div>
                                                 <div class="form-check" style="float: right;">
-                                                    <input class="form-check-input" type="radio" name="title"
+                                                    <input class="form-check-input" type="radio" name="TITLE"
                                                         id="titleF" value="Femme">
                                                     <label class="form-check-label" for="titleF">
                                                         Femme
@@ -69,13 +69,13 @@
                                                     class="bi right bi-plus reference-bi"></i>
                                             </h5>
                                             <div class="col-12 form-floating form-hide mb-3 reference">
-                                                <input type="text" name="cin" placeholder="" class="form-control"
+                                                <input type="text" name="CLIENT_CIN" placeholder="" class="form-control"
                                                     id="cin" required oninvalid="displayError()">
                                                 <label for="cin" class="form-label">Numéro CIN / Carte de
                                                     séjour</label>
                                             </div>
                                             <div class="col-12 form-floating form-hide mb-3 reference">
-                                                <input type="text" name="income" placeholder="" class="form-control"
+                                                <input type="text" name="INCOME" placeholder="" class="form-control"
                                                     id="income" required oninvalid="displayError()">
                                                 <label for="income" class="form-label">Total revenus mensuels
                                                     (net en DH)</label>
@@ -90,14 +90,14 @@
                                                     class="bi right bi-plus coordonnee-bi"></i>
                                             </h5>
                                             <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                                <select name="region" onchange="loadTowns()" class="form-select"
+                                                <select name="REGION" onchange="loadTowns()" class="form-select"
                                                     id="idRegion" aria-label="State">
                                                 </select>
                                                 <label for="yourRegion" class="form-label">Votre région !
                                                 </label>
                                             </div>
                                             <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                                <select name="town" class="form-select" placeholder="" id="idTown">
+                                                <select name="TOWN" class="form-select" placeholder="" id="idTown">
 
                                                 </select>
                                                 <label for="yourTown" class="form-label">Votre ville actuelle
@@ -116,12 +116,12 @@
                                                     class="bi bi-telephone left"></i>Contact <i
                                                     class="bi right bi-plus contact-bi"></i></h5>
                                             <div class="col-12 form-floating form-hide mb-3 contact">
-                                                <input type="text" name="email" placeholder="" class="form-control"
+                                                <input type="text" name="EMAIL" placeholder="" class="form-control"
                                                     id="email" required oninvalid="displayError()">
                                                 <label for="email" class="form-label">Adresse email</label>
                                             </div>
                                             <div class="col-12 form-floating form-hide mb-3 contact">
-                                                <input type="text" name="phone" placeholder="" class="form-control"
+                                                <input type="text" name="PHONE" placeholder="" class="form-control"
                                                     id="phone" required oninvalid="displayError()">
                                                 <label for="phone" class="form-label">Téléphone</label>
                                             </div>

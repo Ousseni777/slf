@@ -2,7 +2,7 @@
 
 include './connectToDB.php';
 $num_doss = '790551';
-$seller_id = $_SESSION['seller_id'];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
 $query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);
 // $_SESSION['page'] = "detail-doss?id=".$num_doss;

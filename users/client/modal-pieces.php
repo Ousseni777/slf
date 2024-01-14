@@ -34,7 +34,7 @@
                             <div
                                 class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
 
-                                <img id="preview-inputImageCIN" class="mt-3" src="users/client/images/cin.jpg"
+                                <img id="preview-inputImageCIN" class="mt-3" src="users/client/images/cin.jpeg"
                                     style="width: 130px; height: 100px;" alt="Profile">
 
                             </div>
@@ -51,7 +51,7 @@
                             <div
                                 class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
 
-                                <img id="preview-inputImageRib" class="mt-3" src="users/client/images/rib.png"
+                                <img id="preview-inputImageRib" class="mt-3" src="users/client/images/rib.jpeg"
                                     style="width: 130px; height: 100px;" alt="Profile">
 
                             </div>
@@ -68,7 +68,7 @@
                             <div
                                 class="portfolio-wrap col-8 form-control d-flex flex-column align-items-center justify-content-center py-4">
 
-                                <img id="preview-inputImageAdress" class="mt-3" src="users/client/images/adress.png"
+                                <img id="preview-inputImageAdress" class="mt-3" src="users/client/images/adress.jpeg"
                                     style="width: 130px; height: 100px;" alt="Profile">
 
                             </div>

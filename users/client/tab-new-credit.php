@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="form-group col-md-4">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="idProject" name="project" onchange="controller()"
+                        <select class="form-select" id="idProject" name="PROJECT" onchange="controller()"
                             aria-label="State">
                             <option value="auto">Crédit Auto</option>
                             <option value="Crédit personnel">Crédit personnel</option>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group col-md-4" id="controlProfession">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="idProfession" name="profession" aria-label="State">
+                        <select class="form-select" id="idProfession" name="PROFESSION" aria-label="State">
                             <option value="Salarié">Salarié</option>
                             <option value="Fonctionnaire">Fonctionnaire</option>
                             <option value="Commerçant">Commerçant</option>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="form-group col-md-4 controlAutos" id="controlBrand">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
+                        <select class="form-select" id="idBrand" name="BRAND" onchange="loadProduct()"
                             aria-label="State">
 
                         </select>
@@ -85,7 +85,7 @@
 
                 <div class="form-group col-md-4 controlAutos" id="controlProduct">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="idProduct" onchange="loadTariff()" name="product"
+                        <select class="form-select" id="idProduct" onchange="loadTariff()" name="PRODUCT"
                             aria-label="State">
 
 
@@ -96,7 +96,7 @@
                 </div>
                 <div class="form-group col-md-4" style="display: none;">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="idTariff" onchange="loadDuration()" name="tariff"
+                        <select class="form-select" id="idTariff" onchange="loadDuration()" name="TARIFF"
                             aria-label="State">
 
 

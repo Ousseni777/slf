@@ -16,29 +16,29 @@
             <!-- List group with active and disabled items -->
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                        : </span> <input type="text" name="tariff_id" readonly id="infoTariffID" class="infoR"></li>
+                        : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID" class="infoR"></li>
                 <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input type="text"
-                        name="project" readonly class="infoR" value="auto">
+                        name="PROJECT" readonly class="infoR" value="auto">
                 </li>
-                <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text" name="amount"
+                <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text" name="AMOUNT"
                         readonly id="infoAmount" class="infoR"></li>
                 <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input type="text"
-                        name="duration" readonly id="infoDuration" class="infoR">
+                        name="DURATION" readonly id="infoDuration" class="infoR">
                 </li>
-                <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text" name="monthly"
+                <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text" name="MONTHLY"
                         readonly id="infoMonthly" class="infoR"></li>
                 <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
-                    <input type="text" name="app_fees" readonly class="infoR" id="infoFD">
+                    <input type="text" name="APP_FEES" readonly class="infoR" id="infoFD">
                 </li>
                 <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input type="text"
-                        name="down_pmt" readonly id="infoApport" class="infoR"></li>
+                        name="DOWN_PMT" readonly id="infoApport" class="infoR"></li>
                 <li class="list-group-item" style="display: none;"><span class="infoL">Apport
-                        (%) : </span> <input type="text" name="down_pmt_perc" readonly id="infoApportPerc"
+                        (%) : </span> <input type="text" name="DOWN_PMT_PERC" readonly id="infoApportPerc"
                         class="infoR"></li>
-                <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text" name="adi" readonly
+                <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text" name="ADI" readonly
                         id="infoADI" class="infoR"></li>
                 <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input type="text"
-                        name="cost_ex_adi" readonly id="infoCHAD" class="infoR">
+                        name="COST_EX_ADI" readonly id="infoCHAD" class="infoR">
                 </li>
 
             </ul><!-- End Clean list group -->

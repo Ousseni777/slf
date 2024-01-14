@@ -2,16 +2,16 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$credit_id = $_GET["id"];
-$seller_id = $_SESSION['seller_id'];
-$query_credit = "SELECT * FROM `credit_client` WHERE credit_id = '{$credit_id}' AND seller_id='$seller_id'";
+$CREDIT_ID_UK = $_GET["id"];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$query_credit = "SELECT * FROM `credit_client` WHERE CREDIT_ID_UK = '{$CREDIT_ID_UK}' AND SELLER_ID='$SELLER_ID_UK'";
 $result_credit = $conn->query($query_credit);
-// $_SESSION['page'] = "detail-cr?id=".$credit_id;
+// $_SESSION['page'] = "detail-cr?id=".$CREDIT_ID_UK;
 
 if ($result_credit->num_rows > 0) {
     $credit = $result_credit->fetch_assoc();
-    $tariff_id = $credit['tariff_id'];
-    $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
+    $TARIFF_ID_UK = $credit['TARIFF_ID'];
+    $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID_UK='$TARIFF_ID_UK'";
     $result_select_tariff = $conn->query($select_tariff);
     $tariff = $result_select_tariff->fetch_assoc();
 }
@@ -44,12 +44,14 @@ if ($result_credit->num_rows > 0) {
     <link href="styles/style.css" rel="stylesheet">
 
     <style>
-                .card-body .form-hide {
+        .card-body .form-hide {
             display: none;
         }
-                .success-text {
+
+        .success-text {
             display: none;
         }
+
         #mainPreloader {
             margin-left: 55%;
             margin-top: 25%;
@@ -185,7 +187,7 @@ if ($result_credit->num_rows > 0) {
         }
 
         #controlProfession,
-        #controlValueDuration,
+        #controlValueDURATION,
         #controlValueApport {
             display: none;
         }
@@ -275,7 +277,10 @@ if ($result_credit->num_rows > 0) {
     <main class="main" id="main">
         <section class="section">
             <div class="pagetitle">
-                <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a>  Récapitulatif de la demande N°: <b><?php echo $credit['credit_id'] ?></b> </h1>
+                <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Récapitulatif de la
+                    demande N°: <b>
+                        <?php echo $credit['CREDIT_ID_UK'] ?>
+                    </b> </h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="sim">Crédit</a></li>
@@ -293,18 +298,18 @@ if ($result_credit->num_rows > 0) {
                             <!-- List group with active and disabled items -->
                             <ul class="mt-3 list-group list-group-flush">
                                 <li class="list-group-item"><span class="infoL"> Référence de la demande : </span>
-                                    <input type="text" readonly value="<?php echo $credit['credit_id'] ?>"
+                                    <input type="text" readonly value="<?php echo $credit['CREDIT_ID_UK'] ?>"
                                         id="idRefDemande" class="infoR">
 
                                 </li>
                                 <li class="list-group-item"><span class="infoL"> Date demande crédit : </span> <input
-                                        type="text" name="up_date" readonly value="<?php echo $credit['up_date'] ?>"
+                                        type="text" name="UP_DATE" readonly value="<?php echo $credit['UP_DATE'] ?>"
                                         class="infoR">
                                 </li>
 
-                                <li class="list-group-item"><span class="infoL"> Date demande crédit : </span> <input
-                                        type="text" name="project" readonly
-                                        value="<?php echo $credit['project'] . 'Auto' ?>" class="infoR">
+                                <li class="list-group-item"><span class="infoL"> Type de projet : </span> <input
+                                        type="text" name="PROJECT" readonly
+                                        value="<?php echo $credit['PROJECT'] ?>" class="infoR">
                                 </li>
 
                                 <li class="list-group-item"><span class="infoL">Marque auto : </span> <input type="text"
@@ -318,23 +323,23 @@ if ($result_credit->num_rows > 0) {
                                         type="text" readonly value="<?php echo $tariff['BAREME'] ?>" class="infoR"></li>
 
                                 <li class="list-group-item"><span class="infoL">Montant demandé (DH) : </span> <input
-                                        type="text" id="infoAmount" name="amount" readonly
-                                        value="<?php echo $credit['amount'] ?>" class="infoR"></li>
+                                        type="text" id="infoAMOUNT" name="AMOUNT" readonly
+                                        value="<?php echo $credit['AMOUNT'] ?>" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Durée du crédit (mois) : </span> <input
-                                        type="text" id="infoDuration" name="duration" readonly
-                                        value="<?php echo $credit['duration'] ?>" class="infoR">
+                                        type="text" id="infoDURATION" name="DURATION" readonly
+                                        value="<?php echo $credit['DURATION'] ?>" class="infoR">
                                 </li>
                                 <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
-                                        id="infoMonthly" name="monthly" readonly
-                                        value="<?php echo $credit['monthly'] ?>" class="infoR"></li>
+                                        id="infoMONTHLY" name="MONTHLY" readonly
+                                        value="<?php echo $credit['MONTHLY'] ?>" class="infoR"></li>
 
                                 <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
-                                    <input type="text" name="app_fees" class="infoR" readonly
-                                        value="<?php echo $credit['app_fees'] ?>" id="infoFD">
+                                    <input type="text" name="APP_FEES" class="infoR" readonly
+                                        value="<?php echo $credit['APP_FEES'] ?>" id="infoFD">
                                 </li>
                                 <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="down_pmt" readonly
-                                        value="<?php echo $credit['down_pmt'] ?>" class="infoR"></li>
+                                        type="text" id="infoApport" name="DOWN_PMT" readonly
+                                        value="<?php echo $credit['DOWN_PMT'] ?>" class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
                         </div>
@@ -347,8 +352,8 @@ if ($result_credit->num_rows > 0) {
                     <div class="col-lg-12 card">
                         <div class="card-body">
                             <h5 class="card-title">#ID Autheur crédit</h5>
-                            <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="form-control status">#
-                                <?php echo $credit['client_id'] ?>
+                            <a href="detail-cl?id=<?php echo $credit['CLIENT_ID'] ?>" class="form-control status">#
+                                <?php echo $credit['CLIENT_ID'] ?>
                             </a>
                         </div>
                     </div>
@@ -357,28 +362,24 @@ if ($result_credit->num_rows > 0) {
                     <div class="col-lg-12 card">
                         <div class="card-body">
                             <h5 class="card-title">Statut de la demande</h5>
-                            <input type="text" id="infoApport" name="down_pmt" readonly
-                                value="<?php echo $credit['state'] ?>" class="form-control status">
+                            <input type="text" id="infoApport" name="DOWN_PMT" readonly
+                                value="<?php echo $credit['STATE_LIB'] ?>" class="form-control status">
 
                         </div>
-                        <!-- <div class="card-body">
-                            <h5 class="card-title">Cause du rejet</h5>
-                            <textarea name="reason" cols="30" rows="7" class="form-control">
-                                <?php echo $credit['reason'] ?>
-                            </textarea>
-
-                        </div> -->
+                  
                     </div>
-                    
+
 
                 </div>
                 <div class="col-lg-2">
 
-                        <a href="sim-fx?tag=fx&credit=<?php echo $credit['credit_id'] ?>" class="btn btn-primary col-12"><i class="bi bi-pencil-square"></i>Modifier</a>
-                        <br><br>
-                        <button class="btn btn-danger col-12" id="btn-delete"><i class="bi bi-x-circle"></i>Supprimer</button>
+                    <a href="sim-fx?tag=fx&credit=<?php echo $credit['CREDIT_ID_UK'] ?>"
+                        class="btn btn-primary col-12"><i class="bi bi-pencil-square"></i>Modifier</a>
+                    <br><br>
+                    <button class="btn btn-danger col-12" id="btn-delete"><i
+                            class="bi bi-x-circle"></i>Supprimer</button>
 
-                    </div>
+                </div>
 
 
             </div>
@@ -404,7 +405,7 @@ if ($result_credit->num_rows > 0) {
 
                         <form action="#" class="row" id="form-delete" method="post">
                             <div class="error-text col-12"></div>
-                            <input type="text" style="display: none;" name="credit_id" value="" id="credit_id">
+                            <input type="text" style="display: none;" name="CREDIT_ID_UK" value="" id="CREDIT_ID_UK">
                             <div class="col-12">
                                 <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
                                     required>
@@ -438,8 +439,8 @@ if ($result_credit->num_rows > 0) {
                     <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
                     <div class="col-12">
                         <div class="row">
-                            <p class="info-dialog">Suppression effectuée 
-                            </p>                            
+                            <p class="info-dialog">Suppression effectuée
+                            </p>
                         </div>
 
                         <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
@@ -510,7 +511,7 @@ if ($result_credit->num_rows > 0) {
 
         deleteButton.addEventListener('click', function () {
             $("#idDemande").text($("#idRefDemande").val());
-            $("#credit_id").val($("#idRefDemande").val());
+            $("#CREDIT_ID_UK").val($("#idRefDemande").val());
             $("#deleteModal").modal("show");
             document.getElementById('back').href = "detail-cr?id=" + $("#idRefDemande").val();
         });
@@ -537,7 +538,7 @@ if ($result_credit->num_rows > 0) {
                         let data = xhr.response.trim();
                         if (data === "success") {
                             $("#deleteModal").modal("hide");
-                            $("#feedbackModal").modal("show");                            
+                            $("#feedbackModal").modal("show");
                         } else {
                             setTimeout(function () {
                                 errorText.style.display = "block";

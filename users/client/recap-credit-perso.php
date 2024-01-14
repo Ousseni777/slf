@@ -17,20 +17,20 @@
             <!-- List group with active and disabled items -->
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input type="text"
-                        name="project" readonly class="infoR" id="infoProjectP">
+                        name="PROJECT" readonly class="infoR" id="infoProjectP">
                 </li>
 
                 <li class="list-group-item"><span class="infoL">Montant crédit (DH) : </span>
-                    <input type="text" name="amount" readonly id="infoAmountP" class="infoR">
+                    <input type="text" name="AMOUNT" readonly id="infoAmountP" class="infoR">
                 </li>
                 <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input type="text"
-                        name="duration" readonly id="infoDurationP" class="infoR">
+                        name="DURATION" readonly id="infoDurationP" class="infoR">
                 </li>
                 <li class="list-group-item"><span class="infoL">Mensualité (DH) : </span> <input type="text"
-                        name="monthly" readonly id="infoMonthlyP" class="infoR">
+                        name="MONTHLY" readonly id="infoMonthlyP" class="infoR">
                 </li>
                 <li class="list-group-item"><span class="infoL">Frais de dossier (DH) : </span>
-                    <input type="text" name="app_fees" readonly class="infoR" id="infoFDP">
+                    <input type="text" name="APP_FEES" readonly class="infoR" id="infoFDP">
                 </li>
 
             </ul><!-- End Clean list group -->

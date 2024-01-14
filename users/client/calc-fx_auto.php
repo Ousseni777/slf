@@ -86,7 +86,7 @@ function fetchData($brand, $product, $tariff, $duration, $DG) {
 
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
-        $tariff_id = $data['tariff_id'];
+        $tariff_id = $data['TARIFF_ID_UK'];
         $rate = $data['TAUX'];
         $data_dg = $data['TXFD'];
         $data_ADI = $data['ADI'];

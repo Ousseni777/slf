@@ -4,7 +4,7 @@ session_start();
 include '../../connectToDB.php';
 
 
-$affiliation = $_SESSION['product'];
+$affiliation = $_SESSION['PRODUCT'];
 
 switch ($_POST['ID_SCRIPT']) {
     case "brand":
@@ -59,10 +59,10 @@ switch ($_POST['ID_SCRIPT']) {
 function fetchBrand()
 {
     global $conn, $affiliation;
-    if (!isset($_SESSION['product']) || $_SESSION['product'] == 'SALAFIN') {
+    if (!isset($_SESSION['PRODUCT']) || $_SESSION['PRODUCT'] == 'SALAFIN') {
         $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE is not NULL ";
     } else {
-        $affiliation = $_SESSION['product'];
+        $affiliation = $_SESSION['PRODUCT'];
         $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE = '$affiliation'";
 
     }
@@ -282,8 +282,8 @@ function fetchCIN()
 {
     global $conn;
 
-    $seller_id = $_SESSION['seller_id'];
-    $query = "SELECT * FROM `slf_user_client` WHERE seller_id='$seller_id'";
+    $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+    $query = "SELECT * FROM `slf_user_client` WHERE SELLER_ID='$SELLER_ID_UK'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -305,7 +305,7 @@ function displayCIN($brands)
     if (count($brands) > 0) {
         
         foreach ($brands as $data) {
-            $elements[] = $data['cin'];            
+            $elements[] = $data['CLIENT_CIN'];            
         }
     }
     $jsonListe = json_encode($elements);
@@ -319,7 +319,7 @@ function fetchNUMDOSS()
 {
     global $conn;
 
-    // $seller_id = $_SESSION['seller_id'];
+    // $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
     $query = "SELECT * FROM `majestic` WHERE NUMDOSS is not NULL";
     $result = $conn->query($query);
 

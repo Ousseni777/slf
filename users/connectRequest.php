@@ -3,34 +3,34 @@ session_start();
 
 include_once "../connectToDB.php";
 
-$id_unique = mysqli_real_escape_string($conn, $_POST['id_unique']);
-$cin = mysqli_real_escape_string($conn, $_POST['cin']);
+$ID_UK = mysqli_real_escape_string($conn, $_POST['ID_UK']);
+$CIN = mysqli_real_escape_string($conn, $_POST['CIN']);
 
 
-if (!empty($id_unique) && !empty($cin)) {
+if (!empty($ID_UK) && !empty($CIN)) {
     //Chercher dans la table agence
 
-    $query = "SELECT *  FROM SLF_USER_SALAFIN  WHERE seller_id = '{$id_unique}' AND seller_cin= '{$cin}'";
+    $query = "SELECT *  FROM SLF_USER_SALAFIN  WHERE SELLER_ID_UK = '{$ID_UK}' AND SELLER_CIN= '{$CIN}'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        $_SESSION['seller_id'] = $user['seller_id'];
-        $_SESSION['product'] = $user['product'];
-        $product= $user['product'];
+        $_SESSION['SELLER_ID_UK'] = $user['SELLER_ID_UK'];
+        $_SESSION['PRODUCT'] = $user['PRODUCT'];
+        $PRODUCT= $user['PRODUCT'];
 
-        $response = array('status' => 'success', 'message' => $product);
+        $response = array('status' => 'success', 'message' => $PRODUCT);
         echo json_encode($response);
 
     } else {
         //Chercher dans la table client
 
-        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE client_id = '{$id_unique}' AND cin= '{$cin}'";
+        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE CLIENT_ID_UK = '{$ID_UK}' AND SELLER_CIN= '{$CIN}'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $_SESSION['client_id'] = $user['client_id'];
+            $_SESSION['CLIENT_ID_UK'] = $user['CLIENT_ID_UK'];
 
             $response = array('status' => 'success', 'message' => 'CLIENT');
             echo json_encode($response);

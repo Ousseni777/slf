@@ -82,16 +82,16 @@ session_start();
                     <div class="error-text col-12"></div>
 
                     <div class="col-12">
-                      <label for="id_unique" class="form-label">Saisir votre identifiant</label>
+                      <label for="ID_UK" class="form-label">Saisir votre identifiant</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="id_unique" class="form-control" id="id_unique">
+                        <input type="text" name="ID_UK" class="form-control" id="ID_UK">
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="cin" class="form-label">Votre CIN / Carte de séjour</label>
-                      <input type="text" name="cin" class="form-control">
+                      <label for="CIN" class="form-label">Votre CIN / Carte de séjour</label>
+                      <input type="text" name="CIN" class="form-control">
                     </div>
 
                     <div class="col-12">

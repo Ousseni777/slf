@@ -24,18 +24,18 @@
 
                         <div class="row g-3">
 
-                            <?php if (isset($seller)) { ?>
+                            <?php if (isset($SELLER_PRODUCT)) { ?>
                                 <div class="col-md-4">
                                     <div class="form-floating mb-3">
-                                        <?php if ($seller == 'SALAFIN') { ?>
+                                        <?php if ($SELLER_PRODUCT == 'SALAFIN') { ?>
 
-                                            <select class="form-select" id="idBrand" name="brand" onchange="loadProduct()"
+                                            <select class="form-select" id="idBrand" name="BRAND" onchange="loadProduct()"
                                                 aria-label="State">
                                             </select>
 
                                         <?php } else { ?>
 
-                                            <select class="form-select" id="idBrand" name="brand" disabled
+                                            <select class="form-select" id="idBrand" name="BRAND" disabled
                                                 onchange="loadProduct()" aria-label="State">
                                             </select>
 
@@ -46,7 +46,7 @@
 
                                 <div class="col-md-4 controlAutos" id="controlProduct">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProduct" name="product" aria-label="State"
+                                        <select class="form-select" id="idProduct" name="PRODUCT" aria-label="State"
                                             onchange="loadTariff()">
 
                                         </select>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idTariff" name="tariff" onchange="loadDuration()"
+                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="loadDuration()"
                                             aria-label="State">
 
 
@@ -80,7 +80,7 @@
                                             <label for="rangeInputAmount" class="form-label">PRIX
                                                 TTC</label><br>
                                             <input type="text" class="inputFlag" id="rangeValueAmount" value="">
-                                            <input type="range" name="amount" class="form-range" min="5000" max="500000"
+                                            <input type="range" name="AMOUNT" class="form-range" min="5000" max="500000"
                                                 onchange="calcFunction()" step="1000" id="rangeInputAmount">
 
                                         </div>
@@ -95,7 +95,7 @@
 
                                             </div>
                                             <div id="idRange">
-                                                <input type="range" name="duration" class="form-range" min="0" max="100"
+                                                <input type="range" name="DURATION" class="form-range" min="0" max="100"
                                                     value="" step="1" disabled id="rangeInputDuration">
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
 
                                             </div>
                                             <div id="">
-                                                <input type="range" name="down_pmt_perc" class="form-range" min="0"
+                                                <input type="range" name="DOWN_PMT_PERC" class="form-range" min="0"
                                                     max="100" value="" step="1" disabled id="rangeInputApport">
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                                 DH)</label><br>
                                             <input type="text" class="inputFlag" id="rangeValueMonthly" disabled
                                                 value="">
-                                            <input type="range" name="monthly" min="0" max="43000" class="form-range"
+                                            <input type="range" name="MONTHLY" min="0" max="43000" class="form-range"
                                                 step="0.01" value="" disabled id="rangeInputMonthly">
                                         </div>
                                     </div>
@@ -147,17 +147,17 @@
 
                                     <div class="col-sm-12">
                                         <?php if (isset($_GET['credit'])) {
-                                            $credit_id = $_GET['credit'];
-                                            $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id' AND credit_id='$credit_id'";
+                                            $CREDIT_ID_UK = $_GET['credit'];
+                                            $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID_UK' AND CREDIT_ID_UK='$CREDIT_ID_UK'";
                                             $result_select_credit = $conn->query($select_credit);
                                             if ($result_select_credit->num_rows > 0) {
                                                 $credit = $result_select_credit->fetch_assoc(); ?>
-                                                <input type="text" style="display: none;" name="credit_id"
-                                                    value="<?php echo $credit['credit_id'] ?>">
+                                                <input type="text" style="display: none;" name="CREDIT_ID_UK"
+                                                    value="<?php echo $credit['CREDIT_ID_UK'] ?>">
                                                 <input type="text" style="display: none;" name="author_id"
-                                                    value="<?php echo $credit['client_id'] ?>">
+                                                    value="<?php echo $credit['CLIENT_ID'] ?>">
                                                 <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput" readonly
-                                                    name="author_cin" value="<?php echo $credit['client_cin'] ?>"
+                                                    name="author_cin" value="<?php echo $credit['CLIENT_CIN'] ?>"
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                             <?php }
                                         } else if (isset($_GET['numdoss'])) {
@@ -166,14 +166,14 @@
                                             $result_select_numdoss = $conn->query($select_numdoss);
                                             if ($result_select_numdoss->num_rows > 0) {
                                                 $dossier = $result_select_numdoss->fetch_assoc(); ?>
-                                                    <input type="text" style="display: none;" name="credit_id"
+                                                    <input type="text" style="display: none;" name="CREDIT_ID_UK"
                                                         value="<?php echo $dossier['NUMDOSS'] ?>">
                                                     <input type="text" style="background-color: gray;" id="mySearchInput" readonly
                                                         name="author" value="<?php echo $dossier['IDCLIENT'] ?>"
                                                         placeholder="Rechercher (CIN) " class="form-control">
                                             <?php }
                                         } else { ?>
-                                                <input type="text" style="display: none;" name="credit_id" value="">
+                                                <input type="text" style="display: none;" name="CREDIT_ID_UK" value="">
                                                 <input type="text" id="mySearchInput" name="author_id" required
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                         <?php } ?>
@@ -204,33 +204,33 @@
                             <!-- List group with active and disabled items -->
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                                        : </span> <input type="text" name="tariff_id" readonly id="infoTariffID"
+                                        : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID"
                                         class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL"> Nom vendeur : </span> <input
-                                        type="text" id="infoBrand" name="brand" readonly class="infoR">
+                                        type="text" id="infoBrand" name="BRAND" readonly class="infoR">
                                 </li>
                                 <li class="list-group-item"><span class="infoL"> Type produit : </span> <input
-                                        type="text" id="infoProduct" name="product" readonly class="infoR"></li>
+                                        type="text" id="infoProduct" name="PRODUCT" readonly class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL"> Barême : </span> <input type="text"
-                                        id="infoTariff" name="tariff" readonly class="infoR infoBareme"></li>
+                                        id="infoTariff" name="TARIFF" readonly class="infoR infoBareme"></li>
 
                                 <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text"
-                                        id="infoAmount" name="amount" readonly class="infoR"></li>
+                                        id="infoAmount" name="AMOUNT" readonly class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                        type="text" id="infoDuration" name="duration" readonly class="infoR"></li>
+                                        type="text" id="infoDuration" name="DURATION" readonly class="infoR"></li>
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Apport
-                                        (%)</span> <input type="text" id="infoApportPerc" name="down_pmt_perc" readonly
+                                        (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC" readonly
                                         class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
-                                        id="infoMonthly" name="monthly" readonly class="infoR"></li>
+                                        id="infoMonthly" name="MONTHLY" readonly class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Frais de dossier : </span> <input
-                                        type="text" name="app_fees" class="infoR" readonly id="infoFD"></li>
+                                        type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
                                 <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="down_pmt" readonly class="infoR"></li>
+                                        type="text" id="infoApport" name="DOWN_PMT" readonly class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
-                                        id="infoADI" name="adi" readonly class="infoR"></li>
+                                        id="infoADI" name="ADI" readonly class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
-                                        type="text" id="infoCHAD" name="cost_ex_adi" readonly class="infoR"></li>
+                                        type="text" id="infoCHAD" name="COST_EX_ADI" readonly class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
                             <div class="d-grid gap-2 mt-3">

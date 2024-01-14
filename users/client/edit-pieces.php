@@ -12,10 +12,10 @@
 
                 <div class="col-lg-4 justificatifs">
                     <div class="portfolio-wrap col-8 form-control">
-                        <img id="preview-inputImageCIN" src="users/client/images/<?php echo $client["cin_piece"] ?>"
+                        <img id="preview-inputImageCIN" src="users/client/images/<?php echo $client["CIN_PIECE"] ?>"
                             class="pieces img-fluid" alt="">
                         <div class="portfolio-links">
-                            <a href="users/client/images/<?php echo $client["cin_piece"] ?>"
+                            <a href="users/client/images/<?php echo $client["CIN_PIECE"] ?>"
                                 class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
 
                         </div>
@@ -28,10 +28,10 @@
                 </div>
                 <div class="col-lg-4 justificatifs">
                     <div class="portfolio-wrap col-8 form-control">
-                        <img id="preview-inputImageRib" src="users/client/images/<?php echo $client["rib_piece"] ?>"
+                        <img id="preview-inputImageRib" src="users/client/images/<?php echo $client["RIB_PIECE"] ?>"
                             class="pieces img-fluid" alt="">
                         <div class="portfolio-links">
-                            <a href="users/client/images/<?php echo $client["rib_piece"] ?>"
+                            <a href="users/client/images/<?php echo $client["RIB_PIECE"] ?>"
                                 class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
 
                         </div>
@@ -45,10 +45,10 @@
                 <div class="col-lg-4 justificatifs">
                     <div class="portfolio-wrap col-8 form-control">
                         <img id="preview-inputImageAdress"
-                            src="users/client/images/<?php echo $client["adress_piece"] ?>" class="pieces img-fluid"
+                            src="users/client/images/<?php echo $client["ADRESS_PIECE"] ?>" class="pieces img-fluid"
                             alt="">
                         <div class="portfolio-links">
-                            <a href="users/client/images/<?php echo $client["adress_piece"] ?>"
+                            <a href="users/client/images/<?php echo $client["ADRESS_PIECE"] ?>"
                                 class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
 
             </div>
             <div class="col-lg-12">
-                <input style="display: none;" type="text" name="flagUpdate" value="<?php echo $client['client_id'] ?>" >
+                <input style="display: none;" type="text" name="flagUpdate" value="<?php echo $client['CLIENT_ID_UK'] ?>" >
                 <button type="submit" class="btn btn-outline-success btn-send-pieces" name="">Sauvegarder les
                     modifications</button>
             </div>

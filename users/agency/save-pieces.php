@@ -1,6 +1,6 @@
 <?php
 session_start();
-$client_id = $_SESSION['client_id'];
+$CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
 include '../../connectToDB.php';
 
 
@@ -30,7 +30,7 @@ $img_ext_adress = end($img_explode_adress);
 $extensions = ["jpeg", "png", "jpg"];
 
 if (!empty($img_name_cin) && !empty($img_name_adress) && !empty($img_name_rib)) {
-    $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE client_id = '{$client_id}'";
+    $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE CLIENT_ID_UK = '{$CLIENT_ID_UK}'";
     $result = $conn->query($query);
     
 
@@ -52,11 +52,11 @@ if (!empty($img_name_cin) && !empty($img_name_adress) && !empty($img_name_rib)) 
 
                     $update_query = "UPDATE `slf_user_client` 
                 SET `cin_piece`='{$new_img_name_cin}',`rib_piece`='{$new_img_name_rib}',`adress_piece`='{$new_img_name_adress}' 
-                WHERE `client_id`='{$client_id}'";
+                WHERE `CLIENT_ID_UK`='{$CLIENT_ID_UK}'";
                     $result_update = $conn->query($update_query);
                     if (($result_update)) {
                         //Mettre à jours le credit du client
-                        $update_credit="UPDATE `credit_client` SET `state`= 'En cours' WHERE `client_id`='{$client_id}' AND `state`='En attente' ";
+                        $update_credit="UPDATE `credit_client` SET `STATE_LIB`= 'En cours' WHERE `CLIENT_ID_UK`='{$CLIENT_ID_UK}' AND `STATE_LIB`='En attente' ";
                         $conn->query($update_credit);
                         echo "success";
                     } else {

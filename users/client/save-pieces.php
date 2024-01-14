@@ -1,6 +1,6 @@
 <?php
 session_start();
-$client_id = $_SESSION['client_id'];
+$CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
 include '../../connectToDB.php';
 
 $img_name_cin = $_FILES['yourCIN']['name'];
@@ -33,15 +33,15 @@ if (isset($_POST['flagUpdate'])) {
                 if (move_uploaded_file($tmp_name_cin, "images/" . $new_img_name_cin)) {
 
 
-                    $cin_link = "images/" . $_SESSION['cin_piece'];
+                    $cin_link = "images/" . $_SESSION['CIN_PIECE'];
 
                     if (file_exists($cin_link)) {
 
-                        $update_query = "UPDATE `slf_user_client` SET  `cin_piece`='{$new_img_name_cin}'
-                        WHERE client_id='$client_id'";
+                        $update_query = "UPDATE `slf_user_client` SET  `CIN_PIECE`='{$new_img_name_cin}'
+                        WHERE CLIENT_ID_UK='$CLIENT_ID_UK'";
                         $result_update = $conn->query($update_query);
                         if ($result_update) {
-                            unset($_SESSION['cin_piece']);
+                            unset($_SESSION['CIN_PIECE']);
                             if (!unlink($cin_link)) {
                                 $msg = "Échec de la suppression du : " . $cin_link;
                             }
@@ -76,14 +76,14 @@ if (isset($_POST['flagUpdate'])) {
             if (in_array($img_type_rib, $types)) {
                 if (move_uploaded_file($tmp_name_rib, "images/" . $new_img_name_rib)) {
 
-                    $rib_link = "images/" . $_SESSION['rib_piece'];
+                    $rib_link = "images/" . $_SESSION['RIB_PIECE'];
 
                     if (file_exists($rib_link)) {
-                        $update_query = "UPDATE `slf_user_client` SET  `rib_piece`='{$new_img_name_rib}'
-        WHERE client_id='$client_id'";
+                        $update_query = "UPDATE `slf_user_client` SET  `RIB_PIECE`='{$new_img_name_rib}'
+        WHERE CLIENT_ID_UK='$CLIENT_ID_UK'";
                         $result_update = $conn->query($update_query);
                         if ($result_update) {
-                            unset($_SESSION['rib_piece']);
+                            unset($_SESSION['RIB_PIECE']);
                             if (!unlink($rib_link)) {
                                 $msg = "Échec de la suppression du : " . $rib_link;
                             }
@@ -115,14 +115,14 @@ if (isset($_POST['flagUpdate'])) {
             if (in_array($img_type_adress, $types)) {
                 if (move_uploaded_file($tmp_name_adress, "images/" . $new_img_name_adress)) {
 
-                    $adress_link = "images/" . $_SESSION['adress_piece'];
+                    $adress_link = "images/" . $_SESSION['ADRESS_PIECE'];
 
                     if (file_exists($adress_link)) {
-                        $update_query = "UPDATE `slf_user_client` SET  `adress_piece`='{$new_img_name_adress}'
-    WHERE client_id='$client_id'";
+                        $update_query = "UPDATE `slf_user_client` SET  `ADRESS_PIECE`='{$new_img_name_adress}'
+    WHERE CLIENT_ID_UK='$CLIENT_ID_UK'";
                         $result_update = $conn->query($update_query);
                         if ($result_update) {
-                            unset($_SESSION['adress_piece']);
+                            unset($_SESSION['ADRESS_PIECE']);
                             if (!unlink($adress_link)) {
                                 $msg = "Échec de la suppression du : " . $adress_link;
                             }
@@ -142,7 +142,7 @@ if (isset($_POST['flagUpdate'])) {
         }
     }
     $status='success';
-    $msg= " Ref Client : <b> ".$client_id. "</b> modifié avec succès !";
+    $msg= " Ref Client : <b> ".$CLIENT_ID_UK. "</b> modifié avec succès !";
 } else {
 
 
@@ -156,7 +156,7 @@ if (isset($_POST['flagUpdate'])) {
     $img_ext_adress = end($img_explode_adress);
 
     if (!empty($img_name_cin) && !empty($img_name_adress) && !empty($img_name_rib)) {
-        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE client_id = '{$client_id}'";
+        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE CLIENT_ID_UK = '{$CLIENT_ID_UK}'";
         $result = $conn->query($query);
 
 
@@ -177,12 +177,12 @@ if (isset($_POST['flagUpdate'])) {
                     if (move_uploaded_file($tmp_name_cin, "images/" . $new_img_name_cin) && move_uploaded_file($tmp_name_rib, "images/" . $new_img_name_rib) && move_uploaded_file($tmp_name_adress, "images/" . $new_img_name_adress)) {
 
                         $update_query = "UPDATE `slf_user_client` 
-                SET `cin_piece`='{$new_img_name_cin}',`rib_piece`='{$new_img_name_rib}',`adress_piece`='{$new_img_name_adress}' 
-                WHERE `client_id`='{$client_id}'";
+                SET `CIN_PIECE`='{$new_img_name_cin}',`RIB_PIECE`='{$new_img_name_rib}',`ADRESS_PIECE`='{$new_img_name_adress}' 
+                WHERE `CLIENT_ID_UK`='{$CLIENT_ID_UK}'";
                         $result_update = $conn->query($update_query);
                         if (($result_update)) {
                             //Mettre à jours le credit du client
-                            $update_credit = "UPDATE `credit_client` SET `state`= 'En cours' WHERE `client_id`='{$client_id}' AND `state`='En attente' ";
+                            $update_credit = "UPDATE `credit_client` SET `state`= 'En cours' WHERE `CLIENT_ID_UK`='{$CLIENT_ID_UK}' AND `state`='En attente' ";
                             $conn->query($update_credit);
                             $status = "success";
                             $msg = "Vos données ont été envoyées avec succès";

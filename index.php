@@ -714,7 +714,7 @@ btnCreditAuto.onclick = () => {
 
                     } else {
                         errorText.style.display = "block";
-                        errorText.textContent = data;
+                        errorText.innerHTML = responseData.message;
                     }
                 }
             }

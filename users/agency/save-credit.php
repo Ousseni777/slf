@@ -1,26 +1,26 @@
 <?php
 session_start();
 include '../../connectToDB.php';
-$seller_id = $_SESSION['seller_id'];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
 
 if (!empty($_POST['author_id'])) {
 
     $author_id = mysqli_real_escape_string($conn, $_POST['author_id']);
 
-    $brand = mysqli_real_escape_string($conn, $_POST['brand']);
-    $product = mysqli_real_escape_string($conn, $_POST['product']);
-    $tariff = mysqli_real_escape_string($conn, $_POST['tariff']);
+    $BRAND = mysqli_real_escape_string($conn, $_POST['BRAND']);
+    $PRODUCT = mysqli_real_escape_string($conn, $_POST['PRODUCT']);
+    $TARIFF = mysqli_real_escape_string($conn, $_POST['TARIFF']);
 
-    $amount = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['amount'])));
-    $duration = mysqli_real_escape_string($conn, $_POST['duration']);
-    $monthly = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['monthly'])));
-    $app_fees = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['app_fees'])));
+    $AMOUNT = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['AMOUNT'])));
+    $DURATION = mysqli_real_escape_string($conn, $_POST['DURATION']);
+    $MONTHLY = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['MONTHLY'])));
+    $APP_FEES = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['APP_FEES'])));
 
-    $adi = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['adi'])));
-    $cost_ex_adi = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['cost_ex_adi'])));
-    $tariff_id = mysqli_real_escape_string($conn, $_POST['tariff_id']);
-    $down_pmt = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['down_pmt'])));
-    $down_pmt_perc = mysqli_real_escape_string($conn, $_POST['down_pmt_perc']);
+    $ADI = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['ADI'])));
+    $COST_EX_ADI = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['COST_EX_ADI'])));
+    $TARIFF_ID_UK = mysqli_real_escape_string($conn, $_POST['TARIFF_ID_UK']);
+    $DOWN_PMT = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['DOWN_PMT'])));
+    $DOWN_PMT_PERC = mysqli_real_escape_string($conn, $_POST['DOWN_PMT_PERC']);
 
 
     $rand_text = generateUniqueID(2);
@@ -29,20 +29,20 @@ if (!empty($_POST['author_id'])) {
     $today = new DateTime();
     $today = $today->format('Y-m-d');
 
-    if (!empty($_POST['credit_id'])) {
-        $credit_id = mysqli_real_escape_string($conn, $_POST['credit_id']);
-        $select_credit = "SELECT * FROM `credit_client` WHERE seller_id='$seller_id' AND credit_id='$credit_id'";
+    if (!empty($_POST['CREDIT_ID_UK'])) {
+        $CREDIT_ID_UK = mysqli_real_escape_string($conn, $_POST['CREDIT_ID_UK']);
+        $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID_UK' AND CREDIT_ID_UK='$CREDIT_ID_UK'";
         $result_select_credit = $conn->query($select_credit);
 
         if ($result_select_credit->num_rows > 0) {
             //Mettre à jour le credit
         
-            $update_query = "UPDATE `credit_client` SET `tariff_id`='{$tariff_id}',`state`='En attente',`amount`='{$amount}',`duration`='{$duration}',`monthly`='{$monthly}',`app_fees`='{$app_fees}',`down_pmt_perc`='{$down_pmt_perc}',`down_pmt`='{$down_pmt}',`adi`='{$adi}',`cost_ex_adi`='{$cost_ex_adi}',`up_date`='{$today}' 
-            WHERE credit_id='$credit_id' AND client_id='$author_id' AND seller_id='$seller_id'";
+            $update_query = "UPDATE `credit_client` SET `TARIFF_ID`='{$TARIFF_ID_UK}',`STATE_LIB`='En attente',`AMOUNT`='{$AMOUNT}',`DURATION`='{$DURATION}',`MONTHLY`='{$MONTHLY}',`APP_FEES`='{$APP_FEES}',`DOWN_PMT_PERC`='{$DOWN_PMT_PERC}',`DOWN_PMT`='{$DOWN_PMT}',`ADI`='{$ADI}',`COST_EX_ADI`='{$COST_EX_ADI}',`UP_DATE`='{$today}' 
+            WHERE CREDIT_ID_UK='$CREDIT_ID_UK' AND CLIENT_ID='$author_id' AND SELLER_ID='$SELLER_ID_UK'";
 
             $result_update = $conn->query($update_query);
             if (($result_update)) {
-                $response = array('status' => 'success', 'message' => 'Demande N°: <b>'.$credit_id.'</b> , modifiée avec succès');        
+                $response = array('status' => 'success', 'message' => 'Demande N°: <b>'.$CREDIT_ID_UK.'</b> , modifiée avec succès');        
             } else {
                 $response = array('status' => 'error', 'message' => 'Echec de mise à jour du credit ');                        
             }
@@ -53,13 +53,13 @@ if (!empty($_POST['author_id'])) {
     } else {
         //Inserer le nouveau credit
 
-        $query = "SELECT * FROM `slf_user_client` WHERE seller_id = '{$seller_id}' AND cin='{$author_id}'";
+        $query = "SELECT * FROM `slf_user_client` WHERE SELLER_ID = '{$SELLER_ID_UK}' AND CLIENT_CIN='{$author_id}'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
 
-            $insert_query = "INSERT INTO `credit_client`(`credit_id`, `tariff_id`, `client_id`, `seller_id`, `state`, `amount`, `duration`, `monthly`, `app_fees`, `down_pmt_perc`, `down_pmt`, `adi`, `cost_ex_adi`, `up_date`) 
-    VALUES ('{$ran_id}','{$tariff_id}','{$author_id}','{$seller_id}','En attente','{$amount}','{$duration}','{$monthly}','{$app_fees}','{$down_pmt_perc}','{$down_pmt}','{$adi}','{$cost_ex_adi}','{$today}')";
+            $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID_UK`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `APP_FEES`, `DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
+    VALUES ('{$ran_id}','{$TARIFF_ID_UK}','{$author_id}','{$SELLER_ID_UK}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
 
 
             $result_insert = $conn->query($insert_query);
@@ -71,7 +71,7 @@ if (!empty($_POST['author_id'])) {
             }
             
         } else {
-            $response = array('status' => 'error', 'message' => 'Le CIN N°<b>' . $author_id . '</b> n\'est pas attribué à votre nom !');                                          
+            $response = array('status' => 'error', 'message' => 'Le CLIENT_CIN N°<b>' . $author_id . '</b> n\'est pas attribué à votre nom !');                                          
         }
     }
 } else {

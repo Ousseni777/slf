@@ -81,7 +81,7 @@
             method: "POST",
             data: {
                 ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php if (isset($client)) {
-                    echo $client['region'];
+                    echo $client['REGION'];
                 }
                 ?> " },
             success: function (data) {

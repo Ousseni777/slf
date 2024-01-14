@@ -121,7 +121,7 @@
 
 
                         <?php
-                        $select_credit = "SELECT * FROM `viewsim` WHERE seller_id='$seller_id'";
+                        $select_credit = "SELECT * FROM `viewsim` WHERE SELLER_ID='$SELLER_ID_UK'";
                         $result_select_credit = $conn->query($select_credit);
                         if ($result_select_credit->num_rows > 0) {
                             $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
@@ -129,23 +129,23 @@
                         if (count($credits) > 0) {
 
                             foreach ($credits as $credit) {
-                                $tariff_id = $credit['tariff_id'];
-                                $select_tariff = "SELECT * FROM `slf_tarification` WHERE tariff_id='$tariff_id'";
+                                $TARIFF_ID_UK = $credit['TARIFF_ID'];
+                                $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID_UK='$TARIFF_ID_UK'";
                                 $result_select_tariff = $conn->query($select_tariff);
                                 $tariff = $result_select_tariff->fetch_assoc();
                                 ?>
                                 <tr>
                                     <th style="width: 150px;" scope="row"><a
-                                            href="detail-cr?id=<?php echo $credit['credit_id'] ?>">#
-                                            <?php echo $credit['credit_id'] ?>
+                                            href="detail-cr?id=<?php echo $credit['CREDIT_ID_UK'] ?>">#
+                                            <?php echo $credit['CREDIT_ID_UK'] ?>
                                         </a>
                                     </th>
                                     <td style="width: 150px;">
-                                        <?php echo (string) $credit['up_date'] ?>
+                                        <?php echo (string) $credit['UP_DATE'] ?>
                                     </td>
                                     <td style="width: 100px;">
-                                        <a href="detail-cl?id=<?php echo $credit['client_id'] ?>" class="text-primary">
-                                            <?php echo $credit['client_id'] ?>
+                                        <a href="detail-cl?id=<?php echo $credit['CLIENT_ID'] ?>" class="text-primary">
+                                            <?php echo $credit['CLIENT_ID'] ?>
                                         </a>
                                     </td>
 
@@ -156,21 +156,21 @@
                                         <?php echo $tariff['BAREME'] ?>
                                     </td>
                                     <td>
-                                        <?php echo number_format($credit['amount'], 2, ".", " ") ?>
+                                        <?php echo number_format($credit['AMOUNT'], 2, ".", " ") ?>
                                     </td>
 
                                     <td style="text-align: right; font-size: 18px;">
 
-                                        <?php if ($credit['state'] == "Demande traitée") {
+                                        <?php if ($credit['STATE_LIB'] == "Demande traitée") {
                                             echo '<span class="badge bg-success">';
-                                        } else if ($credit['state'] == "Demande rejetée") {
+                                        } else if ($credit['STATE_LIB'] == "Demande rejetée") {
                                             echo '<span class="badge bg-danger">';
                                         } else {
                                             echo '<span class="badge bg-warning">';
                                         }
 
                                         ?>
-                                        <?php echo $credit['state'] ?>
+                                        <?php echo $credit['STATE_LIB'] ?>
                                         </span>
                                     </td>
                                 </tr>

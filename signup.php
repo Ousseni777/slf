@@ -99,12 +99,12 @@ session_start();
                   <form class="row g-3 needs-validation" action="#" id="formRegister" method="post">
                     <div class="error-text col-12"></div>
                     <div class="col-12 form-floating mb-3">
-                      <input type="email" name="email" placeholder="Votre adresse mail" class="form-control"
+                      <input type="email" name="EMAIL" placeholder="Votre adresse mail" class="form-control"
                         id="yourEmail">
                       <label for="yourEmail" class="form-label">Votre adresse mail</label>
                     </div>
                     <div class="col-12 form-floating mb-3">
-                      <input type="text" name="phone" class="form-control" placeholder="Votre N° Téléphone" id="phone">
+                      <input type="text" name="PHONE" class="form-control" placeholder="Votre N° Téléphone" id="phone">
                       <label for="phone" class="form-label">Votre N° Téléphone</label>
                     </div>
 

@@ -2,54 +2,54 @@
 session_start();
 include '../../connectToDB.php';
 
-if (isset($_POST['project'], $_POST['amount'], $_POST['duration'], $_POST['monthly'], $_POST['app_fees'])) {
-    $project = strtoupper(mysqli_real_escape_string($conn, $_POST['project']));
-    $amount = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['amount'])));
-    $duration = mysqli_real_escape_string($conn, $_POST['duration']);
-    $monthly = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['monthly'])));
-    $app_fees = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['app_fees'])));
+if (isset($_POST['PROJECT'], $_POST['AMOUNT'], $_POST['DURATION'], $_POST['MONTHLY'], $_POST['APP_FEES'])) {
+    $PROJECT = strtoupper(mysqli_real_escape_string($conn, $_POST['PROJECT']));
+    $AMOUNT = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['AMOUNT'])));
+    $DURATION = mysqli_real_escape_string($conn, $_POST['DURATION']);
+    $MONTHLY = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['MONTHLY'])));
+    $APP_FEES = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['APP_FEES'])));
 
     $rand_text = generateUniqueID(2);
     $ran_id = rand(time(), 100000000);
     $ran_id = $rand_text . '-' . $ran_id;
-    if (isset($_SESSION['client_id'])) {
-        $client_id = $_SESSION['client_id'];
+    if (isset($_SESSION['CLIENT_ID_UK'])) {
+        $CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
     } else {
-        $client_id = $ran_id;
+        $CLIENT_ID_UK = $ran_id;
     }
-    $seller_id = 'ANONYME';
+    $SELLER_ID = 'ANONYME';
 
 
     $today = new DateTime();
     $today = $today->format('Y-m-d');
 
-    if ($project == "AUTO") {
+    if ($PROJECT == "AUTO") {
 
-        if (isset($_POST['adi'], $_POST['cost_ex_adi'], $_POST['tariff_id'], $_POST['down_pmt'], $_POST['down_pmt_perc'])) {
-            $adi = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['adi'])));
-            $cost_ex_adi = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['cost_ex_adi'])));
-            $tariff_id = mysqli_real_escape_string($conn, $_POST['tariff_id']);
-            $down_pmt = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['down_pmt'])));
-            $down_pmt_perc = mysqli_real_escape_string($conn, $_POST['down_pmt_perc']);
+        if (isset($_POST['ADI'], $_POST['COST_EX_ADI'], $_POST['TARIFF_ID_UK'], $_POST['DOWN_PMT'], $_POST['DOWN_PMT_PERC'])) {
+            $ADI = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['ADI'])));
+            $COST_EX_ADI = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['COST_EX_ADI'])));
+            $TARIFF_ID_UK = mysqli_real_escape_string($conn, $_POST['TARIFF_ID_UK']);
+            $DOWN_PMT = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['DOWN_PMT'])));
+            $DOWN_PMT_PERC = mysqli_real_escape_string($conn, $_POST['DOWN_PMT_PERC']);
 
 
 
-            $insert_query = "INSERT INTO `credit_client`(`credit_id`, `tariff_id`, `client_id`, `seller_id`, `state`, `amount`, `duration`, `monthly`, `project`, `app_fees`,`down_pmt_perc`, `down_pmt`, `adi`, `cost_ex_adi`, `up_date`) 
-        VALUES ('{$ran_id}','{$tariff_id}','{$client_id}','{$seller_id}','En attente','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$down_pmt_perc}','{$down_pmt}','{$adi}','{$cost_ex_adi}','{$today}')";
+            $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID_UK`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`,`DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
+        VALUES ('{$ran_id}','{$TARIFF_ID_UK}','{$CLIENT_ID_UK}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
         } else {
             $msg = array('status' => 'error', 'message' => 'Une erreur est survenue, merci de réessayer encore !');
         }
     } else {
-        $insert_query = "INSERT INTO `credit_client`(`credit_id`, `tariff_id`, `client_id`, `seller_id`, `state`, `amount`, `duration`, `monthly`, `project`, `app_fees`, `up_date`) 
-    VALUES ('{$ran_id}',0,'{$client_id}','{$seller_id}','En attente','{$amount}','{$duration}','{$monthly}','{$project}','{$app_fees}','{$today}')";
+        $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID_UK`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`, `UP_DATE`) 
+    VALUES ('{$ran_id}',0,'{$CLIENT_ID_UK}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$today}')";
     }
 
 
     $result_insert = $conn->query($insert_query);
     if (($result_insert)) {
         $msg = array('status' => 'success', 'message' => 'Demande N°: <b>' . $ran_id . ' </b> , ajoutée avec succès');
-        if (!isset($_SESSION['client_id'])) {
-            $_SESSION['credit_id_temp'] = $ran_id;
+        if (!isset($_SESSION['CLIENT_ID_UK'])) {
+            $_SESSION['CREDIT_ID_UK_TEMP'] = $ran_id;
         }
 
 

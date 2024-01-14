@@ -89,9 +89,9 @@
                     <tbody>
                         <?php
 
-                        if (isset($_SESSION['seller_id'])) {
-                            $seller_id = $_SESSION['seller_id'];
-                            $query_user = "SELECT * FROM `slf_user_client` WHERE seller_id ='$seller_id'";
+                        if (isset($_SESSION['SELLER_ID_UK'])) {
+                            
+                            $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID ='$SELLER_ID_UK'";
                             $result_user = $conn->query($query_user);
 
                             if ($result_user->num_rows > 0) {
@@ -100,24 +100,24 @@
                                     foreach ($users as $data) { ?>
                                         <tr>
                                             <th scope="row">
-                                                <?php echo '<i class="bi bi-info-circle"></i> <a class="cin-class" href="./detail-cl?id=' . $data["cin"] . ' "> ' . $data["cin"] . '</a>' ?>
+                                                <?php echo '<i class="bi bi-info-circle"></i> <a class="cin-class" href="./detail-cl?id=' . $data["CLIENT_CIN"] . ' "> ' . $data["CLIENT_CIN"] . '</a>' ?>
                                             </th>
 
                                             <td>
-                                                <?php echo $data["lname"] ?>
+                                                <?php echo $data["LNAME"] ?>
                                             </td>
                                             <td>
-                                                <?php echo $data["fname"] ?>
+                                                <?php echo $data["FNAME"] ?>
                                             </td>
 
                                             <td>
-                                                <?php echo $data["phone"] ?>
+                                                <?php echo $data["PHONE"] ?>
                                             </td>
                                             <td style="width: 220px; ">
-                                                <?php echo $data["email"] ?>
+                                                <?php echo $data["EMAIL"] ?>
                                             </td>
                                             <td style="text-align: center; width: 120px; ">
-                                                <a style="margin : 0; padding: 0 3px;" href="./detail-cl?edit=1&id=<?php echo $data["cin"] ?>" id="btn-edit"
+                                                <a style="margin : 0; padding: 0 3px;" href="./detail-cl?edit=1&id=<?php echo $data["CLIENT_CIN"] ?>" id="btn-edit"
                                                     class="btn btn-outline-primary btn-edit">
                                                     <i class="bi bi-pencil-square"></i> Modifier
                                                 </a>
@@ -156,14 +156,14 @@
                     <div class="col-12">
                         <div class="row">
                             <p class="info-dialog">Vous allez supprimer le client CIN : <span id="idDemande"></span>
-                                <!-- <?php echo $_COOKIE['cin'] ?> -->
+                                
                             </p>
                             <p>Cette action est irreversible !</p>
                         </div>
 
                         <form action="#" class="row" id="form-delete" method="post">
                             <div class="error-text col-12"></div>
-                            <input type="text" style="display: none;" name="cin" value="" id="cin">
+                            <input type="text" style="display: none;" name="CLIENT_CIN" value="" id="CLIENT_CIN">
                             <div class="col-12">
                                 <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
                                     required>

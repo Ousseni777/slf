@@ -2,19 +2,19 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$client_id = $_GET["id"];
-$seller_id = $_SESSION['seller_id'];
-$query_client = "SELECT * FROM `slf_user_client` WHERE cin = '{$client_id}' AND seller_id='$seller_id' ";
+$CLIENT_ID_UK = $_GET["id"];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_CIN = '{$CLIENT_ID_UK}' AND SELLER_ID='$SELLER_ID_UK' ";
 $result_client = $conn->query($query_client);
-// $_SESSION['page'] = "detail-cl?id=".$client_id;
+// $_SESSION['page'] = "detail-cl?id=".$CLIENT_ID_UK;
 
 if ($result_client->num_rows > 0) {
     $client = $result_client->fetch_assoc();
 
-    $_SESSION['cin_piece'] = $client['cin_piece'];
-    $_SESSION['rib_piece'] = $client['rib_piece'];
-    $_SESSION['adress_piece'] = $client['adress_piece'];
-    $select_credit = "SELECT * FROM `credit_client` WHERE client_id='$client_id'";
+    $_SESSION['CIN_PIECE'] = $client['CIN_PIECE'];
+    $_SESSION['RIB_PIECE'] = $client['RIB_PIECE'];
+    $_SESSION['ADRESS_PIECE'] = $client['ADRESS_PIECE'];
+    $select_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID='$CLIENT_ID_UK'";
     $result_select_credit = $conn->query($select_credit);
     $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
 }
@@ -27,7 +27,7 @@ if ($result_client->num_rows > 0) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Components / Bre</title>
+    <TITLE>Components / Bre</TITLE>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -247,12 +247,12 @@ if ($result_client->num_rows > 0) {
 
             <div class="container" id="panelEdit">
 
-                <div class="pagetitle">
+                <div class="pageTITLE">
 
                     <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Panel
                         modification (Ref client
                         : <b>
-                            <?php echo $client['client_id'] ?>
+                            <?php echo $client['CLIENT_ID_UK'] ?>
                         </b>) </h1>
                     <nav>
                         <ol class="breadcrumb">
@@ -260,7 +260,7 @@ if ($result_client->num_rows > 0) {
                             <li class="breadcrumb-item active">Référence Emprunteur </li>
                         </ol>
                     </nav>
-                </div><!-- End Page Title -->
+                </div><!-- End Page TITLE -->
                 <!-- <h2>Conditions d'Utilisation</h2> -->
                 <section class="section">
 
@@ -270,7 +270,7 @@ if ($result_client->num_rows > 0) {
                             <div class="success-text" id="success-infos">
                                 <div class="alert alert-success" role="alert" style="text-align:center;">
                                     <h4 class="alert-heading">Client N°
-                                        <?php echo $client['cin'] ?> modifié !
+                                        <?php echo $client['CLIENT_CIN'] ?> modifié !
                                     </h4>
                                 </div>
                             </div>
@@ -279,49 +279,49 @@ if ($result_client->num_rows > 0) {
                             </div>
                             <div class="col-lg-6">
                                 <div class="card">
-                                    <input type="text" value="<?php echo $client['client_id'] ?>" name="client_id"
+                                    <input type="text" value="<?php echo $client['CLIENT_ID_UK'] ?>" name="CLIENT_ID_UK"
                                         style="display: none;">
                                     <div class="card-body">
-                                        <h5 class="card-title infos-client" onclick="displayElement('.civilite')"><i
+                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.civilite')"><i
                                                 class="bi bi-person left"></i>Civilité<i
                                                 class="bi right bi-plus civilite-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 civilite">
-                                            <input type="text" name="lname" placeholder=""
-                                                value="<?php echo $client['lname'] ?>" class="form-control" id="lname"
+                                            <input type="text" name="LNAME" placeholder=""
+                                                value="<?php echo $client['LNAME'] ?>" class="form-control" id="LNAME"
                                                 required>
-                                            <label for="lname" class="form-label">Nom</label>
+                                            <label for="LNAME" class="form-label">Nom</label>
                                         </div>
                                         <div class="col-12 form-floating form-hide mb-3 civilite">
-                                            <input type="text" name="fname" placeholder=""
-                                                value="<?php echo $client['fname'] ?>" class="form-control" id="fname"
+                                            <input type="text" name="FNAME" placeholder=""
+                                                value="<?php echo $client['FNAME'] ?>" class="form-control" id="FNAME"
                                                 required>
-                                            <label for="fname" class="form-label">Prénom</label>
+                                            <label for="FNAME" class="form-label">Prénom</label>
                                         </div>
                                         <div class="col-12 form-floating form-hide mb-3 civilite">
 
                                             <span> Titre</span>
                                             <br>
                                             <div class="form-check" style="float: left;">
-                                                <?php if ($client['title'] == "Homme") { ?>
-                                                    <input class="form-check-input" type="radio" name="title" id="titleM"
+                                                <?php if ($client['TITLE'] == "Homme") { ?>
+                                                    <input class="form-check-input" type="radio" name="TITLE" id="TITLEM"
                                                         value="Homme" checked>
                                                 <?php } else { ?>
-                                                    <input class="form-check-input" type="radio" name="title" id="titleM"
+                                                    <input class="form-check-input" type="radio" name="TITLE" id="TITLEM"
                                                         value="Homme">
                                                 <?php } ?>
-                                                <label class="form-check-label" for="titleM">
+                                                <label class="form-check-label" for="TITLEM">
                                                     Homme
                                                 </label>
                                             </div>
                                             <div class="form-check" style="float: right;">
-                                                <?php if ($client['title'] == "Femme") { ?>
-                                                    <input class="form-check-input" type="radio" name="title" id="titleF"
+                                                <?php if ($client['TITLE'] == "Femme") { ?>
+                                                    <input class="form-check-input" type="radio" name="TITLE" id="TITLEF"
                                                         value="Femme" checked>
                                                 <?php } else { ?>
-                                                    <input class="form-check-input" type="radio" name="title" id="titleF"
+                                                    <input class="form-check-input" type="radio" name="TITLE" id="TITLEF"
                                                         value="Femme">
                                                 <?php } ?>
-                                                <label class="form-check-label" for="titleF">
+                                                <label class="form-check-label" for="TITLEF">
                                                     Femme
                                                 </label>
                                             </div>
@@ -330,21 +330,21 @@ if ($result_client->num_rows > 0) {
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title infos-client" onclick="displayElement('.reference')"><i
+                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.reference')"><i
                                                 class="bi bi-file-earmark-text left"></i>Reférence<i
                                                 class="bi right bi-plus reference-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 reference">
-                                            <input type="text" name="cin" placeholder=""
-                                                value="<?php echo $client['cin'] ?>" class="form-control"
+                                            <input type="text" name="CLIENT_CIN" placeholder=""
+                                                value="<?php echo $client['CLIENT_CIN'] ?>" class="form-control"
                                                 required>
-                                            <label for="cin" class="form-label">Numéro CIN / Carte de
+                                            <label for="CLIENT_CIN" class="form-label">Numéro CIN / Carte de
                                                 séjour</label>
                                         </div>
                                         <div class="col-12 form-floating form-hide mb-3 reference">
-                                            <input type="text" name="income" placeholder=""
-                                                value="<?php echo $client['income'] ?>" class="form-control" id="income"
+                                            <input type="text" name="INCOME" placeholder=""
+                                                value="<?php echo $client['INCOME'] ?>" class="form-control" id="INCOME"
                                                 required>
-                                            <label for="income" class="form-label">Total revenus mensuels
+                                            <label for="INCOME" class="form-label">Total revenus mensuels
                                                 (net en DH)</label>
                                         </div>
                                     </div>
@@ -352,19 +352,19 @@ if ($result_client->num_rows > 0) {
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title infos-client" onclick="displayElement('.coordonnee')"><i
+                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.coordonnee')"><i
                                                 class="bi bi-geo-alt left"></i>Coordonnées<i
                                                 class="bi right bi-plus coordonnee-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                            <select name="region" onchange="loadTowns()" class="form-select"
+                                            <select name="REGION" onchange="loadTowns()" class="form-select"
                                                 id="idRegion" aria-label="State">
-                                                <!-- <option value="<?php echo $client['region'] ?>"><?php echo $client['region'] ?></option> -->
+                                                <!-- <option value="<?php echo $client['REGION'] ?>"><?php echo $client['REGION'] ?></option> -->
                                             </select>
                                             <label for="yourRegion" class="form-label">Votre région !
                                             </label>
                                         </div>
                                         <div class="col-12 form-floating form-hide mb-3 coordonnee">
-                                            <select name="town" class="form-select" placeholder="" id="idTown">
+                                            <select name="TOWN" class="form-select" placeholder="" id="idTown">
 
                                             </select>
                                             <label for="yourTown" class="form-label">Votre ville actuelle
@@ -379,27 +379,27 @@ if ($result_client->num_rows > 0) {
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title infos-client" onclick="displayElement('.contact')"><i
-                                                class="bi bi-telephone left"></i>Contact <i
+                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.contact')"><i
+                                                class="bi bi-telePHONE left"></i>Contact <i
                                                 class="bi right bi-plus contact-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 contact">
-                                            <input type="text" name="email" placeholder=""
-                                                value="<?php echo $client['email'] ?>" class="form-control" id="email"
+                                            <input type="text" name="EMAIL" placeholder=""
+                                                value="<?php echo $client['EMAIL'] ?>" class="form-control" id="EMAIL"
                                                 required>
-                                            <label for="email" class="form-label">Adresse email</label>
+                                            <label for="EMAIL" class="form-label">Adresse EMAIL</label>
                                         </div>
                                         <div class="col-12 form-floating form-hide mb-3 contact">
-                                            <input type="text" name="phone" placeholder=""
-                                                value="<?php echo $client['phone'] ?>" class="form-control" id="phone"
+                                            <input type="text" name="PHONE" placeholder=""
+                                                value="<?php echo $client['PHONE'] ?>" class="form-control" id="PHONE"
                                                 required>
-                                            <label for="phone" class="form-label">Téléphone</label>
+                                            <label for="PHONE" class="form-label">TéléPHONE</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="card">
                                     <div class="card-body row">
-                                        <h5 class="card-title infos-client col-lg-12"
+                                        <h5 class="card-TITLE infos-client col-lg-12"
                                             onclick="displayElement('.justificatifs')">
                                             <i class="bi bi-file-earmark-text left"></i>Justificatifs<i
                                                 class="bi right bi-plus justificatifs-bi"></i>
@@ -408,10 +408,10 @@ if ($result_client->num_rows > 0) {
                                         <div class="col-lg-4 justificatifs">
                                             <div class="portfolio-wrap col-8 form-control">
                                                 <img id="preview-inputImageCIN"
-                                                    src="users/agency/images/<?php echo $client["cin_piece"] ?>"
+                                                    src="users/agency/images/<?php echo $client["CIN_PIECE"] ?>"
                                                     class="pieces img-fluid" alt="">
                                                 <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["cin_piece"] ?>"
+                                                    <a href="users/agency/images/<?php echo $client["CIN_PIECE"] ?>"
                                                         class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
 
                                                 </div>
@@ -426,10 +426,10 @@ if ($result_client->num_rows > 0) {
                                         <div class="col-lg-4 justificatifs">
                                             <div class="portfolio-wrap col-8 form-control">
                                                 <img id="preview-inputImageRib"
-                                                    src="users/agency/images/<?php echo $client["rib_piece"] ?>"
+                                                    src="users/agency/images/<?php echo $client["RIB_PIECE"] ?>"
                                                     class="pieces img-fluid" alt="">
                                                 <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["rib_piece"] ?>"
+                                                    <a href="users/agency/images/<?php echo $client["RIB_PIECE"] ?>"
                                                         class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
 
                                                 </div>
@@ -444,10 +444,10 @@ if ($result_client->num_rows > 0) {
                                         <div class="col-lg-4 justificatifs">
                                             <div class="portfolio-wrap col-8 form-control">
                                                 <img id="preview-inputImageAdress"
-                                                    src="users/agency/images/<?php echo $client["adress_piece"] ?>"
+                                                    src="users/agency/images/<?php echo $client["ADRESS_PIECE"] ?>"
                                                     class="pieces img-fluid" alt="">
                                                 <div class="portfolio-links">
-                                                    <a href="users/agency/images/<?php echo $client["adress_piece"] ?>"
+                                                    <a href="users/agency/images/<?php echo $client["ADRESS_PIECE"] ?>"
                                                         class="portfolio-lightbox"><i class="bi bi-plus"></i></a>
                                                 </div>
                                             </div>
@@ -479,9 +479,9 @@ if ($result_client->num_rows > 0) {
 
             </div>
             <div class="row mt-5" id="panelDetail">
-                <div class="pagetitle">
+                <div class="pageTITLE">
                     <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Ref client : <b>
-                            <?php echo $client['client_id'] ?>
+                            <?php echo $client['CLIENT_ID_UK'] ?>
                         </b> </h1>
                     <nav>
                         <ol class="breadcrumb">
@@ -489,7 +489,7 @@ if ($result_client->num_rows > 0) {
                             <li class="breadcrumb-item active">Detail client</li>
                         </ol>
                     </nav>
-                </div><!-- End Page Title -->
+                </div><!-- End Page TITLE -->
                 <!-- <div class="col-3"></div> -->
 
                 <div class="col-lg-6">
@@ -497,43 +497,43 @@ if ($result_client->num_rows > 0) {
                     <div class="card">
                         <div class="card-body mt-3">
                             <span class="infoL"> Identifiant du client : </span>
-                            <input type="text" readonly value="<?php echo $client['client_id'] ?>"
+                            <input type="text" readonly value="<?php echo $client['CLIENT_ID_UK'] ?>"
                                 class="infoR">
                         </div>
 
                         <div class="card-body">
                             <span class="infoL"> Nom : </span> <input type="text" readonly
-                                value="<?php echo $client['lname'] ?>" class="infoR">
+                                value="<?php echo $client['LNAME'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
                             <span class="infoL"> Prénom : </span> <input type="text" readonly
-                                value="<?php echo $client['fname'] ?>" class="infoR">
+                                value="<?php echo $client['FNAME'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
                             <span class="infoL">CIN / Carte de séjour : </span> <input id="cin_client"  type="text" readonly
-                                value="<?php echo $client['cin'] ?>" class="infoR">
+                                value="<?php echo $client['CLIENT_CIN'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
-                            <span class="infoL">Email : </span> <input type="text" readonly
-                                value="<?php echo $client['email'] ?>" class="infoR">
+                            <span class="infoL">EMAIL : </span> <input type="text" readonly
+                                value="<?php echo $client['EMAIL'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
-                            <span class="infoL">Téléphone : </span> <input type="text" readonly
-                                value="<?php echo $client['phone'] ?>" class="infoR">
+                            <span class="infoL">TéléPHONE : </span> <input type="text" readonly
+                                value="<?php echo $client['PHONE'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
                             <span class="infoL">Revenue mensuel : </span> <input type="text" readonly
-                                value="<?php echo $client['income'] ?>" class="infoR">
+                                value="<?php echo $client['INCOME'] ?>" class="infoR">
                         </div>
 
                         <div class="card-body">
                             <span class="infoL">Ville de résidence : </span> <input type="text" readonly
-                                value="<?php echo $client['town'] ?>" class="infoR">
+                                value="<?php echo $client['TOWN'] ?>" class="infoR">
                         </div>
 
 
@@ -544,11 +544,11 @@ if ($result_client->num_rows > 0) {
 
                     <div class="col-lg-12 card">
                         <div class="card-body">
-                            <h5 class="card-title">#Référence des crédit</h5>
+                            <h5 class="card-TITLE">#Référence des crédit</h5>
                             <?php if (count($credits) > 0) {
                                 foreach ($credits as $credit) { ?>
-                                    <a href="./detail-cr?id=<?php echo $credit['credit_id'] ?>" class="form-control status">#
-                                        <?php echo $credit['credit_id'] ?>
+                                    <a href="./detail-cr?id=<?php echo $credit['CREDIT_ID_UK'] ?>" class="form-control status">#
+                                        <?php echo $credit['CREDIT_ID_UK'] ?>
                                     </a>
                                 <?php }
                             } else { ?>
@@ -585,14 +585,14 @@ if ($result_client->num_rows > 0) {
                     <div class="col-12">
                         <div class="row">
                             <p class="info-dialog">Vous allez supprimer le client CIN : <span id="idDemande"></span>
-                                <!-- <?php echo $_COOKIE['cin'] ?> -->
+                                <!-- <?php echo $_COOKIE['CLIENT_CIN'] ?> -->
                             </p>
                             <p>Cette action est irreversible !</p>
                         </div>
 
                         <form action="#" class="row" id="form-delete" method="post">
                             <div class="error-text col-12"></div>
-                            <input type="text" style="display: none ;" name="cin" value="" id="cin">
+                            <input type="text" style="display: none ;" name="CLIENT_CIN" value="" id="CLIENT_CIN">
                             <div class="col-12">
                                 <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
                                     required>
@@ -857,7 +857,7 @@ if ($result_client->num_rows > 0) {
             $.ajax({
                 url: "users/region_retriever.php",
                 method: "POST",
-                data: { ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region'] ?>" },
+                data: { ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['REGION'] ?>" },
                 success: function (data) {
                     $("#idRegion").html(data);
 

@@ -2,18 +2,18 @@
 session_start();
 include '../../connectToDB.php';
 
-$client_id = mysqli_real_escape_string($conn, $_POST['client_id']);
-$seller_id = $_SESSION['seller_id'];
+$CLIENT_ID_UK = mysqli_real_escape_string($conn, $_POST['CLIENT_ID_UK']);
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
 
-$lname = mysqli_real_escape_string($conn, $_POST['lname']);
-$fname = mysqli_real_escape_string($conn, $_POST['fname']);
-$title = mysqli_real_escape_string($conn, $_POST['title']);
-$cin = mysqli_real_escape_string($conn, $_POST['cin']);
-$income = mysqli_real_escape_string($conn, $_POST['income']);
-$region = mysqli_real_escape_string($conn, $_POST['region']);
-$town = mysqli_real_escape_string($conn, $_POST['town']);
-$email = mysqli_real_escape_string($conn, $_POST['email']);
-$phone = mysqli_real_escape_string($conn, $_POST['phone']);
+$LNAME = mysqli_real_escape_string($conn, $_POST['LNAME']);
+$FNAME = mysqli_real_escape_string($conn, $_POST['FNAME']);
+$TITLE = mysqli_real_escape_string($conn, $_POST['TITLE']);
+$CLIENT_CIN = mysqli_real_escape_string($conn, $_POST['CLIENT_CIN']);
+$INCOME = mysqli_real_escape_string($conn, $_POST['INCOME']);
+$REGION = mysqli_real_escape_string($conn, $_POST['REGION']);
+$TOWN = mysqli_real_escape_string($conn, $_POST['TOWN']);
+$EMAIL = mysqli_real_escape_string($conn, $_POST['EMAIL']);
+$PHONE = mysqli_real_escape_string($conn, $_POST['PHONE']);
 
 
 $img_name_cin = $_FILES['yourCIN']['name'];
@@ -30,28 +30,28 @@ $tmp_name_adress = $_FILES['yourAdress']['tmp_name'];
 
 
 $status='error';
-if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty($income)) {
+if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) && !empty($INCOME)) {
 
 
     $shouldUpdated=true;
-    $select_query = "SELECT * FROM `slf_user_client` WHERE  client_id='$client_id' AND seller_id='$seller_id' ";
+    $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID='$SELLER_ID_UK' ";
     $result_select = $conn->query($select_query);
 
     if ($result_select->num_rows > 0) {
         $client = $result_select->fetch_assoc();
-        $old_cin = $client['cin'];
-        $old_email = $client['email'];
+        $old_cin = $client['CLIENT_CIN'];
+        $old_email = $client['EMAIL'];
 
-        if ($email != $old_email) {
-            $select_query = "SELECT * FROM `slf_user_client` WHERE  email= '$email' AND seller_id='$seller_id'  ";
+        if ($EMAIL != $old_email) {
+            $select_query = "SELECT * FROM `slf_user_client` WHERE  EMAIL= '$EMAIL' AND SELLER_ID='$SELLER_ID_UK'  ";
             $result_select = $conn->query($select_query);
             if ($result_select->num_rows > 0) {
                 $shouldUpdated = false;
                 $msg= "Veuillez revoir l'email de ce client";
             }
         }
-        if ($cin != $old_cin) {
-            $select_query = "SELECT * FROM `slf_user_client` WHERE  cin= '$cin' AND seller_id='$seller_id'  ";
+        if ($CLIENT_CIN != $old_cin) {
+            $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_CIN= '$CLIENT_CIN' AND SELLER_ID='$SELLER_ID_UK'  ";
             $result_select = $conn->query($select_query);
             if ($result_select->num_rows > 0) {
                 $shouldUpdated = false;
@@ -59,12 +59,12 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
             }
         }
         if ($shouldUpdated) {
-            $update_query = "UPDATE `slf_user_client` SET `seller_id`='{$seller_id}',`email`='{$email}',`phone`='{$phone}',`lname`='{$lname}',`fname`='{$fname}',`title`='{$title}',`cin`='{$cin}',`income`='{$income}',`region`='{$region}',`town`='{$town}'
-            WHERE client_id='$client_id' AND seller_id='$seller_id'";
+            $update_query = "UPDATE `slf_user_client` SET `SELLER_ID`='{$SELLER_ID_UK}',`EMAIL`='{$EMAIL}',`PHONE`='{$PHONE}',`LNAME`='{$LNAME}',`FNAME`='{$FNAME}',`TITLE`='{$TITLE}',`CLIENT_CIN`='{$CLIENT_CIN}',`INCOME`='{$INCOME}',`REGION`='{$REGION}',`TOWN`='{$TOWN}'
+            WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID='$SELLER_ID_UK'";
 
             $result_update = $conn->query($update_query);
             if (($result_update)) {
-                // `cin_piece`='{$new_img_name_cin}',`rib_piece`='{$new_img_name_rib}',`adress_piece`='{$new_img_name_adress}' 
+                // `cin_piece`='{$new_img_name_cin}',`RIB_PIECE`='{$new_img_name_rib}',`ADRESS_PIECE`='{$new_img_name_adress}' 
                 $extensions = ["jpeg", "png", "jpg"];
                 $types = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -81,15 +81,15 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
                             if (move_uploaded_file($tmp_name_cin, "images/" . $new_img_name_cin)) {
 
 
-                                $cin_link = "images/" . $_SESSION['cin_piece'];
+                                $cin_link = "images/" . $_SESSION['CIN_PIECE'];
 
                                 if (file_exists($cin_link)) {
 
-                                    $update_query = "UPDATE `slf_user_client` SET  `cin_piece`='{$new_img_name_cin}'
-                                    WHERE client_id='$client_id' AND seller_id='$seller_id'";
+                                    $update_query = "UPDATE `slf_user_client` SET  `CIN_PIECE`='{$new_img_name_cin}'
+                                    WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID='$SELLER_ID_UK'";
                                     $result_update = $conn->query($update_query);
                                     if ($result_update) {
-                                        unset($_SESSION['cin_piece']);
+                                        unset($_SESSION['CIN_PIECE']);
                                         if (!unlink($cin_link)) {
                                             $msg= "Échec de la suppression du : " . $cin_link;
                                         }
@@ -120,14 +120,14 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
                         if (in_array($img_type_rib, $types)) {
                             if (move_uploaded_file($tmp_name_rib, "images/" . $new_img_name_rib)) {
 
-                                $rib_link = "images/" . $_SESSION['rib_piece'];
+                                $rib_link = "images/" . $_SESSION['RIB_PIECE'];
 
                                 if (file_exists($rib_link)) {
-                                    $update_query = "UPDATE `slf_user_client` SET  `rib_piece`='{$new_img_name_rib}'
-                    WHERE client_id='$client_id' AND seller_id='$seller_id'";
+                                    $update_query = "UPDATE `slf_user_client` SET  `RIB_PIECE`='{$new_img_name_rib}'
+                    WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID='$SELLER_ID_UK'";
                                     $result_update = $conn->query($update_query);
                                     if ($result_update) {
-                                        unset($_SESSION['rib_piece']);
+                                        unset($_SESSION['RIB_PIECE']);
                                         if (!unlink($rib_link)) {
                                             $msg= "Échec de la suppression du : " . $rib_link;
                                         }
@@ -155,14 +155,14 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
                         if (in_array($img_type_adress, $types)) {
                             if (move_uploaded_file($tmp_name_adress, "images/" . $new_img_name_adress)) {
 
-                                $adress_link = "images/" . $_SESSION['adress_piece'];
+                                $adress_link = "images/" . $_SESSION['ADRESS_PIECE'];
 
                                 if (file_exists($adress_link)) {
-                                    $update_query = "UPDATE `slf_user_client` SET  `adress_piece`='{$new_img_name_adress}'
-                WHERE client_id='$client_id' AND seller_id='$seller_id'";
+                                    $update_query = "UPDATE `slf_user_client` SET  `ADRESS_PIECE`='{$new_img_name_adress}'
+                WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID='$SELLER_ID_UK'";
                                     $result_update = $conn->query($update_query);
                                     if ($result_update) {
-                                        unset($_SESSION['adress_piece']);
+                                        unset($_SESSION['ADRESS_PIECE']);
                                         if (!unlink($adress_link)) {
                                             $msg= "Échec de la suppression du : " . $adress_link;
                                         }
@@ -178,7 +178,7 @@ if (!empty($lname) && !empty($fname) && !empty($title) && !empty($cin) && !empty
                     }
                 }
                 $status='success';
-                $msg= " Ref Client : <b> ".$client_id. "</b> modifié avec succès !";
+                $msg= " Ref Client : <b> ".$CLIENT_ID_UK. "</b> modifié avec succès !";
             } else {
                 $msg= "Echec de mise à jour du credit ";
             }

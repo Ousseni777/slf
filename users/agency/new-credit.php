@@ -58,9 +58,9 @@
                         <tbody>
                             <?php
 
-                            if (isset($_SESSION['seller_id'])) {
-                                $seller_id = $_SESSION['seller_id'];
-                                $query_user = "SELECT * FROM `slf_user_client` WHERE seller_id !='$seller_id'";
+                            if (isset($_SESSION['SELLER_ID_UK'])) {
+                                $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+                                $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID_UK !='$SELLER_ID_UK'";
                                 $result_user = $conn->query($query_user);
 
                                 $today = new DateTime();
@@ -71,49 +71,49 @@
                                     $users = mysqli_fetch_all($result_user, MYSQLI_ASSOC);
                                     if (count($users) > 0) {
                                         foreach ($users as $data) {
-                                            $id_user_unique = $data["client_id"];
-                                            $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$id_user_unique}'  AND state='new'";
+                                            $CLIENT_ID_UK = $data["CLIENT_ID_UK"];
+                                            $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID_UK = '{$CLIENT_ID_UK}'";
                                             $result_credit = $conn->query($query_credit);
                                             if ($result_credit->num_rows > 0) {
                                                 $credit = $result_credit->fetch_assoc();
 
-                                                $up_date = new DateTime($credit["up_date"]);
-                                                $day = $today->diff($up_date);
+                                                $UP_DATE = new DateTime($credit["UP_DATE"]);
+                                                $day = $today->diff($UP_DATE);
                                                 $day = $day->days . " Jours";
 
                                                 ?>
                                                 <tr>
                                                     <th scope="row">
-                                                        <?php echo '<a href="./detail?credit_id=' . $credit["credit_id"] . ' "> <i class="bi bi-info-circle"></i> ' . $credit["credit_id"] . '</a>' ?>
+                                                        <?php echo '<a href="./detail?credit_id=' . $credit["CREDIT_ID_UK"] . ' "> <i class="bi bi-info-circle"></i> ' . $credit["CREDIT_ID_UK"] . '</a>' ?>
                                                     </th>
                                                     <td>
                                                         <?php echo $day ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $data["fname"] . ' ' . $data["lname"] ?>
+                                                        <?php echo $data["FNAME"] . ' ' . $data["LNAME"] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $credit["product"] ?>
+                                                        <?php echo $credit["PRODUCT"] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $credit["amount"] ?>
+                                                        <?php echo $credit["AMOUNT"] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $credit["duration"] ?>
+                                                        <?php echo $credit["DURATION"] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $credit["monthly"] ?>
+                                                        <?php echo $credit["MONTHLY"] ?>
                                                     </td>
                                                     <td>
 
-                                                        <a href="./action/dialog?action=rejected&id=<?php echo $credit["credit_id"] ?>"
+                                                        <a href="./action/dialog?action=rejected&id=<?php echo $credit["CREDIT_ID_UK"] ?>"
                                                             type="button" class="btn btn-danger">
                                                             <i class="bi bi-x-circle"></i> Rejeter
 
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="./action/dialog?action=processed&id=<?php echo $credit["credit_id"] ?>"
+                                                        <a href="./action/dialog?action=processed&id=<?php echo $credit["CREDIT_ID_UK"] ?>"
                                                             type="button" class="btn btn-success">
                                                             <i class="bi bi-check-circle"></i> Valider
 

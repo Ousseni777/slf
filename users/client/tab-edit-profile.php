@@ -61,7 +61,7 @@
             url: "users/region_retriever.php",
             method: "POST",
             data: {
-                ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['region']; ?>" },
+                ID_SCRIPT: "edit-region", REGION_POSTALE: "<?php echo $client['REGION']; ?>" },
             success: function (data) {
                 $("#idRegion").html(data);
 

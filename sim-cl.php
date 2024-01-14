@@ -4,7 +4,7 @@ ob_start();
 session_start();
 
 include './connectToDB.php';
-// $_SESSION['client_id_temp'] = "WV-692634956";
+// $_SESSION['CLIENT_ID_UK_TEMP'] = "CN-805410552";
 // $_SESSION['client_id'] = "WV-692634956";
 $_SESSION['page'] = "./sim-cl?tag=chrono";
 $shouldBeUser = false;
@@ -12,12 +12,12 @@ $isClient = false;
 $isOK = false;
 
 $tagList = array("chrono");
-// unset($_SESSION['client_id']);
+unset($_SESSION['CLIENT_ID_UK_TEMP']);
 
-if (isset($_SESSION['client_id_temp'])) {
+if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
 
-  $client_id_temp = $_SESSION['client_id_temp'];
-  $query_credit = "SELECT * FROM `credit_client` WHERE client_id = '{$client_id_temp}' ";
+  $CLIENT_ID_UK_TEMP = $_SESSION['CLIENT_ID_UK_TEMP'];
+  $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID = '{$CLIENT_ID_UK_TEMP}' ";
   $result_credit = $conn->query($query_credit);
 
   if ($result_credit->num_rows > 0) {
@@ -27,21 +27,21 @@ if (isset($_SESSION['client_id_temp'])) {
   }
 
 } else {
-  if (isset($_SESSION['client_id'])) {
-    $client_id = $_SESSION['client_id'];
-    $query_client = "SELECT * FROM `slf_user_client` WHERE client_id = '{$client_id}' ";
+  if (isset($_SESSION['CLIENT_ID_UK'])) {
+    $CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
+    $query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_ID_UK = '{$CLIENT_ID_UK}' ";
     $result_client = $conn->query($query_client);
 
     if ($result_client->num_rows > 0) {
 
       $client = $result_client->fetch_assoc();
-      $_SESSION['cin_piece'] = $client['cin_piece'];
-      $_SESSION['rib_piece'] = $client['rib_piece'];
-      $_SESSION['adress_piece'] = $client['adress_piece'];
+      $_SESSION['CIN_PIECE'] = $client['CIN_PIECE'];
+      $_SESSION['RIB_PIECE'] = $client['RIB_PIECE'];
+      $_SESSION['ADRESS_PIECE'] = $client['ADRESS_PIECE'];
       $shouldBeUser = true;
       $isClient = true;
 
-      if (empty($client['cin_piece']) || empty($client['rib_piece']) || empty($client['adress_piece'])) {
+      if (empty($client['CIN_PIECE']) || empty($client['RIB_PIECE']) || empty($client['ADRESS_PIECE'])) {
         $isOK = false;
       } else {
         $isOK = true;

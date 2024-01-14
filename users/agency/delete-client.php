@@ -1,23 +1,23 @@
 <?php
 session_start();
 include '../../connectToDB.php';
-$seller_id = $_SESSION['seller_id'];
+$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
 
 if (isset($_POST['confirmation']) && !empty($_POST['confirmation'])) {
-    if (isset($_POST['cin']) && !empty($_POST['cin'])) {
-        $cin = mysqli_real_escape_string($conn, $_POST['cin']);
+    if (isset($_POST['CLIENT_CIN']) && !empty($_POST['CLIENT_CIN'])) {
+        $CLIENT_CIN = mysqli_real_escape_string($conn, $_POST['CLIENT_CIN']);
 
-        $select_query = "SELECT * FROM `slf_user_client` WHERE  cin='$cin' AND seller_id='$seller_id' ";
+        $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_CIN='$CLIENT_CIN' AND SELLER_ID_UK='$SELLER_ID_UK' ";
         $result_select = $conn->query($select_query);
 
         if ($result_select->num_rows > 0) {
             $client = $result_select->fetch_assoc();
-            $client_id=$client['cin'];                        
-            $conn->query("DELETE FROM `credit_client` WHERE client_id='$client_id' AND seller_id='$seller_id'");
+            $CLIENT_ID_UK=$client['CLIENT_CIN'];                        
+            $conn->query("DELETE FROM `credit_client` WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID_UK='$SELLER_ID_UK'");
             
-            $cin_link = "images/" . $client['cin_piece'];
-            $rib_link = "images/" . $client['rib_piece'];
-            $adress_link = "images/" . $client['adress_piece'];
+            $cin_link = "images/" . $client['CIN_PIECE'];
+            $rib_link = "images/" . $client['RIB_PIECE'];
+            $adress_link = "images/" . $client['ADRESS_PIECE'];
 
             // Utilisez unlink pour supprimer le fichier
           
@@ -42,17 +42,17 @@ if (isset($_POST['confirmation']) && !empty($_POST['confirmation'])) {
         }        
         
 
-        $query_client = $conn->prepare("DELETE FROM `slf_user_client` WHERE  seller_id = ? AND cin = ?");
-        $query_client->bind_param("ss", $seller_id, $cin);
+        $query_client = $conn->prepare("DELETE FROM `slf_user_client` WHERE  SELLER_ID_UK = ? AND CLIENT_CIN = ?");
+        $query_client->bind_param("ss", $SELLER_ID_UK, $CLIENT_CIN);
         $result_client = $query_client->execute();
 
-        // $query_client = "DELETE FROM `slf_user_client` WHERE  seller_id = '{$seller_id}' AND cin='{$cin}' ";
+        // $query_client = "DELETE FROM `slf_user_client` WHERE  SELLER_ID_UK = '{$SELLER_ID_UK}' AND CLIENT_CIN='{$CLIENT_CIN}' ";
         // $result_client = $conn->query($query_client);
         if (($result_client)) {
             echo "success";
         } else {
             echo "Echec de suppression, veuillez le réessayer plutard !";
-            // echo $cin." n'est pas un sous votre autheur !";
+            // echo $CLIENT_CIN." n'est pas un sous votre autheur !";
         }
     } else {
         echo "Identifiant inexistant";

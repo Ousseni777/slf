@@ -161,9 +161,9 @@
 
                                     <td style="text-align: right; font-size: 18px;">
 
-                                        <?php if ($credit['STATE_LIB'] == "Demande traitée") {
+                                        <?php if ($credit['STATE'] == 3) {
                                             echo '<span class="badge bg-success">';
-                                        } else if ($credit['STATE_LIB'] == "Demande rejetée") {
+                                        } else if ($credit['STATE'] == 1) {
                                             echo '<span class="badge bg-danger">';
                                         } else {
                                             echo '<span class="badge bg-warning">';

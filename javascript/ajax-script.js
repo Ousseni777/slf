@@ -97,6 +97,7 @@ function calcFunctionAuto() {
 
     const DurationValue = $("input[name='durationName']:checked").val();
     const ApportValue = $("input[name='apportName']:checked").val();
+    
 
     $.ajax({
         url: "./users/client/calc-fx_auto.php",
@@ -107,7 +108,8 @@ function calcFunctionAuto() {
             ID_APPORT: ApportValue,
             ID_TARIFF: TariffID.val(),
             ID_PRODUCT: ProductID.val(),
-            ID_BRAND: BrandID.val()
+            ID_BRAND: BrandID.val(),
+            
         },
         success: (data) => {
             var result = JSON.parse(data);

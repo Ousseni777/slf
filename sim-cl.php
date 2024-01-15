@@ -19,7 +19,6 @@ if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
   $CLIENT_ID_UK_TEMP = $_SESSION['CLIENT_ID_UK_TEMP'];
   $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID = '{$CLIENT_ID_UK_TEMP}' ";
   $result_credit = $conn->query($query_credit);
-
   if ($result_credit->num_rows > 0) {
     $credit = $result_credit->fetch_assoc();
     $shouldBeUser = true;
@@ -48,7 +47,6 @@ if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
       }
     }
   }
-
 }
 
 if (!$shouldBeUser) {

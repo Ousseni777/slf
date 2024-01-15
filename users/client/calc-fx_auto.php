@@ -5,11 +5,14 @@ include '../../connectToDB.php';
 if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_TARIFF'], $_POST['ID_DURATION'], $_POST['ID_AMOUNT'], $_POST['ID_APPORT'])) {
     $brand = $_POST['ID_BRAND'];
     $product = $_POST['ID_PRODUCT'];
-    $tariff=$_POST['ID_TARIFF'];
+    // $tariff=$_POST['ID_TARIFF'];
+    $profession = $_POST['ID_PROFESSION'];
     $number = $_POST['ID_DURATION'];
     $principal = $_POST['ID_AMOUNT'];
     $DG = $_POST['ID_APPORT'];
     $TIMB = 25;
+
+    $tariff = attrBareme($brand, $product, $profession);
 
     list($tariff_id, $rate, $TXFD, $ADI, $Diff) = fetchData($brand, $product, $tariff, $number, $DG);
 
@@ -25,13 +28,13 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_TARIFF'], $_POST[
 
     if ($product == 'LOA') {
         $MTF = $principal * (1 - $DG / 100) / 1.2 * $differ + $TIMB / 1.2;
-        $Ass = $principal * (1 - $DG / 100) / 1.2 * $ADI/100;
+        $Ass = $principal * (1 - $DG / 100) / 1.2 * $ADI / 100;
     } else {
         $MTF = ($principal - $DG);
-        $Ass = $principal * $ADI/100;
+        $Ass = $principal * $ADI / 100;
     }
-    
- 
+
+
 }
 
 $error = [];
@@ -63,23 +66,24 @@ if (empty($error)) {
     if ($product == 'LOA') {
         $payment = $payment * 1.2;
     }
-   $Cout=$number*$payment+$Apport_Total-$principal;
-   $result = [
-    "TTC" => number_format($principal , 2, ".", " "),
-    "payment" => number_format($payment , 2, ".", " "),
-    "paymentNoFormat" => $payment,
-    "tariff_id" => $tariff_id,
-    "Apport_Total" => number_format($Apport_Total , 2, ".", " "),
-    "Assurance" => number_format($Ass, 2, ".", ""),
-    "FraisDossier" =>number_format($FraisDoss , 2, ".", " ") ,
-    "Cout" =>number_format($Cout , 2, ".", " ") 
-];
+    $Cout = $number * $payment + $Apport_Total - $principal;
+    $result = [
+        "TTC" => number_format($principal, 2, ".", " "),
+        "payment" => number_format($payment, 2, ".", " "),
+        "paymentNoFormat" => $payment,
+        "tariff_id" => $tariff_id,
+        "Apport_Total" => number_format($Apport_Total, 2, ".", " "),
+        "Assurance" => number_format($Ass, 2, ".", ""),
+        "FraisDossier" => number_format($FraisDoss, 2, ".", " "),
+        "Cout" => number_format($Cout, 2, ".", " ")
+    ];
 
 
     echo json_encode($result);
 }
 
-function fetchData($brand, $product, $tariff, $duration, $DG) {
+function fetchData($brand, $product, $tariff, $duration, $DG)
+{
     global $conn;
     $query = "SELECT * FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' AND DUREE = '$duration' AND APPORT ='$DG' ";
     $result = $conn->query($query);
@@ -92,14 +96,15 @@ function fetchData($brand, $product, $tariff, $duration, $DG) {
         $data_ADI = $data['ADI'];
         $data_Diff = $data['Dif'];
     } else {
-        $rate =$tariff_id= $data_dg = $data_ADI = $data_Diff = 0;
+        $rate = $tariff_id = $data_dg = $data_ADI = $data_Diff = 0;
     }
 
     return [$tariff_id, $rate, $data_dg, $data_ADI, $data_Diff];
 }
 
-function calc_payment($pv, $payno, $int, $RV, $accuracy) {
-    
+function calc_payment($pv, $payno, $int, $RV, $accuracy)
+{
+
     $RV = $RV / pow((1 + ($int / 100)), $payno);
     $int = $int / 100;
     $value1 = $int * pow((1 + $int), $payno);
@@ -114,4 +119,171 @@ function calc_payment($pv, $payno, $int, $RV, $accuracy) {
 
     $pmt = number_format($pmt, $accuracy, ".", "");
     return $pmt;
+}
+
+
+function attrBareme($brand, $product, $profession)
+{
+    if ($brand == "AUDI") {
+        if ($product == "CA") {
+            if ($profession == "SALARIE") {
+
+            }
+            if ($profession == "FONCTIONNAIRE") {
+
+            }
+            if ($profession == "COMMERCANT") {
+
+            }
+            if ($profession == "SOCIETE") {
+
+            }
+
+        }
+        if ($product == 'LOA') {
+            if ($profession == "SALARIE") {
+
+            }
+            if ($profession == "FONCTIONNAIRE") {
+
+            }
+            if ($profession == "COMMERCANT") {
+
+            }
+            if ($profession == "SOCIETE") {
+
+            }
+        }
+    }
+    if ($brand == "AUDI") {
+        if ($product == "CA") {
+            if ($profession == "SALARIE") {
+                return "CLASSIQUE PARTICULIER";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "CLASSIQUE PARTICULIER";
+            }
+            if ($profession == "COMMERCANT") {
+                return "CA PRO";
+            }
+            if ($profession == "SOCIETE") {
+                return "CA PRO";
+            }
+
+        }
+        if ($product == 'LOA') {
+
+            if ($profession == "SALARIE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "COMMERCANT") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "SOCIETE") {
+                return "LOA STANDARD";
+            }
+        }
+        if ($product == "OCCASION") {
+            return "CA OCCASION STANDARD";
+        }
+    }
+    if ($brand == "KIA") {
+        if ($product == "CA") {
+            if ($profession == "SALARIE") {
+                return "CA PARTICULIER";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "CA PARTICULIER";
+            }
+            if ($profession == "COMMERCANT") {
+                return "CA SOCIETE";
+            }
+            if ($profession == "SOCIETE") {
+                return "CA SOCIETE";
+            }
+
+        }
+        if ($product == 'LOA') {
+            if ($profession == "SALARIE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "COMMERCANT") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "SOCIETE") {
+                return "LOA STANDARD";
+            }
+        }
+    }
+    if ($brand == "FORD") {
+        if ($product == "CA") {
+            if ($profession == "SALARIE") {
+                return "CA SALARIES";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "CA SALARIES";
+            }
+            if ($profession == "COMMERCANT") {
+                return "CA PROMO PROFESSIONNEL";
+            }
+            if ($profession == "SOCIETE") {
+                return "CA PROMO PROFESSIONNEL";
+            }
+
+        }
+        if ($product == 'LOA') {
+            if ($profession == "SALARIE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "COMMERCANT") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "SOCIETE") {
+                return "LOA STANDARD";
+            }
+        }
+    }
+    if ($brand == "MERCEDES") {
+        if ($product == "CA") {
+            if ($profession == "SALARIE") {
+                return "CLASSIQUE PARTICULIER";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "CLASSIQUE PARTICULIER";
+            }
+            if ($profession == "COMMERCANT") {
+                return "CA PRO";
+            }
+            if ($profession == "SOCIETE") {
+                return "CA PRO";
+            }
+
+        }
+        if ($product == 'LOA') {
+            if ($profession == "SALARIE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "FONCTIONNAIRE") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "COMMERCANT") {
+                return "LOA STANDARD";
+            }
+            if ($profession == "SOCIETE") {
+                return "LOA STANDARD";
+            }
+        }
+        if ($product == "OCCASION") {
+            return "CA OCCASION STANDARD";
+        }
+    }
 }

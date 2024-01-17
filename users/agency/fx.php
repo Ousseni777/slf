@@ -68,7 +68,7 @@
 
                                 <div class="col-md-8">
                                     <div id="tableId">
-                                        
+
                                     </div>
                                 </div>
 
@@ -79,18 +79,20 @@
                                 <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
 
                                 <div class="col-sm-12">
-
+                                    <!-- PRIX TTC -->
                                     <div class="block-field">
 
                                         <div class="group-select">
                                             <label for="rangeInputAmount" class="form-label">PRIX
                                                 TTC</label><br>
-                                            <input type="text" onkeydown="detecteEntree(event)" class="inputFlag" id="rangeValueAmount" value="">
+                                            <input type="text" onkeydown="detecteEntree(event)" class="inputFlag"
+                                                id="rangeValueAmount" value="">
                                             <input type="range" name="AMOUNT" class="form-range" min="50" max="500000"
                                                 onchange="calcFunction()" step="1" id="rangeInputAmount">
 
                                         </div>
                                     </div>
+                                    <!-- APPORT % -->
                                     <div class="block-field">
                                         <div class="col-sm-10 group-select">
                                             <span for="" class="form-label">Apport TOTAL (en
@@ -105,6 +107,7 @@
                                         </div>
 
                                     </div>
+                                    <!-- DUREE -->
                                     <div class="block-field">
 
                                         <div class="col-sm-10 group-select">
@@ -120,13 +123,17 @@
                                         </div>
 
                                     </div>
-                           
+
                                     <div class="block-field">
                                         <div id="InputMonthly" class="group-select">
                                             <label for="rangeInputMonthly" class="form-label">Mensualités (en
                                                 DH)</label><br>
-                                            <input type="text" class="inputFlag" id="rangeValueMonthly" disabled
-                                                value="">
+                                            <div class="col-lg-12" id="optionMonthly">
+
+
+                                            </div>
+                                            <!-- <input type="text" class="inputFlag" id="rangeValueMonthly" disabled
+                                                value=""> -->
                                             <input type="range" name="MONTHLY" min="0" max="43000" class="form-range"
                                                 step="0.01" value="" disabled id="rangeInputMonthly">
                                         </div>
@@ -335,7 +342,21 @@
 
 <script type="text/javascript" src="jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
+
 <script>
+    const buttons = document.querySelectorAll('.btn-monthly');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            console.log("Cliqué");
+        });
+    });
+
     const form = document.getElementById("form"),
         btnCreditAuto = form.querySelector(".btn-credit"),
         errorText = form.querySelector(".error-text");

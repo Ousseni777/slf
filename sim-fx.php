@@ -414,6 +414,8 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
         });
 
 
+
+
         function controlInput() {
             const rangeValueAmount = document.getElementById("rangeValueAmount");
             const rangeInputAmount = document.getElementById("rangeInputAmount");
@@ -596,7 +598,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     $("#infoAmount").val(result.TTC);
                     $("#infoDuration").val(DurationValue);
                     $("#rangeInputMonthly").val(result.paymentNoFormat);
-                    $("#rangeValueMonthly").val(result.payment);
+                    // $("#rangeValueMonthly").val(result.payment);
                     $("#infoMonthly").val(result.payment);
                     $("#infoApportPerc").val(ApportValue);
                     $("#infoApport").val(result.Apport_Total);
@@ -607,7 +609,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     $("#infoBrand").val(result.Marque);
                     $("#infoProduct").val(result.Produit);
                     $("#infoTariff").val(result.Bareme);
-                    // $("#tableId").html(result.Data);
+                    $("#optionMonthly").html(result.OptionMonthly);
                 }
             });
         }

@@ -7,7 +7,7 @@ if (!isset($_SESSION['SELLER_ID_UK'])) {
 include './connectToDB.php';
 // $user = $_SESSION['SELLER_ID_UK'];
 $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
-$SELLER_PRODUCT= $_SESSION['PRODUCT'];
+$SELLER_PRODUCT = $_SESSION['PRODUCT'];
 
 
 $tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track");
@@ -424,11 +424,19 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                 calcFunction();
             });
 
-            rangeValueAmount.addEventListener("input", function () {
+
+        }
+
+
+
+        function detecteEntree(event) {
+
+            if (event.key === "Enter") {
                 rangeInputAmount.value = rangeValueAmount.value;
                 calcFunction();
-            });
+            }
         }
+
 
         function displayElement(elt) {
             icone = elt + "-bi";
@@ -506,7 +514,28 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                 data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID },
                 success: function (data) {
                     $("#idTariff").html(data);
+
+                    loadApport();
+                }
+            });
+        }
+
+        function loadApport() {
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            const TariffID = $("#idTariff").val();
+
+            $.ajax({
+                url: "users/agency/data_retriever.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID },
+                success: (data) => {
+                    $("#controlApport").html(data);
+
                     loadDuration();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
                 }
             });
         }
@@ -516,31 +545,14 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             BrandID = $("#idBrand").val();
             ProductID = $("#idProduct").val();
             const TariffID = $("#idTariff").val();
+
+            const ApportValue = $("input[name='apportName']:checked").val();
             $.ajax({
                 url: "users/agency/data_retriever.php",
                 method: "POST",
-                data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID, ID_TARIFF: TariffID },
+                data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID, ID_TARIFF: TariffID, ID_APPORT: ApportValue },
                 success: (data) => {
                     $("#controlDuration").html(data);
-                    loadApport();
-                },
-                error: (error) => {
-                    console.error("Une erreur s'est produite :", error);
-                }
-            });
-        }
-
-        function loadApport() {
-            BrandID = $("#idBrand");
-            ProductID = $("#idProduct");
-            const TariffID = $("#idTariff").val();
-            const Duration = $("input[name='durationName']:checked").val();
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID, ID_DURATION: Duration },
-                success: (data) => {
-                    $("#controlApport").html(data);
                     calcFunction();
                 },
                 error: (error) => {
@@ -548,6 +560,8 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                 }
             });
         }
+
+
 
 
         function calcFunction() {
@@ -574,7 +588,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                 },
                 success: (data) => {
                     var result = JSON.parse(data);
-                    
+
                     $("#rangeValueAmount").val(AmountID.val());
                     $("#rangeInputDuration").val(DurationValue);
                     $("#rangeInputApport").val(ApportValue);
@@ -593,6 +607,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     $("#infoBrand").val(result.Marque);
                     $("#infoProduct").val(result.Produit);
                     $("#infoTariff").val(result.Bareme);
+                    // $("#tableId").html(result.Data);
                 }
             });
         }

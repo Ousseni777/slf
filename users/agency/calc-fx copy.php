@@ -60,14 +60,9 @@ if (!empty($R_Value)) {
 
 if (empty($error)) {
     $payment = calc_payment($MTF, $number, $rate, $VR, 2);
-
-    if($product=='LOA'){
+    if ($product == 'LOA') {
         $payment = $payment * 1.2;
     }
-
-    // $VA = montFin2($principal, $DG/100, $rate);
-    // $payment = vpm($rate, $number, -$VA)*1.2;
-
    $Cout=$number*$payment+$Apport_Total-$principal;
    $DataParam = '
    <table class="table" >
@@ -121,7 +116,6 @@ function fetchData($brand, $product, $tariff, $duration, $DG) {
 }
 
 function calc_payment($pv, $payno, $int, $RV, $accuracy) {
-
     $RV = $RV / pow((1 + ($int / 100)), $payno);
     $int = $int / 100;
     $value1 = $int * pow((1 + $int), $payno);
@@ -135,28 +129,5 @@ function calc_payment($pv, $payno, $int, $RV, $accuracy) {
     //$pmt = ($int == 0) ? ($pv - $RV) / $payno : ($pv - $RV) * ($value1 / $value2);
 
     $pmt = number_format($pmt, $accuracy, ".", "");
-
-
-
     return $pmt;
-}
-
-function vpm($TAUX, $DUREE, $VA){
-    return $TAUX*$VA/(1-pow((1+$TAUX), $DUREE));
-}
-
-function montFin2($TTC, $APPORT, $TAUX){
-    // $APPORT = $APPORT / 100;
-    return montFin1($TTC, $APPORT)+pow((1+$TAUX), 0.5);
-}
-
-function montFin1($TTC, $APPORT){
-    $VR=0;
-    $FLATE= 25;
-    $PHT=$TTC/1.2;
-    return $PHT-montDG_HT($TTC, $APPORT)+$VR+$FLATE/1.2;
-}
-
-function montDG_HT($TTC, $APPORT){
-    return ($TTC*$APPORT)/1.2;
 }

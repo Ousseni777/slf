@@ -7,7 +7,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="sim-fx?tag=fx">
                         <i class="bi bi-node-plus"></i>
-                        <span>Nouvelle demande </span>
+                        <span>Simulateur crédit </span>
                     </a>
                 </li>
             </ul>
@@ -27,7 +27,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="sim-fx?tag=list-cl">
-                        <i class="bi bi-app-indicator"></i>
+                        <i class="bi bi-list-ol"></i>
                         <span>Mes clients</span>
                     </a>
                 </li>
@@ -44,7 +44,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="sim-fx?tag=track">
-                        <i class="bi bi-list-ol"></i>
+                        <i class="bi bi-app-indicator"></i>
                         <span>Suivre une demande </span>
                     </a>
                 </li>

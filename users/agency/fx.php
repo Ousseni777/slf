@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="loadDuration()"
+                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="loadApport()"
                                             aria-label="State">
 
 
@@ -64,6 +64,12 @@
                                         <label for="floatingSelect">Barême</label>
                                     </div>
 
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div id="tableId">
+                                        
+                                    </div>
                                 </div>
 
                             <?php } ?>
@@ -79,29 +85,11 @@
                                         <div class="group-select">
                                             <label for="rangeInputAmount" class="form-label">PRIX
                                                 TTC</label><br>
-                                            <input type="text" class="inputFlag" id="rangeValueAmount" value="">
-                                            <input type="range" name="AMOUNT" class="form-range" min="5000" max="500000"
-                                                onchange="calcFunction()" step="1000" id="rangeInputAmount">
+                                            <input type="text" onkeydown="detecteEntree(event)" class="inputFlag" id="rangeValueAmount" value="">
+                                            <input type="range" name="AMOUNT" class="form-range" min="50" max="500000"
+                                                onchange="calcFunction()" step="1" id="rangeInputAmount">
 
                                         </div>
-                                    </div>
-
-                                    <div class="block-field">
-
-                                        <div class="col-sm-10 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Durée (en
-                                                mois)</span><br>
-                                            <div class="row controlRadios" id="controlDuration">
-
-                                            </div>
-                                            <div id="idRange">
-                                                <input type="range" name="DURATION" class="form-range" min="0" max="100"
-                                                    value="" step="1" disabled id="rangeInputDuration">
-                                            </div>
-                                        </div>
-
-
-
                                     </div>
                                     <div class="block-field">
                                         <div class="col-sm-10 group-select">
@@ -117,6 +105,22 @@
                                         </div>
 
                                     </div>
+                                    <div class="block-field">
+
+                                        <div class="col-sm-10 group-select">
+                                            <span for="rangeInputDuration" class="form-label">Durée (en
+                                                mois)</span><br>
+                                            <div class="row controlRadios" id="controlDuration">
+
+                                            </div>
+                                            <div id="idRange">
+                                                <input type="range" name="DURATION" class="form-range" min="0" max="100"
+                                                    value="" step="1" disabled id="rangeInputDuration">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                           
                                     <div class="block-field">
                                         <div id="InputMonthly" class="group-select">
                                             <label for="rangeInputMonthly" class="form-label">Mensualités (en
@@ -156,8 +160,8 @@
                                                     value="<?php echo $credit['CREDIT_ID_UK'] ?>">
                                                 <input type="text" style="display: none;" name="author_id"
                                                     value="<?php echo $credit['CLIENT_ID'] ?>">
-                                                <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput" readonly
-                                                    name="author_cin" value="<?php echo $credit['CLIENT_CIN'] ?>"
+                                                <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput"
+                                                    readonly name="author_cin" value="<?php echo $credit['CLIENT_CIN'] ?>"
                                                     placeholder="Rechercher (CIN) " class="form-control">
                                             <?php }
                                         } else if (isset($_GET['numdoss'])) {

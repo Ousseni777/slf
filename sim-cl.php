@@ -12,7 +12,7 @@ $isClient = false;
 $isOK = false;
 
 $tagList = array("chrono");
-unset($_SESSION['CLIENT_ID_UK_TEMP']);
+// unset($_SESSION['CLIENT_ID_UK_TEMP']);
 
 if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
 

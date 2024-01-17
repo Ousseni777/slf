@@ -22,30 +22,32 @@ switch ($_POST['ID_SCRIPT']) {
         $tariffs = fetchTariff($idproduct, $idbrand);
         displayTariff($tariffs);
         break;
-    case "duration":
-        $brand = $_POST['ID_BRAND'];
-        $product = $_POST['ID_PRODUCT'];
-        $tariff = $_POST['ID_TARIFF'];
-        $durations = fetchDuration($brand, $tariff, $product);
-        displayDuration($durations);
-
-        break;
     case "apport":
         $brand = $_POST['ID_BRAND'];
         $product = $_POST['ID_PRODUCT'];
-        $tariff = $_POST['ID_TARIFF'];
-        $duration = $_POST['ID_DURATION'];
-        $apports = fetchApport($brand, $product, $tariff, $duration);
+        $tariff = $_POST['ID_TARIFF'];        
+        $apports = fetchApport($brand, $product, $tariff);
         displayApport($apports);
         break;
+    case "duration":
+
+        $brand = $_POST['ID_BRAND'];
+        $product = $_POST['ID_PRODUCT'];
+        $tariff = $_POST['ID_TARIFF'];
+        $apport = $_POST['ID_APPORT'];
+        $durations = fetchDuration($brand, $tariff, $product, $apport);
+        displayDuration($durations);
+
+        break;
+
 
     case "cin":
         displayCIN(fetchCIN());
         break;
 
     case "numdoss":
-            displayNUMDOSS(fetchNUMDOSS());
-            break;
+        displayNUMDOSS(fetchNUMDOSS());
+        break;
 
     default:
         break;
@@ -160,14 +162,72 @@ function displayTariff($tariffs)
     }
 }
 
+// *********************************************************     apports        *************************************************//
+// ----------------------------------------------------------------------------
+//  Recuperer la liste des apports 
+// ----------------------------------------------------------------------------
+
+function fetchApport($brand, $product, $tariff)
+{
+    global $conn;
+
+    $query_apport = "SELECT DISTINCT APPORT FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND BAREME='$tariff' ORDER BY APPORT";
+    $result_apport = $conn->query($query_apport);
+
+    if ($result_apport->num_rows > 0) {
+        $sql_apport = mysqli_fetch_all($result_apport, MYSQLI_ASSOC);
+
+        //echo '<script>console.log("Length Ligne apport : ' . count($sql_apport) . '")</script>';
+    } else {
+        $sql_apport = [];
+    }
+
+    return $sql_apport;
+}
+
+// ----------------------------------------------------------------------------
+//  Afficher la liste des apports
+// ----------------------------------------------------------------------------
+
+function displayApport($apports)
+{
+    $ct = 0;
+    if (count($apports) > 0) {
+        $concat = '';
+        $ct = 1;
+        foreach ($apports as $data) {
+            $selectedIndice = number_format(count($apports) / 2, 0, '.', '');
+            if ($ct == $selectedIndice) {
+                $concat .= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" checked value="' . $data["APPORT"] . '">                                                                
+                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
+                </div>';
+            } else {
+                $concat .= '
+                <div class="col-2 radios" >                                    
+                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" value="' . $data["APPORT"] . '">                                                                
+                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
+                </div>';
+            }
+            $ct++;
+
+        }
+        echo $concat;
+    } else {
+        echo '<option>No Data Found</option>';
+    }
+}
+
+
 // *********************************************************     durées        *************************************************//
 // ----------------------------------------------------------------------------
 //  Recuperer la liste des durées 
 // ----------------------------------------------------------------------------
-function fetchDuration($brand, $tariff, $product)
+function fetchDuration($brand, $tariff, $product,$apport)
 {
     global $conn;
-    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND BAREME='$tariff' ORDER BY DUREE";
+    $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND BAREME='$tariff' AND APPORT='$apport' ORDER BY DUREE";
 
     $result = $conn->query($query);
 
@@ -197,71 +257,14 @@ function displayDuration($durations)
             if ($ct == $selectedIndice) {
                 $concat .= '
                 <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="loadApport()" checked value="' . $data["DUREE"] . '">                                                                
+                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" checked value="' . $data["DUREE"] . '">                                                                
                     <label class="form-check-label" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
                 </div>';
             } else {
                 $concat .= '
                 <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="loadApport()" value="' . $data["DUREE"] . '">                                                                
+                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" value="' . $data["DUREE"] . '">                                                                
                     <label class="form-check-label" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
-                </div>';
-            }
-            $ct++;
-
-        }
-        echo $concat;
-    } else {
-        echo '<option>No Data Found</option>';
-    }
-}
-
-// *********************************************************     apports        *************************************************//
-// ----------------------------------------------------------------------------
-//  Recuperer la liste des apports 
-// ----------------------------------------------------------------------------
-
-function fetchApport($brand, $product, $tariff, $duration)
-{
-    global $conn;
-
-    $query_apport = "SELECT DISTINCT APPORT FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND BAREME='$tariff' AND DUREE = '$duration' ORDER BY APPORT";
-    $result_apport = $conn->query($query_apport);
-
-    if ($result_apport->num_rows > 0) {
-        $sql_apport = mysqli_fetch_all($result_apport, MYSQLI_ASSOC);
-
-        //echo '<script>console.log("Length Ligne apport : ' . count($sql_apport) . '")</script>';
-    } else {
-        $sql_apport = [];
-    }
-
-    return $sql_apport;
-}
-
-// ----------------------------------------------------------------------------
-//  Afficher la liste des apports
-// ----------------------------------------------------------------------------
-
-function displayApport($apports)
-{
-    $ct = 0;
-    if (count($apports) > 0) {
-        $concat = '';
-        $ct = 1;
-        foreach ($apports as $data) {
-            $selectedIndice = number_format(count($apports) / 2, 0, '.', '');
-            if ($ct == $selectedIndice) {
-                $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="calcFunction()" checked value="' . $data["APPORT"] . '">                                                                
-                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
-                </div>';
-            } else {
-                $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="calcFunction()" value="' . $data["APPORT"] . '">                                                                
-                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
                 </div>';
             }
             $ct++;
@@ -303,9 +306,9 @@ function displayCIN($brands)
     $elements = array();
 
     if (count($brands) > 0) {
-        
+
         foreach ($brands as $data) {
-            $elements[] = $data['CLIENT_CIN'];            
+            $elements[] = $data['CLIENT_CIN'];
         }
     }
     $jsonListe = json_encode($elements);
@@ -340,9 +343,9 @@ function displayNUMDOSS($numdoss)
     $elements = array();
 
     if (count($numdoss) > 0) {
-        
+
         foreach ($numdoss as $data) {
-            $elements[] = $data['NUMDOSS'];            
+            $elements[] = $data['NUMDOSS'];
         }
     }
     $jsonListe = json_encode($elements);

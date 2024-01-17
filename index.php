@@ -158,18 +158,7 @@ if (isset($_GET['tag'])) {
             <div class="container">
 
                 <div class="row justify-content-between">
-                    <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
 
-                        <img src="assets/img/app.png" class="img-fluid" alt="" id="imgFluid" data-aos="zoom-in">
-
-                        <?php include "./users/client/recap-credit-perso.php" ?>
-                        <?php include "./users/client/recap-credit-auto.php" ?>
-                        <div class="spinner-grow text-danger" id="spinnerRecap" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-
-
-                    </div>
                     <div class="col-lg-7 pt-5 pt-lg-0">
                         <h3 data-aos="fade-up">Simulateur de crédit</h3>
                         <p data-aos="fade-up" data-aos-delay="100">
@@ -216,9 +205,8 @@ if (isset($_GET['tag'])) {
                                 </div>
                                 <div class="form-group col-md-3" id="controlProfession">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProfession"
-                                            onchange="calcFunctionAuto()" name="profession"
-                                            aria-label="State">
+                                        <select class="form-select" id="idProfession" onchange="calcFunctionAuto()"
+                                            name="profession" aria-label="State">
                                             <option value="SALARIE">Salarié</option>
                                             <option value="FONCTIONNAIRE">Fonctionnaire</option>
                                             <option value="COMMERCANT">Commerçant</option>
@@ -251,6 +239,18 @@ if (isset($_GET['tag'])) {
                         </div>
 
                     </div>
+                    <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+
+<img src="assets/img/app.png" class="img-fluid" alt="" id="imgFluid" data-aos="zoom-in">
+
+<?php include "./users/client/recap-credit-perso.php" ?>
+<?php include "./users/client/recap-credit-auto.php" ?>
+<div class="spinner-grow text-danger" id="spinnerRecap" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+
+</div>
 
                 </div>
 
@@ -634,498 +634,498 @@ if (isset($_GET['tag'])) {
     <script type="text/javascript" src="assets/js/preloader.js"></script>
 
     <script>
-function loadBrand() {
+        function loadBrand() {
 
-$.ajax({
-    url: "./users/client/retriever_auto.php",
-    method: "POST",
-    data: { ID_SCRIPT: 'brand' },
-    success: function (data) {
-        $("#idBrand").html(data);
-        loadProduct();
-    },
-    error: (error) => {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
-}
+            $.ajax({
+                url: "./users/client/retriever_auto.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'brand' },
+                success: function (data) {
+                    $("#idBrand").html(data);
+                    loadProduct();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
+                }
+            });
+        }
 
-function loadProduct() {
-BrandID = $("#idBrand");
-$.ajax({
-    url: "./users/client/retriever_auto.php",
-    method: "POST",
-    data: { ID_SCRIPT: 'product', ID_MARQUE: BrandID.val() },
-    success: function (data) {
-        $("#idProduct").html(data);
-        loadTariff();
-    },
-    error: (error) => {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
+        function loadProduct() {
+            BrandID = $("#idBrand");
+            $.ajax({
+                url: "./users/client/retriever_auto.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'product', ID_MARQUE: BrandID.val() },
+                success: function (data) {
+                    $("#idProduct").html(data);
+                    loadTariff();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
+                }
+            });
 
-}
+        }
 
-function loadTariff() {
-BrandID = $("#idBrand");
-ProductID = $("#idProduct");
-$.ajax({
-    url: "./users/client/retriever_auto.php",
-    method: "POST",
-    data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val() },
-    success: function (data) {
-        $("#idTariff").html(data);
-        loadDuration();
-    },
-    error: (error) => {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
+        function loadTariff() {
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            $.ajax({
+                url: "./users/client/retriever_auto.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val() },
+                success: function (data) {
+                    $("#idTariff").html(data);
+                    loadDuration();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
+                }
+            });
 
-}
+        }
 
-function loadDuration() {
+        function loadDuration() {
 
-BrandID = $("#idBrand");
-ProductID = $("#idProduct");
-TariffID = $("#idTariff");
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            TariffID = $("#idTariff");
 
-$.ajax({
-    url: "./users/client/retriever_auto.php",
-    method: "POST",
-    data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID.val() },
-    success: (data) => {
-        $("#controlDuration").html(data);
-        loadApport();
-    },
-    error: (error) => {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
-}
+            $.ajax({
+                url: "./users/client/retriever_auto.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID.val() },
+                success: (data) => {
+                    $("#controlDuration").html(data);
+                    loadApport();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
+                }
+            });
+        }
 
-function loadApport() {
-BrandID = $("#idBrand");
-ProductID = $("#idProduct");
-TariffID = $("#idTariff");
-const Duration = $("input[name='durationName']:checked").val();
-$.ajax({
-    url: "./users/client/retriever_auto.php",
-    method: "POST",
-    data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID.val() , ID_DURATION: Duration },
-    success: (data) => {
-        $("#controlApport").html(data);
-        calcFunctionAuto();
-    },
-    error: (error) => {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
-}
+        function loadApport() {
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            TariffID = $("#idTariff");
+            const Duration = $("input[name='durationName']:checked").val();
+            $.ajax({
+                url: "./users/client/retriever_auto.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID.val(), ID_DURATION: Duration },
+                success: (data) => {
+                    $("#controlApport").html(data);
+                    calcFunctionAuto();
+                },
+                error: (error) => {
+                    console.error("Une erreur s'est produite :", error);
+                }
+            });
+        }
 
-function calcFunctionAuto() {
+        function calcFunctionAuto() {
 
-BrandID = $("#idBrand");
-ProductID = $("#idProduct");
-TariffID = $("#idTariff");
-AmountID = $("#rangeInputAmount");
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            TariffID = $("#idTariff");
+            AmountID = $("#rangeInputAmount");
 
-ProfessionID= $("#idProfession").val();
+            ProfessionID = $("#idProfession").val();
 
-const DurationValue = $("input[name='durationName']:checked").val();
-const ApportValue = $("input[name='apportName']:checked").val();
+            const DurationValue = $("input[name='durationName']:checked").val();
+            const ApportValue = $("input[name='apportName']:checked").val();
 
 
-$.ajax({
-    url: "./users/client/calc-fx_auto.php",
-    method: "POST",
-    data: {
-        ID_AMOUNT: AmountID.val(),
-        ID_DURATION: DurationValue,
-        ID_APPORT: ApportValue,
-        ID_TARIFF: TariffID.val(),
-        ID_PRODUCT: ProductID.val(),
-        ID_BRAND: BrandID.val(),
-        ID_PROFESSION: ProfessionID
-    },
-    success: (data) => {
-        var result = JSON.parse(data);
-        // console.log(result.tariff_id);
-        $("#infoAmount").val(result.TTC);
-        $("#rangeValueAmount").val(AmountID.val());
-        $("#rangeInputDuration").val(DurationValue);
-        $("#rangeInputApport").val(ApportValue);
-        // $("#rangeValueMonthly").val(result.payment);
-        $("#infoDuration").val(DurationValue);    
-        $("#infoTariffID").val(result.tariff_id);
-        $("#rangeInputMonthly").val(result.paymentNoFormat);
-        $("#rangeValueMonthly").val(result.payment);
-        $("#infoMonthly").val(result.payment);
-        $("#infoApport").val(result.Apport_Total);
-        $("#infoApportPerc").val(ApportValue);
-        $("#infoADI").val(result.Assurance);
-        $("#infoFD").val(result.FraisDossier);
-        $("#infoCHAD").val(result.Cout);
-    }
-});
-}
+            $.ajax({
+                url: "./users/client/calc-fx_auto.php",
+                method: "POST",
+                data: {
+                    ID_AMOUNT: AmountID.val(),
+                    ID_DURATION: DurationValue,
+                    ID_APPORT: ApportValue,
+                    ID_TARIFF: TariffID.val(),
+                    ID_PRODUCT: ProductID.val(),
+                    ID_BRAND: BrandID.val(),
+                    ID_PROFESSION: ProfessionID
+                },
+                success: (data) => {
+                    var result = JSON.parse(data);
+                    // console.log(result.tariff_id);
+                    $("#infoAmount").val(result.TTC);
+                    $("#rangeValueAmount").val(AmountID.val());
+                    $("#rangeInputDuration").val(DurationValue);
+                    $("#rangeInputApport").val(ApportValue);
+                    // $("#rangeValueMonthly").val(result.payment);
+                    $("#infoDuration").val(DurationValue);
+                    $("#infoTariffID").val(result.tariff_id);
+                    $("#rangeInputMonthly").val(result.paymentNoFormat);
+                    $("#rangeValueMonthly").val(result.payment);
+                    $("#infoMonthly").val(result.payment);
+                    $("#infoApport").val(result.Apport_Total);
+                    $("#infoApportPerc").val(ApportValue);
+                    $("#infoADI").val(result.Assurance);
+                    $("#infoFD").val(result.FraisDossier);
+                    $("#infoCHAD").val(result.Cout);
+                }
+            });
+        }
 
-function calcFunctionPerso(script = "monthly") {
+        function calcFunctionPerso(script = "monthly") {
 
-AmountID = $("#rangeInputTTC").val();
-ProfessionID= $("#idProfession").val();
-DurationValue = $("#rangeInputDurationPerso").val();
-Monthly = $("#rangeInputMonthlyPerso").val();
-var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
-var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+            AmountID = $("#rangeInputTTC").val();
+            ProfessionID = $("#idProfession").val();
+            DurationValue = $("#rangeInputDurationPerso").val();
+            Monthly = $("#rangeInputMonthlyPerso").val();
+            var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
+            var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
 
-var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
-var valueDisplayDuration = document.getElementById('valueDisplayDuration');
+            var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
+            var valueDisplayDuration = document.getElementById('valueDisplayDuration');
 
-$.ajax({
-    url: "./users/client/calc-fx_perso.php",
-    method: "POST",
-    data: {
-        ID_SCRIPT: script,
-        ID_AMOUNT: AmountID,
-        ID_DURATION: DurationValue,
-        ID_MONTHLY: Monthly,
-        ID_PROFESSION: ProfessionID
+            $.ajax({
+                url: "./users/client/calc-fx_perso.php",
+                method: "POST",
+                data: {
+                    ID_SCRIPT: script,
+                    ID_AMOUNT: AmountID,
+                    ID_DURATION: DurationValue,
+                    ID_MONTHLY: Monthly,
+                    ID_PROFESSION: ProfessionID
 
-    },
-    success: (data) => {
-        var result = JSON.parse(data);
-        if (script === "monthly") {
-            rangeInputMonthly.value = result.monthlyNOFormat;
-            valueDisplayMonthly.textContent = result.monthly;
+                },
+                success: (data) => {
+                    var result = JSON.parse(data);
+                    if (script === "monthly") {
+                        rangeInputMonthly.value = result.monthlyNOFormat;
+                        valueDisplayMonthly.textContent = result.monthly;
 
+                        var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+                        valueDisplayMonthly.style.left = percent + '%';
+                    } else {
+                        rangeInputDuration.value = result.duration;
+                        valueDisplayDuration.textContent = result.duration;
+
+                        var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
+                        valueDisplayDuration.style.left = percent + '%';
+                    }
+                    $("#infoProjectP").val($("#idProject").val());
+                    $("#infoAmountP").val(AmountID);
+                    $("#infoDurationP").val(result.duration);
+                    $("#infoMonthlyP").val(result.monthly);
+                    $("#infoFDP").val(percent);
+                }
+            });
+        }
+
+        function updateInfoDuration() {
+            DisplayD.textContent = DurationID.val();
+            RangeInputD.value = DurationID.val();
+            var percent = (RangeInputD.value - RangeInputD.min) / (RangeInputD.max - RangeInputD.min) * 100;
+            DisplayD.style.left = percent + '%';
+
+            updateInfoApport();
+
+        }
+        function updateInfoApport() {
+            RangeInputA.value = ApportID.val();
+            DisplayA.textContent = RangeInputA.value;
+            // console.log(selectApport.selectedIndex);
+            var percent = (RangeInputA.value - RangeInputA.min) / (RangeInputA.max - RangeInputA.min) * 100;
+            DisplayA.style.left = percent + '%';
+
+            updateInfoMonthly(selectApport.selectedIndex, 0);
+
+        }
+        function updateInfoMonthly(indice = "default", ind = "default") {
+            if (indice !== "default") {
+                selectMonthly.selectedIndex = indice;
+            }
+            RangeInputM.value = parseFloat(selectMonthly.value.replace(/\s/g, ''));
+            DisplayM.textContent = RangeInputM.value;
+
+            var percent = (RangeInputM.value - RangeInputM.min) / (RangeInputM.max - RangeInputM.min) * 100;
+            DisplayM.style.left = percent + '%';
+
+            if (ind === "default") {
+                selectApport.selectedIndex = selectMonthly.selectedIndex;
+                RangeInputA.value = selectApport.value;
+                DisplayA.textContent = RangeInputA.value;
+                // console.log(selectApport.selectedIndex);
+                var percent = (RangeInputA.value - RangeInputA.min) / (RangeInputA.max - RangeInputA.min) * 100;
+                DisplayA.style.left = percent + '%';
+            }
+        }
+        function loadData() {
+            if (ProductID.val() !== 0) {
+                loadDuration();
+            }
+        }
+
+
+        function loadRegions() {
+            $.ajax({
+                url: "region_retriever.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'region' },
+                success: function (data) {
+                    $("#yourRegion").html(data);
+                    const RegionID = $("#yourRegion").val();
+                    $.ajax({
+                        url: "region_retriever.php",
+                        method: "POST",
+                        data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                        success: function (data) {
+                            $("#yourTown").html(data);
+                        }
+                    });
+                }
+            });
+        }
+
+
+        function loadTowns() {
+            const RegionID = $("#yourRegion").val();
+            $.ajax({
+                url: "region_retriever.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'town', ID_REGION: RegionID },
+                success: function (data) {
+                    $("#yourTown").html(data);
+                }
+            });
+        }
+
+        //Après chargement de la page
+
+        window.addEventListener("load", function () {
+            $('#spinnerRecap').hide();
+            calcFunctionPerso();
+            controller();
+        });
+
+        //Formulaire crédit personnel ou renouvellable
+
+        const formP = document.getElementById("formPerso"),
+            btnCreditPerso = formP.querySelector(".btn-credit-perso"),
+            errorTextP = formP.querySelector(".error-text");
+
+        formP.onsubmit = (e) => {
+            e.preventDefault();
+        }
+
+        btnCreditPerso.onclick = () => {
+            formP.style.pointerEvents = "none";
+            $('#preloaderCreditPerso').show();
+            errorTextP.style.display = "none";
+            formP.style.opacity = .5;
+            setTimeout(function () {
+                $('#preloaderCreditPerso').hide();
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "users/client/save-credit.php", true);
+                xhr.onload = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            let responseData = JSON.parse(xhr.responseText);
+                            let data = responseData.status.trim();
+                            if (data === "success") {
+                                location.href = "signup";
+
+                            } else {
+                                errorTextP.style.display = "block";
+                                errorTextP.textContent = data;
+                            }
+                        }
+                    }
+                }
+                let formData = new FormData(formP);
+                xhr.send(formData);
+            }, 2000);
+        }
+
+        //Formulaire crédit auto
+
+        const form = document.getElementById("formAuto"),
+            btnCreditAuto = form.querySelector(".btn-credit-auto"),
+            errorText = form.querySelector(".error-text");
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+        }
+
+        btnCreditAuto.onclick = () => {
+            form.style.pointerEvents = "none";
+            $('#preloaderCreditAuto').show();
+            errorTextP.style.display = "none";
+            form.style.opacity = .5;
+            setTimeout(function () {
+                $('#preloaderCreditAuto').hide();
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "users/client/save-credit.php", true);
+                xhr.onload = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            let responseData = JSON.parse(xhr.responseText);
+                            let data = responseData.status.trim();
+                            if (data === "success") {
+                                location.href = "signup";
+
+                            } else {
+                                errorText.style.display = "block";
+                                errorText.innerHTML = responseData.message;
+                            }
+                        }
+                    }
+                }
+                let formData = new FormData(form);
+                xhr.send(formData);
+            }, 2000);
+        }
+
+
+        //Pour le crédit personnel
+        var rangeInputTTC = document.getElementById('rangeInputTTC');
+        var valueDisplayTTC = document.getElementById('valueDisplayTTC');
+
+        var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+        valueDisplayTTC.style.left = percent + '%';
+        valueDisplayTTC.textContent = rangeInputTTC.value;
+
+
+        rangeInputTTC.addEventListener('input', function () {
+            var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
+            valueDisplayTTC.style.left = percent + '%';
+            valueDisplayTTC.textContent = rangeInputTTC.value;
+
+            calcFunctionPerso();
+        });
+
+        var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
+        var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
+
+        var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
+        valueDisplayMonthly.style.left = percent + '%';
+        valueDisplayMonthly.textContent = rangeInputMonthly.value;
+
+        rangeInputMonthly.addEventListener('input', function () {
             var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
             valueDisplayMonthly.style.left = percent + '%';
-        } else {
-            rangeInputDuration.value = result.duration;
-            valueDisplayDuration.textContent = result.duration;
+            valueDisplayMonthly.textContent = rangeInputMonthly.value;
+            calcFunctionPerso('duration');
+        });
 
+
+
+        var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
+        var valueDisplayDuration = document.getElementById('valueDisplayDuration');
+
+
+        var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
+        valueDisplayDuration.style.left = percent + '%';
+        valueDisplayDuration.textContent = rangeInputDuration.value;
+        rangeInputDuration.addEventListener('input', function () {
             var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
             valueDisplayDuration.style.left = percent + '%';
-        }
-        $("#infoProjectP").val($("#idProject").val());
-        $("#infoAmountP").val(AmountID);
-        $("#infoDurationP").val(result.duration);
-        $("#infoMonthlyP").val(result.monthly);
-        $("#infoFDP").val(percent);
-    }
-});
-}
-
-function updateInfoDuration() {
-DisplayD.textContent = DurationID.val();
-RangeInputD.value = DurationID.val();
-var percent = (RangeInputD.value - RangeInputD.min) / (RangeInputD.max - RangeInputD.min) * 100;
-DisplayD.style.left = percent + '%';
-
-updateInfoApport();
-
-}
-function updateInfoApport() {
-RangeInputA.value = ApportID.val();
-DisplayA.textContent = RangeInputA.value;
-// console.log(selectApport.selectedIndex);
-var percent = (RangeInputA.value - RangeInputA.min) / (RangeInputA.max - RangeInputA.min) * 100;
-DisplayA.style.left = percent + '%';
-
-updateInfoMonthly(selectApport.selectedIndex, 0);
-
-}
-function updateInfoMonthly(indice = "default", ind = "default") {
-if (indice !== "default") {
-    selectMonthly.selectedIndex = indice;
-}
-RangeInputM.value = parseFloat(selectMonthly.value.replace(/\s/g, ''));
-DisplayM.textContent = RangeInputM.value;
-
-var percent = (RangeInputM.value - RangeInputM.min) / (RangeInputM.max - RangeInputM.min) * 100;
-DisplayM.style.left = percent + '%';
-
-if (ind === "default") {
-    selectApport.selectedIndex = selectMonthly.selectedIndex;
-    RangeInputA.value = selectApport.value;
-    DisplayA.textContent = RangeInputA.value;
-    // console.log(selectApport.selectedIndex);
-    var percent = (RangeInputA.value - RangeInputA.min) / (RangeInputA.max - RangeInputA.min) * 100;
-    DisplayA.style.left = percent + '%';
-}
-}
-function loadData() {
-if (ProductID.val() !== 0) {
-    loadDuration();
-}
-}
-
-
-function loadRegions() {
-$.ajax({
-    url: "region_retriever.php",
-    method: "POST",
-    data: {ID_SCRIPT: 'region'},
-    success: function (data) {
-        $("#yourRegion").html(data);
-        const RegionID = $("#yourRegion").val();
-        $.ajax({
-            url: "region_retriever.php",
-            method: "POST",
-            data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
-            success: function (data) {
-                $("#yourTown").html(data);                   
-            }
+            valueDisplayDuration.textContent = rangeInputDuration.value;
+            calcFunctionPerso();
         });
-    }
-});
-}
+
+        var rangeInputs = document.querySelectorAll('.custom-range');
+        var val_min = document.querySelectorAll('.value-min');
+        var val_max = document.querySelectorAll('.value-max');
+
+        let i = 0;
+        rangeInputs.forEach(function (input) {
+
+            val_max[i].textContent = input.max;
+            val_min[i].textContent = input.min;
+            val_max[i].style.left = 91 + '%';
+            val_min[i].style.left = 9 + '%';
+            i++;
+        });
 
 
-function loadTowns() {
-const RegionID = $("#yourRegion").val();    
-$.ajax({
-    url: "region_retriever.php",
-    method: "POST",
-    data: {ID_SCRIPT: 'town', ID_REGION: RegionID},
-    success: function (data) {
-        $("#yourTown").html(data);
-    }
-});
-}
+        //Pour le crédit auto
+        const rangeValueAmount = document.getElementById("rangeValueAmount");
+        const rangeInputAmount = document.getElementById("rangeInputAmount");
+        rangeInputAmount.addEventListener("input", function () {
+            rangeValueAmount.value = rangeInputAmount.value;
+            calcFunctionAuto();
+        });
 
-//Après chargement de la page
+        rangeValueAmount.addEventListener("input", function () {
+            rangeInputAmount.value = rangeValueAmount.value;
+            calcFunctionAuto();
+        });
 
-window.addEventListener("load", function () {
-    $('#spinnerRecap').hide();
-    calcFunctionPerso();
-    controller();
-});
 
-//Formulaire crédit personnel ou renouvellable
-
-const formP = document.getElementById("formPerso"),
-    btnCreditPerso = formP.querySelector(".btn-credit-perso"),
-    errorTextP = formP.querySelector(".error-text");
-
-formP.onsubmit = (e) => {
-    e.preventDefault();
-}
-
-btnCreditPerso.onclick = () => {
-    formP.style.pointerEvents = "none";
-    $('#preloaderCreditPerso').show();
-    errorTextP.style.display = "none";
-    formP.style.opacity = .5;
-    setTimeout(function () {
-        $('#preloaderCreditPerso').hide();
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "users/client/save-credit.php", true);
-        xhr.onload = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let responseData = JSON.parse(xhr.responseText);
-                    let data = responseData.status.trim();
-                    if (data === "success") {
-                        location.href = "signup";
-
-                    } else {
-                        errorTextP.style.display = "block";
-                        errorTextP.textContent = data;
-                    }
-                }
+        function hideAutos(autos) {
+            for (let i = 0; i < autos.length; i++) {
+                autos[i].style.display = 'none';
             }
         }
-        let formData = new FormData(formP);
-        xhr.send(formData);
-    }, 2000);
-}
 
-//Formulaire crédit auto
-
-const form = document.getElementById("formAuto"),
-    btnCreditAuto = form.querySelector(".btn-credit-auto"),
-    errorText = form.querySelector(".error-text");
-
-form.onsubmit = (e) => {
-    e.preventDefault();
-}
-
-btnCreditAuto.onclick = () => {
-    form.style.pointerEvents = "none";
-    $('#preloaderCreditAuto').show();
-    errorTextP.style.display = "none";
-    form.style.opacity = .5;
-    setTimeout(function () {
-        $('#preloaderCreditAuto').hide();
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "users/client/save-credit.php", true);
-        xhr.onload = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let responseData = JSON.parse(xhr.responseText);
-                    let data = responseData.status.trim();
-                    if (data === "success") {
-                        location.href = "signup";
-
-                    } else {
-                        errorText.style.display = "block";
-                        errorText.innerHTML = responseData.message;
-                    }
-                }
+        function displayAutos(autos) {
+            for (let i = 0; i < autos.length; i++) {
+                autos[i].style.display = 'block';
             }
         }
-        let formData = new FormData(form);
-        xhr.send(formData);
-    }, 2000);
-}
 
 
-//Pour le crédit personnel
-var rangeInputTTC = document.getElementById('rangeInputTTC');
-var valueDisplayTTC = document.getElementById('valueDisplayTTC');
+        function displayAuto() {
 
-var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
-valueDisplayTTC.style.left = percent + '%';
-valueDisplayTTC.textContent = rangeInputTTC.value;
+            document.getElementById('cardPerso').style.display = "none";
+            document.getElementById('imgFluid').style.display = "none";
 
 
-rangeInputTTC.addEventListener('input', function () {
-    var percent = (rangeInputTTC.value - rangeInputTTC.min) / (rangeInputTTC.max - rangeInputTTC.min) * 100;
-    valueDisplayTTC.style.left = percent + '%';
-    valueDisplayTTC.textContent = rangeInputTTC.value;
-
-    calcFunctionPerso();
-});
-
-var rangeInputMonthly = document.getElementById('rangeInputMonthlyPerso');
-var valueDisplayMonthly = document.getElementById('valueDisplayMonthly');
-
-var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
-valueDisplayMonthly.style.left = percent + '%';
-valueDisplayMonthly.textContent = rangeInputMonthly.value;
-
-rangeInputMonthly.addEventListener('input', function () {
-    var percent = (rangeInputMonthly.value - rangeInputMonthly.min) / (rangeInputMonthly.max - rangeInputMonthly.min) * 100;
-    valueDisplayMonthly.style.left = percent + '%';
-    valueDisplayMonthly.textContent = rangeInputMonthly.value;
-    calcFunctionPerso('duration');
-});
+            document.getElementById('cardAuto').style.display = "none";
+            $('#spinnerBtnAuto').show();
+            $('#spinnerRecap').show();
 
 
+            setTimeout(function () {
+                $('#spinnerBtnAuto').hide();
+                scrollToTop();
+            }, 2000);
 
-var rangeInputDuration = document.getElementById('rangeInputDurationPerso');
-var valueDisplayDuration = document.getElementById('valueDisplayDuration');
+            setTimeout(function () {
 
+                $('#spinnerRecap').hide();
+                $('#cardAuto').show();
+            }, 4000);
+        }
+        function displayPerso() {
 
-var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
-valueDisplayDuration.style.left = percent + '%';
-valueDisplayDuration.textContent = rangeInputDuration.value;
-rangeInputDuration.addEventListener('input', function () {
-    var percent = (rangeInputDuration.value - rangeInputDuration.min) / (rangeInputDuration.max - rangeInputDuration.min) * 100;
-    valueDisplayDuration.style.left = percent + '%';
-    valueDisplayDuration.textContent = rangeInputDuration.value;
-    calcFunctionPerso();
-});
+            document.getElementById('cardAuto').style.display = "none";
+            document.getElementById('cardPerso').style.display = "none";
+            document.getElementById('imgFluid').style.display = "none";
+            $('#spinnerBtnPerso').show();
+            $('#spinnerRecap').show();
 
-var rangeInputs = document.querySelectorAll('.custom-range');
-var val_min = document.querySelectorAll('.value-min');
-var val_max = document.querySelectorAll('.value-max');
+            setTimeout(function () {
+                $('#spinnerBtnPerso').hide();
+                scrollToTop();
+            }, 2000);
 
-let i = 0;
-rangeInputs.forEach(function (input) {
+            setTimeout(function () {
 
-    val_max[i].textContent = input.max;
-    val_min[i].textContent = input.min;
-    val_max[i].style.left = 91 + '%';
-    val_min[i].style.left = 9 + '%';
-    i++;
-});
+                $('#spinnerRecap').hide();
+                $('#cardPerso').show();
+            }, 4000);
 
+        }
+        function hideCard() {
+            document.getElementById('cardAuto').style.display = "none";
+            document.getElementById('cardPerso').style.display = "none";
+            document.getElementById('imgFluid').style.display = "block";
+        }
 
-//Pour le crédit auto
-const rangeValueAmount = document.getElementById("rangeValueAmount");
-const rangeInputAmount = document.getElementById("rangeInputAmount");
-rangeInputAmount.addEventListener("input", function () {
-    rangeValueAmount.value = rangeInputAmount.value;
-    calcFunctionAuto();
-});
-
-rangeValueAmount.addEventListener("input", function () {
-    rangeInputAmount.value = rangeValueAmount.value;
-    calcFunctionAuto();
-});
-
-
-function hideAutos(autos) {
-    for (let i = 0; i < autos.length; i++) {
-        autos[i].style.display = 'none';
-    }
-}
-
-function displayAutos(autos) {
-    for (let i = 0; i < autos.length; i++) {
-        autos[i].style.display = 'block';
-    }
-}
-
-
-function displayAuto() {
-
-    document.getElementById('cardPerso').style.display = "none";
-    document.getElementById('imgFluid').style.display = "none";
-
-
-    document.getElementById('cardAuto').style.display = "none";
-    $('#spinnerBtnAuto').show();
-    $('#spinnerRecap').show();
-
-
-    setTimeout(function () {
-        $('#spinnerBtnAuto').hide();
-        // scrollToTop();
-    }, 2000);
-
-    setTimeout(function () {
-
-        $('#spinnerRecap').hide();
-        $('#cardAuto').show();
-    }, 4000);
-}
-function displayPerso() {
-
-    document.getElementById('cardAuto').style.display = "none";
-    document.getElementById('cardPerso').style.display = "none";
-    document.getElementById('imgFluid').style.display = "none";
-    $('#spinnerBtnPerso').show();
-    $('#spinnerRecap').show();
-
-    setTimeout(function () {
-        $('#spinnerBtnPerso').hide();
-        // scrollToTop();
-    }, 2000);
-
-    setTimeout(function () {
-
-        $('#spinnerRecap').hide();
-        $('#cardPerso').show();
-    }, 4000);
-
-}
-function hideCard() {
-    document.getElementById('cardAuto').style.display = "none";
-    document.getElementById('cardPerso').style.display = "none";
-    document.getElementById('imgFluid').style.display = "block";
-}
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 500,
-        behavior: 'smooth'
-    });
-}
+        function scrollToTop() {
+            window.scrollTo({
+                top: 500,
+                behavior: 'smooth'
+            });
+        }
 
 
 

@@ -57,6 +57,12 @@ if ($result_credit->num_rows > 0) {
     <section class="section">
         <div class="row mt-5">
             <div class="col-lg-7">
+            <div class="col-lg-6">
+                    <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
+                    Revision condition financière
+                    </a>
+                </div>
+
                 <table class="table table-striped">
                     <legend>Crédit demandé</legend>
 
@@ -126,12 +132,7 @@ if ($result_credit->num_rows > 0) {
                     </tbody>
 
                 </table>
-                <div class="col-lg-6">
-                    <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
-                        Modifier le crédit
-                    </a>
-                </div>
-
+             
 
                 <!-- <div class="col-lg-6">
                     <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">

@@ -300,6 +300,11 @@ if ($result_credit->num_rows > 0) {
                 <div class="col-lg-6">
 
                     <div class="card row">
+                    <div class="col-lg-6">
+                            <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-primary">
+                                Revision condition financière
+                            </a>
+                        </div>
                         <div class="card-body">
                             <!-- List group with active and disabled items -->
 
@@ -348,11 +353,7 @@ if ($result_credit->num_rows > 0) {
 
 
                         </div>
-                        <div class="col-lg-6">
-                            <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-primary">
-                                Modifier le crédit
-                            </a>
-                        </div>
+                        
                     </div>
 
                 </div>

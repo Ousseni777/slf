@@ -18,7 +18,7 @@ if ($result_credit->num_rows > 0) {
         display: none;
     }
 
-    #num-dossier {
+    #num-dossier, #btn-revcf {
         display: none;
     }
 </style>
@@ -28,7 +28,7 @@ if ($result_credit->num_rows > 0) {
     <div class="pagetitle">
         <h1>Saisir le numéro de dossier que vous souhaitez suivre</h1>
         <nav>
-            <ol class="breadcrumb">                
+            <ol class="breadcrumb">
                 <li class="breadcrumb-item">Detail dossier</li>
                 <li class="breadcrumb-item">Rechercher un dossier quelconque par son numéro</li>
             </ol>
@@ -40,174 +40,177 @@ if ($result_credit->num_rows > 0) {
                     <input type="text" id="searchInput" placeholder="Rechercher N° Dossier ici..." class="form-control">
 
                 </div>
-                <div class="col-lg-4">
-
-                </div>
+                <div class="col-lg-4" id="btn-revcf" >
+                                <a href="sim-fx?tag=revcf&numdoss=<?php echo $dossier['NUMDOSS'] ?>"
+                                    class="btn btn-outline-danger">
+                                    Revision condition financière
+                                </a>
+                            </div>
                 <div class="col-lg-4" id="num-dossier">
-                    <h1>Dossier N°:                        
+                    <h1>Dossier N°:
                         <span id="NUMDOSS"></span>
                     </h1>
                 </div>
             </div>
         </div>
     </div>
-    <table class="table table-striped"  id="section-detail">
-        <tr style="display: none;"><td  ></td></tr>
-        <tr><td>
-    <section class="section">
-        <div class="row mt-5">
-            <div class="col-lg-7">
-            <div class="col-lg-6">
-                    <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
-                    Revision condition financière
-                    </a>
-                </div>
+    <table class="table table-striped" id="section-detail">
+        <tr style="display: none;">
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <section class="section">
+                    <div class="row mt-5">
+                        <div class="col-lg-7">
+ 
 
-                <table class="table table-striped">
-                    <legend>Crédit demandé</legend>
+                            <table class="table table-striped">
+                                <legend>Crédit demandé</legend>
 
-                    <tbody>
-                        <tr>
-                            <th>Date demande crédit :</th>
-                            <td id="DATECREATION">
+                                <tbody>
+                                    <tr>
+                                        <th>Date demande crédit :</th>
+                                        <td id="DATECREATION">
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Marque auto :</th>
-                            <td id="MARQUE">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Marque auto :</th>
+                                        <td id="MARQUE">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Type produit : </th>
-                            <td id="PRODUIT">
+                                        <th scope="col">Type produit : </th>
+                                        <td id="PRODUIT">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th>Barême attribué : </th>
-                            <td id="BAREME">
+                                        <th>Barême attribué : </th>
+                                        <td id="BAREME">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Montant demandé (DH) :</th>
-                            <td id="MNT_DEMANDE">
+                                        <th scope="col">Montant demandé (DH) :</th>
+                                        <td id="MNT_DEMANDE">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Durée du crédit (mois) :</th>
-                            <td id="DUREE">
+                                        <th scope="col">Durée du crédit (mois) :</th>
+                                        <td id="DUREE">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Mensualité (DH) :</th>
-                            <td id="MENSUALITE">
+                                        <th scope="col">Mensualité (DH) :</th>
+                                        <td id="MENSUALITE">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Frais de dossier (DH) :</th>
-                            <td id="FRAISDOSS">
+                                        <th scope="col">Frais de dossier (DH) :</th>
+                                        <td id="FRAISDOSS">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">TAUX (%) : </th>
-                            <td id="TAUXINT">
+                                        <th scope="col">TAUX (%) : </th>
+                                        <td id="TAUXINT">
 
-                            </td>
-                        </tr>
+                                        </td>
+                                    </tr>
 
-                    </tbody>
+                                </tbody>
 
-                </table>
-             
+                            </table>
 
-                <!-- <div class="col-lg-6">
+
+                            <!-- <div class="col-lg-6">
                     <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>" class="btn btn-outline-danger">
                         Modifier les infos du client
                     </a>
                 </div> -->
-            </div>
-            <div class="col-lg-4">
-                <table class="table table-striped">
-                    <legend>Etat de demande</legend>
-                    <tbody>
-                        <tr>
-                            <td>
-                                #ETAT PRODUCTION
-                            </td>
-                            <td id="ETATPRODLIB">
+                        </div>
+                        <div class="col-lg-4">
+                            <table class="table table-striped">
+                                <legend>Etat de demande</legend>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            #ETAT PRODUCTION
+                                        </td>
+                                        <td id="ETATPRODLIB">
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-striped">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped">
 
-                    <tbody>
-                        <tr>
-                            <td>#ETAT ENGAGEMENT</td>
-                            <td id="ETATENGLIB">
+                                <tbody>
+                                    <tr>
+                                        <td>#ETAT ENGAGEMENT</td>
+                                        <td id="ETATENGLIB">
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <td>#ETAT INSTRUCTION</td>
-                            <td id="ETATINSTLIB">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>#ETAT INSTRUCTION</td>
+                                        <td id="ETATINSTLIB">
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-striped">
-                    <legend class="mt-5">Autheur du crédit</legend>
-                    <tbody>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped">
+                                <legend class="mt-5">Autheur du crédit</legend>
+                                <tbody>
+                                    <tr>
 
-                            <th scope="col">ID CLIENT :</th>
-                            <td id="IDCLIENT">
+                                        <th scope="col">ID CLIENT :</th>
+                                        <td id="IDCLIENT">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th>Nom de l'autheur :</th>
-                            <td id="NOM">
+                                        <th>Nom de l'autheur :</th>
+                                        <td id="NOM">
 
-                            </td>
-                        </tr>
-                        <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                            <th scope="col">Nom suite :</th>
-                            <td id="NOMSUITE">
+                                        <th scope="col">Nom suite :</th>
+                                        <td id="NOMSUITE">
 
-                            </td>
-                        </tr>
+                                        </td>
+                                    </tr>
 
-                    </tbody>
-                </table>
+                                </tbody>
+                            </table>
 
-            </div>
+                        </div>
 
-        </div>
-    </section>
-    </td></tr>
+                    </div>
+                </section>
+            </td>
+        </tr>
     </table>
     <section style="margin-top: 15%;" class="flex-column align-items-center justify-content-center"
         id="section-undefuned">
@@ -263,10 +266,12 @@ if ($result_credit->num_rows > 0) {
                         $("#section-undefuned").hide();
                         $("#section-detail").show();
                         $("#num-dossier").show();
+                        $("#btn-revcf").show();
                     } else {
                         $("#section-undefuned").show();
                         $("#section-detail").hide();
                         $("#num-dossier").hide();
+                        $("#btn-revcf").hide();
                     }
 
                 }
@@ -276,24 +281,25 @@ if ($result_credit->num_rows > 0) {
         }
     });
 
-    
+
     $('#searchInput').typeahead({
-    source: function(query, process) {
-        $.ajax({
-   url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'numdoss' },
-            success: function(data) {
-                var result = JSON.parse(data);
-                var autocompleteData = result;
-                process(autocompleteData);
-            }
-        });
-    },
-    minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
-    highlight: true, // Met en surbrillance les correspondances dans les résultats
-    hint: true // Affiche une suggestion en surbrillance
-});
+
+        source: function (query, process) {
+            $.ajax({
+                url: "users/agency/data_retriever.php",
+                method: "POST",
+                data: { ID_SCRIPT: 'numdoss' },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    var autocompleteData = result;
+                    process(autocompleteData);
+                }
+            });
+        },
+        minLength: 1, // Nombre de caractères minimum pour déclencher l'autocomplétion
+        highlight: true, // Met en surbrillance les correspondances dans les résultats
+        hint: true // Affiche une suggestion en surbrillance
+    });
 
 
     // searchInput.addEventListener("input", function () {

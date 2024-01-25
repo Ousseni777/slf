@@ -4,7 +4,7 @@ session_start();
 include '../../connectToDB.php';
 
 
-$affiliation = $_SESSION['PRODUCT'];
+// $affiliation = $_SESSION['PRODUCT'];
 
 switch ($_POST['ID_SCRIPT']) {
     case "brand":
@@ -25,7 +25,7 @@ switch ($_POST['ID_SCRIPT']) {
     case "apport":
         $brand = $_POST['ID_BRAND'];
         $product = $_POST['ID_PRODUCT'];
-        $tariff = $_POST['ID_TARIFF'];        
+        $tariff = $_POST['ID_TARIFF'];
         $apports = fetchApport($brand, $product, $tariff);
         displayApport($apports);
         break;
@@ -42,7 +42,12 @@ switch ($_POST['ID_SCRIPT']) {
 
 
     case "cin":
-        displayCIN(fetchCIN());
+        displayCIN(fetchAllCIN());
+        break;
+
+    case "full_cin":
+        $cin = $_POST['CIN'];
+        fetchCIN($cin);
         break;
 
     case "numdoss":
@@ -61,13 +66,15 @@ switch ($_POST['ID_SCRIPT']) {
 function fetchBrand()
 {
     global $conn, $affiliation;
-    if (!isset($_SESSION['PRODUCT']) || $_SESSION['PRODUCT'] == 'SALAFIN') {
-        $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE is not NULL ";
-    } else {
-        $affiliation = $_SESSION['PRODUCT'];
-        $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE = '$affiliation'";
+    // if (!isset($_SESSION['PRODUCT']) || $_SESSION['PRODUCT'] == 'SALAFIN') {
+    //     $query = "SELECT DISTINCT MARQUE FROM slf_tarification";
+    // } else {
+    //     $affiliation = $_SESSION['PRODUCT'];
+    //     $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE = '$affiliation'";
 
-    }
+    // }
+
+    $query = "SELECT DISTINCT MARQUE FROM slf_tarification";
 
     $result = $conn->query($query);
 
@@ -86,12 +93,19 @@ function fetchBrand()
 function displayBrand($brands)
 {
     global $affiliation;
+    $brandOption = '';
     if (count($brands) > 0) {
         foreach ($brands as $data) {
-            echo '<option value="' . $data['MARQUE'] . '">' . $data['MARQUE'] . '</option>';
+            if (isset($_SESSION['BRAND']) && $_SESSION['BRAND'] == $data['MARQUE']) {
+                $brandOption .= '<option selected value="' . $data['MARQUE'] . '">' . $data['MARQUE'] . '</option>';
+                // unset($_SESSION['BRAND']);
+            } else {
+                $brandOption .= '<option value="' . $data['MARQUE'] . '">' . $data['MARQUE'] . '</option>';
+            }
         }
+        echo $brandOption;
     } else {
-        echo '<option>' . $affiliation . '</option>';
+        // echo '<option>' . $affiliation . '</option>';
     }
 }
 
@@ -120,11 +134,20 @@ function fetchProduct($IDMARK)
 function displayProduct($products)
 {
     if (count($products) > 0) {
+        $productOption ='';
         foreach ($products as $data) {
-            echo '<option>' . $data['PRODUIT'] . '</option>';
+            if (isset($_SESSION['PRODUIT']) && $_SESSION['PRODUIT'] == $data['PRODUIT']) {
+                $productOption .= '<option selected>' . $data['PRODUIT'] . '</option>';
+                // unset($_SESSION['PRODUIT']);
+            } else {
+                $productOption .= '<option>' . $data['PRODUIT'] . '</option>';
+            }
+           
         }
+
+        echo $productOption;
     } else {
-        echo '<option>No Data Found</option>';
+        // echo '<option>No Data Found</option>';
     }
 }
 
@@ -154,11 +177,19 @@ function fetchTariff($idproduct, $idbrand)
 function displayTariff($tariffs)
 {
     if (count($tariffs) > 0) {
+        $tariffOption ='';
         foreach ($tariffs as $data) {
-            echo '<option value="' . $data['BAREME'] . '">' . $data['BAREME'] . '</option>';
+            if (isset($_SESSION['TARIFF']) && $_SESSION['TARIFF'] == $data['BAREME']) {
+                $tariffOption .= '<option selected value="' . $data['BAREME'] . '">' . $data['BAREME'] . '</option>';
+                // unset($_SESSION['TARIFF']);
+            } else {
+                $tariffOption .= '<option value="' . $data['BAREME'] . '">' . $data['BAREME'] . '</option>';
+            }
+            
         }
+        echo $tariffOption;
     } else {
-        echo '<option>No Data Found</option>';
+        // echo '<option>No Data Found</option>';
     }
 }
 
@@ -199,15 +230,15 @@ function displayApport($apports)
             $selectedIndice = number_format(count($apports) / 2, 0, '.', '');
             if ($ct == $selectedIndice) {
                 $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" checked value="' . $data["APPORT"] . '">                                                                
-                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
+                <div class="col-2 radios  d-flex flex-row align-items-center justify-content-center" >                                    
+                    <input class="check-input label-apport" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" checked value="' . $data["APPORT"] . '">                                                                
+                    <label class="form-check-label ms-2 label-apport" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
                 </div>';
             } else {
                 $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" value="' . $data["APPORT"] . '">                                                                
-                    <label class="form-check-label" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
+                <div class="col-2 radios  d-flex flex-row align-items-center justify-content-center" >                                    
+                    <input class="check-input label-apport" type="radio" name="apportName" id="apport' . $data["APPORT"] . '" onchange="loadDuration()" value="' . $data["APPORT"] . '">                                                                
+                    <label class="form-check-label ms-2 label-apport" for="apport' . $data["APPORT"] . '">' . $data["APPORT"] . '</label>
                 </div>';
             }
             $ct++;
@@ -224,7 +255,7 @@ function displayApport($apports)
 // ----------------------------------------------------------------------------
 //  Recuperer la liste des durées 
 // ----------------------------------------------------------------------------
-function fetchDuration($brand, $tariff, $product,$apport)
+function fetchDuration($brand, $tariff, $product, $apport)
 {
     global $conn;
     $query = "SELECT DISTINCT DUREE FROM SLF_TARIFICATION WHERE MARQUE='$brand' AND PRODUIT='$product' AND BAREME='$tariff' AND APPORT='$apport' ORDER BY DUREE";
@@ -256,15 +287,15 @@ function displayDuration($durations)
             $selectedIndice = number_format(count($durations) / 2, 0, '.', '');
             if ($ct == $selectedIndice) {
                 $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" checked value="' . $data["DUREE"] . '">                                                                
-                    <label class="form-check-label" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
+                <div class="col-2 radios d-flex flex-row align-items-center justify-content-center" >                                    
+                    <input class="check-input label-duration" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" checked value="' . $data["DUREE"] . '">                                                                
+                    <label class="form-check-label ms-2 label-duration" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
                 </div>';
             } else {
                 $concat .= '
-                <div class="col-2 radios" >                                    
-                    <input class="check-input" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" value="' . $data["DUREE"] . '">                                                                
-                    <label class="form-check-label" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
+                <div class="col-2 radios d-flex flex-row align-items-center justify-content-center" >                                    
+                    <input class="check-input label-duration" type="radio" name="durationName" id="duration' . $data["DUREE"] . '" onchange="calcFunction()" value="' . $data["DUREE"] . '">                                                                
+                    <label class="form-check-label ms-2 label-duration" for="duration' . $data["DUREE"] . '">' . $data["DUREE"] . '</label>
                 </div>';
             }
             $ct++;
@@ -281,7 +312,23 @@ function displayDuration($durations)
 //  Recuperer la liste  des marques 
 // ----------------------------------------------------------------------------
 
-function fetchCIN()
+function fetchCIN($cin)
+{
+    global $conn;
+
+    // $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+    $query = "SELECT * FROM `slf_user_client` WHERE CLIENT_CIN = '$cin' ";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        echo 1; //"existed"
+    } else {
+        echo 0; //"Not existed"
+    }
+
+}
+
+function fetchAllCIN()
 {
     global $conn;
 

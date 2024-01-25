@@ -71,7 +71,7 @@ if (!empty($_POST['author_id'])) {
             }
             
         } else {
-            $response = array('status' => 'error', 'message' => 'Le CLIENT_CIN N°<b>' . $author_id . '</b> n\'est pas attribué à votre nom !');                                          
+            $response = array('status' => 'error', 'message' => 'Ce numéro <b>' . $author_id . '</b> n\'existe pas! <br> Merci  de vérifier !');                                          
         }
     }
 } else {

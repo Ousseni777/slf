@@ -2,48 +2,37 @@
 include '../../connectToDB.php';
 
 if (isset($_POST['ID_SCRIPT'])) {
-    $produit = $_POST['ID_PROFESSION'];
+    $interestRate = 5;
+    
 
-    $query = "SELECT * FROM SLF_TARIFICATION WHERE PRODUIT = '$produit'";
-    $result = $conn->query($query);
+    switch ($_POST['ID_SCRIPT']) {
+        case "slider-monthly":
+            $loanTerm = $_POST['ID_DURATION'];
+            $loanAmount = $_POST['ID_AMOUNT'];
 
-    if ($result->num_rows > 0) {
-        $data = $result->fetch_assoc();
-        $interestRate = $data['TAUX'];
-        $data_dg = $data['TXFD'];
+            $R_Value = (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
+            $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
+            $results = [
+                "monthlyNOFormat" => $monthlyPayment,
+                "monthly" => number_format($monthlyPayment, 2),
+                "duration" => $loanTerm
+            ];
+            echo json_encode($results);
+            break;
+        case "slider-duration":
+            $loanAmount = $_POST['ID_AMOUNT'];
+            $loanMonthly = $_POST['ID_MONTHLY'];  
+            $duration = calc_number($loanAmount, $interestRate, $loanMonthly);
+            $results = [
+                "duration" => $duration,
+                "monthly" => $loanMonthly
+            ];
+            echo json_encode($results);
+            break;
 
-        switch ($_POST['ID_SCRIPT']) {
-            case "slider-monthly":
-                $loanTerm = $_POST['ID_DURATION'];
-                $loanAmount = $_POST['ID_AMOUNT'];
-
-                $R_Value = (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
-                $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
-                $results = [
-                    "monthlyNOFormat" => $monthlyPayment,
-                    "monthly" => number_format($monthlyPayment, 2),
-                    "duration" => $loanTerm
-                ];
-                echo json_encode($results);
-                break;
-            case "slider-duration":
-                $loanAmount = $_POST['ID_AMOUNT'];
-                $loanMonthly = $_POST['ID_MONTHLY'];
-                $interestRate = 5; // Taux d'intérêt MENSUEL en pourcentage
-                $duration = calc_number($loanAmount, $interestRate, $loanMonthly);
-                $results = [
-                    "duration" => $duration,
-                    "monthly" => $loanMonthly
-                ];
-                echo json_encode($results);
-                break;
-
-            default:
-                break;
-        }
+        default:
+            break;
     }
-
-
 
 }
 
@@ -160,7 +149,7 @@ function calc_number($pv, $int, $pmt)
 
     $payno = abs(round($payno));
 
-    // $payno = number_format($payno, 0, ".", "");
+    $payno = number_format($payno, 0, ".", "");
 
     return $payno;
 } // calc_number =====================================================================

@@ -10,7 +10,7 @@ $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
 $SELLER_PRODUCT = $_SESSION['PRODUCT'];
 
 
-$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track");
+$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track", "revcf", "check-revcf", "to-revcf", "fx-pr");
 $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 ?>
 <!DOCTYPE html>
@@ -45,11 +45,27 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
     <!-- Template Main CSS File -->
     <link href="assets/css/style-form.css" rel="stylesheet">
     <link href="assets/css/preloader.css" rel="stylesheet">
+    <!-- <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script> -->
 
 
     <!-- <link href="styles/style.css" rel="stylesheet"> -->
 
     <style>
+        .toPrint {
+            width: 100%;
+            color: black;
+        }
+
+        .toPrint th {
+            background-color: #f5c6cb;
+        }
+
+        .toPrint th,
+        .toPrint td {
+            padding: 2%;
+            border: 1px solid gray;
+        }
+
         ::-webkit-scrollbar {
             width: 2px;
         }
@@ -201,7 +217,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             font-size: 14px;
             width: 40%;
             text-align: right;
-            color: rgb(6, 161, 53);
+            color: green;
             border: none;
         }
 
@@ -329,6 +345,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
     <?php if (isset($_GET["tag"]) && $_GET["tag"] == "fx") {
         $_SESSION['page'] = "sim-fx?tag=fx";
+        $_SESSION['page_sim'] ="tag=fx";
         include 'users/agency/fx.php';
 
     } else if (isset($_GET["tag"]) && $_GET["tag"] == "list-cr") {
@@ -341,6 +358,19 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
     } else if (isset($_GET["tag"]) && $_GET["tag"] == "track") {
         $_SESSION['page'] = "sim-fx?tag=track";
         include 'users/agency/track.php';
+    } else if (isset($_GET["tag"]) && $_GET["tag"] == "revcf") {
+        $_SESSION['page'] = "sim-fx?tag=revcf";
+        include 'users/agency/revcf.php';
+    } else if (isset($_GET["tag"]) && $_GET["tag"] == "to-revcf") {
+        $_SESSION['page'] = "sim-fx?tag=to-revcf";
+        include 'users/agency/to-revcf.php';
+    } else if (isset($_GET["tag"]) && $_GET["tag"] == "fx-pr") {
+        $_SESSION['page'] = "sim-fx?tag=fx-pr";
+        $_SESSION['page_sim'] ="tag=fx-pr";
+        include 'users/agency/fx-pr.php';
+    }else if (isset($_GET["tag"]) && $_GET["tag"] == "check-revcf") {
+        $_SESSION['page'] = "sim-fx?tag=check-revcf";
+        include 'users/agency/check-revcf.php';
     } ?>
 
     <div class="main spinner-grow text-danger" id="mainPreloader" role="status">
@@ -406,12 +436,56 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                 echo 'loadBrand(); loadRegions(); controlInput();';
             } ?>
 
+            <?php if (isset($_GET["tag"]) && $_GET["tag"] == "fx-pr") {
+                echo 'setParam();';
+                echo 'calcFunctionPerso("slider-monthly");';
+            } ?>
+
+            
+
             loadRegions();
             $('#mainPrloader').hide();
             $(".control").hide();
             displayPreloader();
 
         });
+
+
+
+        function calcFunctionPerso(target = "slider-monthly") {
+
+            AmountID = $("#slider-amount").val();
+            ProfessionID = $("#idProfession").val();
+            DurationValue = $("#slider-duration").val();
+            Monthly = $("#slider-monthly").val();
+
+            var rangeInputMonthly = document.getElementById('slider-monthly');
+            var rangeInputDuration = document.getElementById('slider-duration');
+
+            $.ajax({
+                url: "./users/agency/calc-fx_perso.php",
+                method: "POST",
+                data: {
+                    ID_SCRIPT: target,
+                    ID_AMOUNT: AmountID,
+                    ID_DURATION: DurationValue,
+                    ID_MONTHLY: Monthly,
+                    ID_PROFESSION: ProfessionID
+
+                },
+                success: (data) => {
+                    var result = JSON.parse(data);
+                    if (target === "slider-monthly") {
+                        rangeInputMonthly.value = result.monthlyNOFormat;
+                        console.log(result.monthlyNOFormat);
+                    } else {
+                        rangeInputDuration.value = result.duration;
+                    }
+                    setSliderValue();
+                }
+            });
+        }
+
 
 
 
@@ -464,7 +538,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
         function displayPreloader() {
 
-
+            $("#displaying").hide();
             $('#main').hide();
             $('#mainPreloader').show();
             document.getElementById('main').classList.remove('show');
@@ -592,12 +666,10 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     var result = JSON.parse(data);
 
                     $("#rangeValueAmount").val(AmountID.val());
-                    $("#rangeInputDuration").val(DurationValue);
-                    $("#rangeInputApport").val(ApportValue);
 
                     $("#infoAmount").val(result.TTC);
                     $("#infoDuration").val(DurationValue);
-                    $("#rangeInputMonthly").val(result.paymentNoFormat);
+
                     // $("#rangeValueMonthly").val(result.payment);
                     $("#infoMonthly").val(result.payment);
                     $("#infoApportPerc").val(ApportValue);
@@ -609,7 +681,64 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     $("#infoBrand").val(result.Marque);
                     $("#infoProduct").val(result.Produit);
                     $("#infoTariff").val(result.Bareme);
+                    $("#idPrint").html(result.RecapSim);
                     $("#optionMonthly").html(result.OptionMonthly);
+                }
+            });
+        }
+
+        function fetchBtnId(btn) {
+
+            BrandID = $("#idBrand");
+            ProductID = $("#idProduct");
+            const TariffID = $("#idTariff").val();
+            AmountID = $("#rangeInputAmount");
+
+
+            const DurationValue = btn.id;
+            const ApportValue = $("input[name='apportName']:checked").val();
+
+            $.ajax({
+                url: "users/agency/calc-fx-duration.php",
+                method: "POST",
+                data: {
+                    ID_AMOUNT: AmountID.val(),
+                    ID_DURATION: DurationValue,
+                    ID_APPORT: ApportValue,
+                    ID_TARIFF: TariffID,
+                    ID_PRODUCT: ProductID.val(),
+                    ID_BRAND: BrandID.val()
+                },
+                success: (data) => {
+                    var result = JSON.parse(data);
+                    document.getElementById("duration" + DurationValue).checked = true;
+
+
+                    $("#rangeValueAmount").val(AmountID.val());
+
+
+
+                    $("#infoAmount").val(result.TTC);
+                    $("#infoDuration").val(DurationValue);
+
+                    // $("#rangeValueMonthly").val(result.payment);
+                    $("#infoMonthly").val(result.payment);
+                    $("#infoApportPerc").val(ApportValue);
+                    $("#infoApport").val(result.Apport_Total);
+                    $("#infoADI").val(result.Assurance);
+                    $("#infoTariffID").val(result.tariff_id);
+                    $("#infoFD").val(result.FraisDossier);
+                    $("#infoCHAD").val(result.Cout);
+                    $("#infoBrand").val(result.Marque);
+                    $("#infoProduct").val(result.Produit);
+                    $("#infoTariff").val(result.Bareme);
+
+                    var boutonsMtm = document.querySelectorAll(".btn-monthly");
+
+                    boutonsMtm.forEach(function (bouton) {
+                        bouton.classList.remove("active");
+                    });
+                    btn.classList.add("active");
                 }
             });
         }
@@ -694,7 +823,6 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
         }
 
 
-
     </script>
 
 
@@ -706,6 +834,10 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
     <!-- <script type="text/javascript" src="assets/js/preloader.js"></script> -->
 
     <style>
+        #toPrintSim {
+            display: none;
+        }
+
         input[type="radio"] {
             width: 18px;
             height: 18px;

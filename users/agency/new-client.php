@@ -23,7 +23,7 @@
                     <section class="section">
 
                         <form action="#" id="form-infos-client" enctype="multipart/form-data" method="POST">
-
+    
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card">

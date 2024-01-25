@@ -2,20 +2,108 @@
     /* #displaying{
         display: none;
     } */
-    .label-apport,
-    .label-duration {
+
+    .block-slider {
+        position: relative;
+        margin-top: 100px;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 12px;
+        outline: none;
+        border-radius: 3px;
+        background-color: rgba(0, 0, 0, .3);
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 48px;
+        height: 48px;
+        z-index: 3;
+        position: relative;
+    }
+
+    .selector {
+        height: 104px;
+        width: 48px;
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+
+    }
+
+    .selectBtn {
+        height: 48px;
+        width: 48px;
+
+        background-image: url(assets/img/fleches-gauche-et-droite.png);
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+
+        position: absolute;
+        bottom: 0;
+    }
+
+    .select-value {
+        width: 48px;
+        height: 40px;
+        position: absolute;
+        color: white;
+        top: 0;
+        background-color: rgb(232, 130, 92);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 45px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #select-value-slider-amount,
+    #select-value-slider-monthly {
+        font-size: 10px;
+    }
+
+    .select-value::after {
+        content: '';
+        border-top: 17px solid goldenrod;
+        border-left: 24px solid white;
+        border-right: 24px solid white;
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+
+    }
+
+    .progress-bar {
         width: 50%;
+        height: 10px;
+        background-color: rgb(232, 130, 92);
+        position: absolute;
+        border-radius: 3px;
+        top: 7px;
+        left: 0; 
     }
 
-    .label-apport:hover,
-    .label-duration:hover {
-        cursor: pointer;
+    .label-slider {
+        position: absolute;
+        top: 30px;
+        left: 0;
     }
 
-    .btn-monthly {
-        width: 100px;
+    .recap-input {
+        height: 55px;
+        text-align: center;
+        color: rgb(232, 130, 92);
+        font-size: 30px;
+        border-radius: 10px;
+        border: 1px rgb(232, 130, 92) solid;
+        font-weight: bold;
     }
-
     .btn-custom {
         font-size: 15px;
         border-radius: 50px;
@@ -43,10 +131,6 @@
     <section class="section">
         <div class="row">
 
-            <div class="col-md-12 controlAutos" id="idPrint">
-
-            </div>
-            <!-- <button class="btn btn-primary" onclick="imprimerTableau()">Imprimer</button> -->
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
@@ -55,120 +139,99 @@
                         <!-- Commencez la simulation pour le crédit approprié -->
 
                         <div class="row g-3">
-
-                            <?php if (isset($SELLER_PRODUCT)) { ?>
-
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <?php if ($SELLER_PRODUCT == 'SALAFIN') { ?>
-
-                                            <select class="form-select" id="idBrand" name="BRAND" onchange="loadProduct()"
-                                                aria-label="State">
-                                            </select>
-
-                                        <?php } else { ?>
-
-                                            <select class="form-select" id="idBrand" name="BRAND" disabled
-                                                onchange="loadProduct()" aria-label="State">
-                                            </select>
-
-                                        <?php } ?>
-                                        <label for="floatingSelect">Marque</label>
-                                    </div>
+                            <div class="col-md-4 mt-5 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="idProfession" name="PRODUCT" aria-label="State"
+                                        onchange="">
+                                        <option value="SALARIE" id="SALARIE">SALARIE</option>
+                                        <option value="FONCTIONNAIRE" id="FONCTIONNAIRE">FONCTIONNAIRE</option>
+                                        <option value="COMMERCANT" id="COMMERCANT">COMMERCANT</option>
+                                        <option value="SOCIETE" id="SOCIETE">SOCIETE</option>
+                                    </select>
+                                    <label for="floatingSelect">Profession</label>
+                                </div>
+                            </div>
+                            <div class="row col-lg-8">
+                                <div class="row col-lg-4 ms-1">
+                                    <label for="">Montant</label>
+                                    <input type="text" value="20000" id="input-slider-amount"
+                                        class="col-lg-12 recap-input">
+                                </div>
+                                <div class="row col-lg-4 ms-1">
+                                    <label for="">Durée</label>
+                                    <input type="text" id="input-slider-duration" class="col-lg-12 recap-input">
+                                </div>
+                                <div class="row col-lg-4 ms-1">
+                                    <label for="">Mensualité</label>
+                                    <input type="text" id="input-slider-monthly" class="col-lg-12 recap-input">
                                 </div>
 
-                                <div class="col-md-4 controlAutos" id="controlProduct">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProduct" name="PRODUCT" aria-label="State"
-                                            onchange="loadTariff()">
-
-                                        </select>
-                                        <label for="floatingSelect">Produit</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="loadApport()"
-                                            aria-label="State">
+                            </div>
 
 
-                                        </select>
-
-                                        <label for="floatingSelect">Barême</label>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-8">
-                                    <div id="tableId">
-
-                                    </div>
-                                </div>
-
-                            <?php } ?>
-
-
-                            <div class="row mb-5">
+                            <div class="row col-lg-12 flex-column align-items-center justify-content-center">
                                 <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
 
-                                <div class="col-sm-12">
+
+                                <div class="col-sm-10">
                                     <!-- PRIX TTC -->
                                     <div class="block-field">
 
-                                        <div class="group-select">
-                                            <label for="rangeInputAmount" class="form-label">PRIX
-                                                TTC</label><br>
-                                            <input type="text" onkeydown="detecteEntree(event)" class="inputFlag"
-                                                id="rangeValueAmount" value="">
-                                            <input type="range" name="AMOUNT" class="form-range" min="50" max="500000"
-                                                onchange="calcFunction()" step="1" id="rangeInputAmount">
-
-                                        </div>
-                                    </div>
-                                    <!-- APPORT % -->
-                                    <div class="block-field mt-3">
-                                        <div class="col-sm-10 group-select">
-                                            <span for="" class="form-label">Apport TOTAL (en
-                                                %)</span><br>
-                                            <div class="row controlRadios" id="controlApport">
-
+                                        <div class="col-lg-12 block-slider">
+                                            <input type="range" min="1000" max="300000" value="100000"
+                                                id="slider-amount" oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-amount" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-amount" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-amount" class="progress-bar"></div>
+                                            <label for="slider-amount" class="label-slider">Montant (en DH) </label>
                                         </div>
-
                                     </div>
+
                                     <!-- DUREE -->
-                                    <div class="block-field mt-3">
 
-                                        <div class="col-sm-10 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Durée (en
-                                                mois)</span><br>
-                                            <div class="row controlRadios" id="controlDuration">
 
+                                    <div class="block-field mt-5">
+
+                                        <div class="col-lg-12 block-slider">
+
+                                            <input type="range" min="12" max="100" value="50" id="slider-duration"
+                                                oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-duration" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-duration" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-duration" class="progress-bar"></div>
+                                            <label for="slider-duration" class="label-slider">Durée (en mois) </label>
                                         </div>
                                     </div>
 
-                                    <div class="block-field mt-3">
-                                        <div id="InputMonthly" class="group-select">
-                                            <label for="rangeInputMonthly" class="form-label">Mensualités (en
-                                                DH)</label><br>
-                                            <div class="col-lg-12" id="optionMonthly">
 
+
+                                    <div class="block-field mt-5">
+                                        <div class="col-lg-12 block-slider">
+                                            <input type="range" min="50" max="33848" step="0.01" id="slider-monthly"
+                                                oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-monthly" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-monthly" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-monthly" class="progress-bar"></div>
+                                            <label for="slider-monthly" class="label-slider">Mensualité (en DH) </label>
                                         </div>
+
                                     </div>
+
 
                                 </div>
                             </div>
 
-                            <div class=" align-items-center justify-content-center">
+                            <div class="mt-5 align-items-center justify-content-center">
 
-                                <button type="button" class="ms-2 btn-custom" onclick="imprimerTableau()"
+                                <button type="button" class="mt-5 ms-2 btn-custom" onclick="imprimerTableau()"
                                     id="save-pdf-btn">Imprimer</button>
-                                <button type="button" class="btn-custom" id="capture"
+                                <button type="button" class="mt-5 btn-custom" id="capture"
                                     onclick="capturer()">Envoyer</button>
 
                             </div>
@@ -180,8 +243,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
+
                 <form action="#" method="post" id="form" autocomplete="off">
-                    <div class="card">
+
+                <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pour quel client ?</h5>
                             <div class="row">
@@ -224,28 +289,19 @@
                                         <div class="row col-lg-12" id="displaying">
                                             <span class="col-lg-10 mt-3 align-items-center"
                                                 style="color: red; font-size: 10px;">CIN non trouvé !</span>
-                                            <div class="col-lg-12 mt-1">
-
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-infos-client"
-                                                    style="border: 0;" name="existed">Ajouter un client </button>
+                                            <div
+                                                class="col-lg-12 mt-1">
+                                            
+                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-infos-client" style="border: 0;"  name="existed" >Ajouter un client </button>
                                             </div>
-
+                                    
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="error-text col-12"></div>
-
-                    <!-- <div class="edit-success" id="success-infos">
-                        <div class="alert alert-success" role="alert" style="text-align:center;">
-                            <h4 class="alert-heading">
-                                
-                            </h4>
-                        </div>
-                    </div> -->
+                    <div class="error-text col-lg-12"></div>
                     <div class="card">
                         <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderCredit" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -262,37 +318,39 @@
                                         : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID"
                                         class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL"> Nom vendeur : </span> <input
-                                        type="text" id="infoBrand" name="BRAND" readonly class="infoR">
+                                        type="text" id="infoBrand" name="BRAND" readonly value="-" class="infoR">
                                 </li>
                                 <li class="list-group-item"><span class="infoL"> Type produit : </span> <input
-                                        type="text" id="infoProduct" name="PRODUCT" readonly class="infoR"></li>
+                                        type="text" id="infoProduct" name="PRODUCT" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL"> Barême : </span> <input type="text"
-                                        id="infoTariff" name="TARIFF" readonly class="infoR infoBareme"></li>
+                                        id="infoTariff" name="TARIFF" readonly value="-" class="infoR infoBareme"></li>
 
                                 <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text"
-                                        id="infoAmount" name="AMOUNT" readonly class="infoR"></li>
+                                        id="infoAmount" name="AMOUNT" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                        type="text" id="infoDuration" name="DURATION" readonly class="infoR"></li>
+                                        type="text" id="infoDuration" name="DURATION" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Apport
                                         (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC" readonly
                                         class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
-                                        id="infoMonthly" name="MONTHLY" readonly class="infoR"></li>
+                                        id="infoMonthly" name="MONTHLY" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Frais de dossier : </span> <input
                                         type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
                                 <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="DOWN_PMT" readonly class="infoR"></li>
+                                        type="text" id="infoApport" name="DOWN_PMT" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
-                                        id="infoADI" name="ADI" readonly class="infoR"></li>
+                                        id="infoADI" name="ADI" readonly value="-" class="infoR"></li>
                                 <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
-                                        type="text" id="infoCHAD" name="COST_EX_ADI" readonly class="infoR"></li>
+                                        type="text" id="infoCHAD" name="COST_EX_ADI" readonly value="-" class="infoR"></li>
 
                             </ul><!-- End Clean list group -->
                             <div class="mt-3">
-                                <button type="button" name="ask_credit_user" class="btn-custom">Valider</button>
+                                <button type="button" name="ask_credit_user" class="btn-custom btn-credit">Valider</button>
                             </div>
                         </div>
                     </div>
+
+
                 </form>
             </div>
         </div>
@@ -336,6 +394,82 @@
 
 
 <script>
+
+
+    function setParam() {
+        var selectElement = document.getElementById("idProfession");
+        selectElement.value = "<?php echo $_SESSION['PROFESSION'] ?>";
+
+        var AMOUNT = document.getElementById("slider-amount");
+        AMOUNT.value = "<?php echo $_SESSION['AMOUNT'] ?>";
+
+        var DURATION = document.getElementById("slider-duration");
+        DURATION.value = "<?php echo $_SESSION['DURATION'] ?>";
+    }
+
+
+
+    function setSliderValue() {
+
+        // $("#select-value-slider-amount").text($("#slider-amount").val());
+        // $("#select-value-slider-duration").text($("#slider-duration").val());
+
+        let amount = document.getElementById("slider-amount");
+        let duration = document.getElementById("slider-duration");
+        let monthly = document.getElementById("slider-monthly");
+
+        document.getElementById("select-value-slider-amount").innerHTML = amount.value;
+        document.getElementById("select-value-slider-duration").innerHTML = duration.value;
+        document.getElementById("select-value-slider-monthly").innerHTML = monthly.value;
+
+        document.getElementById("input-slider-amount").value = amount.value;
+        document.getElementById("input-slider-duration").value = duration.value;
+        document.getElementById("input-slider-monthly").value = monthly.value;
+
+        var percentAmount = (amount.value - amount.min) / (amount.max - amount.min) * 100;
+        var percentDuration = (duration.value - duration.min) / (duration.max - duration.min) * 100;
+        var percentMonthly = (monthly.value - monthly.min) / (monthly.max - monthly.min) * 100;
+
+        document.getElementById("progress-bar-slider-amount").style.width = percentAmount + "%";
+        document.getElementById("progress-bar-slider-duration").style.width = percentDuration + "%";
+        document.getElementById("progress-bar-slider-monthly").style.width = percentMonthly + "%";
+
+        document.getElementById("selector-slider-amount").style.left = percentAmount + "%";
+        document.getElementById("selector-slider-duration").style.left = percentDuration + "%";
+        document.getElementById("selector-slider-monthly").style.left = percentMonthly + "%";
+
+    }
+
+
+    function setSlider(btn) {
+
+        let selectorId = "selector-" + btn.id;
+        let progressBarId = "progress-bar-" + btn.id;
+        let selectValueId = "select-value-" + btn.id;
+        let inputRecapId = "input-" + btn.id;
+
+        let selector = document.getElementById(selectorId);
+        let progressBar = document.getElementById(progressBarId);
+        let selectValue = document.getElementById(selectValueId);
+        let inputRecap = document.getElementById(inputRecapId);
+
+        var percent = (btn.value - btn.min) / (btn.max - btn.min) * 100;
+
+        selector.style.left = percent + "%";
+        progressBar.style.width = percent + "%";
+        selectValue.innerHTML = btn.value;
+        inputRecap.value = btn.value;
+
+        if (btn.id == "slider-amount" || btn.id == "slider-duration") {
+            calcFunctionPerso("slider-monthly");
+            // console.log("slider-monthly");
+        } else {
+            calcFunctionPerso("slider-duration");
+        }
+
+
+        // calcFunctionPerso(btn.id);
+    }
 
 
 
@@ -467,31 +601,7 @@
     }
 
 
-    function capturer() {
-        // Sélectionnez la table à capturer
-        var tableToCapture = document.getElementById('toPrintSim');
 
-        // Utilisez html2canvas pour capturer la table
-        $("#toPrintSim").show();
-        html2canvas(tableToCapture).then(function (canvas) {
-            // Créez un objet Image à partir du canevas
-            var img = new Image();
-            img.src = canvas.toDataURL('image/jpg');
-
-            // Créez un lien de téléchargement pour l'image
-            var link = document.createElement('a');
-            link.href = img.src;
-            link.download = 'table_image_1.jpg'; // Nom du fichier à télécharger
-
-            // Ajoutez le lien au document et déclenchez le téléchargement
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-
-        $("#toPrintSim").hide();
-        saveScript();
-    };
 
     function saveScript() {
         $.ajax({

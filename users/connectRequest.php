@@ -25,7 +25,7 @@ if (!empty($ID_UK) && !empty($CIN)) {
     } else {
         //Chercher dans la table client
 
-        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE CLIENT_ID_UK = '{$ID_UK}' AND SELLER_CIN= '{$CIN}'";
+        $query = "SELECT *  FROM SLF_USER_CLIENT  WHERE CLIENT_ID_UK = '{$ID_UK}' AND CLIENT_CIN= '{$CIN}'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {

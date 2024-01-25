@@ -89,7 +89,10 @@ if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) &&
         }
 
     } else {
+        $status="success";
         $msg= "Veuillez renseigner les justificatifs !";
+
+        $msg= "Client (Ref : <b> ".$ran_id."</b> a été ajouté avec succès, merci de lui affecter un crédit !";
     }
 
 } else {

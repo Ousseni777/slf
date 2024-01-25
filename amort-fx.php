@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$num_doss = $_GET["id"];
+$num_doss = '790551';
 
 $query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);

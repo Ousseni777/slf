@@ -13,17 +13,19 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
 
 
     $durations = fetchDuration($brand, $tariff, $product, $DG);
-
-    if (count($durations) > 0) {
+    $lengthDurations = count($durations);
+    if ($lengthDurations > 0) {
         $payments = [];
-        $options='';
+        $options = '';
         // $durations = [24, 35, 47, 59, 71];
+        $ct = 0;
+        $trs = '';
+        foreach ($durations as $data) {
 
-        foreach ($durations as $data) {        
-            
+
             $duration = $data['DUREE'];
 
-            list($tariff_id, $rate, $TXFD, $ADI, $Diff) = fetchData($brand, $product, $tariff, $duration , $DG);
+            list($tariff_id, $rate, $TXFD, $ADI, $Diff) = fetchData($brand, $product, $tariff, $duration, $DG);
 
             $VR = (float) pow($principal * 0.01 * (1 + $rate), -$duration);
             $differ = (float) pow((1 + ($rate / 100)), $Diff);
@@ -46,40 +48,102 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
                 $payments[$duration] = $payments[$duration] * 1.2;
             }
 
-            $Cout = $duration * $payments[$duration] + $Apport_Total - $principal;
+            $ct++;
+            if ($ct == 1) {
+                $firstPmt = $payments[$duration];
+            }else{
+                $trs = $trs . '<tr>
+                <td class="" ><p>' . $duration . '</p></td>
+                <td class="" >' . $payments[$duration] . '</p></td>
             
+                </tr>';
+            }
+
+            $Cout = $duration * $payments[$duration] + $Apport_Total - $principal;
+           
+          
 
             if ($duration == $number) {
 
-                $payment_tmp =  $payments[$duration];
+                $payment_tmp = $payments[$duration];
                 $Apport_Total_tmp = $Apport_Total;
                 $rate_tmp = $rate;
                 $FraisDoss_tmp = $FraisDoss;
                 $Cout_tmp = $Cout;
                 $Ass_temp = $Ass;
                 $tariff_id_tmp = $tariff_id;
-                $options.= '<button type="button" class="btn btn-outline-primary active btn-monthly" style="margin-right : 2%" id="btn1">'. $payments[$duration] .'</button>';
 
-            }else{
-                $options.= '<button type="button" class="btn btn-outline-primary btn-monthly" style="margin-right : 2%" id="btn1">'. $payments[$duration] .'</button>';
+                $options .= '<button type="button" onclick="fetchBtnId(this)" id="'.$duration.'" class="btn btn-outline-secondary active btn-monthly" style="margin-right : 2%" >' . number_format($payments[$duration], 2, ".", " ") . '</button>';
+
+
+
+
+            } else {
+                $options .= '<button type="button" onclick="fetchBtnId(this)" id="'.$duration.'"  class="btn btn-outline-secondary btn-monthly" style="margin-right : 2%" >' . number_format($payments[$duration], 2, ".", " ") . '</button>';
             }
 
         }
 
     }
 
+    $RecapSim = '
+    <table class="toPrint" id="toPrintSim">
+
+    <thead>
+        <tr>
+            <th>MARQUE</th>
+            <th>PRODUIT</th>
+            <th>BAREME</th>
+            <th>PRIX TTC</th>
+            <th>APPORT</th>
+            <th>DUREEE</th>
+            <th>MENSUALITE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="" rowspan="' . $lengthDurations . '">
+                <p>' . $brand . '</p>
+            </td>
+            <td class="" rowspan="' . $lengthDurations . '">
+                <p>' . $product . '</p>
+            </td>
+            <td class="" rowspan="' . $lengthDurations . '">
+                <p>' . $tariff . '</p>
+            </td>
+            <td class="" rowspan="' . $lengthDurations . '">
+                <p>' . $principal . '</p>
+            </td>
+            <td class="" rowspan="' . $lengthDurations . '">
+                <p>' . $DG . '</p>
+            </td>
+            <td class="">
+                <p>' . $number . '</p>
+            </td>
+            <td class="">' . $firstPmt . '</p>
+            </td>
+
+        </tr>'. $trs .'
+
+
+
+    </tbody>
+</table>             
+                ';
+
     $result = [
-        "TTC" => number_format($principal , 2, ".", " "),
-        "payment" => number_format($payment_tmp , 2, ".", " "),
+        "TTC" => number_format($principal, 2, ".", " "),
+        "payment" => number_format($payment_tmp, 2, ".", " "),
         "paymentNoFormat" => $payment_tmp,
-        "Apport_Total" => number_format($Apport_Total_tmp , 2, ".", " "),
-        "Assurance" => number_format($rate_tmp, 10, ".", ""),
-        "FraisDossier" =>number_format($FraisDoss_tmp , 2, ".", " ") ,
-        "Cout" =>number_format($Cout_tmp , 2, ".", " ") ,
+        "Apport_Total" => number_format($Apport_Total_tmp, 2, ".", " "),
+        "Assurance" => number_format($Ass, 10, ".", ""),
+        "FraisDossier" => number_format($FraisDoss_tmp, 2, ".", " "),
+        "Cout" => number_format($Cout_tmp, 2, ".", " "),
         "tariff_id" => $tariff_id_tmp,
         "Marque" => $brand,
         "Produit" => $product,
         "Bareme" => $tariff,
+        "RecapSim" => $RecapSim,
         "OptionMonthly" => $options
     ];
 

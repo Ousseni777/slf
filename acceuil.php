@@ -43,6 +43,7 @@ if (isset($_GET['tag'])) {
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/preloader.css" rel="stylesheet">
     <link href="styles/style-index.css" rel="stylesheet">
+    <link href="assets/css/style-form.css" rel="stylesheet">
     <style>
         .value-min,
         .value-max {
@@ -70,7 +71,7 @@ if (isset($_GET['tag'])) {
 </head>
 
 <body>
-
+<?php include "header.php" ?>
 
     <section id="services" class="services section-bg">
         <div class="container" data-aos="fade-up">

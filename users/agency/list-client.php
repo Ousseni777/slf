@@ -89,9 +89,9 @@
                     <tbody>
                         <?php
 
-                        if (isset($_SESSION['SELLER_ID_UK'])) {
+                        if (isset($_SESSION['SELLER_ID'])) {
                             
-                            $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID ='$SELLER_ID_UK'";
+                            $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID ='$SELLER_ID'";
                             $result_user = $conn->query($query_user);
 
                             if ($result_user->num_rows > 0) {

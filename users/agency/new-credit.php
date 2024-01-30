@@ -58,9 +58,9 @@
                         <tbody>
                             <?php
 
-                            if (isset($_SESSION['SELLER_ID_UK'])) {
-                                $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
-                                $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID_UK !='$SELLER_ID_UK'";
+                            if (isset($_SESSION['SELLER_ID'])) {
+                                $SELLER_ID = $_SESSION['SELLER_ID'];
+                                $query_user = "SELECT * FROM `slf_user_client` WHERE SELLER_ID !='$SELLER_ID'";
                                 $result_user = $conn->query($query_user);
 
                                 $today = new DateTime();
@@ -84,7 +84,7 @@
                                                 ?>
                                                 <tr>
                                                     <th scope="row">
-                                                        <?php echo '<a href="./detail?credit_id=' . $credit["CREDIT_ID_UK"] . ' "> <i class="bi bi-info-circle"></i> ' . $credit["CREDIT_ID_UK"] . '</a>' ?>
+                                                        <?php echo '<a href="./detail?credit_id=' . $credit["CREDIT_ID"] . ' "> <i class="bi bi-info-circle"></i> ' . $credit["CREDIT_ID"] . '</a>' ?>
                                                     </th>
                                                     <td>
                                                         <?php echo $day ?>
@@ -106,14 +106,14 @@
                                                     </td>
                                                     <td>
 
-                                                        <a href="./action/dialog?action=rejected&id=<?php echo $credit["CREDIT_ID_UK"] ?>"
+                                                        <a href="./action/dialog?action=rejected&id=<?php echo $credit["CREDIT_ID"] ?>"
                                                             type="button" class="btn btn-danger">
                                                             <i class="bi bi-x-circle"></i> Rejeter
 
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="./action/dialog?action=processed&id=<?php echo $credit["CREDIT_ID_UK"] ?>"
+                                                        <a href="./action/dialog?action=processed&id=<?php echo $credit["CREDIT_ID"] ?>"
                                                             type="button" class="btn btn-success">
                                                             <i class="bi bi-check-circle"></i> Valider
 

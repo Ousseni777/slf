@@ -2,11 +2,11 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$CREDIT_ID_UK = $_GET["id"];
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
-$query_credit = "SELECT * FROM `credit_client` WHERE CREDIT_ID_UK = '{$CREDIT_ID_UK}' AND SELLER_ID='$SELLER_ID_UK'";
+$CREDIT_ID = $_GET["id"];
+$SELLER_ID = $_SESSION['SELLER_ID'];
+$query_credit = "SELECT * FROM `credit_client` WHERE CREDIT_ID = '{$CREDIT_ID}' AND SELLER_ID='$SELLER_ID'";
 $result_credit = $conn->query($query_credit);
-// $_SESSION['page'] = "detail-cr?id=".$CREDIT_ID_UK;
+// $_SESSION['page'] = "detail-cr?id=".$CREDIT_ID;
 
 if ($result_credit->num_rows > 0) {
     $credit = $result_credit->fetch_assoc();
@@ -279,7 +279,7 @@ if ($result_credit->num_rows > 0) {
             <div class="pagetitle">
                 <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Récapitulatif de la
                     demande N°: <b>
-                        <?php echo $credit['CREDIT_ID_UK'] ?>
+                        <?php echo $credit['CREDIT_ID'] ?>
                     </b> </h1>
                 <nav>
                     <ol class="breadcrumb">
@@ -298,7 +298,7 @@ if ($result_credit->num_rows > 0) {
                             <!-- List group with active and disabled items -->
                             <ul class="mt-3 list-group list-group-flush">
                                 <li class="list-group-item"><span class="infoL"> Référence de la demande : </span>
-                                    <input type="text" readonly value="<?php echo $credit['CREDIT_ID_UK'] ?>"
+                                    <input type="text" readonly value="<?php echo $credit['CREDIT_ID'] ?>"
                                         id="idRefDemande" class="infoR">
 
                                 </li>
@@ -373,7 +373,7 @@ if ($result_credit->num_rows > 0) {
                 </div>
                 <div class="col-lg-2">
 
-                    <a href="sim-fx?tag=fx&credit=<?php echo $credit['CREDIT_ID_UK'] ?>"
+                    <a href="sim-fx?tag=fx&credit=<?php echo $credit['CREDIT_ID'] ?>"
                         class="btn btn-primary col-12"><i class="bi bi-pencil-square"></i>Modifier</a>
                     <br><br>
                     <button class="btn btn-danger col-12" id="btn-delete"><i
@@ -405,7 +405,7 @@ if ($result_credit->num_rows > 0) {
 
                         <form action="#" class="row" id="form-delete" method="post">
                             <div class="error-text col-12"></div>
-                            <input type="text" style="display: none;" name="CREDIT_ID_UK" value="" id="CREDIT_ID_UK">
+                            <input type="text" style="display: none;" name="CREDIT_ID" value="" id="CREDIT_ID">
                             <div class="col-12">
                                 <input class="form-check-input" type="checkbox" name="confirmation" id="accepter"
                                     required>
@@ -511,7 +511,7 @@ if ($result_credit->num_rows > 0) {
 
         deleteButton.addEventListener('click', function () {
             $("#idDemande").text($("#idRefDemande").val());
-            $("#CREDIT_ID_UK").val($("#idRefDemande").val());
+            $("#CREDIT_ID").val($("#idRefDemande").val());
             $("#deleteModal").modal("show");
             document.getElementById('back').href = "detail-cr?id=" + $("#idRefDemande").val();
         });

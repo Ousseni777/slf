@@ -2,7 +2,7 @@
 
 include './connectToDB.php';
 $num_doss = $_GET['numdoss'];
-// $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+// $SELLER_ID = $_SESSION['SELLER_ID'];
 $query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);
 $_SESSION['page'] = "./sim-fx?tag=revcf&numdoss=" . $num_doss;
@@ -12,6 +12,128 @@ if ($result_credit->num_rows > 0) {
 }
 
 ?>
+
+<style>
+    /*--------------------------------------------------------------
+# Schedule Section
+--------------------------------------------------------------*/
+    #schedule {
+        padding: 60px 0 60px 0;
+    }
+
+    #schedule .nav-tabs {
+        text-align: center;
+        margin: auto;
+        display: block;
+        border-bottom: 0;
+        margin-bottom: 30px;
+    }
+
+    #schedule .nav-tabs li {
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    #schedule .nav-tabs a {
+        border: none;
+        /* border-radius: 50px; */
+        font-weight: 600;
+        background-color: #0e1b4d;
+        color: #fff;
+        padding: 10px 60px;
+    }
+
+    @media (max-width: 991px) {
+        #schedule .nav-tabs a {
+            padding: 8px 100px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #schedule .nav-tabs a {
+            padding: 8px 50px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #schedule .nav-tabs a {
+            padding: 8px 30px;
+        }
+    }
+
+    #schedule .nav-tabs a.active {
+        background-color: #f82249;
+        color: #fff;
+    }
+
+    #schedule .sub-heading {
+        text-align: center;
+        font-size: 18px;
+        font-style: italic;
+        margin: 0 auto 30px auto;
+    }
+
+    @media (min-width: 991px) {
+        #schedule .sub-heading {
+            width: 75%;
+        }
+    }
+
+    #schedule .tab-pane {
+        transition: ease-in-out 0.2s;
+    }
+
+    #schedule .schedule-item {
+        border-bottom: 1px solid #cad4f6;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: background-color ease-in-out 0.3s;
+    }
+
+    #schedule .schedule-item:hover {
+        background-color: #fff;
+    }
+
+    #schedule .schedule-item time {
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+
+    #schedule .schedule-item .speaker {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        border-radius: 50%;
+        float: left;
+        margin: 0 10px 10px 0;
+    }
+
+    #schedule .schedule-item .speaker img {
+        height: 100%;
+        transform: translateX(-50%);
+        margin-left: 50%;
+        transition: all ease-in-out 0.3s;
+    }
+
+    #schedule .schedule-item h4 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    #schedule .schedule-item h4 span {
+        font-style: italic;
+        color: #19328e;
+        font-weight: normal;
+        font-size: 16px;
+    }
+
+    #schedule .schedule-item p {
+        font-style: italic;
+        color: #152b79;
+        margin-bottom: 0;
+    }
+</style>
 
 <style>
     .custom-drag-drop:hover {
@@ -26,7 +148,7 @@ if ($result_credit->num_rows > 0) {
     .input-val {
         width: 80%;
     }
-   
+
     #content-draged {
         max-height: 65vh;
         overflow-y: auto;
@@ -48,7 +170,7 @@ if ($result_credit->num_rows > 0) {
 
     .dropzone {
         min-height: 380px;
-        margin: 2% 5%;
+        margin: 2% 0%;
         max-height: 55vh;
         overflow-y: auto;
     }
@@ -75,192 +197,261 @@ if ($result_credit->num_rows > 0) {
 </style>
 
 <main id="main" class="main">
-    <h2>Revision condition financière sur le dossier N° :
-        <?php echo $num_doss ?>
 
-    </h2>
-    <div class="pagetitle">
+    <div class="row">
 
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">REVCF</li>
-                <li class="breadcrumb-item">Glisser deposer les paramètres que vous souhaitez modifier</li>
-            </ol>
-        </nav>
-        <form action="#" id="form-revcf" enctype="multipart/form-data" method="POST">
-            <div class="row">
-                <div class="col-lg-3 mt-3"><input type="text" id="searchInput"
-                        placeholder="Rechercher N° Dossier ici..." class="form-control"></div>
-                <div class="card-body col-lg-9" style="position: relative;">
-                    <button class="btn btn-danger mt-3 btn-save-revcf" style="position: absolute; right: 0;">Envoyer la
-                        demande</button>
-                </div>
-             
-                <div class="col-lg-5 mt-5">
-                    <div class="card">
-                        <h2 class="card-title">Paramètre du crédit</h2>
-                        <div class="card-body" id="content-draged">
-                            <div class="col-lg-12 mt-4" id="MNT_DEMANDE" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-MNT_DEMANDE">MONTANT TTC</h5>
-                                        <input type="text" class="input-value" id="INPUT-MNT_DEMANDE"
-                                            value="<?php echo $dossier['MNT_DEMANDE']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="DUREE" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-DUREE">DUREE</h5>
-                                        <input type="text" class="input-value" id="INPUT-DUREE"
-                                            value="<?php echo $dossier['DUREE']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="MENSUALITE" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-MENSUALITE">MENSUALITE</h5>
-                                        <input type="text" class="input-value" id="INPUT-MENSUALITE"
-                                            value="<?php echo $dossier['MENSUALITE']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="FRAISDOSS" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-FRAISDOSS">FRAIS DOSSIER</h5>
-                                        <input type="text" class="input-value" id="INPUT-FRAISDOSS"
-                                            value="<?php echo $dossier['FRAISDOSS']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="TAUXINT" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-TAUXINT">TAUX</h5>
-                                        <input type="text" class="input-value" id="INPUT-TAUX"
-                                            value="<?php echo $dossier['TAUXINT']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="MARQUE" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-MARQUE">MARQUE</h5>
-                                        <input type="text" class="input-value" id="INPUT-MARQUE"
-                                            value="<?php echo $dossier['MARQUE']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4" id="PRODUIT" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-PRODUIT">PRODUIT</h5>
-                                        <input type="text" class="input-value" id="INPUT-PRODUIT"
-                                            value="<?php echo $dossier['PRODUIT']; ?>">
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-12 mt-4" id="BAREME" draggable="true" ondragstart="drag(event)"
-                                onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
-                                <div class="card">
-                                    <div class="card-body custom-drag-drop">
-                                        <h5 class="card-title" id="TITLE-BAREME">BAREME</h5>
-                                        <input type="text" class="input-value" id="INPUT-BAREME"
-                                            value="<?php echo $dossier['BAREME']; ?>">
-                                    </div>
-                                </div>
-                            </div>
+        <div class="col-lg-12">
 
+            <!-- ======= Schedule Section ======= -->
+            <section id="schedule" class="section-with-bg col-lg-12">
+                <div class="container">
+
+
+                    <ul class="nav nav-tabs" role="tablist" data-aos-delay="100">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex flex-row align-items-center justify-content-center" href="#day-1"
+                                role="tab" data-bs-toggle="tab"><i class="bi bi-list-ol"
+                                    style="font-size : 60px; margin-right: 20px;"></i>MES DEMANDES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex flex-row align-items-center justify-content-center" href="#day-2"
+                                role="tab" data-bs-toggle="tab"><i class="bi bi-plus-circle"
+                                    style="font-size : 60px; margin-right: 20px;"></i>NOUVELLE DEMANDE</a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content row justify-content-center" data-aos-delay="200">
+
+                        <!-- Schdule Day 1 -->
+                        <div role="tabpanel" class="row col-lg-9 tab-pane fade show" id="day-1">
+                            <h3 class="sub-heading">Liste des demandes sous revision de condition financière
+                            </h3>
+                            <div class="col-lg-4 float-end p-2 mb-3">
+                                <input type="text" id="searchInput" placeholder="Rechercher" class="form-control">
+                            </div>
+                            <table class="table table-striped table-bordered mt-3" id="myTable">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col">#Ref demande </th>
+                                        <th scope="col">Date création</th>
+                                        <th scope="col">Statut demande</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <?php echo '<i class="bi bi-info-circle"></i> <a class="cin-class" href="./detail-cl?id=s "> XXX-12203563232</a>' ?>
+                                        </th>
+                                        <td>12-10-2024: 11h:45mn:50s</td>
+                                        <td><span class="badge bg-warning"> En attente </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?php echo '<i class="bi bi-info-circle"></i> <a class="cin-class" href="./detail-cl?id=s "> XXX-12203563232</a>' ?>
+                                        </th>
+                                        <td>12-10-2024: 11h:45mn:50s</td>
+                                        <td><span class="badge bg-danger"> Réjété </span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
                         </div>
+                        <!-- End Schdule Day 1 -->
+
+                        <!-- Schdule Day 2 -->
+                        <div role="tabpanel" class="col-lg-10  tab-pane fade" id="day-2">
+                            <form action="#" id="form-revcf" enctype="multipart/form-data" method="POST">
+                                <div class="row">
+
+                                    <div class="card-body col-lg-12">
+                                    <input type="text" id="searchInput" placeholder="Rechercher" class="p-2 mt-3"> 
+                                                                      
+                                        <button class="btn btn-danger mt-3 btn-save-revcf float-end">Envoyer
+                                            la
+                                            demande</button>
+                                    </div>
+
+                                    <div class="row  mt-3">
+
+                                        <div class="col-lg-6">
+                                           
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="select-motif" name=""
+                                                    onchange="addMotif()" aria-label="State">
+                                                    <option value="motif8">-- Selectionner les paramètres de revision --</option>
+                                                    <option value="motif7">Motif 7</option>
+                                                    <option value="motif6">Motif 6</option>
+                                                    <option value="motif5">Motif 5</option>
+                                                    <option value="motif4">Motif 4</option>
+                                                    <option value="motif3">Motif 3</option>
+                                                    <option value="motif2">Motif 2</option>
+                                                </select>
+                                                <label for="floatingSelect">Paramètres de revision</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-5">                      
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="select-motif" name=""
+                                                    onchange="addMotif()" aria-label="State">
+                                                    <option value="motif8">-- Selectionner les raisons --</option>
+                                                    <option value="motif7">Motif 7</option>
+                                                    <option value="motif6">Motif 6</option>
+                                                    <option value="motif5">Motif 5</option>
+                                                    <option value="motif4">Motif 4</option>
+                                                    <option value="motif3">Motif 3</option>
+                                                    <option value="motif2">Motif 2</option>
+                                                </select>
+                                                <label for="floatingSelect">Motif de revision</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <h2 class="card-title">
+                                            Paramètre de revision
+                                        </h2>
+                                        <div class="dropzone d-flex flex-column align-items-center justify-content-center"
+                                            id="content-dropped">
+                                            <p id="default">Les paramètres de revision affichéront ici </p>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-5">
+                                    <h2 class="card-title">
+                                                Motif de Revcf
+                                            </h2>
+
+                                            <div class="card-body dropzone d-flex flex-column align-items-center justify-content-center"
+                                                id="content-dropped">
+                                                <p id="default">Les motifs affichéront ici </p>
+
+
+                                            </div>
+
+                                    </div>
+
+
+                                    <hr>
+
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- End Schdule Day 2 -->
+
+                        <!-- Schdule Day 3 -->
+                        <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-3">
+                            <div class="card">
+                                <h2 class="card-title">Paramètre du crédit</h2>
+                                <div class="card-body" id="content-draged">
+                                    <div class="col-lg-12 mt-4" id="MNT_DEMANDE" draggable="true"
+                                        ondragstart="drag(event)" onmouseover="addCustomCursor(this)"
+                                        onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-MNT_DEMANDE">MONTANT TTC
+                                                </h5>
+                                                <input type="text" class="input-value" id="INPUT-MNT_DEMANDE"
+                                                    value="<?php echo $dossier['MNT_DEMANDE']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="DUREE" draggable="true" ondragstart="drag(event)"
+                                        onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-DUREE">DUREE</h5>
+                                                <input type="text" class="input-value" id="INPUT-DUREE"
+                                                    value="<?php echo $dossier['DUREE']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="MENSUALITE" draggable="true"
+                                        ondragstart="drag(event)" onmouseover="addCustomCursor(this)"
+                                        onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-MENSUALITE">MENSUALITE</h5>
+                                                <input type="text" class="input-value" id="INPUT-MENSUALITE"
+                                                    value="<?php echo $dossier['MENSUALITE']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="FRAISDOSS" draggable="true"
+                                        ondragstart="drag(event)" onmouseover="addCustomCursor(this)"
+                                        onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-FRAISDOSS">FRAIS DOSSIER
+                                                </h5>
+                                                <input type="text" class="input-value" id="INPUT-FRAISDOSS"
+                                                    value="<?php echo $dossier['FRAISDOSS']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="TAUXINT" draggable="true" ondragstart="drag(event)"
+                                        onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-TAUXINT">TAUX</h5>
+                                                <input type="text" class="input-value" id="INPUT-TAUX"
+                                                    value="<?php echo $dossier['TAUXINT']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="MARQUE" draggable="true" ondragstart="drag(event)"
+                                        onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-MARQUE">MARQUE</h5>
+                                                <input type="text" class="input-value" id="INPUT-MARQUE"
+                                                    value="<?php echo $dossier['MARQUE']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-4" id="PRODUIT" draggable="true" ondragstart="drag(event)"
+                                        onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-PRODUIT">PRODUIT</h5>
+                                                <input type="text" class="input-value" id="INPUT-PRODUIT"
+                                                    value="<?php echo $dossier['PRODUIT']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 mt-4" id="BAREME" draggable="true" ondragstart="drag(event)"
+                                        onmouseover="addCustomCursor(this)" onmouseout="removeCustomCursor(this)">
+                                        <div class="card">
+                                            <div class="card-body custom-drag-drop">
+                                                <h5 class="card-title" id="TITLE-BAREME">BAREME</h5>
+                                                <input type="text" class="input-value" id="INPUT-BAREME"
+                                                    value="<?php echo $dossier['BAREME']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Schdule Day 2 -->
+
                     </div>
 
                 </div>
-                <div class="row col-lg-1 mt-5 align-items-center justify-content-center">
-                    <i class="bi bi-arrow-left-right bi-custom" style=""></i>
-                </div>
-                <div class="col-lg-6 mt-5">
-                    <div class="card" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <h2 class="card-title">
-                            Paramètre de revision
-                        </h2>
 
-
-                        <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderInfos" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <div class="card-body dropzone d-flex flex-column align-items-center justify-content-center"
-                            id="content-dropped">
-                            <p id="default">Glissez et déposez ici </p>
-
-
-                        </div>
-
-                        <div class="card error-text">
-                            <p>Veuillez renseigner tous les champs !</p>
-                        </div>
-                        <div class="card-body">
-
-                        </div>
-
-                    </div>
-                </div>
-                <hr>
-                <div class="row col-lg-12 mt-5">
-                    <div class="col-lg-6 card">
-                        <h2 class="card-title">Pour quel Motif ?</h2>
-                        <div class="card-body mt-3">
-                            <div class="col-md-12" id="">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="select-motif" name="" onchange="addMotif()"
-                                        aria-label="State">
-                                        <option value="motif8">Motif 8</option>
-                                        <option value="motif7">Motif 7</option>
-                                        <option value="motif6">Motif 6</option>
-                                        <option value="motif5">Motif 5</option>
-                                        <option value="motif4">Motif 4</option>
-                                        <option value="motif3">Motif 3</option>
-                                        <option value="motif2">Motif 2</option>
-                                    </select>
-                                    <label for="floatingSelect">Motif</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 card">
-                        <h2 class="card-title">Motif Revcf</h2>
-                        <div class="card-body motif-revcf" id="motifRevcf">
-                            <div class="col-lg-12">
-                            <p id="default-motif">Ajouter un modif </p>
-                            </div>
-                        </div>
-                        <h2 class="card-title">Commentaire</h2>
-                        <div class="card-body" id="">
-                            <div class="col-lg-12 mt-3">
-                                <div class="form-floating">
-                                    <textarea name="COMMENT" class="form-control" placeholder="Comment"
-                                        id="floatingTextarea" style="height: 100px;"></textarea>
-                                    <label for="floatingTextarea">Laisser un commentaire</label>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </form>
+            </section><!-- End Schedule Section -->
+        </div>
 
 
     </div>
@@ -275,7 +466,7 @@ if ($result_credit->num_rows > 0) {
                             <p class="info-dialog" id="successMessage"> </p>
                         </div>
 
-                        <a  href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
+                        <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
 
                     </div>
 

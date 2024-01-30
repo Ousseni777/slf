@@ -13,9 +13,15 @@ if (isset($_POST['ID_SCRIPT'])) {
             $R_Value = (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
             $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
             $results = [
-                "monthlyNOFormat" => $monthlyPayment,
-                "monthly" => number_format($monthlyPayment, 2),
-                "duration" => $loanTerm
+                "monthly_no_format" => $monthlyPayment,
+                "amount" => number_format($loanAmount, 0, ",", " "),
+                "monthly" => number_format($monthlyPayment, 2, ",", " "),
+                "duration" => $loanTerm,
+                "apport_perc" => 0,
+                "apport_total" => 0,
+                "assurance" => 0,
+                "frais_dossier" => 0,
+                "cout" => 0
             ];
             echo json_encode($results);
             break;
@@ -25,7 +31,14 @@ if (isset($_POST['ID_SCRIPT'])) {
             $duration = calc_number($loanAmount, $interestRate, $loanMonthly);
             $results = [
                 "duration" => $duration,
-                "monthly" => $loanMonthly
+                "monthly_no_format" => $loanMonthly,
+                "amount" => number_format($loanAmount, 0, ",", " "),
+                "monthly" => number_format($loanMonthly, 2, ",", " "),
+                "apport_perc" => 0,
+                "apport_total" => 0,
+                "assurance" => 0,
+                "frais_dossier" => 0,
+                "cout" => 0
             ];
             echo json_encode($results);
             break;

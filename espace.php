@@ -1748,7 +1748,7 @@ if (isset($_SESSION['PROFESSION'])) {
 
 
     <main id="main">
-        
+
         <!-- ======= switch-option Section ======= -->
         <section id="subscribe">
 
@@ -2043,7 +2043,7 @@ if (isset($_SESSION['PROFESSION'])) {
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="card mb-5 mb-lg-0">
                             <div class="card-body">
-                                <h5 class="card-title text-muted text-uppercase text-center"> Demander une REVCF</h5>
+                                <h5 class="card-title text-muted text-uppercase text-center"> Demande de REVCF</h5>
                                 <h6 class="card-price text-center"><i class="bi bi-box-arrow-up-right"></i></h6>
                                 <hr>
                                 <img class="choice-img" src="assets/img/salafin4.jpg" alt="">
@@ -2063,8 +2063,8 @@ if (isset($_SESSION['PROFESSION'])) {
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted text-uppercase text-center">Analyser une REVCF</h5>
-                                <h6 class="card-price text-center"><i class="bi bi-filter-square-fill"></i></h6>
+                                <h5 class="card-title text-muted text-uppercase text-center">Analyse de REVCF</h5>
+                                <h6 class="card-price text-center"><i class="bi bi-filter-square"></i></h6>
                                 <hr>
                                 <img class="choice-img" src="assets/img/analyse_revcf.jpg" alt="">
 
@@ -2185,8 +2185,8 @@ if (isset($_SESSION['PROFESSION'])) {
 
         const formCheck = document.getElementById("modal-form-check-revcf"),
             btnformCheck = formCheck.querySelector(".btn-check-revcf"),
-            errorTextCheckRevcf = formCheck.querySelector(".error-text");
-        preloaderCheckRevcf = formCheck.querySelector(".spinner-process");
+            errorTextCheckRevcf = formCheck.querySelector(".error-text"),
+            preloaderCheckRevcf = formCheck.querySelector(".spinner-process");
 
         formCheck.onsubmit = (e) => {
             e.preventDefault();
@@ -2230,8 +2230,8 @@ if (isset($_SESSION['PROFESSION'])) {
 
         const formRevcf = document.getElementById("modal-form-ask-revcf"),
             btnformRevcf = formRevcf.querySelector(".btn-ask-revcf"),
-            errorTextAskRevcf = formRevcf.querySelector(".error-text");
-        preloaderAskRevcf = formRevcf.querySelector(".spinner-process");
+            errorTextAskRevcf = formRevcf.querySelector(".error-text"),
+            preloaderAskRevcf = formRevcf.querySelector(".spinner-process");
 
         formRevcf.onsubmit = (e) => {
             e.preventDefault();
@@ -2319,8 +2319,8 @@ if (isset($_SESSION['PROFESSION'])) {
 
         const formPersonnel = document.getElementById("modal-form-personnel"),
             btnformPersonnel = formPersonnel.querySelector(".btn-form-personnel"),
-            errorTextPerso = formPersonnel.querySelector(".error-text");
-        preloaderPersonnel = formPersonnel.querySelector(".spinner-process");
+            errorTextPerso = formPersonnel.querySelector(".error-text"),
+            preloaderPersonnel = formPersonnel.querySelector(".spinner-process");
 
         formPersonnel.onsubmit = (e) => {
             e.preventDefault();
@@ -2363,8 +2363,8 @@ if (isset($_SESSION['PROFESSION'])) {
 
         const formAuto = document.getElementById("modal-form-auto"),
             btnFormAuto = formAuto.querySelector(".btn-form-auto"),
-            errorTextAuto = formAuto.querySelector(".error-text");
-        preloaderAuto = formAuto.querySelector(".spinner-process");
+            errorTextAuto = formAuto.querySelector(".error-text"),
+            preloaderAuto = formAuto.querySelector(".spinner-process");
 
         formAuto.onsubmit = (e) => {
             e.preventDefault();

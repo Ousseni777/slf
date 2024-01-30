@@ -40,13 +40,13 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
     $Cout = $duration * $pmt + $Apport_Total - $principal;
 
     $result = [
-        "TTC" => number_format($principal, 2, ".", " "),
-        "payment" => number_format($pmt, 2, ".", " "),
+        "TTC" => number_format($principal, 2, ",", " "),
+        "payment" => number_format($pmt, 2, ",", " "),
         "paymentNoFormat" => $pmt,
-        "Apport_Total" => number_format($Apport_Total, 2, ".", " "),
-        "Assurance" => number_format($Ass, 10, ".", ""),
-        "FraisDossier" => number_format($FraisDoss, 2, ".", " "),
-        "Cout" => number_format($Cout, 2, ".", " "),
+        "Apport_Total" => number_format($Apport_Total, 2, ",", " "),
+        "Assurance" => number_format($Ass, 2, ",", ""),
+        "FraisDossier" => number_format($FraisDoss, 2, ",", " "),
+        "Cout" => number_format($Cout, 2, ",", " "),
         "tariff_id" => $tariff_id,
         "Marque" => $brand,
         "Produit" => $product,

@@ -3,12 +3,12 @@ session_start();
 include_once "./connectToDB.php";
 if (isset($_GET['ticket'])) {
 
-    $CREDIT_ID_UK_TEMP = $_GET['ticket'];
+    $CREDIT_ID_TEMP = $_GET['ticket'];
 
-    $select_query_temp = "SELECT * FROM `temp_verification` WHERE CREDIT_ID_UK_TEMP= '$CREDIT_ID_UK_TEMP' ";
+    $select_query_temp = "SELECT * FROM `temp_verification` WHERE CREDIT_ID_TEMP= '$CREDIT_ID_TEMP' ";
     $result_select_temp = $conn->query($select_query_temp);
 
-    $select_query = "SELECT * FROM `credit_client` WHERE CREDIT_ID_UK= '$CREDIT_ID_UK_TEMP'";
+    $select_query = "SELECT * FROM `credit_client` WHERE CREDIT_ID= '$CREDIT_ID_TEMP'";
     $result_select = $conn->query($select_query);
 
     if (($result_select->num_rows > 0) && ($result_select_temp->num_rows > 0)) {
@@ -29,13 +29,13 @@ if (isset($_GET['ticket'])) {
         $diff_secondes = $timestamp_now - $timestamp_heure_colonne;
         if ($diff_secondes < 300) { //Le lien n'est pas expiré  (temps < 5 secondes)          
             
-            //Mettre à jour le credit de l'intitulé avec son propre ID : $CLIENT_ID_UK
-            $CLIENT_ID_UK = $credit['CLIENT_ID_UK_TEMP'];
-            $update_query = "UPDATE `credit_client` SET `CLIENT_ID`= '$CLIENT_ID_UK' WHERE `CLIENT_ID` = '$CREDIT_ID_UK_TEMP' ";
+            //Mettre à jour le credit de l'intitulé avec son propre ID : $CLIENT_ID
+            $CLIENT_ID = $credit['CLIENT_ID_TEMP'];
+            $update_query = "UPDATE `credit_client` SET `CLIENT_ID`= '$CLIENT_ID' WHERE `CLIENT_ID` = '$CREDIT_ID_TEMP' ";
             $result_update = $conn->query($update_query);
             if (($result_update)) {                
 
-                $_SESSION['CLIENT_ID_UK_TEMP'] = $CLIENT_ID_UK;
+                $_SESSION['CLIENT_ID_TEMP'] = $CLIENT_ID;
                 $verification_status = true;
                 $msg = "success";
             } else {
@@ -44,7 +44,7 @@ if (isset($_GET['ticket'])) {
         } else { //Le lien est expiré
             
             //Annuler le credit demandé
-            $delete_query = "DELETE FROM `credit_client` WHERE CREDIT_ID_UK= '$CREDIT_ID_UK_TEMP' ";
+            $delete_query = "DELETE FROM `credit_client` WHERE CREDIT_ID= '$CREDIT_ID_TEMP' ";
             $conn->query($delete_query);
 
             $verification_status = false;

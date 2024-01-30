@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (isset($_SESSION['SELLER_ID_UK'])) {
+if (isset($_SESSION['SELLER_ID'])) {
   session_unset();
   session_destroy();
   header("location: ./login");
 
-} else if (isset($_SESSION['CLIENT_ID_UK'])){
+} else if (isset($_SESSION['CLIENT_ID'])){
   session_unset();
   session_destroy();
   header("location: ./login");

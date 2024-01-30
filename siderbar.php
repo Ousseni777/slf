@@ -3,6 +3,9 @@
         border-left: 2px blue solid;
         border-radius: 5px 0 0 5px;
     }
+    .bi-arrow-right-short{
+        color: red;
+    }
 
 </style>
 
@@ -25,7 +28,7 @@
             <div class="card-body">
 
                 <ul class="sidebar-nav" id="sidebar-nav">
-                    <h5 class="card-title"  >Gestion des clients</h5>
+                    <h5 class="card-title"  ><i class="bi bi-arrow-right-short"></i> Gestion des clients</h5>
                     <li class="nav-item">
                         <a class="nav-link collapsed sidebar-link" id="new-client" href="#" data-bs-toggle="modal"
                             data-bs-target="#modal-infos-client">
@@ -42,7 +45,7 @@
                 </ul>
 
                 <ul class="sidebar-nav" id="sidebar-nav">
-                    <h5 class="card-title"  >Etat des demandes</h5>
+                    <h5 class="card-title"  ><i class="bi bi-arrow-right-short"></i> Etat des demandes</h5>
                     <li class="nav-item">
                         <a class="nav-link collapsed sidebar-link" href="sim-fx?tag=list-cr">
                             <i   class="bi bi-list-ol"></i>

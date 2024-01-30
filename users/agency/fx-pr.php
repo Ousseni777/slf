@@ -3,9 +3,29 @@
         display: none;
     } */
 
+    .group-select {
+        padding: 1px 3% 5% 3%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
+        width: 100%;
+    }
+
+    .subtile {
+        font-weight: bold;
+        padding-top: 10px;
+    }
+
+    .subtile i {
+        color: red;
+    }
+
+    .subtile:hover {
+        cursor: pointer;
+    }
+
     .block-slider {
         position: relative;
-        margin-top: 100px;
+        margin-top: 70px;
     }
 
     .slider {
@@ -14,7 +34,7 @@
         height: 12px;
         outline: none;
         border-radius: 3px;
-        background-color: rgba(0, 0, 0, .3);
+        background-color: rgba(0, 0, 0, .05);
     }
 
     .slider::-webkit-slider-thumb {
@@ -37,8 +57,8 @@
     }
 
     .selectBtn {
-        height: 48px;
-        width: 48px;
+        height: 40px;
+        width: 40px;
 
         background-image: url(assets/img/fleches-gauche-et-droite.png);
         background-size: cover;
@@ -46,31 +66,29 @@
         border-radius: 50%;
 
         position: absolute;
-        bottom: 0;
+        bottom: 5px;
+        left: 3px;
     }
 
     .select-value {
         width: 48px;
         height: 40px;
         position: absolute;
-        color: white;
-        top: 0;
-        background-color: rgb(232, 130, 92);
-        border-radius: 4px;
+        color: red;
+        top: 5px;
+        background-color: rgba(232, 130, 92,.05);
+        border-radius: 4px 4px 0 0;
         text-align: center;
         line-height: 45px;
-        font-size: 20px;
+        font-size: 10px;
         font-weight: bold;
     }
 
-    #select-value-slider-amount,
-    #select-value-slider-monthly {
-        font-size: 10px;
-    }
+    
 
     .select-value::after {
         content: '';
-        border-top: 17px solid goldenrod;
+        border-top: 17px solid rgba(232, 130, 92,.05);
         border-left: 24px solid white;
         border-right: 24px solid white;
         position: absolute;
@@ -82,11 +100,11 @@
     .progress-bar {
         width: 50%;
         height: 10px;
-        background-color: rgb(232, 130, 92);
+        background-color: rgba(232, 130, 92,.8);
         position: absolute;
         border-radius: 3px;
         top: 7px;
-        left: 0; 
+        left: 0;
     }
 
     .label-slider {
@@ -104,6 +122,7 @@
         border: 1px rgb(232, 130, 92) solid;
         font-weight: bold;
     }
+
     .btn-custom {
         font-size: 15px;
         border-radius: 50px;
@@ -117,7 +136,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Demander mon crédit en ligne</h1>
+        <h1>Simulateur <i class="bi bi-chevron-right" style="color: red;"></i> crédit personnel</h1>
         <nav>
             <ol class="breadcrumb ">
 
@@ -139,43 +158,50 @@
                         <!-- Commencez la simulation pour le crédit approprié -->
 
                         <div class="row g-3">
-                            <div class="col-md-4 mt-5 " id="">
+
+                            <div class="col-md-4 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="" disabled name="PRODUCT" aria-label="State"
+                                        onchange="">
+
+
+                                        <option value="COMMERCANT" id="RENOUVELABLE">AG. NORMANDI</option>
+
+                                    </select>
+                                    <label for="floatingSelect">AFFECTATION</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="idProject" aria-label="State" onchange="calcFunctionPerso()">
+
+                                        <option value="CREDIT PERSONNEL" id="PERSONNEL">CREDIT PERSONNEL</option>
+                                        <option value="CREDIT RENOUVELABLE" id="RENOUVELABLE">CREDIT RENOUVELABLE</option>
+
+                                    </select>
+                                    <label for="floatingSelect">TYPE PROJET</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 " id="">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="idProfession" name="PRODUCT" aria-label="State"
-                                        onchange="">
+                                        onchange="calcFunctionPerso()">
                                         <option value="SALARIE" id="SALARIE">SALARIE</option>
                                         <option value="FONCTIONNAIRE" id="FONCTIONNAIRE">FONCTIONNAIRE</option>
                                         <option value="COMMERCANT" id="COMMERCANT">COMMERCANT</option>
                                         <option value="SOCIETE" id="SOCIETE">SOCIETE</option>
                                     </select>
-                                    <label for="floatingSelect">Profession</label>
+                                    <label for="floatingSelect">PROFESSION</label>
                                 </div>
                             </div>
-                            <div class="row col-lg-8">
-                                <div class="row col-lg-4 ms-1">
-                                    <label for="">Montant</label>
-                                    <input type="text" value="20000" id="input-slider-amount"
-                                        class="col-lg-12 recap-input">
-                                </div>
-                                <div class="row col-lg-4 ms-1">
-                                    <label for="">Durée</label>
-                                    <input type="text" id="input-slider-duration" class="col-lg-12 recap-input">
-                                </div>
-                                <div class="row col-lg-4 ms-1">
-                                    <label for="">Mensualité</label>
-                                    <input type="text" id="input-slider-monthly" class="col-lg-12 recap-input">
-                                </div>
-
-                            </div>
-
 
                             <div class="row col-lg-12 flex-column align-items-center justify-content-center">
                                 <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
 
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-12">
                                     <!-- PRIX TTC -->
-                                    <div class="block-field">
+                                    <div class="block-field group-select">
 
                                         <div class="col-lg-12 block-slider">
                                             <input type="range" min="1000" max="300000" value="100000"
@@ -192,7 +218,7 @@
                                     <!-- DUREE -->
 
 
-                                    <div class="block-field mt-5">
+                                    <div class="block-field group-select mt-3">
 
                                         <div class="col-lg-12 block-slider">
 
@@ -209,7 +235,7 @@
 
 
 
-                                    <div class="block-field mt-5">
+                                    <div class="block-field group-select mt-3">
                                         <div class="col-lg-12 block-slider">
                                             <input type="range" min="50" max="33848" step="0.01" id="slider-monthly"
                                                 oninput="setSlider(this)" class="slider">
@@ -227,12 +253,10 @@
                                 </div>
                             </div>
 
-                            <div class="mt-5 align-items-center justify-content-center">
+                            <div class=" align-items-center justify-content-center mt-5">
 
-                                <button type="button" class="mt-5 ms-2 btn-custom" onclick="imprimerTableau()"
-                                    id="save-pdf-btn">Imprimer</button>
-                                <button type="button" class="mt-5 btn-custom" id="capture"
-                                    onclick="capturer()">Envoyer</button>
+                                <button type="button" class="ms-4 btn-custom" onclick="shareLink()">Partager</button>
+
 
                             </div>
 
@@ -243,10 +267,8 @@
                 </div>
             </div>
             <div class="col-lg-4">
-
                 <form action="#" method="post" id="form" autocomplete="off">
-
-                <div class="card">
+                    <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pour quel client ?</h5>
                             <div class="row">
@@ -254,54 +276,41 @@
 
                                     <div class="col-sm-12">
                                         <?php if (isset($_GET['credit'])) {
-                                            $CREDIT_ID_UK = $_GET['credit'];
-                                            $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID_UK' AND CREDIT_ID_UK='$CREDIT_ID_UK'";
+                                            $CREDIT_ID = $_GET['credit'];
+                                            $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID' AND CREDIT_ID='$CREDIT_ID'";
                                             $result_select_credit = $conn->query($select_credit);
                                             if ($result_select_credit->num_rows > 0) {
                                                 $credit = $result_select_credit->fetch_assoc(); ?>
-                                                <input type="text" style="display: none;" name="CREDIT_ID_UK"
-                                                    value="<?php echo $credit['CREDIT_ID_UK'] ?>">
-                                                <input type="text" style="display: none;" name="author_id"
-                                                    value="<?php echo $credit['CLIENT_ID'] ?>">
+                                                <input type="text" style="display: none;" name="CREDIT_ID"
+                                                    value="<?php echo $credit['CREDIT_ID'] ?>">
+
                                                 <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput"
-                                                    required readonly name="author_cin"
-                                                    value="<?php echo $credit['CLIENT_CIN'] ?>"
+                                                    readonly name="CLIENT_CIN" value="<?php echo $credit['CLIENT_CIN'] ?>"
                                                     placeholder="Saisir la (CIN) ici... " class="form-control">
                                             <?php }
-                                        } else if (isset($_GET['numdoss'])) {
-                                            $num_doss = $_GET['numdoss'];
-                                            $select_numdoss = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
-                                            $result_select_numdoss = $conn->query($select_numdoss);
-                                            if ($result_select_numdoss->num_rows > 0) {
-                                                $dossier = $result_select_numdoss->fetch_assoc(); ?>
-                                                    <input type="text" style="display: none;" name="CREDIT_ID_UK"
-                                                        value="<?php echo $dossier['NUMDOSS'] ?>">
-                                                    <input type="text" style="background-color: gray;" id="mySearchInput" required
-                                                        readonly name="author" value="<?php echo $dossier['IDCLIENT'] ?>"
-                                                        placeholder="Saisir la (CIN) ici... " class="form-control">
-                                            <?php }
                                         } else { ?>
-                                                <input type="text" style="display: none;" name="CREDIT_ID_UK" value="">
-                                                <input type="text" id="mySearchInput" required name="author_id" required
+                                                <input type="text" style="display: none;" name="CREDIT_ID" value="">
+                                                <input type="text" id="mySearchInput" name="CLIENT_CIN"
                                                     placeholder="Saisir la (CIN) ici... " class="form-control">
                                         <?php } ?>
 
                                         <div class="row col-lg-12" id="displaying">
                                             <span class="col-lg-10 mt-3 align-items-center"
                                                 style="color: red; font-size: 10px;">CIN non trouvé !</span>
-                                            <div
-                                                class="col-lg-12 mt-1">
-                                            
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-infos-client" style="border: 0;"  name="existed" >Ajouter un client </button>
+                                            <div class="col-lg-12 mt-1">
+
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-infos-client"
+                                                    style="border: 0;" name="existed">Ajouter un client </button>
                                             </div>
-                                    
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="error-text col-lg-12"></div>
+                    <div class="error-text col-12"></div>
                     <div class="card">
                         <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderCredit" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -309,48 +318,103 @@
                         <div class="card-body">
 
                             <h5 class="card-title">Détails du crédit</h5>
-
-
-
-                            <!-- List group with active and disabled items -->
+            
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                                        : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID"
-                                        class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL"> Nom vendeur : </span> <input
-                                        type="text" id="infoBrand" name="BRAND" readonly value="-" class="infoR">
-                                </li>
-                                <li class="list-group-item"><span class="infoL"> Type produit : </span> <input
-                                        type="text" id="infoProduct" name="PRODUCT" readonly value="-" class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL"> Barême : </span> <input type="text"
-                                        id="infoTariff" name="TARIFF" readonly value="-" class="infoR infoBareme"></li>
 
-                                <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text"
-                                        id="infoAmount" name="AMOUNT" readonly value="-" class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                        type="text" id="infoDuration" name="DURATION" readonly value="-" class="infoR"></li>
+                           
+                                <li class="list-group-item" style="display: none;"><span class="infoL">TAUXINT
+                                        : </span> <input type="text" name="TAUXINT" readonly id="infoTAUXINT"
+                                        class="infoR"></li>
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-projet"> <i
+                                        class="bi bi-chevron-down bi-subtile-projet"></i> Projet</h6>
+
+
+                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Type projet : </span>
+                                    <input type="text" id="infoProject" name="PROJECT" readonly class="infoR">
+                                </li>
+                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Profession :
+                                    </span> <input type="text" id="infoProfession" name="PROFESSION" readonly
+                                        class="infoR">
+                                </li>
+
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-credit"><i
+                                        class="bi bi-chevron-down bi-subtile-credit"></i>Crédit simulé</h6>
+
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Prix TTC : </span>
+                                    <input type="text" id="infoAmount" name="AMOUNT" readonly class="infoR">
+                                </li>
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Durée (mois) : </span>
+                                    <input type="text" id="infoDuration" name="DURATION" readonly class="infoR">
+                                </li>
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Apport
                                         (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC" readonly
                                         class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
-                                        id="infoMonthly" name="MONTHLY" readonly value="-" class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Frais de dossier : </span> <input
-                                        type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
-                                <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="DOWN_PMT" readonly value="-" class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
-                                        id="infoADI" name="ADI" readonly value="-" class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
-                                        type="text" id="infoCHAD" name="COST_EX_ADI" readonly value="-" class="infoR"></li>
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Mensualité : </span>
+                                    <input type="text" id="infoMonthly" name="MONTHLY" readonly class="infoR">
+                                </li>
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-apport"> <i
+                                        class="bi bi-chevron-down bi-subtile-apport"></i> Apport</h6>
+
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Frais dossier :
+                                    </span> <input type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Apport total : </span>
+                                    <input type="text" id="infoApport" name="DOWN_PMT" readonly class="infoR">
+                                </li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Assurance : </span>
+                                    <input type="text" id="infoADI" name="ADI" readonly class="infoR">
+                                </li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Coût hors ADI :
+                                    </span> <input type="text" id="infoCHAD" name="COST_EX_ADI" readonly class="infoR">
+                                </li>
 
                             </ul><!-- End Clean list group -->
+
+                            <div class="modal fade" id="share-link-modal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="position: relative;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Renseigner le mail du destinateur</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="g-3 needs-validation" action="#" id="register-form"
+                                                method="post">
+                                                <div class="spinner-border text-danger spinner-pieces"
+                                                    id="preloaderShareLink" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <div class="error-text-share-link col-lg-12"></div>
+                                                <div class="col-lg-11 form-floating mb-3 ms-2 mt-3">
+                                                    <input type="email" name="EMAIL" placeholder="Votre adresse mail"
+                                                        class="form-control" id="yourEmail">
+                                                    <label for="yourEmail" class="form-label">Saisir l'adresse
+                                                        email ici...</label>
+                                                </div>
+
+
+                                                <div class="mt-5">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Fermer</button>
+                                                    <button type="" name="SHARE_LINK"
+                                                        class="btn btn-danger btn-credit-share-link">Partager</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- End Vertically centered Modal-->
                             <div class="mt-3">
-                                <button type="button" name="ask_credit_user" class="btn-custom btn-credit">Valider</button>
+                                <button type="button" name="ask_credit_user"
+                                    class="btn-custom btn-credit">Valider</button>
                             </div>
                         </div>
                     </div>
-
-
                 </form>
             </div>
         </div>
@@ -409,22 +473,11 @@
 
 
 
-    function setSliderValue() {
-
-        // $("#select-value-slider-amount").text($("#slider-amount").val());
-        // $("#select-value-slider-duration").text($("#slider-duration").val());
+    function setProgressBar() {
 
         let amount = document.getElementById("slider-amount");
         let duration = document.getElementById("slider-duration");
         let monthly = document.getElementById("slider-monthly");
-
-        document.getElementById("select-value-slider-amount").innerHTML = amount.value;
-        document.getElementById("select-value-slider-duration").innerHTML = duration.value;
-        document.getElementById("select-value-slider-monthly").innerHTML = monthly.value;
-
-        document.getElementById("input-slider-amount").value = amount.value;
-        document.getElementById("input-slider-duration").value = duration.value;
-        document.getElementById("input-slider-monthly").value = monthly.value;
 
         var percentAmount = (amount.value - amount.min) / (amount.max - amount.min) * 100;
         var percentDuration = (duration.value - duration.min) / (duration.max - duration.min) * 100;
@@ -446,29 +499,29 @@
         let selectorId = "selector-" + btn.id;
         let progressBarId = "progress-bar-" + btn.id;
         let selectValueId = "select-value-" + btn.id;
-        let inputRecapId = "input-" + btn.id;
+        // let inputRecapId = "input-" + btn.id;
 
         let selector = document.getElementById(selectorId);
         let progressBar = document.getElementById(progressBarId);
         let selectValue = document.getElementById(selectValueId);
-        let inputRecap = document.getElementById(inputRecapId);
+        // let inputRecap = document.getElementById(inputRecapId);
 
         var percent = (btn.value - btn.min) / (btn.max - btn.min) * 100;
 
         selector.style.left = percent + "%";
         progressBar.style.width = percent + "%";
         selectValue.innerHTML = btn.value;
-        inputRecap.value = btn.value;
+        // inputRecap.value = btn.value;
 
         if (btn.id == "slider-amount" || btn.id == "slider-duration") {
             calcFunctionPerso("slider-monthly");
-            // console.log("slider-monthly");
         } else {
             calcFunctionPerso("slider-duration");
         }
+    }
 
-
-        // calcFunctionPerso(btn.id);
+    function shareLink() {
+        $("#share-link-modal").modal("show");
     }
 
 
@@ -490,7 +543,7 @@
         setTimeout(function () {
             $('#mainPreloaderCredit').hide();
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "users/agency/save-credit.php", true);
+            xhr.open("POST", "users/agency/save-credit-perso.php", true);
             xhr.onload = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
@@ -515,7 +568,50 @@
     }
 
 
+    const btnCreditShareLink = form.querySelector(".btn-credit-share-link"),
+        errorTextCreditShare = form.querySelector(".error-text-share-link");
 
+    btnCreditShareLink.onclick = () => {
+        form.style.pointerEvents = "none";
+        $('#preloaderShareLink').show();
+        errorTextCreditShare.style.display = "none";
+        form.style.opacity = .5;
+
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "phpMailer/share-link-sim-credit-perso.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+
+                    let data = responseData.status.trim();
+
+                    if (data === "success") {
+                        setTimeout(function () {
+                            $('#preloaderShareLink').hide();
+                            $("#share-link-modal").modal("hide");
+                            $("#successMessage").html(responseData.message);
+                            $("#feedbackModal").modal("show");
+                        }, 20);
+                    } else {
+                        setTimeout(function () {
+                            $('#preloaderShareLink').hide();
+                            errorTextCreditShare.style.display = "block";
+                            errorTextCreditShare.innerHTML = responseData.message;
+                            form.style.pointerEvents = "all";
+                            form.style.opacity = 1;
+                        }, 2000);
+
+
+                    }
+                }
+            }
+        }
+        let formData = new FormData(form);
+        xhr.send(formData);
+
+    }
 
 
     $('#mySearchInput').typeahead({
@@ -542,15 +638,7 @@
         hint: true // Affiche une suggestion en surbrillance
     });
 
-    // $(document).ready(function () {
-    //     $('#save-pdf-btn').click(function () {
-    //         var pdf = new jsPDF();
-    //         pdf.autoTable({ html: '#toPrintSim' });
-    //         let pdfName = "recap_sim_.pdf";
-    //         pdf.save(pdfName);
-    //     });
 
-    // });
 
     function controlDisplayOption(cin) {
         $.ajax({
@@ -569,54 +657,77 @@
         });
     }
 
-    function imprimerTableau() {
-        // Copier le contenu de la table
-        var contenuTableau = document.getElementById('toPrintSim').outerHTML;
+    function controlSubtile(title) {
+        let myLiClasses = ".li-" + title.id;
 
-        var styleT = `<style>
-            .toPrint{
-            width: 100%;
-            color: black;
+
+        icone = ".bi-" + title.id;
+        if ($(title).hasClass("active")) {
+            $(myLiClasses).hide();
+            $(title).removeClass('active');
+            $(icone).removeClass('bi-chevron-down');
+            $(icone).addClass('bi-chevron-right');
+
+        } else {
+            $(myLiClasses).show();
+            $(title).addClass('active');
+            $(icone).removeClass('bi-chevron-right');
+            $(icone).addClass('bi-chevron-down');
+
+
         }
-        .toPrint th{
-            background-color: #f5c6cb;
-        }
-        .toPrint th, .toPrint td{
-            padding: 2%;
-            border: 1px solid gray;
-        }
-</style>`;
 
-        // Ouvrir une nouvelle fenêtre ou un nouvel onglet avec le contenu de la table
-
-        var page = '<html><head><title>Tableau à imprimer</title> ' + styleT + ' </head><body>';
-        var nouvelleFenetre = window.open('', '_blank');
-        nouvelleFenetre.document.write(page);
-        nouvelleFenetre.document.write(contenuTableau);
-        nouvelleFenetre.document.write('</body></html>');
-
-        // Déclencher l'impression pour la nouvelle fenêtre ou le nouvel onglet
-        nouvelleFenetre.document.close();
-        nouvelleFenetre.print();
     }
+    function calcFunctionPerso(target = "slider-monthly") {
 
+        
+        ProjectID = $("#idProject");
+        ProfessionID = $("#idProfession");
+        AmountID = $("#slider-amount");
+        DurationValue = $("#slider-duration");
+        Monthly = $("#slider-monthly");
+      
+        
 
-
-
-    function saveScript() {
         $.ajax({
-            url: "phpMailer/send-recap-sim.php",
+            url: "./users/agency/calc-fx_perso.php",
             method: "POST",
-            data: { img: 'table_image_1.jpg' },
-            success: function (data) {
-                console.log(data);
-                location.href = "phpMailer/send-recap-sim.php";
+            data: {
+                ID_SCRIPT: target,
+                ID_AMOUNT: AmountID.val(),
+                ID_DURATION: DurationValue.val(),
+                ID_MONTHLY: Monthly.val(),
+                ID_PROFESSION: ProfessionID.val()
+
+            },
+            success: (data) => {
+                var result = JSON.parse(data);
+
+                document.getElementById("select-value-slider-amount").innerHTML = result.amount;
+                document.getElementById("select-value-slider-duration").innerHTML = result.duration;
+                document.getElementById("select-value-slider-monthly").innerHTML = result.monthly;
+
+                $("#infoAmount").val(result.amount);
+                $("#infoDuration").val(result.duration);
+                $("#infoMonthly").val(result.monthly);
+                $("#infoApportPerc").val(result.apport_perc);
+                $("#infoApport").val(result.apport_total);
+                $("#infoADI").val(result.assurance);           
+                $("#infoFD").val(result.frais_dossier);
+                $("#infoCHAD").val(result.cout);    
+                $("#infoProfession").val(ProfessionID.val());
+                $("#infoProject").val(ProjectID.val());    
+
+                if (target === "slider-monthly") {
+                    Monthly.val(result.monthly_no_format);
+                    // console.log(result.monthly_no_format);
+                } else {
+                    DurationValue.val(result.duration);
+                }
+                setProgressBar();
             }
         });
     }
 
-    function fetchBtnId(btn) {
-        console.log(btn.id);
-    }
 
 </script>

@@ -19,13 +19,13 @@
             <div class="col-xl-9">
 
                 <div class="card">
-                    <div class="card-body pt-3">
+                    <div class="col-lg-12 pt-3">
 
                         <?php include("nav-tabs.php") ?>
 
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade profile-new card show" id="profile-new">
-                                <div class="card-body">
+                                <div class="col-lg-12">
                                     <button class="btn btn-primary" style="padding: 5%;" data-bs-toggle="modal"
                                         data-bs-target="#modalPieces">Finalisez votre demande</button>
                                 </div>

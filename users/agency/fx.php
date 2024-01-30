@@ -26,10 +26,39 @@
         color: #fff;
     }
 </style>
+
+<style>
+    .group-select {
+        padding: 2% 3%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
+        width: 100%;
+    }
+
+    .subtile {
+        font-weight: bold;
+        padding-top: 10px;
+    }
+
+    .subtile i {
+        color: red;
+    }
+
+    .subtile:hover {
+        cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+        margin-top: -5px;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+    }
+</style>
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Demander mon crédit en ligne</h1>
+        <h1>Simulateur <i class="bi bi-chevron-right" style="color: red;"></i> crédit auto</h1>
         <nav>
             <ol class="breadcrumb ">
 
@@ -46,7 +75,7 @@
             <div class="col-md-12 controlAutos" id="idPrint">
 
             </div>
-            <!-- <button class="btn btn-primary" onclick="imprimerTableau()">Imprimer</button> -->
+
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
@@ -120,8 +149,8 @@
                                                 TTC</label><br>
                                             <input type="text" onkeydown="detecteEntree(event)" class="inputFlag"
                                                 id="rangeValueAmount" value="">
-                                            <input type="range" name="AMOUNT" class="form-range" min="50" max="500000"
-                                                onchange="calcFunction()" step="1" id="rangeInputAmount">
+                                            <input type="range" name="AMOUNT" class="slider form-range" min="50"
+                                                max="500000" onchange="calcFunction()" step="1" id="rangeInputAmount">
 
                                         </div>
                                     </div>
@@ -166,10 +195,8 @@
 
                             <div class=" align-items-center justify-content-center">
 
-                                <button type="button" class="ms-2 btn-custom" onclick="imprimerTableau()"
-                                    id="save-pdf-btn">Imprimer</button>
-                                <button type="button" class="btn-custom" id="capture"
-                                    onclick="capturer()">Envoyer</button>
+                                <button type="button" class="ms-2 btn-custom" onclick="shareLink()">Partager</button>
+
 
                             </div>
 
@@ -183,69 +210,26 @@
                 <form action="#" method="post" id="form" autocomplete="off">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Pour quel client ?</h5>
                             <div class="row">
-                                <div class="col-12">
+                            <h5 class="card-title col-lg-10">Pour quel client ?</h5>
+                            <div class="filter mt-3 col-lg-2">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Rechercher par:</h6>
+                                    </li>
 
-                                    <div class="col-sm-12">
-                                        <?php if (isset($_GET['credit'])) {
-                                            $CREDIT_ID_UK = $_GET['credit'];
-                                            $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID_UK' AND CREDIT_ID_UK='$CREDIT_ID_UK'";
-                                            $result_select_credit = $conn->query($select_credit);
-                                            if ($result_select_credit->num_rows > 0) {
-                                                $credit = $result_select_credit->fetch_assoc(); ?>
-                                                <input type="text" style="display: none;" name="CREDIT_ID_UK"
-                                                    value="<?php echo $credit['CREDIT_ID_UK'] ?>">
-                                                <input type="text" style="display: none;" name="author_id"
-                                                    value="<?php echo $credit['CLIENT_ID'] ?>">
-                                                <input type="text" style="background-color: rgba(0,0,0,.05);" id="mySearchInput"
-                                                    required readonly name="author_cin"
-                                                    value="<?php echo $credit['CLIENT_CIN'] ?>"
-                                                    placeholder="Saisir la (CIN) ici... " class="form-control">
-                                            <?php }
-                                        } else if (isset($_GET['numdoss'])) {
-                                            $num_doss = $_GET['numdoss'];
-                                            $select_numdoss = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
-                                            $result_select_numdoss = $conn->query($select_numdoss);
-                                            if ($result_select_numdoss->num_rows > 0) {
-                                                $dossier = $result_select_numdoss->fetch_assoc(); ?>
-                                                    <input type="text" style="display: none;" name="CREDIT_ID_UK"
-                                                        value="<?php echo $dossier['NUMDOSS'] ?>">
-                                                    <input type="text" style="background-color: gray;" id="mySearchInput" required
-                                                        readonly name="author" value="<?php echo $dossier['IDCLIENT'] ?>"
-                                                        placeholder="Saisir la (CIN) ici... " class="form-control">
-                                            <?php }
-                                        } else { ?>
-                                                <input type="text" style="display: none;" name="CREDIT_ID_UK" value="">
-                                                <input type="text" id="mySearchInput" required name="author_id" required
-                                                    placeholder="Saisir la (CIN) ici... " class="form-control">
-                                        <?php } ?>
-
-                                        <div class="row col-lg-12" id="displaying">
-                                            <span class="col-lg-10 mt-3 align-items-center"
-                                                style="color: red; font-size: 10px;">CIN non trouvé !</span>
-                                            <div class="col-lg-12 mt-1">
-
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-infos-client"
-                                                    style="border: 0;" name="existed">Ajouter un client </button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                    <li><a class="dropdown-item" href="#">CIN CLIENT</a></li>
+                                    <li><a class="dropdown-item" href="#">REF CREDIT</a></li>                                    
+                                </ul>
+                            </div>
+                            </div>
+                            <div class="row">
+                               
                             </div>
                         </div>
                     </div>
                     <div class="error-text col-12"></div>
-
-                    <!-- <div class="edit-success" id="success-infos">
-                        <div class="alert alert-success" role="alert" style="text-align:center;">
-                            <h4 class="alert-heading">
-                                
-                            </h4>
-                        </div>
-                    </div> -->
                     <div class="card">
                         <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderCredit" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -253,43 +237,96 @@
                         <div class="card-body">
 
                             <h5 class="card-title">Détails du crédit</h5>
-
-
-
                             <!-- List group with active and disabled items -->
                             <ul class="list-group list-group-flush">
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-tariff"> <i
+                                        class="bi bi-chevron-down bi-subtile-tariff"></i> Tarification</h6>
+
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
                                         : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID"
                                         class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL"> Nom vendeur : </span> <input
-                                        type="text" id="infoBrand" name="BRAND" readonly class="infoR">
+                                <li class="list-group-item" style="display: none;"><span class="infoL">TAUXINT
+                                        : </span> <input type="text" name="TAUXINT" readonly id="infoTAUXINT"
+                                        class="infoR"></li>
+                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Marque auto : </span>
+                                    <input type="text" id="infoBrand" name="BRAND" readonly class="infoR">
                                 </li>
-                                <li class="list-group-item"><span class="infoL"> Type produit : </span> <input
-                                        type="text" id="infoProduct" name="PRODUCT" readonly class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL"> Barême : </span> <input type="text"
-                                        id="infoTariff" name="TARIFF" readonly class="infoR infoBareme"></li>
+                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Type produit :
+                                    </span> <input type="text" id="infoProduct" name="PRODUCT" readonly class="infoR">
+                                </li>
+                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Barême : </span>
+                                    <input type="text" id="infoTariff" name="TARIFF" readonly class="infoR infoBareme">
+                                </li>
 
-                                <li class="list-group-item"><span class="infoL">Prix TTC : </span> <input type="text"
-                                        id="infoAmount" name="AMOUNT" readonly class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Durée (mois) : </span> <input
-                                        type="text" id="infoDuration" name="DURATION" readonly class="infoR"></li>
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-credit"><i
+                                        class="bi bi-chevron-down bi-subtile-credit"></i>Crédit simulé</h6>
+
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Prix TTC : </span>
+                                    <input type="text" id="infoAmount" name="AMOUNT" readonly class="infoR"></li>
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Durée (mois) : </span>
+                                    <input type="text" id="infoDuration" name="DURATION" readonly class="infoR"></li>
                                 <li class="list-group-item" style="display: none;"><span class="infoL">Apport
                                         (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC" readonly
                                         class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text"
-                                        id="infoMonthly" name="MONTHLY" readonly class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Frais de dossier : </span> <input
-                                        type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
-                                <li class="list-group-item"><span class="infoL">Apport TOTAL : </span> <input
-                                        type="text" id="infoApport" name="DOWN_PMT" readonly class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">ADI : </span> <input type="text"
-                                        id="infoADI" name="ADI" readonly class="infoR"></li>
-                                <li class="list-group-item"><span class="infoL">Cout hors ADI : </span> <input
-                                        type="text" id="infoCHAD" name="COST_EX_ADI" readonly class="infoR"></li>
+                                <li class="list-group-item li-subtile-credit"><span class="infoL">Mensualité : </span>
+                                    <input type="text" id="infoMonthly" name="MONTHLY" readonly class="infoR"></li>
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-apport"> <i
+                                        class="bi bi-chevron-down bi-subtile-apport"></i> Apport</h6>
+
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Frais dossier :
+                                    </span> <input type="text" name="APP_FEES" class="infoR" readonly id="infoFD"></li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Apport total : </span>
+                                    <input type="text" id="infoApport" name="DOWN_PMT" readonly class="infoR"></li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Assurance : </span>
+                                    <input type="text" id="infoADI" name="ADI" readonly class="infoR"></li>
+                                <li class="list-group-item li-subtile-apport"><span class="infoL">Coût hors ADI :
+                                    </span> <input type="text" id="infoCHAD" name="COST_EX_ADI" readonly class="infoR">
+                                </li>
 
                             </ul><!-- End Clean list group -->
+
+                            <div class="modal fade" id="share-link-modal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="position: relative;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Renseigner le mail du destinateur</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="g-3 needs-validation" action="#" id="register-form"
+                                                method="post">
+                                                <div class="spinner-border text-danger spinner-pieces"
+                                                    id="preloaderShareLink" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <div class="error-text-share-link col-lg-12"></div>
+                                                <div class="col-lg-11 form-floating mb-3 ms-2 mt-3">
+                                                    <input type="email" name="EMAIL" placeholder="Votre adresse mail"
+                                                        class="form-control" id="yourEmail">
+                                                    <label for="yourEmail" class="form-label">Saisir l'adresse
+                                                        email ici...</label>
+                                                </div>
+
+
+                                                <div class="mt-5">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Fermer</button>
+                                                    <button type="" name="SHARE_LINK"
+                                                        class="btn btn-danger btn-credit-share-link">Partager</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- End Vertically centered Modal-->
                             <div class="mt-3">
-                                <button type="button" name="ask_credit_user" class="btn-custom">Valider</button>
+                                <button type="button" name="ask_credit_user"
+                                    class="btn-custom btn-credit">Valider</button>
                             </div>
                         </div>
                     </div>
@@ -337,6 +374,27 @@
 
 <script>
 
+    function controlSubtile(title) {
+        let myLiClasses = ".li-" + title.id;
+
+
+        icone = ".bi-" + title.id;
+        if ($(title).hasClass("active")) {
+            $(myLiClasses).hide();
+            $(title).removeClass('active');
+            $(icone).removeClass('bi-chevron-down');
+            $(icone).addClass('bi-chevron-right');
+
+        } else {
+            $(myLiClasses).show();
+            $(title).addClass('active');
+            $(icone).removeClass('bi-chevron-right');
+            $(icone).addClass('bi-chevron-down');
+
+
+        }
+
+    }
 
 
     const form = document.getElementById("form"),
@@ -356,7 +414,7 @@
         setTimeout(function () {
             $('#mainPreloaderCredit').hide();
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "users/agency/save-credit.php", true);
+            xhr.open("POST", "users/agency/save-credit-auto.php", true);
             xhr.onload = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
@@ -379,6 +437,54 @@
             xhr.send(formData);
         }, 2000);
     }
+
+
+
+    const btnCreditShareLink = form.querySelector(".btn-credit-share-link"),
+        errorTextCreditShare = form.querySelector(".error-text-share-link");
+
+    btnCreditShareLink.onclick = () => {
+        form.style.pointerEvents = "none";
+        $('#preloaderShareLink').show();
+        errorTextCreditShare.style.display = "none";
+        form.style.opacity = .5;
+
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "phpMailer/share-link-sim-credit-auto.php", true);
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let responseData = JSON.parse(xhr.responseText);
+
+                    let data = responseData.status.trim();
+
+                    if (data === "success") {
+                        setTimeout(function () {
+                            $('#preloaderShareLink').hide();
+                            $("#share-link-modal").modal("hide");
+                            $("#successMessage").html(responseData.message);
+                            $("#feedbackModal").modal("show");
+                        }, 20);
+                    } else {
+                        setTimeout(function () {
+                            $('#preloaderShareLink').hide();
+                            errorTextCreditShare.style.display = "block";
+                            errorTextCreditShare.innerHTML = responseData.message;
+                            form.style.pointerEvents = "all";
+                            form.style.opacity = 1;
+                        }, 2000);
+
+
+                    }
+                }
+            }
+        }
+        let formData = new FormData(form);
+        xhr.send(formData);
+
+    }
+
 
 
 
@@ -408,15 +514,6 @@
         hint: true // Affiche une suggestion en surbrillance
     });
 
-    // $(document).ready(function () {
-    //     $('#save-pdf-btn').click(function () {
-    //         var pdf = new jsPDF();
-    //         pdf.autoTable({ html: '#toPrintSim' });
-    //         let pdfName = "recap_sim_.pdf";
-    //         pdf.save(pdfName);
-    //     });
-
-    // });
 
     function controlDisplayOption(cin) {
         $.ajax({
@@ -435,78 +532,8 @@
         });
     }
 
-    function imprimerTableau() {
-        // Copier le contenu de la table
-        var contenuTableau = document.getElementById('toPrintSim').outerHTML;
-
-        var styleT = `<style>
-            .toPrint{
-            width: 100%;
-            color: black;
-        }
-        .toPrint th{
-            background-color: #f5c6cb;
-        }
-        .toPrint th, .toPrint td{
-            padding: 2%;
-            border: 1px solid gray;
-        }
-</style>`;
-
-        // Ouvrir une nouvelle fenêtre ou un nouvel onglet avec le contenu de la table
-
-        var page = '<html><head><title>Tableau à imprimer</title> ' + styleT + ' </head><body>';
-        var nouvelleFenetre = window.open('', '_blank');
-        nouvelleFenetre.document.write(page);
-        nouvelleFenetre.document.write(contenuTableau);
-        nouvelleFenetre.document.write('</body></html>');
-
-        // Déclencher l'impression pour la nouvelle fenêtre ou le nouvel onglet
-        nouvelleFenetre.document.close();
-        nouvelleFenetre.print();
-    }
-
-
-    function capturer() {
-        // Sélectionnez la table à capturer
-        var tableToCapture = document.getElementById('toPrintSim');
-
-        // Utilisez html2canvas pour capturer la table
-        $("#toPrintSim").show();
-        html2canvas(tableToCapture).then(function (canvas) {
-            // Créez un objet Image à partir du canevas
-            var img = new Image();
-            img.src = canvas.toDataURL('image/jpg');
-
-            // Créez un lien de téléchargement pour l'image
-            var link = document.createElement('a');
-            link.href = img.src;
-            link.download = 'table_image_1.jpg'; // Nom du fichier à télécharger
-
-            // Ajoutez le lien au document et déclenchez le téléchargement
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-
-        $("#toPrintSim").hide();
-        saveScript();
-    };
-
-    function saveScript() {
-        $.ajax({
-            url: "phpMailer/send-recap-sim.php",
-            method: "POST",
-            data: { img: 'table_image_1.jpg' },
-            success: function (data) {
-                console.log(data);
-                location.href = "phpMailer/send-recap-sim.php";
-            }
-        });
-    }
-
-    function fetchBtnId(btn) {
-        console.log(btn.id);
+    function shareLink() {
+        $("#share-link-modal").modal("show");
     }
 
 </script>

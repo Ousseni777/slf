@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="card">
-                            <input type="text" value="<?php echo $client['CLIENT_ID_UK'] ?>" name="CLIENT_ID_UK"
+                            <input type="text" value="<?php echo $client['CLIENT_ID'] ?>" name="CLIENT_ID"
                                 style="display: none;">
                             <div class="card-body">
                                 <h5 class="card-title infos-client" onclick="displayElement('.civilite')"><i
@@ -141,7 +141,7 @@
 
                         <div class="col-lg-12">
                             <input style="display: none;" type="text" name="flagUpdate"
-                                value="<?php echo $client['CLIENT_ID_UK'] ?>">
+                                value="<?php echo $client['CLIENT_ID'] ?>">
                             <button type="submit" class="btn btn-outline-success btn-send-infos" name="">Sauvegarder les
                                 modifications</button>
                         </div>

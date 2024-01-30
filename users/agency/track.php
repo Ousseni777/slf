@@ -2,7 +2,7 @@
 
 include './connectToDB.php';
 $num_doss = '790551';
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$SELLER_ID = $_SESSION['SELLER_ID'];
 $query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);
 // $_SESSION['page'] = "detail-doss?id=".$num_doss;
@@ -41,9 +41,9 @@ if ($result_credit->num_rows > 0) {
 
                 </div>
                 <div class="col-lg-4" id="btn-revcf" >
-                                <a href="sim-fx?tag=revcf&numdoss=<?php echo $dossier['NUMDOSS'] ?>"
+                                <a href="sim-fx?tag=fx&numdoss=<?php echo $dossier['NUMDOSS'] ?>"
                                     class="btn btn-outline-danger">
-                                    Revision condition financière
+                                    Modifier
                                 </a>
                             </div>
                 <div class="col-lg-4" id="num-dossier">

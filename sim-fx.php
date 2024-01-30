@@ -1,16 +1,16 @@
 <?php
 ob_start();
 session_start();
-if (!isset($_SESSION['SELLER_ID_UK'])) {
+if (!isset($_SESSION['SELLER_ID'])) {
     header('location: ./login');
 }
 include './connectToDB.php';
-// $user = $_SESSION['SELLER_ID_UK'];
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+// $user = $_SESSION['SELLER_ID'];
+$SELLER_ID = $_SESSION['SELLER_ID'];
 $SELLER_PRODUCT = $_SESSION['PRODUCT'];
 
 
-$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track", "revcf", "check-revcf", "to-revcf", "fx-pr");
+$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track", "revcf", "check-revcf", "to-revcf", "fx-pr","dashbord");
 $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 ?>
 <!DOCTYPE html>
@@ -102,6 +102,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             left: 48%;
             top: 45%;
             display: none;
+            opacity: .5;
         }
 
         .edit-success {
@@ -120,7 +121,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             z-index: 1;
         }
 
-        .error-text {
+        .error-text, .error-text-share-link {
             color: #721c24;
             padding: 8px 10px;
             text-align: center;
@@ -371,6 +372,9 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
     }else if (isset($_GET["tag"]) && $_GET["tag"] == "check-revcf") {
         $_SESSION['page'] = "sim-fx?tag=check-revcf";
         include 'users/agency/check-revcf.php';
+    }else if (isset($_GET["tag"]) && $_GET["tag"] == "dashbord") {
+        $_SESSION['page'] = "sim-fx?tag=dashbord";
+        include 'users/agency/dashbord.php';
     } ?>
 
     <div class="main spinner-grow text-danger" id="mainPreloader" role="status">
@@ -452,40 +456,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
 
 
-        function calcFunctionPerso(target = "slider-monthly") {
-
-            AmountID = $("#slider-amount").val();
-            ProfessionID = $("#idProfession").val();
-            DurationValue = $("#slider-duration").val();
-            Monthly = $("#slider-monthly").val();
-
-            var rangeInputMonthly = document.getElementById('slider-monthly');
-            var rangeInputDuration = document.getElementById('slider-duration');
-
-            $.ajax({
-                url: "./users/agency/calc-fx_perso.php",
-                method: "POST",
-                data: {
-                    ID_SCRIPT: target,
-                    ID_AMOUNT: AmountID,
-                    ID_DURATION: DurationValue,
-                    ID_MONTHLY: Monthly,
-                    ID_PROFESSION: ProfessionID
-
-                },
-                success: (data) => {
-                    var result = JSON.parse(data);
-                    if (target === "slider-monthly") {
-                        rangeInputMonthly.value = result.monthlyNOFormat;
-                        console.log(result.monthlyNOFormat);
-                    } else {
-                        rangeInputDuration.value = result.duration;
-                    }
-                    setSliderValue();
-                }
-            });
-        }
-
+        
 
 
 
@@ -676,6 +647,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
                     $("#infoApport").val(result.Apport_Total);
                     $("#infoADI").val(result.Assurance);
                     $("#infoTariffID").val(result.tariff_id);
+                    $("#infoTAUXINT").val(result.TAUXINT);
                     $("#infoFD").val(result.FraisDossier);
                     $("#infoCHAD").val(result.Cout);
                     $("#infoBrand").val(result.Marque);
@@ -844,12 +816,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
         }
 
-        .group-select {
-            padding: 2% 3%;
-            border-radius: 10px;
-            box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
-            width: 100%;
-        }
+     
 
         .custom-select {
             padding: 1% 5%;

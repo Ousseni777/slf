@@ -121,7 +121,7 @@
 
 
                         <?php
-                        $select_credit = "SELECT * FROM `viewsim` WHERE SELLER_ID='$SELLER_ID_UK'";
+                        $select_credit = "SELECT * FROM `credit_client` WHERE SELLER_ID='$SELLER_ID'";
                         $result_select_credit = $conn->query($select_credit);
                         if ($result_select_credit->num_rows > 0) {
                             $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
@@ -136,8 +136,8 @@
                                 ?>
                                 <tr>
                                     <th style="width: 150px;" scope="row"><a
-                                            href="detail-cr?id=<?php echo $credit['CREDIT_ID_UK'] ?>">#
-                                            <?php echo $credit['CREDIT_ID_UK'] ?>
+                                            href="detail-cr?id=<?php echo $credit['CREDIT_ID'] ?>">#
+                                            <?php echo $credit['CREDIT_ID'] ?>
                                         </a>
                                     </th>
                                     <td style="width: 150px;">

@@ -1,19 +1,19 @@
 <?php
 session_start();
 include '../../connectToDB.php';
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$SELLER_ID = $_SESSION['SELLER_ID'];
 
 if (isset($_POST['confirmation']) && !empty($_POST['confirmation'])) {
     if (isset($_POST['CLIENT_CIN']) && !empty($_POST['CLIENT_CIN'])) {
         $CLIENT_CIN = mysqli_real_escape_string($conn, $_POST['CLIENT_CIN']);
 
-        $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_CIN='$CLIENT_CIN' AND SELLER_ID_UK='$SELLER_ID_UK' ";
+        $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_CIN='$CLIENT_CIN' AND SELLER_ID='$SELLER_ID' ";
         $result_select = $conn->query($select_query);
 
         if ($result_select->num_rows > 0) {
             $client = $result_select->fetch_assoc();
-            $CLIENT_ID_UK=$client['CLIENT_CIN'];                        
-            $conn->query("DELETE FROM `credit_client` WHERE CLIENT_ID_UK='$CLIENT_ID_UK' AND SELLER_ID_UK='$SELLER_ID_UK'");
+            $CLIENT_ID=$client['CLIENT_CIN'];                        
+            $conn->query("DELETE FROM `credit_client` WHERE CLIENT_ID='$CLIENT_ID' AND SELLER_ID='$SELLER_ID'");
             
             $cin_link = "images/" . $client['CIN_PIECE'];
             $rib_link = "images/" . $client['RIB_PIECE'];
@@ -42,11 +42,11 @@ if (isset($_POST['confirmation']) && !empty($_POST['confirmation'])) {
         }        
         
 
-        $query_client = $conn->prepare("DELETE FROM `slf_user_client` WHERE  SELLER_ID_UK = ? AND CLIENT_CIN = ?");
-        $query_client->bind_param("ss", $SELLER_ID_UK, $CLIENT_CIN);
+        $query_client = $conn->prepare("DELETE FROM `slf_user_client` WHERE  SELLER_ID = ? AND CLIENT_CIN = ?");
+        $query_client->bind_param("ss", $SELLER_ID, $CLIENT_CIN);
         $result_client = $query_client->execute();
 
-        // $query_client = "DELETE FROM `slf_user_client` WHERE  SELLER_ID_UK = '{$SELLER_ID_UK}' AND CLIENT_CIN='{$CLIENT_CIN}' ";
+        // $query_client = "DELETE FROM `slf_user_client` WHERE  SELLER_ID = '{$SELLER_ID}' AND CLIENT_CIN='{$CLIENT_CIN}' ";
         // $result_client = $conn->query($query_client);
         if (($result_client)) {
             echo "success";

@@ -2,7 +2,7 @@
 
 include './connectToDB.php';
 $num_doss = '790551';
-// $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+// $SELLER_ID = $_SESSION['SELLER_ID'];
 $query_credit = "SELECT * FROM `majestic` WHERE NUMDOSS = '{$num_doss}'";
 $result_credit = $conn->query($query_credit);
 $_SESSION['page'] = "./sim-fx?tag=revcf&numdoss=" . $num_doss;

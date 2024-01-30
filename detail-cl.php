@@ -2,11 +2,11 @@
 ob_start();
 session_start();
 include './connectToDB.php';
-$CLIENT_ID_UK = $_GET["id"];
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
-$query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_CIN = '{$CLIENT_ID_UK}' AND SELLER_ID='$SELLER_ID_UK' ";
+$CLIENT_ID = $_GET["id"];
+$SELLER_ID = $_SESSION['SELLER_ID'];
+$query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_CIN = '{$CLIENT_ID}' AND SELLER_ID='$SELLER_ID' ";
 $result_client = $conn->query($query_client);
-// $_SESSION['page'] = "detail-cl?id=".$CLIENT_ID_UK;
+// $_SESSION['page'] = "detail-cl?id=".$CLIENT_ID;
 
 if ($result_client->num_rows > 0) {
     $client = $result_client->fetch_assoc();
@@ -14,7 +14,7 @@ if ($result_client->num_rows > 0) {
     $_SESSION['CIN_PIECE'] = $client['CIN_PIECE'];
     $_SESSION['RIB_PIECE'] = $client['RIB_PIECE'];
     $_SESSION['ADRESS_PIECE'] = $client['ADRESS_PIECE'];
-    $select_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID='$CLIENT_ID_UK'";
+    $select_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID='$CLIENT_ID'";
     $result_select_credit = $conn->query($select_credit);
     $credits = mysqli_fetch_all($result_select_credit, MYSQLI_ASSOC);
 }
@@ -252,7 +252,7 @@ if ($result_client->num_rows > 0) {
                     <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Panel
                         modification (Ref client
                         : <b>
-                            <?php echo $client['CLIENT_ID_UK'] ?>
+                            <?php echo $client['CLIENT_ID'] ?>
                         </b>) </h1>
                     <nav>
                         <ol class="breadcrumb">
@@ -279,7 +279,7 @@ if ($result_client->num_rows > 0) {
                             </div>
                             <div class="col-lg-6">
                                 <div class="card">
-                                    <input type="text" value="<?php echo $client['CLIENT_ID_UK'] ?>" name="CLIENT_ID_UK"
+                                    <input type="text" value="<?php echo $client['CLIENT_ID'] ?>" name="CLIENT_ID"
                                         style="display: none;">
                                     <div class="card-body">
                                         <h5 class="card-TITLE infos-client" onclick="displayElement('.civilite')"><i
@@ -481,7 +481,7 @@ if ($result_client->num_rows > 0) {
             <div class="row mt-5" id="panelDetail">
                 <div class="pageTITLE">
                     <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Ref client : <b>
-                            <?php echo $client['CLIENT_ID_UK'] ?>
+                            <?php echo $client['CLIENT_ID'] ?>
                         </b> </h1>
                     <nav>
                         <ol class="breadcrumb">
@@ -497,7 +497,7 @@ if ($result_client->num_rows > 0) {
                     <div class="card">
                         <div class="card-body mt-3">
                             <span class="infoL"> Identifiant du client : </span>
-                            <input type="text" readonly value="<?php echo $client['CLIENT_ID_UK'] ?>"
+                            <input type="text" readonly value="<?php echo $client['CLIENT_ID'] ?>"
                                 class="infoR">
                         </div>
 
@@ -547,8 +547,8 @@ if ($result_client->num_rows > 0) {
                             <h5 class="card-TITLE">#Référence des crédit</h5>
                             <?php if (count($credits) > 0) {
                                 foreach ($credits as $credit) { ?>
-                                    <a href="./detail-cr?id=<?php echo $credit['CREDIT_ID_UK'] ?>" class="form-control status">#
-                                        <?php echo $credit['CREDIT_ID_UK'] ?>
+                                    <a href="./detail-cr?id=<?php echo $credit['CREDIT_ID'] ?>" class="form-control status">#
+                                        <?php echo $credit['CREDIT_ID'] ?>
                                     </a>
                                 <?php }
                             } else { ?>

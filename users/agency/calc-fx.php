@@ -132,14 +132,15 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
                 ';
 
     $result = [
-        "TTC" => number_format($principal, 2, ".", " "),
-        "payment" => number_format($payment_tmp, 2, ".", " "),
+        "TTC" => number_format($principal, 2, ",", " "),
+        "payment" => number_format($payment_tmp, 2, ",", " "),
         "paymentNoFormat" => $payment_tmp,
-        "Apport_Total" => number_format($Apport_Total_tmp, 2, ".", " "),
-        "Assurance" => number_format($Ass, 10, ".", ""),
-        "FraisDossier" => number_format($FraisDoss_tmp, 2, ".", " "),
-        "Cout" => number_format($Cout_tmp, 2, ".", " "),
+        "Apport_Total" => number_format($Apport_Total_tmp, 2, ",", " "),
+        "Assurance" => number_format($Ass, 2, ",", " "),
+        "FraisDossier" => number_format($FraisDoss_tmp, 2, ",", " "),
+        "Cout" => number_format($Cout_tmp, 2, ",", " "),
         "tariff_id" => $tariff_id_tmp,
+        "TAUXINT" => $rate_tmp,
         "Marque" => $brand,
         "Produit" => $product,
         "Bareme" => $tariff,

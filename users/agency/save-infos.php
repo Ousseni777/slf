@@ -2,7 +2,7 @@
 session_start();
 include '../../connectToDB.php';
 
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$SELLER_ID = $_SESSION['SELLER_ID'];
 
 $LNAME = mysqli_real_escape_string($conn, $_POST['LNAME']);
 $FNAME = mysqli_real_escape_string($conn, $_POST['FNAME']);
@@ -41,7 +41,7 @@ if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) &&
 
     if (!empty($img_name_CIN) && !empty($img_name_rib) && !empty($img_name_adress)) {
 
-        $select_query = "SELECT * FROM `slf_user_client` WHERE (EMAIL= '$EMAIL' OR CLIENT_CIN='$CLIENT_CIN') AND SELLER_ID='$SELLER_ID_UK' ";
+        $select_query = "SELECT * FROM `slf_user_client` WHERE (EMAIL= '$EMAIL' OR CLIENT_CIN='$CLIENT_CIN') AND SELLER_ID='$SELLER_ID' ";
         $result_select = $conn->query($select_query);
 
         if (!$result_select->num_rows > 0) {            
@@ -67,8 +67,8 @@ if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) &&
                         $ran_id = rand(time(), 100000000);
                         $ran_id = $rand_text1 . '-' . $ran_id . $rand_text2;
 
-                        $insert_query = "INSERT INTO `slf_user_client` (`CLIENT_ID_UK`,`SELLER_ID`, `EMAIL`, `PHONE`, `LNAME`, `FNAME`, `TITLE`, `CLIENT_CIN`, `INCOME`, `REGION`, `TOWN`, `CIN_PIECE`, `RIB_PIECE`, `ADRESS_PIECE`) 
-                            VALUES ('{$ran_id}','{$SELLER_ID_UK}','{$EMAIL}','{$PHONE}','{$LNAME}','{$FNAME}','{$TITLE}','{$CLIENT_CIN}','{$INCOME}','{$REGION}','{$TOWN}','{$new_img_name_CIN}','{$new_img_name_rib}','{$new_img_name_adress}')";
+                        $insert_query = "INSERT INTO `slf_user_client` (`CLIENT_ID`,`SELLER_ID`, `EMAIL`, `PHONE`, `LNAME`, `FNAME`, `TITLE`, `CLIENT_CIN`, `INCOME`, `REGION`, `TOWN`, `CIN_PIECE`, `RIB_PIECE`, `ADRESS_PIECE`) 
+                            VALUES ('{$ran_id}','{$SELLER_ID}','{$EMAIL}','{$PHONE}','{$LNAME}','{$FNAME}','{$TITLE}','{$CLIENT_CIN}','{$INCOME}','{$REGION}','{$TOWN}','{$new_img_name_CIN}','{$new_img_name_rib}','{$new_img_name_adress}')";
 
                         $result_insert = $conn->query($insert_query);
                         if (($result_insert)) {

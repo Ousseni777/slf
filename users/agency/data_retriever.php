@@ -316,7 +316,7 @@ function fetchCIN($cin)
 {
     global $conn;
 
-    // $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+    // $SELLER_ID = $_SESSION['SELLER_ID'];
     $query = "SELECT * FROM `slf_user_client` WHERE CLIENT_CIN = '$cin' ";
     $result = $conn->query($query);
 
@@ -332,8 +332,8 @@ function fetchAllCIN()
 {
     global $conn;
 
-    $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
-    $query = "SELECT * FROM `slf_user_client` WHERE SELLER_ID='$SELLER_ID_UK'";
+    $SELLER_ID = $_SESSION['SELLER_ID'];
+    $query = "SELECT * FROM `slf_user_client` WHERE SELLER_ID='$SELLER_ID'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -369,7 +369,7 @@ function fetchNUMDOSS()
 {
     global $conn;
 
-    // $SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+    // $SELLER_ID = $_SESSION['SELLER_ID'];
     $query = "SELECT * FROM `majestic` WHERE NUMDOSS is not NULL";
     $result = $conn->query($query);
 

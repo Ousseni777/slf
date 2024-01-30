@@ -65,7 +65,7 @@
 
             </div>
             <div class="col-lg-12">
-                <input style="display: none;" type="text" name="flagUpdate" value="<?php echo $client['CLIENT_ID_UK'] ?>" >
+                <input style="display: none;" type="text" name="flagUpdate" value="<?php echo $client['CLIENT_ID'] ?>" >
                 <button type="submit" class="btn btn-outline-success btn-send-pieces" name="">Sauvegarder les
                     modifications</button>
             </div>

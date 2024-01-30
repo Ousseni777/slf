@@ -12,10 +12,10 @@ if (isset($_POST['PROJECT'], $_POST['AMOUNT'], $_POST['DURATION'], $_POST['MONTH
     $rand_text = generateUniqueID(2);
     $ran_id = rand(time(), 100000000);
     $ran_id = $rand_text . '-' . $ran_id;
-    if (isset($_SESSION['CLIENT_ID_UK'])) {
-        $CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
+    if (isset($_SESSION['CLIENT_ID'])) {
+        $CLIENT_ID = $_SESSION['CLIENT_ID'];
     } else {
-        $CLIENT_ID_UK = $ran_id;
+        $CLIENT_ID = $ran_id;
     }
     $SELLER_ID = 'ANONYME';
 
@@ -34,22 +34,22 @@ if (isset($_POST['PROJECT'], $_POST['AMOUNT'], $_POST['DURATION'], $_POST['MONTH
 
 
 
-            $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID_UK`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`,`DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
-        VALUES ('{$ran_id}','{$TARIFF_ID_UK}','{$CLIENT_ID_UK}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
+            $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`,`DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
+        VALUES ('{$ran_id}','{$TARIFF_ID_UK}','{$CLIENT_ID}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
         } else {
             $msg = array('status' => 'error', 'message' => 'Une erreur est survenue, merci de réessayer encore !');
         }
     } else {
-        $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID_UK`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`, `UP_DATE`) 
-    VALUES ('{$ran_id}',0,'{$CLIENT_ID_UK}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$today}')";
+        $insert_query = "INSERT INTO `credit_client`(`CREDIT_ID`, `TARIFF_ID`, `CLIENT_ID`, `SELLER_ID`, `STATE_LIB`, `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`, `APP_FEES`, `UP_DATE`) 
+    VALUES ('{$ran_id}',0,'{$CLIENT_ID}','{$SELLER_ID}','En attente','{$AMOUNT}','{$DURATION}','{$MONTHLY}','{$PROJECT}','{$APP_FEES}','{$today}')";
     }
 
 
     $result_insert = $conn->query($insert_query);
     if (($result_insert)) {
         $msg = array('status' => 'success', 'message' => 'Demande N°: <b>' . $ran_id . ' </b> , ajoutée avec succès');
-        if (!isset($_SESSION['CLIENT_ID_UK'])) {
-            $_SESSION['CREDIT_ID_UK_TEMP'] = $ran_id;
+        if (!isset($_SESSION['CLIENT_ID'])) {
+            $_SESSION['CREDIT_ID_TEMP'] = $ran_id;
         }
 
 

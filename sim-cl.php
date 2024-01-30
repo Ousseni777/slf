@@ -4,7 +4,7 @@ ob_start();
 session_start();
 
 include './connectToDB.php';
-// $_SESSION['CLIENT_ID_UK_TEMP'] = "CN-805410552";
+$_SESSION['CLIENT_ID_TEMP'] = "CN-805410552";
 // $_SESSION['client_id'] = "WV-692634956";
 $_SESSION['page'] = "./sim-cl?tag=chrono";
 $shouldBeUser = false;
@@ -12,12 +12,12 @@ $isClient = false;
 $isOK = false;
 
 $tagList = array("chrono");
-// unset($_SESSION['CLIENT_ID_UK_TEMP']);
+// unset($_SESSION['CLIENT_ID_TEMP']);
 
-if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
+if (isset($_SESSION['CLIENT_ID_TEMP'])) {
 
-  $CLIENT_ID_UK_TEMP = $_SESSION['CLIENT_ID_UK_TEMP'];
-  $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID = '{$CLIENT_ID_UK_TEMP}' ";
+  $CLIENT_ID_TEMP = $_SESSION['CLIENT_ID_TEMP'];
+  $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID = '{$CLIENT_ID_TEMP}' ";
   $result_credit = $conn->query($query_credit);
   if ($result_credit->num_rows > 0) {
     $credit = $result_credit->fetch_assoc();
@@ -26,9 +26,9 @@ if (isset($_SESSION['CLIENT_ID_UK_TEMP'])) {
   }
 
 } else {
-  if (isset($_SESSION['CLIENT_ID_UK'])) {
-    $CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
-    $query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_ID_UK = '{$CLIENT_ID_UK}' ";
+  if (isset($_SESSION['CLIENT_ID'])) {
+    $CLIENT_ID = $_SESSION['CLIENT_ID'];
+    $query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_ID = '{$CLIENT_ID}' ";
     $result_client = $conn->query($query_client);
 
     if ($result_client->num_rows > 0) {
@@ -113,10 +113,7 @@ if (!$shouldBeUser) {
       margin-bottom: 10px;
       display: none;
     }
-
-    .profile-new {
-      padding: 20% 30%;
-    }
+ 
 
     .inputImage {
       display: none;
@@ -205,7 +202,7 @@ if (!$shouldBeUser) {
 
 <body>
   <?php if (isset($_GET["tag"]) && in_array($_GET["tag"], $tagList)) {
-    // include 'header-cl.php';
+    include 'header-cl.php';
     include 'siderbar-cl.php';
   } else {
     header('location: ./404');

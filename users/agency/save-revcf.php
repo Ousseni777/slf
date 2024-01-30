@@ -2,7 +2,7 @@
 session_start();
 include '../../connectToDB.php';
 
-$SELLER_ID_UK = $_SESSION['SELLER_ID_UK'];
+$SELLER_ID = $_SESSION['SELLER_ID'];
 $status = "error";
 $msg = "Une erreur s'est produite !";
 

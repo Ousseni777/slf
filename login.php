@@ -1719,13 +1719,13 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">SALAFIN</a></li>
+          <li><a class="nav-link scrollto active" href="./#hero">SALAFIN</a></li>
 
-          <li><a class="nav-link scrollto" href="#schedule">Besoin d'argent</a></li>
-          <li><a class="nav-link glightbox play-btn" href="https://www.youtube.com/watch?v=aGvseOGhWEY">Comment ça
+          <li><a class="nav-link scrollto" href="./#schedule">Besoin d'argent</a></li>
+          <li><a class="nav-link glightbox play-btn" href="./#hero">Comment ça
               marche</a></li>
-          <li><a class="nav-link scrollto" href="#venue">Nos agence</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Nous contacter</a></li>
+          <li><a class="nav-link scrollto" href="./#venue">Nos agence</a></li>
+          <li><a class="nav-link scrollto" href="./#contact">Nous contacter</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -1849,7 +1849,7 @@
                 <!-- <div class="col-12">
                       <div class="form-check" style="width:80%;">
                         <input class="form-check-input" type="checkbox" value="" id="acceptTerms">
-                        <label class="form-check-label" for="acceptTerms">J'accepte les <a href="#">termes et les
+                        <label class="form-check-label" for="acceptTerms">J'accepte les <a href="./#">termes et les
                             conditions</a></label>
 
                       </div>
@@ -1869,7 +1869,7 @@
 
   </main><!-- End #main -->
   <?php include "footer.php" ?>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+  <a href="./#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->

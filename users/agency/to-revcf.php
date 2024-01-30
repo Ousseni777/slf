@@ -80,7 +80,7 @@
 
                 <?php
 
-                if (isset($_SESSION['SELLER_ID_UK'])) {
+                if (isset($_SESSION['SELLER_ID'])) {
 
                     $query_revcf = "SELECT * FROM `revcf` WHERE 1";
                     $result_revcf = $conn->query($query_revcf);

@@ -16,11 +16,11 @@ if (isset($_POST['flagUpdate']) && !empty($_POST['flagUpdate']) ) {
     $EMAIL = mysqli_real_escape_string($conn, $_POST['EMAIL']);
     $PHONE = mysqli_real_escape_string($conn, $_POST['PHONE']);
     //Mise à jour des données clients
-    $CLIENT_ID_UK = $_SESSION['CLIENT_ID_UK'];
+    $CLIENT_ID = $_SESSION['CLIENT_ID'];
     if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) && !empty($INCOME)) {
         
         $shouldUpdated = true;
-        $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_ID_UK='$CLIENT_ID_UK'  ";
+        $select_query = "SELECT * FROM `slf_user_client` WHERE  CLIENT_ID='$CLIENT_ID'  ";
         $result_select = $conn->query($select_query);
 
         if ($result_select->num_rows > 0) {
@@ -46,7 +46,7 @@ if (isset($_POST['flagUpdate']) && !empty($_POST['flagUpdate']) ) {
             }
             if ($shouldUpdated) {
                 $update_query = "UPDATE `slf_user_client` SET `EMAIL`='{$EMAIL}',`PHONE`='{$PHONE}',`LNAME`='{$LNAME}',`FNAME`='{$FNAME}',`TITLE`='{$TITLE}',`CLIENT_CIN`='{$CLIENT_CIN}',`INCOME`='{$INCOME}',`REGION`='{$REGION}',`TOWN`='{$TOWN}'
-        WHERE CLIENT_ID_UK='$CLIENT_ID_UK' ";
+        WHERE CLIENT_ID='$CLIENT_ID' ";
 
                 $result_update = $conn->query($update_query);
                 if (($result_update)) {
@@ -69,10 +69,10 @@ if (isset($_POST['flagUpdate']) && !empty($_POST['flagUpdate']) ) {
 } else {
     
     //insertion nouvelle des données clients
-    $CLIENT_ID_UK_TEMP = $_SESSION['CLIENT_ID_UK_TEMP'];
+    $CLIENT_ID_TEMP = $_SESSION['CLIENT_ID_TEMP'];
     if (!empty($LNAME) && !empty($FNAME) && !empty($TITLE) && !empty($CLIENT_CIN) && !empty($INCOME)) {
 
-        $select_query_temp = "SELECT * FROM `temp_verification` WHERE CLIENT_ID_UK_TEMP= '$CLIENT_ID_UK_TEMP' ";
+        $select_query_temp = "SELECT * FROM `temp_verification` WHERE CLIENT_ID_TEMP= '$CLIENT_ID_TEMP' ";
         $result_select_temp = $conn->query($select_query_temp);
 
         if ($result_select_temp->num_rows > 0) {
@@ -80,18 +80,18 @@ if (isset($_POST['flagUpdate']) && !empty($_POST['flagUpdate']) ) {
             $EMAIL = $data_tempo['EMAIL_TEMP'];
             $PHONE = $data_tempo['PHONE_TEMP'];
 
-            $insert_query = "INSERT INTO `slf_user_client` (`CLIENT_ID_UK`,`SELLER_ID`, `EMAIL`, `PHONE`, `LNAME`, `FNAME`, `TITLE`, `CLIENT_CIN`, `INCOME`, `REGION`, `TOWN`) 
-            VALUES ('{$CLIENT_ID_UK_TEMP}','ANONYME','{$EMAIL}','{$PHONE}','{$LNAME}','{$FNAME}','{$TITLE}','{$CLIENT_CIN}','{$INCOME}','{$REGION}','{$TOWN}')";
+            $insert_query = "INSERT INTO `slf_user_client` (`CLIENT_ID`,`SELLER_ID`, `EMAIL`, `PHONE`, `LNAME`, `FNAME`, `TITLE`, `CLIENT_CIN`, `INCOME`, `REGION`, `TOWN`) 
+            VALUES ('{$CLIENT_ID_TEMP}','ANONYME','{$EMAIL}','{$PHONE}','{$LNAME}','{$FNAME}','{$TITLE}','{$CLIENT_CIN}','{$INCOME}','{$REGION}','{$TOWN}')";
 
             $result_insert = $conn->query($insert_query);
             if (($result_insert)) {
                 //Retirer l'utilisateur de la table temporaire
-                // $delete_query = "DELETE FROM `temp_verification` WHERE id_unique= '$CLIENT_ID_UK' ";
+                // $delete_query = "DELETE FROM `temp_verification` WHERE id_unique= '$CLIENT_ID' ";
                 // $conn->query($delete_query);
-                unset($_SESSION['CLIENT_ID_UK_TEMP']);
-                $_SESSION['CLIENT_ID_UK'] = $CLIENT_ID_UK_TEMP;
+                unset($_SESSION['CLIENT_ID_TEMP']);
+                $_SESSION['CLIENT_ID'] = $CLIENT_ID_TEMP;
                 $status = "success";
-                $msg = "Vos informations ont bien été envoyées ! <br> Merci de nous communiquer les justificatifs ! <br> Votre identifiant unique est : <b> " . $CLIENT_ID_UK_TEMP . "</b>, vous pouvez vous connecter à tout moment en utilisant cet identifiant et votre CIN";
+                $msg = "Vos informations ont bien été envoyées ! <br> Merci de nous communiquer les justificatifs ! <br> Votre identifiant unique est : <b> " . $CLIENT_ID_TEMP . "</b>, vous pouvez vous connecter à tout moment en utilisant cet identifiant et votre CIN";
             } else {
                 $msg = "Insertion failed";
             }

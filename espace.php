@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+$_SESSION['page'] = "./espace";
+
+if (isset($_SESSION['CSP'])) {
+    unset($_SESSION['CSP']);
+}
+
 if (isset($_SESSION['BRAND'])) {
     unset($_SESSION['BRAND']);
 }
@@ -18,6 +25,16 @@ if (isset($_SESSION['AMOUNT'])) {
 if (isset($_SESSION['PROFESSION'])) {
     unset($_SESSION['PROFESSION']);
 }
+
+if (isset($_SESSION['PROJECT'])) {
+    unset($_SESSION["PROJECT"]);
+}
+
+if (!isset($_SESSION['SELLER_ID'])) {
+    header("location: ./login");
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +65,250 @@ if (isset($_SESSION['PROFESSION'])) {
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
+    <style>
+        /*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+        .logo {
+            line-height: 1;
+        }
+
+        @media (min-width: 1200px) {
+            .logo {
+                width: 280px;
+            }
+        }
+
+        .logo img {
+            max-height: 26px;
+            margin-right: 6px;
+        }
+
+        .logo span {
+            font-size: 26px;
+            font-weight: 700;
+            color: #012970;
+            font-family: "Nunito", sans-serif;
+        }
+
+        .header {
+            transition: all 0.5s;
+            z-index: 997;
+            height: 60px;
+            box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+            background-color: #fff;
+            padding-left: 20px;
+            /* Toggle Sidebar Button */
+            /* Search Bar */
+        }
+
+        .header .toggle-sidebar-btn {
+            font-size: 32px;
+            padding-left: 10px;
+            cursor: pointer;
+            color: #012970;
+        }
+
+        .header .search-bar {
+            min-width: 360px;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 1199px) {
+            .header .search-bar {
+                position: fixed;
+                top: 50px;
+                left: 0;
+                right: 0;
+                padding: 20px;
+                box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
+                background: white;
+                z-index: 9999;
+                transition: 0.3s;
+                visibility: hidden;
+                opacity: 0;
+            }
+
+            .header .search-bar-show {
+                top: 60px;
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        .header .search-form {
+            width: 100%;
+        }
+
+        .header .search-form input {
+            border: 0;
+            font-size: 16px;
+            color: #012970;
+            border: 1px solid rgba(1, 41, 112, 0.2);
+            padding: 7px 38px 7px 8px;
+            border-radius: 3px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .header .search-form input:focus,
+        .header .search-form input:hover {
+            outline: none;
+            box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+            border: 1px solid rgba(1, 41, 112, 0.3);
+        }
+
+        .header .search-form button {
+            border: 0;
+            padding: 0;
+            margin-left: -30px;
+            background: none;
+        }
+
+        .header .search-form button i {
+            color: #012970;
+        }
+
+        /*--------------------------------------------------------------
+# Header Nav
+--------------------------------------------------------------*/
+        .header-nav ul {
+            list-style: none;
+        }
+
+        .header-nav>ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-nav .nav-icon {
+            font-size: 22px;
+            color: #012970;
+            margin-right: 25px;
+            position: relative;
+        }
+
+        .header-nav .nav-profile {
+            color: #012970;
+        }
+
+        .header-nav .nav-profile img {
+            max-height: 36px;
+        }
+
+        .header-nav .nav-profile span {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .header-nav .badge-number {
+            position: absolute;
+            inset: -2px -5px auto auto;
+            font-weight: normal;
+            font-size: 12px;
+            padding: 3px 6px;
+        }
+
+        .header-nav .notifications {
+            inset: 8px -15px auto auto !important;
+        }
+
+        .header-nav .notifications .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 10px;
+            transition: 0.3s;
+        }
+
+        .header-nav .notifications .notification-item i {
+            margin: 0 20px 0 10px;
+            font-size: 24px;
+        }
+
+        .header-nav .notifications .notification-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header-nav .notifications .notification-item p {
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #919191;
+        }
+
+        .header-nav .notifications .notification-item:hover {
+            background-color: #f6f9ff;
+        }
+
+        .header-nav .messages {
+            inset: 8px -15px auto auto !important;
+        }
+
+        .header-nav .messages .message-item {
+            padding: 15px 10px;
+            transition: 0.3s;
+        }
+
+        .header-nav .messages .message-item a {
+            display: flex;
+        }
+
+        .header-nav .messages .message-item img {
+            margin: 0 20px 0 10px;
+            max-height: 40px;
+        }
+
+        .header-nav .messages .message-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444444;
+        }
+
+        .header-nav .messages .message-item p {
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #919191;
+        }
+
+        .header-nav .messages .message-item:hover {
+            background-color: #f6f9ff;
+        }
+
+        .header-nav .profile {
+            min-width: 240px;
+            padding-bottom: 0;
+            top: 8px !important;
+        }
+
+        .header-nav .profile .dropdown-header h6 {
+            font-size: 18px;
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #444444;
+        }
+
+        .header-nav .profile .dropdown-header span {
+            font-size: 16px;
+        }
+
+        .header-nav .profile .dropdown-item {
+            font-size: 16px;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+
+        .header-nav .profile .dropdown-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            line-height: 0;
+        }
+
+        .header-nav .profile .dropdown-item:hover {
+            background-color: #f6f9ff;
+        }
+    </style>
     <style>
         body {
             background: #fff;
@@ -1236,6 +1496,7 @@ if (isset($_SESSION['PROFESSION'])) {
 # Subscribe Section
 --------------------------------------------------------------*/
         #subscribe {
+            margin-top: 50px;
             padding: 60px;
             background: url(assets/img/subscribe-bg.jpg) center center no-repeat;
             background-size: cover;
@@ -1741,14 +2002,15 @@ if (isset($_SESSION['PROFESSION'])) {
             top: 35%;
         }
     </style>
+
 </head>
 
 <body>
 
 
 
-    <main id="main">
-
+    <main id="main" style="position: relative;">
+        <?php include 'header.php'; ?>
         <!-- ======= switch-option Section ======= -->
         <section id="subscribe">
 
@@ -1772,54 +2034,7 @@ if (isset($_SESSION['PROFESSION'])) {
 
             </div>
         </section><!-- End switch-option Section -->
-        <ul class="d-flex float-end align-items-center " style=" list-style: none; ">
-            <li class="nav-item dropdown">
 
-                <a class="nav-link nav-profile d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle p-2"
-                        style="color:  ; font-size: 35px; background-color: rgba(202, 206, 221, 0.5); border-radius: 10px; ">B.
-                        OUSSENI</span>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6>BORO OUSSENI</h6>
-                        <span>Commerçant</span>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span>Mes infos personnelles</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="./logout">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Je me déconnecte</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-        </ul>
         <!-- ======= Option Section ======= -->
         <section id="choix-credit" class="section-with-bg">
             <div class="container" data-aos="fade-up">
@@ -1914,18 +2129,28 @@ if (isset($_SESSION['PROFESSION'])) {
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                                 <div class="error-text col-12"></div>
+
+                                <div class="form-group mt-3">
+                                    <select id="idCSP" name="CSP" class="form-select" onchange="loadBrand()">
+                                        <!-- <option value="">-- S'agit t-il d'un ? --</option> -->
+                                        <!-- <option value="SALARIE">SALARIE</option>
+                                        <option value="FONCTIONNAIRE">FONCTIONNAIRE</option>
+                                        <option value="COMMERCANT">COMMERCANT</option>
+                                        <option value="SOCIETE">SOCIETE</option> -->
+                                    </select>
+                                </div>
                                 <div class="form-group mt-3">
                                     <select id="idBrand" name="BRAND" class="form-select" onchange="loadProduct()">
-
+                                        <option value="0" selected>-- Selectionner la marque --</option>
                                     </select>
                                 </div>
                                 <div class="form-group mt-3">
                                     <!-- <i class="bi bi-vinyl-fill"></i> -->
                                     <select id="idProduct" name="PRODUCT" class="form-select" onchange="loadTariff()">
-
+                                        <option value="0" selected>-- Selectionner le produit --</option>
                                     </select>
                                 </div>
-                                <div class="form-group mt-3">
+                                <div class="form-group mt-3 d-none">
                                     <select id="idTariff" name="TARIFF" class="form-select">
 
                                     </select>
@@ -2180,7 +2405,7 @@ if (isset($_SESSION['PROFESSION'])) {
 
     <script>
         window.addEventListener("load", function () {
-            loadBrand();
+            loadCsp();
         });
 
         const formCheck = document.getElementById("modal-form-check-revcf"),
@@ -2405,13 +2630,32 @@ if (isset($_SESSION['PROFESSION'])) {
             }, 500);
         };
 
+        function loadCsp() {
+
+            $.ajax({
+                url: "users/agency/data_retriever.php",
+                method: "POST",
+                data: {
+                    ID_SCRIPT: 'csp',
+                    TAG_FAM: "FA"
+                },
+                success: function (data) {
+                    data = '<option value="">-- S\'agit t-il d\'un ? --</option>' + data;
+                    $("#idCSP").html(data);
+                    // loadBrand();
+                }
+            });
+        }
 
         function loadBrand() {
 
             $.ajax({
                 url: "users/agency/data_retriever.php",
                 method: "POST",
-                data: { ID_SCRIPT: 'brand' },
+                data: {
+                    ID_SCRIPT: 'brand',
+                    TAG_FAM: "FA"
+                },
                 success: function (data) {
                     data = '<option value="0" selected>-- Selectionner la marque --</option>' + data;
                     $("#idBrand").html(data);
@@ -2438,10 +2682,16 @@ if (isset($_SESSION['PROFESSION'])) {
         function loadTariff() {
             const BrandID = $("#idBrand").val();
             const ProductID = $("#idProduct").val();
+            const CspID = $("#idCSP").val();
             $.ajax({
                 url: "users/agency/data_retriever.php",
                 method: "POST",
-                data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID },
+                data: {
+                    ID_SCRIPT: 'tariff',
+                    ID_PRODUCT: ProductID,
+                    ID_BRAND: BrandID,
+                    ID_CSP: CspID
+                },
                 success: function (data) {
                     data = '<option value="0" selected>-- Selectionner le barême --</option>' + data;
                     $("#idTariff").html(data);

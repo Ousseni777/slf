@@ -18,7 +18,7 @@ if (!empty(mysqli_real_escape_string($conn, $_POST['EMAIL']))) {
     $DOWN_PMT = (float) (str_replace(' ', '', mysqli_real_escape_string($conn, $_POST['DOWN_PMT'])));
     $DOWN_PMT_PERC = mysqli_real_escape_string($conn, $_POST['DOWN_PMT_PERC']);
 
-    $TARIFF_ID_UK = mysqli_real_escape_string($conn, $_POST['TARIFF_ID_UK']);
+    $TARIFF_ID = mysqli_real_escape_string($conn, $_POST['TARIFF_ID']);
 
 
     $rand_text = generateUniqueID(2);
@@ -28,7 +28,7 @@ if (!empty(mysqli_real_escape_string($conn, $_POST['EMAIL']))) {
     $today = $today->format('Y-m-d');
 
     $insert_query = "INSERT INTO `credit_client_tmp`(`CREDIT_ID`, `TARIFF_ID`, `CLIENT_EMAIL`, `SELLER_ID`,  `AMOUNT`, `DURATION`, `MONTHLY`, `PROJECT`,`TAUXINT`, `APP_FEES`, `DOWN_PMT_PERC`, `DOWN_PMT`, `ADI`, `COST_EX_ADI`, `UP_DATE`) 
-    VALUES ('{$ran_id}','{$TARIFF_ID_UK}','{$CLIENT_EMAIL}','{$SELLER_ID}','{$AMOUNT}','{$DURATION}','{$MONTHLY}','Crédit auto' , '{$TAUXINT}', '{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
+    VALUES ('{$ran_id}','{$TARIFF_ID}','{$CLIENT_EMAIL}','{$SELLER_ID}','{$AMOUNT}','{$DURATION}','{$MONTHLY}','Crédit auto' , '{$TAUXINT}', '{$APP_FEES}','{$DOWN_PMT_PERC}','{$DOWN_PMT}','{$ADI}','{$COST_EX_ADI}','{$today}')";
 
 
     $result_insert = $conn->query($insert_query);

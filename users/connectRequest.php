@@ -15,12 +15,17 @@ if (!empty($ID_UK) && !empty($CIN)) {
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        $_SESSION['SELLER_ID'] = $user['SELLER_ID'];
-        $_SESSION['PRODUCT'] = $user['PRODUCT'];
-        $PRODUCT= $user['PRODUCT'];
+        if ($user['ACTIVATE_STATE'] == 1) {
+            $_SESSION['SELLER_ID'] = $user['SELLER_ID'];
+            $_SESSION['ENTITE'] = $user['ENTITE'];
+            $ENTITE = $user['ENTITE'];
 
-        $response = array('status' => 'success', 'message' => $PRODUCT);
-        echo json_encode($response);
+            $response = array('status' => 'success', 'message' => $ENTITE);
+            echo json_encode($response);
+        }else{
+            $response = array('status' => 'error', 'message' => 'Votre compte n\'est pas encore activé !');
+            echo json_encode($response);
+        }
 
     } else {
         //Chercher dans la table client
@@ -39,7 +44,7 @@ if (!empty($ID_UK) && !empty($CIN)) {
             //Chercher dans la table client
             $response = array('status' => 'error', 'message' => 'Mot de passe ou Identifiant incorrect');
             echo json_encode($response);
-        }        
+        }
     }
 } else {
     //Chercher dans la table client

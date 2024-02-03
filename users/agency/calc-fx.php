@@ -13,6 +13,7 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
 
 
     $durations = fetchDuration($brand, $tariff, $product, $DG);
+    
     $lengthDurations = count($durations);
     if ($lengthDurations > 0) {
         $payments = [];
@@ -132,7 +133,7 @@ if (isset($_POST['ID_BRAND'], $_POST['ID_PRODUCT'], $_POST['ID_DURATION'], $_POS
                 ';
 
     $result = [
-        "TTC" => number_format($principal, 2, ",", " "),
+        "TTC" => number_format($principal, 2, ",", " "),        
         "payment" => number_format($payment_tmp, 2, ",", " "),
         "paymentNoFormat" => $payment_tmp,
         "Apport_Total" => number_format($Apport_Total_tmp, 2, ",", " "),
@@ -209,7 +210,7 @@ function fetchData($brand, $product, $tariff, $duration, $DG)
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
         $rate = $data['TAUX'];
-        $tariff_id = $data['TARIFF_ID_UK'];
+        $tariff_id = $data['TARIFF_ID'];
         $data_dg = $data['TXFD'];
         $data_ADI = $data['ADI'];
         $data_Diff = $data['Dif'];

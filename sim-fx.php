@@ -7,10 +7,10 @@ if (!isset($_SESSION['SELLER_ID'])) {
 include './connectToDB.php';
 // $user = $_SESSION['SELLER_ID'];
 $SELLER_ID = $_SESSION['SELLER_ID'];
-$SELLER_PRODUCT = $_SESSION['PRODUCT'];
+$SELLER_ENTITE = $_SESSION['ENTITE'];
 
 
-$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track", "revcf", "check-revcf", "to-revcf", "fx-pr","dashbord");
+$tagList = array("processed", "rejected", "fx", "list-cl", "list-cr", "track", "revcf", "check-revcf", "to-revcf", "fx-pr", "dashbord");
 $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 ?>
 <!DOCTYPE html>
@@ -121,7 +121,8 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             z-index: 1;
         }
 
-        .error-text, .error-text-share-link {
+        .error-text,
+        .error-text-share-link {
             color: #721c24;
             padding: 8px 10px;
             text-align: center;
@@ -346,7 +347,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
     <?php if (isset($_GET["tag"]) && $_GET["tag"] == "fx") {
         $_SESSION['page'] = "sim-fx?tag=fx";
-        $_SESSION['page_sim'] ="tag=fx";
+        $_SESSION['page_sim'] = "tag=fx";
         include 'users/agency/fx.php';
 
     } else if (isset($_GET["tag"]) && $_GET["tag"] == "list-cr") {
@@ -367,12 +368,12 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
         include 'users/agency/to-revcf.php';
     } else if (isset($_GET["tag"]) && $_GET["tag"] == "fx-pr") {
         $_SESSION['page'] = "sim-fx?tag=fx-pr";
-        $_SESSION['page_sim'] ="tag=fx-pr";
+        $_SESSION['page_sim'] = "tag=fx-pr";
         include 'users/agency/fx-pr.php';
-    }else if (isset($_GET["tag"]) && $_GET["tag"] == "check-revcf") {
+    } else if (isset($_GET["tag"]) && $_GET["tag"] == "check-revcf") {
         $_SESSION['page'] = "sim-fx?tag=check-revcf";
         include 'users/agency/check-revcf.php';
-    }else if (isset($_GET["tag"]) && $_GET["tag"] == "dashbord") {
+    } else if (isset($_GET["tag"]) && $_GET["tag"] == "dashbord") {
         $_SESSION['page'] = "sim-fx?tag=dashbord";
         include 'users/agency/dashbord.php';
     } ?>
@@ -441,11 +442,10 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
             } ?>
 
             <?php if (isset($_GET["tag"]) && $_GET["tag"] == "fx-pr") {
-                echo 'setParam();';
-                echo 'calcFunctionPerso("slider-monthly");';
+                echo 'loadDataPr(); setParam();';                
             } ?>
 
-            
+
 
             loadRegions();
             $('#mainPrloader').hide();
@@ -456,7 +456,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
 
 
-        
+
 
 
 
@@ -525,139 +525,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
         }
 
-        function loadBrand() {
 
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'brand' },
-                success: function (data) {
-                    $("#idBrand").html(data);
-                    loadProduct();
-                }
-            });
-        }
-
-        function loadProduct() {
-            BrandID = $("#idBrand");
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'product', ID_MARQUE: BrandID.val() },
-                success: function (data) {
-                    $("#idProduct").html(data);
-                    loadTariff();
-                }
-            });
-
-        }
-
-        function loadTariff() {
-            const BrandID = $("#idBrand").val();
-            const ProductID = $("#idProduct").val();
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID },
-                success: function (data) {
-                    $("#idTariff").html(data);
-
-                    loadApport();
-                }
-            });
-        }
-
-        function loadApport() {
-            BrandID = $("#idBrand");
-            ProductID = $("#idProduct");
-            const TariffID = $("#idTariff").val();
-
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID },
-                success: (data) => {
-                    $("#controlApport").html(data);
-
-                    loadDuration();
-                },
-                error: (error) => {
-                    console.error("Une erreur s'est produite :", error);
-                }
-            });
-        }
-
-        function loadDuration() {
-
-            BrandID = $("#idBrand").val();
-            ProductID = $("#idProduct").val();
-            const TariffID = $("#idTariff").val();
-
-            const ApportValue = $("input[name='apportName']:checked").val();
-            $.ajax({
-                url: "users/agency/data_retriever.php",
-                method: "POST",
-                data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID, ID_TARIFF: TariffID, ID_APPORT: ApportValue },
-                success: (data) => {
-                    $("#controlDuration").html(data);
-                    calcFunction();
-                },
-                error: (error) => {
-                    console.error("Une erreur s'est produite :", error);
-                }
-            });
-        }
-
-
-
-
-        function calcFunction() {
-
-            BrandID = $("#idBrand");
-            ProductID = $("#idProduct");
-            const TariffID = $("#idTariff").val();
-            AmountID = $("#rangeInputAmount");
-
-
-            const DurationValue = $("input[name='durationName']:checked").val();
-            const ApportValue = $("input[name='apportName']:checked").val();
-
-            $.ajax({
-                url: "users/agency/calc-fx.php",
-                method: "POST",
-                data: {
-                    ID_AMOUNT: AmountID.val(),
-                    ID_DURATION: DurationValue,
-                    ID_APPORT: ApportValue,
-                    ID_TARIFF: TariffID,
-                    ID_PRODUCT: ProductID.val(),
-                    ID_BRAND: BrandID.val()
-                },
-                success: (data) => {
-                    var result = JSON.parse(data);
-
-                    $("#rangeValueAmount").val(AmountID.val());
-
-                    $("#infoAmount").val(result.TTC);
-                    $("#infoDuration").val(DurationValue);
-
-                    // $("#rangeValueMonthly").val(result.payment);
-                    $("#infoMonthly").val(result.payment);
-                    $("#infoApportPerc").val(ApportValue);
-                    $("#infoApport").val(result.Apport_Total);
-                    $("#infoADI").val(result.Assurance);
-                    $("#infoTariffID").val(result.tariff_id);
-                    $("#infoTAUXINT").val(result.TAUXINT);
-                    $("#infoFD").val(result.FraisDossier);
-                    $("#infoCHAD").val(result.Cout);
-                    $("#infoBrand").val(result.Marque);
-                    $("#infoProduct").val(result.Produit);
-                    $("#infoTariff").val(result.Bareme);
-                    $("#idPrint").html(result.RecapSim);
-                    $("#optionMonthly").html(result.OptionMonthly);
-                }
-            });
-        }
 
         function fetchBtnId(btn) {
 
@@ -816,7 +684,7 @@ $tagListSearch = array("list-cl", "list-cr", "rejected", "processed");
 
         }
 
-     
+
 
         .custom-select {
             padding: 1% 5%;

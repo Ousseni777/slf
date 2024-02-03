@@ -71,24 +71,24 @@
     }
 
     .select-value {
-        width: 48px;
+        width: 100px;
         height: 40px;
         position: absolute;
         color: red;
         top: 5px;
-        background-color: rgba(232, 130, 92,.05);
+        background-color: rgba(232, 130, 92, .05);
         border-radius: 4px 4px 0 0;
         text-align: center;
         line-height: 45px;
-        font-size: 10px;
+        font-size: 14px;
         font-weight: bold;
     }
 
-    
+
 
     .select-value::after {
         content: '';
-        border-top: 17px solid rgba(232, 130, 92,.05);
+        border-top: 17px solid rgba(232, 130, 92, .05);
         border-left: 24px solid white;
         border-right: 24px solid white;
         position: absolute;
@@ -100,7 +100,7 @@
     .progress-bar {
         width: 50%;
         height: 10px;
-        background-color: rgba(232, 130, 92,.8);
+        background-color: rgba(232, 130, 92, .8);
         position: absolute;
         border-radius: 3px;
         top: 7px;
@@ -159,41 +159,78 @@
 
                         <div class="row g-3">
 
-                            <div class="col-md-4 " id="">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="" disabled name="PRODUCT" aria-label="State"
-                                        onchange="">
+                            <?php if (isset($SELLER_ENTITE)) { ?>
 
+                                <div class="col-md-4 " style="display: none;" id="">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="idProject" aria-label="State"
+                                            onchange="calcFunctionPerso()">
 
-                                        <option value="COMMERCANT" id="RENOUVELABLE">AG. NORMANDI</option>
+                                            <option value="CREDIT PERSONNEL" id="PERSONNEL">CREDIT PERSONNEL</option>
+                                            <option value="CREDIT RENOUVELABLE" id="RENOUVELABLE">CREDIT RENOUVELABLE
+                                            </option>
 
-                                    </select>
-                                    <label for="floatingSelect">AFFECTATION</label>
+                                        </select>
+                                        <label for="floatingSelect">TYPE PROJET</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 " id="">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="idProject" aria-label="State" onchange="calcFunctionPerso()">
+                                <!-- <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select id="idProfession" disabled name="BRAND" class="form-select" onchange="loadProduct()">
+                                            <option value="SALARIE">SALARIE</option>
+                                        </select>
+                                        <label for="floatingSelect">Profesion</label>
+                                    </div>
+                                </div> -->
 
-                                        <option value="CREDIT PERSONNEL" id="PERSONNEL">CREDIT PERSONNEL</option>
-                                        <option value="CREDIT RENOUVELABLE" id="RENOUVELABLE">CREDIT RENOUVELABLE</option>
+                                <div class="col-md-4" style="display: ;">
+                                    <div class="form-floating mb-3">
+                                        <?php if ($SELLER_ENTITE == 'SALAFIN') { ?>
 
-                                    </select>
-                                    <label for="floatingSelect">TYPE PROJET</label>
+                                            <select class="form-select" id="idBrand" name="BRAND" onchange="loadProductPr()"
+                                                aria-label="State">
+                                            </select>
+
+                                        <?php } else { ?>
+
+                                            <select class="form-select" id="idBrand" name="BRAND"
+                                                onchange="loadProductPr()" aria-label="State">
+                                            </select>
+
+                                        <?php } ?>
+                                        <label for="floatingSelect">Profession</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 " id="">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="idProfession" name="PRODUCT" aria-label="State"
-                                        onchange="calcFunctionPerso()">
-                                        <option value="SALARIE" id="SALARIE">SALARIE</option>
-                                        <option value="FONCTIONNAIRE" id="FONCTIONNAIRE">FONCTIONNAIRE</option>
-                                        <option value="COMMERCANT" id="COMMERCANT">COMMERCANT</option>
-                                        <option value="SOCIETE" id="SOCIETE">SOCIETE</option>
-                                    </select>
-                                    <label for="floatingSelect">PROFESSION</label>
+
+                                <div class="col-md-4 controlAutos" id="controlProduct">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="idProduct" name="ENTITE" aria-label="State"
+                                            onchange="loadTariffPr()">
+
+                                        </select>
+                                        <label for="floatingSelect">Produit</label>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="calcFunctionPerso()"
+                                            aria-label="State">
+
+
+                                        </select>
+
+                                        <label for="floatingSelect">Barême</label>
+                                    </div>
+
+                                </div>
+                               
+
+
+                            <?php } ?>
+
+
+
+
 
                             <div class="row col-lg-12 flex-column align-items-center justify-content-center">
                                 <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
@@ -222,7 +259,7 @@
 
                                         <div class="col-lg-12 block-slider">
 
-                                            <input type="range" min="12" max="100" value="50" id="slider-duration"
+                                            <input type="range" min="6" max="144" value="50" id="slider-duration"
                                                 oninput="setSlider(this)" class="slider">
                                             <div id="selector-slider-duration" class="selector">
                                                 <div class="selectBtn"> </div>
@@ -289,9 +326,9 @@
                                                     placeholder="Saisir la (CIN) ici... " class="form-control">
                                             <?php }
                                         } else { ?>
-                                                <input type="text" style="display: none;" name="CREDIT_ID" value="">
-                                                <input type="text" id="mySearchInput" name="CLIENT_CIN"
-                                                    placeholder="Saisir la (CIN) ici... " class="form-control">
+                                            <input type="text" style="display: none;" name="CREDIT_ID" value="">
+                                            <input type="text" id="mySearchInput" name="CLIENT_CIN"
+                                                placeholder="Saisir la (CIN) ici... " class="form-control">
                                         <?php } ?>
 
                                         <div class="row col-lg-12" id="displaying">
@@ -318,10 +355,10 @@
                         <div class="card-body">
 
                             <h5 class="card-title">Détails du crédit</h5>
-            
+
                             <ul class="list-group list-group-flush">
 
-                           
+
                                 <li class="list-group-item" style="display: none;"><span class="infoL">TAUXINT
                                         : </span> <input type="text" name="TAUXINT" readonly id="infoTAUXINT"
                                         class="infoR"></li>
@@ -330,7 +367,7 @@
                                         class="bi bi-chevron-down bi-subtile-projet"></i> Projet</h6>
 
 
-                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Type projet : </span>
+                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Type de crédit : </span>
                                     <input type="text" id="infoProject" name="PROJECT" readonly class="infoR">
                                 </li>
                                 <li class="list-group-item li-subtile-projet"><span class="infoL"> Profession :
@@ -435,7 +472,19 @@
                         <p class="info-dialog" id="successMessage"> </p>
                     </div>
 
-                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
+                    <div class=" align-items-center justify-content-center">
+
+                        <!-- <button type="button" class="ms-2 btn-custom" onclick="shareLink()">Partager</button> -->
+
+                        <a href="#" class="btn btn-warning btn-custom" id="update-client">Mettre à jour les infos du
+                            client</a>
+                    </div>
+                    <div class=" align-items-center justify-content-center mt-3">
+
+                
+                            <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-danger  btn-custom" id="back">Enregistrer et
+                            quitter</a>
+                    </div>
 
                 </div>
 
@@ -459,10 +508,55 @@
 
 <script>
 
+    function loadDataPr() {
+        $.ajax({
+            url: "users/agency/data_retriever.php",
+            method: "POST",
+            data: {
+                ID_SCRIPT: 'brand',
+                TAG_FAM : "CP"
+            },
+            success: function (data) {
+                $("#idBrand").html(data);
+                loadProductPr();
+            }
+        });
+    }
+
+    function loadProductPr() {
+        BrandID = $("#idBrand");
+        $.ajax({
+            url: "users/agency/data_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'product', ID_MARQUE: BrandID.val() },
+            success: function (data) {
+                $("#idProduct").html(data);
+                loadTariffPr();
+            }
+        });
+
+    }
+
+    function loadTariffPr() {
+        const BrandID = $("#idBrand").val();
+        const ProductID = $("#idProduct").val();
+        $.ajax({
+            url: "users/agency/data_retriever.php",
+            method: "POST",
+            data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID },
+            success: function (data) {
+                $("#idTariff").html(data);
+                calcFunctionPerso();
+            }
+        });
+    }
+
+
 
     function setParam() {
-        var selectElement = document.getElementById("idProfession");
-        selectElement.value = "<?php echo $_SESSION['PROFESSION'] ?>";
+
+        var selectBrand = document.getElementById("idBrand");
+        selectBrand.value = "<?php echo $_SESSION['BRAND'] ?>";
 
         var AMOUNT = document.getElementById("slider-amount");
         AMOUNT.value = "<?php echo $_SESSION['AMOUNT'] ?>";
@@ -552,6 +646,8 @@
                         if (data === "success") {
                             $("#successMessage").html(responseData.message);
                             $("#feedbackModal").modal("show");
+                            let updateBtn = document.getElementById("update-client");
+                            updateBtn.href = "./detail-cl?edit=1&id=" + $("#mySearchInput").val();
                         } else {
                             errorTextCredit.style.display = "block";
                             errorTextCredit.innerHTML = responseData.message;
@@ -680,24 +776,32 @@
     }
     function calcFunctionPerso(target = "slider-monthly") {
 
-        
+
         ProjectID = $("#idProject");
-        ProfessionID = $("#idProfession");
+    
         AmountID = $("#slider-amount");
         DurationValue = $("#slider-duration");
         Monthly = $("#slider-monthly");
-      
-        
+
+        BrandID = $("#idBrand");
+        ProductID = $("#idProduct");
+        TariffID = $("#idTariff");
+
+
 
         $.ajax({
             url: "./users/agency/calc-fx_perso.php",
             method: "POST",
             data: {
                 ID_SCRIPT: target,
+
                 ID_AMOUNT: AmountID.val(),
                 ID_DURATION: DurationValue.val(),
                 ID_MONTHLY: Monthly.val(),
-                ID_PROFESSION: ProfessionID.val()
+                
+                ID_TARIFF: TariffID.val(),
+                ID_PRODUCT: ProductID.val(),
+                ID_BRAND: BrandID.val()
 
             },
             success: (data) => {
@@ -712,12 +816,11 @@
                 $("#infoMonthly").val(result.monthly);
                 $("#infoApportPerc").val(result.apport_perc);
                 $("#infoApport").val(result.apport_total);
-                $("#infoADI").val(result.assurance);           
+                $("#infoADI").val(result.assurance);
                 $("#infoFD").val(result.frais_dossier);
-                $("#infoCHAD").val(result.cout);    
-                $("#infoProfession").val(ProfessionID.val());
-                $("#infoProject").val(ProjectID.val());    
-
+                $("#infoCHAD").val(result.cout);                
+                $("#infoProject").val("<?php echo $_SESSION['PROJECT'] ?>");
+                $("#infoProfession").val(BrandID.val());
                 if (target === "slider-monthly") {
                     Monthly.val(result.monthly_no_format);
                     // console.log(result.monthly_no_format);

@@ -42,14 +42,11 @@ session_start();
     }
 
     #mainPreloader {
-      display: none;
+      /* display: none; */
       position: absolute;
       left: 40%;
       top: 40%;
       opacity: .7;
-    }
-    .success-text {
-      display: none;
     }
   </style>
 </head>
@@ -71,12 +68,7 @@ session_start();
                   <!-- <span class="d-none d-lg-block">SALAFIN</span> -->
                 </a>
               </div><!-- End Logo -->
-              <div class="container col-lg-12 success-text">
-              <div class="alert alert-success" role="alert" style="text-align:center;">
-                <h4 class="alert-heading">Récupération de compte !</h4>
-                <p>Un mail de Récupération vous a été envoyé, veuillez consulter votre e-mail</p>
-              </div>
-            </div>
+
               <div class="card mb-3">
 
                 <div class="card-body">
@@ -90,7 +82,7 @@ session_start();
                   </div>
 
                   <form action="#" method="post" id="forgot-form" class="row g-3 needs-validation">
-                    <div class="error-text col-12"></div>
+                    <div class="error-text col-12 mt-5"></div>
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Votre adresse !</label>
                       <div class="input-group has-validation">
@@ -141,7 +133,7 @@ session_start();
 
 
       let xhr = new XMLHttpRequest();
-      xhr.open("POST", "./phpMailer/recuperer-compte.php", true);
+      xhr.open("POST", "./users/connectRequest.php", true);
 
       xhr.onload = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -152,8 +144,8 @@ session_start();
             if (responseData.status === "success") {
               setTimeout(function () {
                 $('#mainPreloader').hide();
-                $(".success-text").show();
-              }, 20);
+
+              }, 2000);
 
             } else {
 

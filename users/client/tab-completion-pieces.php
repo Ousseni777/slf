@@ -30,9 +30,9 @@
                                         data-bs-target="#modalPieces">Finalisez votre demande</button>
                                 </div>
                             </div>
-
-                            <?php include("edit-infos.php") ?>
-                            <?php include("tab-overview-credit.php") ?>              
+                                                       
+                            <?php include("tab-overview-credit.php") ?>  
+                            <?php include("edit-infos.php") ?>            
                             <?php include("modal-pieces.php") ?>
 
                         </div>

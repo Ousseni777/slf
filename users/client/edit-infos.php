@@ -1,4 +1,5 @@
-<div class="tab-pane fade profile-edit show active pt-3" id="profile-edit">
+
+<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
     <div class="spinner-border text-danger spinner-pieces" id="mainPreloaderInfos" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>

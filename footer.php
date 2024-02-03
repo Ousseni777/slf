@@ -13,24 +13,24 @@
             
             <h4>SALAFIN CORPORATE</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Découvrez SALAFI</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Partenaires</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Politique RH</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Code Ethique du Recouvrement</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Découvrez SALAFI</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Partenaires</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Services</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Politique RH</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Code Ethique du Recouvrement</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
           <h4>Liens utiles</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Calculez votre capacité d'endettement</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Conditions Générales</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Politique données clients</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Tout sur SALAFIN</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Etude Satisfaction Client
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Calculez votre capacité d'endettement</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Conditions Générales</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Politique données clients</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Tout sur SALAFIN</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Etude Satisfaction Client
 </a></li>
-<li><i class="bi bi-chevron-right"></i> <a href="#">Partenaires</a></li>
+<li><i class="bi bi-chevron-right"></i> <a href="#" title="En état de construction">Partenaires</a></li>
             </ul>
           </div>
 

@@ -6,11 +6,13 @@ $status = "error";
 $message = "start";
 
 if (isset($_POST['BTN_AUTO'])) {
+    $CSP = mysqli_real_escape_string($conn, $_POST['CSP']);
     $BRAND = mysqli_real_escape_string($conn, $_POST['BRAND']);
     $PRODUCT = mysqli_real_escape_string($conn, $_POST['PRODUCT']);
     $TARIFF = mysqli_real_escape_string($conn, $_POST['TARIFF']);
 
-    if ($BRAND != 0 && $PRODUCT != 0 && $TARIFF != 0) {
+    if ($BRAND != 0 && $PRODUCT != 0) {
+        $_SESSION["CSP"] = $CSP;
         $_SESSION["BRAND"] = $BRAND;
         $_SESSION["PRODUIT"] = $PRODUCT;
         $_SESSION["TARIFF"] = $TARIFF;
@@ -27,6 +29,8 @@ if (isset($_POST['BTN_AUTO'])) {
 
     if ($PROFESSION != 0 && !empty($AMOUNT) && !empty($DURATION)) {
         $_SESSION["PROFESSION"] = $PROFESSION;
+        $_SESSION["PROJECT"] = "CREDIT PERSONNEL";
+        $_SESSION["BRAND"] = $PROFESSION;
         $_SESSION["AMOUNT"] = $AMOUNT;
         $_SESSION["DURATION"] = $DURATION;
         $status = "success";
@@ -43,6 +47,8 @@ if (isset($_POST['BTN_AUTO'])) {
         $_SESSION["PROFESSION"] = $PROFESSION;
         $_SESSION["AMOUNT"] = $AMOUNT;
         $_SESSION["DURATION"] = $DURATION;
+        $_SESSION["BRAND"] = $PROFESSION;
+        $_SESSION["PROJECT"] = "CREDIT RENOUVELABLE";
         $status = "success";
         $message = "success";
     } else {

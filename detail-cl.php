@@ -226,6 +226,10 @@ if ($result_client->num_rows > 0) {
         #main.show {
             opacity: 1;
         }
+        .justificatifs label{
+            font-size: 10px;
+            width: 100%;
+        }
     </style>
 
 </head>
@@ -249,11 +253,11 @@ if ($result_client->num_rows > 0) {
 
                 <div class="pageTITLE">
 
-                    <h1><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Panel
+                    <h5><a href="<?php echo $_SESSION['page'] ?>"><i class="bi bi-arrow-left"></i></a> Panel
                         modification (Ref client
                         : <b>
                             <?php echo $client['CLIENT_ID'] ?>
-                        </b>) </h1>
+                        </b>) </h5>
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="sim-fx?tag=fx">Client </a></li>
@@ -282,7 +286,7 @@ if ($result_client->num_rows > 0) {
                                     <input type="text" value="<?php echo $client['CLIENT_ID'] ?>" name="CLIENT_ID"
                                         style="display: none;">
                                     <div class="card-body">
-                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.civilite')"><i
+                                        <h5 class="card-TITLE pt-4 infos-client" onclick="displayElement('.civilite')"><i
                                                 class="bi bi-person left"></i>Civilité<i
                                                 class="bi right bi-plus civilite-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 civilite">
@@ -330,7 +334,7 @@ if ($result_client->num_rows > 0) {
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.reference')"><i
+                                        <h5 class="card-TITLE pt-4 infos-client" onclick="displayElement('.reference')"><i
                                                 class="bi bi-file-earmark-text left"></i>Reférence<i
                                                 class="bi right bi-plus reference-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 reference">
@@ -352,7 +356,7 @@ if ($result_client->num_rows > 0) {
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.coordonnee')"><i
+                                        <h5 class="card-TITLE pt-4 infos-client" onclick="displayElement('.coordonnee')"><i
                                                 class="bi bi-geo-alt left"></i>Coordonnées<i
                                                 class="bi right bi-plus coordonnee-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 coordonnee">
@@ -379,7 +383,7 @@ if ($result_client->num_rows > 0) {
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-TITLE infos-client" onclick="displayElement('.contact')"><i
+                                        <h5 class="card-TITLE pt-4 infos-client" onclick="displayElement('.contact')"><i
                                                 class="bi bi-telePHONE left"></i>Contact <i
                                                 class="bi right bi-plus contact-bi"></i></h5>
                                         <div class="col-12 form-floating form-hide mb-3 contact">
@@ -399,7 +403,7 @@ if ($result_client->num_rows > 0) {
 
                                 <div class="card">
                                     <div class="card-body row">
-                                        <h5 class="card-TITLE infos-client col-lg-12"
+                                        <h5 class="card-TITLE pt-4 infos-client col-lg-12"
                                             onclick="displayElement('.justificatifs')">
                                             <i class="bi bi-file-earmark-text left"></i>Justificatifs<i
                                                 class="bi right bi-plus justificatifs-bi"></i>
@@ -418,7 +422,7 @@ if ($result_client->num_rows > 0) {
 
                                             </div>
                                             <label class="btn btn-outline-primary" for="inputImageCIN"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
+                                                    class="bi bi-file-image"></i>Changer CIN</label>
                                             <input type="file" name="yourCIN"
                                                 accept="image/x-png,image/gif,image/jpeg,image/jpg"
                                                 class="form-control inputImage" id="inputImageCIN" required>
@@ -436,7 +440,7 @@ if ($result_client->num_rows > 0) {
 
                                             </div>
                                             <label class="btn btn-outline-primary" for="inputImageRib"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
+                                                    class="bi bi-file-image"></i>Changer le RIB</label>
                                             <input type="file" name="yourRIB"
                                                 accept="image/x-png,image/gif,image/jpeg,image/jpg"
                                                 class="form-control inputImage" id="inputImageRib" required>
@@ -452,7 +456,7 @@ if ($result_client->num_rows > 0) {
                                                 </div>
                                             </div>
                                             <label class="btn btn-outline-primary" for="inputImageAdress"><i
-                                                    class="bi bi-file-image"></i>Changer</label>
+                                                    class="bi bi-file-image"></i>Changer l'Adresse</label>
 
                                             <input type="file" name="yourAdress"
                                                 accept="image/x-png,image/gif,image/jpeg,image/jpg"
@@ -544,7 +548,7 @@ if ($result_client->num_rows > 0) {
 
                     <div class="col-lg-12 card">
                         <div class="card-body">
-                            <h5 class="card-TITLE">#Référence des crédit</h5>
+                            <h5 class="card-TITLE pt-4">#Référence des crédit</h5>
                             <?php if (count($credits) > 0) {
                                 foreach ($credits as $credit) { ?>
                                     <a href="./detail-cr?id=<?php echo $credit['CREDIT_ID'] ?>" class="form-control status">#

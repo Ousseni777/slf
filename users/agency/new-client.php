@@ -132,7 +132,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title infos-client"
                                                 onclick="displayElement('.justificatifs')"><i
-                                                    class="bi bi-file-earmark-text left"></i>Justificatifs<i
+                                                    class="bi bi-file-earmark-text left"></i>Justificatifs (facultatif)<i
                                                     class="bi right bi-plus justificatifs-bi"></i></h5>
 
                                             <div class="col-12 form-floating form-hide mb-3 justificatifs">
@@ -256,7 +256,8 @@
                     </div>
 
                     <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
-
+                    <a href="#" class="btn btn-warning btn-custom" id="update-client">Mettre à jour les infos du
+                            client</a>
                 </div>
 
             </div>
@@ -298,6 +299,7 @@
                             $("#successMessage").html(responseData.message);
                             $("#modal-infos-client").modal('hide');
                             $("#feedbackModal").modal("show");
+                            $("#update-client").hide();
                             // successTextInfo.style.display = "block";
                         } else {
                             form_info.style.pointerEvents = "all";

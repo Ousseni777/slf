@@ -1,4 +1,3 @@
-
 <style>
     #heading {
         text-transform: uppercase;
@@ -345,12 +344,14 @@
 </style>
 
 <style>
-    .step{
+    .step {
         background-color: rgba(101, 111, 150, 0.3);
     }
-    .card-body ul{
+
+    .card-body ul {
         background-color: rgba(101, 111, 150, 0.5);
     }
+
     .list-group-item .infoR {
         padding: 8px 15px 8px 15px;
         border: 1px solid #ccc;
@@ -360,7 +361,7 @@
         border: none;
         text-align: left;
         color: rgb(232, 130, 92);
-        
+
     }
 
     .list-group-item .infoL {
@@ -377,241 +378,155 @@
 <!-- partial:index.partial.html -->
 <div class="container-fluid justify-content-center">
     <div class=" row justify-content-center">
-    <div class="col-lg-12 text-center p-0 mb-2">
-        <div class="card justify-content-center">
+        <div class="col-lg-12 text-center p-0 mb-2">
+            <div class="card justify-content-center">
 
-            <!-- <p>Fill all form field to go to next step</p> -->
-            <form id="msform" class="col-lg-12 justify-content-center">
+                <!-- <p>Fill all form field to go to next step</p> -->
+                <form id="msform" class="col-lg-12 justify-content-center">
                     <div class=" progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-        </div> <br> <!-- fieldsets -->
-        <!-- progressbar -->
-        <ul id="progressbar">
-                        <li class=" active" id="account"><strong>Simulation</strong></li>
-            <li id="personal"><strong>Récapitulatif</strong></li>
-            <li id="payment"><strong>Coordonnées</strong></li>
-            <li id="confirm"><strong>Valider demande</strong></li>
-        </ul>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br> <!-- fieldsets -->
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class=" active" id="account"><strong>Bien/Service</strong></li>
+                        <li id="personal"><strong>Client/Type 1</strong></li>
+                        <li id="payment"><strong>Client/Type 2</strong></li>
+                        <li id="confirm"><strong>Client/Type 3</strong></li>
+                    </ul>
 
-        <fieldset class="row">
-                        <div class=" form-card col-lg-12">
-            <div class="row step p-2">
-                <div class="col-7">
-                    <h2 class="fs-title">Simuler mon crédit:</h2>
-                </div>
-                <div class="col-5">
-                    <h2 class="steps">Etape 1-4</h2>
-                </div>
-            </div>
-            <div class="row g-3  justify-content-center">
-
-
-                <div class="row col-lg-8 flex-column align-items-center justify-content-center">
-                    <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
-
-
-                    <div class="col-lg-12">
-                        <!-- PRIX TTC -->
-                        <div class="block-field">
-
-                            <div class="col-lg-12 block-slider">
-                                <input type="range" min="1000" max="300000" value="100000" id="slider-amount"
-                                    oninput="setSlider(this)" class="slider">
-                                <div id="selector-slider-amount" class="selector">
-                                    <div class="selectBtn"> </div>
-                                    <div id="select-value-slider-amount" class="select-value">
-                                    </div>
+                    <fieldset class="row">
+                        
+                        <input type="button" name="next" class="next action-button mt-5" value="Suivant" />
+                    </fieldset>
+                    <fieldset class="row">
+                        <div class=" form-card">
+                            <div class="row step p-2">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Récapitulatif de votre crédit:</h2>
                                 </div>
-                                <div id="progress-bar-slider-amount" class="progress-bar-slider">
+                                <div class="col-5">
+                                    <h2 class="steps">Etape 2-4</h2>
                                 </div>
-                                <label for="slider-amount" class="label-slider">Montant (en DH)
-                                </label>
+                            </div>
+                            <div class="card">
+
+
+                                <div class="card-body">
+
+
+
+                                    <!-- List group with active and disabled items -->
+                                    <ul class="">
+
+                                        <li class="list-group-item"><span class="infoL"> Mon projet : </span> <input
+                                                type="text" value="Crédit personnel" id="infoBrand" name="BRAND"
+                                                readonly class="infoR">
+                                        </li>
+                                        <li class="list-group-item"><span class="infoL"> Vous êtes : </span> <input
+                                                type="text" value="Fonctionnaire" id="infoProduct" name="PRODUCT"
+                                                readonly class="infoR">
+                                        </li>
+
+
+                                        <li class="list-group-item"><span class="infoL">Prix TTC (DH) : </span> <input
+                                                type="text" value="200 000" id="infoAmount" name="AMOUNT" readonly
+                                                class="infoR">
+                                        </li>
+                                        <li class="list-group-item"><span class="infoL">Durée (mois) : </span>
+                                            <input type="text" id="infoDuration" name="DURATION" value="36" readonly
+                                                class="infoR">
+                                        </li>
+                                        <li class="list-group-item" style="display: none;"><span class="infoL">Apport
+                                                (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC"
+                                                readonly value="30" class="infoR"></li>
+                                        <li class="list-group-item"><span class="infoL">Mensualité : </span> <input
+                                                type="text" value="6 123,56" id="infoMonthly" name="MONTHLY" readonly
+                                                class="infoR">
+                                        </li>
+                                        <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
+                                            <input type="text" name="APP_FEES" class="infoR" value="1 352,65" readonly
+                                                id="infoFD">
+                                        </li>
+
+                                    </ul><!-- End Clean list group -->
+
+                                </div>
                             </div>
                         </div>
-
-                        <!-- DUREE -->
-
-
-                        <div class="block-field mt-5">
-
-                            <div class="col-lg-12 block-slider">
-
-                                <input type="range" min="12" max="100" value="50" id="slider-duration"
-                                    oninput="setSlider(this)" class="slider">
-                                <div id="selector-slider-duration" class="selector">
-                                    <div class="selectBtn"> </div>
-                                    <div id="select-value-slider-duration" class="select-value">
-                                    </div>
+                        <input type="button" name="next" class="next action-button" value="Suivant" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Précédent" />
+                    </fieldset>
+                    <fieldset class="row">
+                        <div class=" form-card">
+                            <div class="row step p-2">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Mes coordonnées personnelles:</h2>
                                 </div>
-                                <div id="progress-bar-slider-duration" class="progress-bar-slider">
+                                <div class="col-5">
+                                    <h2 class="steps">Etape 3-4</h2>
                                 </div>
-                                <label for="slider-duration" class="label-slider">Durée (en mois)
-                                </label>
-                            </div>
-                        </div>
-
-
-
-                        <div class="block-field mt-5">
-                            <div class="col-lg-12 block-slider">
-                                <input type="range" min="50" max="33848" step="0.01" id="slider-monthly"
-                                    oninput="setSlider(this)" class="slider">
-                                <div id="selector-slider-monthly" class="selector">
-                                    <div class="selectBtn"> </div>
-                                    <div id="select-value-slider-monthly" class="select-value">
-                                    </div>
-                                </div>
-                                <div id="progress-bar-slider-monthly" class="progress-bar-slider">
-                                </div>
-                                <label for="slider-monthly" class="label-slider">Mensualité (en DH)
-                                </label>
                             </div>
 
+                            <div class="row mt-3">
+                                <div class="col-lg-6">
+                                    <label class="fieldlabels">Email: *</label>
+                                    <input class="input-coordonnee float-end" type="email" name="email"
+                                        placeholder="Votre adresse email..." />
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fieldlabels">Téléphone: *</label>
+                                    <input class="input-coordonnee float-end" type="text" name="uname"
+                                        placeholder="Votre N° de téléphone..." />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="fieldlabels">Nom complet : *</label>
+                                    <input class="input-coordonnee float-end" type="text" name="NOM"
+                                        placeholder="Votre nom complet..." />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fieldlabels">CIN : *</label>
+                                    <input class="input-coordonnee float-end" type="text" name="pwd"
+                                        placeholder="Votre CIN..." />
+                                </div>
+
+                            </div>
+
                         </div>
 
-
-                    </div>
-                </div>
-
-                <div class="col-lg-4 mt-5">
-                    <div class="row">
-                        <label for="">Montant</label>
-                        <input type="text" value="20000" id="input-slider-amount" class="col-lg-12 recap-input">
-                    </div>
-                    <div class="row">
-                        <label for="">Durée</label>
-                        <input type="text" id="input-slider-duration" class="col-lg-12 recap-input">
-                    </div>
-                    <div class="row">
-                        <label for="">Mensualité</label>
-                        <input type="text" id="input-slider-monthly" class="col-lg-12 recap-input">
-                    </div>
-
-                </div>
-
-
-            </div>
-    </div>
-    <input type="button" name="next" class="next action-button mt-5" value="Suivant" />
-    </fieldset>
-    <fieldset class="row">
+                        <input type="button" name="next" class="next action-button" value="Envoyer" /> <input
+                            type="button" name="Précédent" class="previous action-button-previous" value="Previous" />
+                    </fieldset>
+                    <fieldset class="row">
                         <div class=" form-card">
-        <div class="row step p-2">
-            <div class="col-7">
-                <h2 class="fs-title">Récapitulatif de votre crédit:</h2>
-            </div>
-            <div class="col-5">
-                <h2 class="steps">Etape 2-4</h2>
-            </div>
-        </div>
-        <div class="card">
-
-
-            <div class="card-body">
-
-
-
-                <!-- List group with active and disabled items -->
-                <ul class="" >
-
-                    <li class="list-group-item"><span class="infoL"> Mon projet : </span> <input type="text" value="Crédit personnel"
-                            id="infoBrand" name="BRAND" readonly class="infoR">
-                    </li>
-                    <li class="list-group-item"><span class="infoL"> Vous êtes : </span> <input type="text" value="Fonctionnaire"
-                            id="infoProduct" name="PRODUCT" readonly class="infoR">
-                    </li>
-                    
-
-                    <li class="list-group-item"><span class="infoL">Prix TTC (DH) : </span> <input type="text" value="200 000"
-                            id="infoAmount" name="AMOUNT" readonly class="infoR">
-                    </li>
-                    <li class="list-group-item"><span class="infoL">Durée (mois) : </span>
-                        <input type="text" id="infoDuration" name="DURATION" value="36" readonly class="infoR">
-                    </li>
-                    <li class="list-group-item" style="display: none;"><span class="infoL">Apport
-                            (%)</span> <input type="text" id="infoApportPerc" name="DOWN_PMT_PERC" readonly value="30"
-                            class="infoR"></li>
-                    <li class="list-group-item"><span class="infoL">Mensualité : </span> <input type="text" value="6 123,56"
-                            id="infoMonthly" name="MONTHLY" readonly class="infoR">
-                    </li>
-                    <li class="list-group-item"><span class="infoL">Frais de dossier : </span>
-                        <input type="text" name="APP_FEES" class="infoR" value="1 352,65" readonly id="infoFD">
-                    </li>
-
-                </ul><!-- End Clean list group -->
-
+                            <div class="row step p-2">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Terminer :</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Etape 4-4</h2>
+                                </div>
+                            </div> <br><br>
+                            <h2 class="purple-text text-center"><strong>DEMANDE ENVOYEE AVEC SUCCES !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3"> <img src="img.png" class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">Merci de consulter votre adresse e-mail pour
+                                        suivre l'état d'avancement du traitement de votre demande !</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
-</div>
-<input type="button" name="next" class="next action-button" value="Suivant" /> <input type="button" name="previous"
-    class="previous action-button-previous" value="Précédent" />
-</fieldset>
-<fieldset class="row">
-                        <div class=" form-card">
-    <div class="row step p-2">
-        <div class="col-7">
-            <h2 class="fs-title">Mes coordonnées personnelles:</h2>
-        </div>
-        <div class="col-5">
-            <h2 class="steps">Etape 3-4</h2>
-        </div>
     </div>
-
-    <div class="row mt-3" >
-        <div class="col-lg-6">
-            <label class="fieldlabels">Email: *</label>
-            <input class="input-coordonnee float-end" type="email" name="email" placeholder="Votre adresse email..." />
-
-        </div>
-        <div class="col-lg-6">
-            <label class="fieldlabels">Téléphone: *</label>
-            <input class="input-coordonnee float-end" type="text" name="uname" placeholder="Votre N° de téléphone..." />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <label class="fieldlabels">Nom complet : *</label>
-            <input class="input-coordonnee float-end" type="text" name="NOM" placeholder="Votre nom complet..." />
-        </div>
-        <div class="col-lg-6">
-            <label class="fieldlabels">CIN : *</label>
-            <input class="input-coordonnee float-end" type="text" name="pwd" placeholder="Votre CIN..." />
-        </div>
-
-    </div>
-
-    </div>
-
-    <input type="button" name="next" class="next action-button" value="Envoyer" /> <input type="button" name="Précédent"
-        class="previous action-button-previous" value="Previous" />
-</fieldset>
-<fieldset class="row">
-                        <div class=" form-card">
-    <div class="row step p-2">
-        <div class="col-7">
-            <h2 class="fs-title">Terminer :</h2>
-        </div>
-        <div class="col-5">
-            <h2 class="steps">Etape 4-4</h2>
-        </div>
-    </div> <br><br>
-    <h2 class="purple-text text-center"><strong>DEMANDE ENVOYEE AVEC SUCCES !</strong></h2> <br>
-    <div class="row justify-content-center">
-        <div class="col-3"> <img src="img.png" class="fit-image"> </div>
-    </div> <br><br>
-    <div class="row justify-content-center">
-        <div class="col-7 text-center">
-            <h5 class="purple-text text-center">Merci de consulter votre adresse e-mail pour suivre l'état d'avancement du traitement de votre demande !</h5>
-        </div>
-    </div>
-    </div>
-</fieldset>
-</form>
-</div>
-</div>
-</div>
 </div>
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>

@@ -4,67 +4,54 @@ ob_start();
 session_start();
 
 include './connectToDB.php';
-// $CREDIT_ID_TEMP = $_GET['ref'];
-// $CREDIT_ID_TEMP = "CN-805410552";
-
+$_SESSION['CLIENT_ID_TEMP'] = "CN-805410552";
+// $_SESSION['client_id'] = "WV-692634956";
 $_SESSION['page'] = "./sim-cl?tag=chrono";
-
 $shouldBeUser = false;
 $isClient = false;
 $isOK = false;
 
 $tagList = array("chrono");
+// unset($_SESSION['CLIENT_ID_TEMP']);
 
+if (isset($_SESSION['CLIENT_ID_TEMP'])) {
 
-if (isset($_GET['ref'])) {
-
-  $CREDIT_ID_TEMP = $_GET['ref'];
-  $CREDIT_ID = $CREDIT_ID_TEMP;
-
-  $query_credit = "SELECT * FROM `credit_client_tmp` WHERE CREDIT_ID = '{$CREDIT_ID_TEMP}' ";
+  $CLIENT_ID_TEMP = $_SESSION['CLIENT_ID_TEMP'];
+  $query_credit = "SELECT * FROM `credit_client` WHERE CLIENT_ID = '{$CLIENT_ID_TEMP}' ";
   $result_credit = $conn->query($query_credit);
   if ($result_credit->num_rows > 0) {
     $credit = $result_credit->fetch_assoc();
     $shouldBeUser = true;
     $isClient = false;
-  } else {
-    $query_credit = "SELECT * FROM `credit_client` WHERE CREDIT_ID = '{$CREDIT_ID_TEMP}' ";
-    $result_credit = $conn->query($query_credit);
-
-    if ($result_credit->num_rows > 0) {
-      
-      $shouldBeUser = true;
-      $credit = $result_credit->fetch_assoc();
-
-      $CLIENT_ID = $credit['CLIENT_ID'];
-      $query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_ID = '{$CLIENT_ID}' ";
-      $result_client = $conn->query($query_client);
-
-      if ($result_client->num_rows > 0) {
-
-        $client = $result_client->fetch_assoc();
-        $_SESSION['CIN_PIECE'] = $client['CIN_PIECE'];
-        $_SESSION['RIB_PIECE'] = $client['RIB_PIECE'];
-        $_SESSION['ADRESS_PIECE'] = $client['ADRESS_PIECE'];
-        
-        $isClient = true;
-
-        if (empty($client['CIN_PIECE']) || empty($client['RIB_PIECE']) || empty($client['ADRESS_PIECE'])) {
-          $isOK = false;
-        } else {
-          $isOK = true;
-        }
-      }else{
-        $isClient = false;
-      }          
-    }
   }
 
+} else {
+  if (isset($_SESSION['CLIENT_ID'])) {
+    $CLIENT_ID = $_GET['CLIENT_ID'];
+    $query_client = "SELECT * FROM `slf_user_client` WHERE CLIENT_ID = '{$CLIENT_ID}' ";
+    $result_client = $conn->query($query_client);
+
+    if ($result_client->num_rows > 0) {
+
+      $client = $result_client->fetch_assoc();
+      $_SESSION['CIN_PIECE'] = $client['CIN_PIECE'];
+      $_SESSION['RIB_PIECE'] = $client['RIB_PIECE'];
+      $_SESSION['ADRESS_PIECE'] = $client['ADRESS_PIECE'];
+      $shouldBeUser = true;
+      $isClient = true;
+
+      if (empty($client['CIN_PIECE']) || empty($client['RIB_PIECE']) || empty($client['ADRESS_PIECE'])) {
+        $isOK = false;
+      } else {
+        $isOK = true;
+      }
+    }
+  }
 }
 
-// if (!$shouldBeUser) {
-//   header('location: ./login');
-// }
+if (!$shouldBeUser) {
+  header('location: ./login');
+}
 
 ?>
 
@@ -126,7 +113,7 @@ if (isset($_GET['ref'])) {
       margin-bottom: 10px;
       display: none;
     }
-
+ 
 
     .inputImage {
       display: none;
@@ -239,27 +226,27 @@ if (isset($_GET['ref'])) {
   }
   ?>
 
-  <div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade mt-5" id="feedbackModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel"
     data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="row modal-header" style="text-align: center;">
-          <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
-          <div class="col-12">
-            <div class="row">
-              <p class="info-dialog" id="successMessage"> </p>
+        <div class="modal-content">
+            <div class="row modal-header" style="text-align: center;">
+                <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
+                <div class="col-12">
+                    <div class="row">
+                        <p class="info-dialog" id="successMessage"> </p>
+                    </div>
+
+                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
+
+                </div>
+
             </div>
 
-            <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
-
-          </div>
 
         </div>
-
-
-      </div>
     </div>
-  </div>
+</div>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>

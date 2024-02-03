@@ -2,50 +2,57 @@
 include '../../connectToDB.php';
 
 if (isset($_POST['ID_SCRIPT'])) {
-    $interestRate = 5;
-    
+    $rate = 5;
+    $brand = $_POST['ID_BRAND'];
+    $product = $_POST['ID_PRODUCT'];
+    $tariff = $_POST['ID_TARIFF'];
+    $principal = $_POST['ID_AMOUNT'];
+    list($tariff_id, $rate, $TXFD, $ADI, $Diff) = fetchData($brand, $product, $tariff);
+
+    // $VR = (float) pow($principal * 0.01 * (1 + $rate), -$duration);
+    $differ = (float) pow((1 + ($rate / 100)), $Diff);
+    $PHT = $principal;
+    $DG = 0;
+    $FraisDoss = $PHT * $TXFD / 100;
+    $Avance = $principal * $DG / 100;
+    $Apport_Total = $Avance + $FraisDoss;
+    $Apport_Total = number_format($Apport_Total, 2, ".", "");
+    $FraisDoss = number_format($FraisDoss, 2, ".", "");
 
     switch ($_POST['ID_SCRIPT']) {
         case "slider-monthly":
-            $loanTerm = $_POST['ID_DURATION'];
-            $loanAmount = $_POST['ID_AMOUNT'];
+            $duration = $_POST['ID_DURATION'];
+            
 
-            $R_Value = (float) pow($loanAmount * 0.01 * (1 + $interestRate), -$loanTerm);
-            $monthlyPayment = calc_payment($loanAmount, $loanTerm, $interestRate, $R_Value, 2);
-            $results = [
-                "monthly_no_format" => $monthlyPayment,
-                "amount" => number_format($loanAmount, 0, ",", " "),
-                "monthly" => number_format($monthlyPayment, 2, ",", " "),
-                "duration" => $loanTerm,
-                "apport_perc" => 0,
-                "apport_total" => 0,
-                "assurance" => 0,
-                "frais_dossier" => 0,
-                "cout" => 0
-            ];
-            echo json_encode($results);
+            $R_Value = (float) pow($principal * 0.01 * (1 + $rate), -$duration);
+            $payment = calc_payment($principal, $duration, $rate, $R_Value, 2);
+  
             break;
-        case "slider-duration":
-            $loanAmount = $_POST['ID_AMOUNT'];
-            $loanMonthly = $_POST['ID_MONTHLY'];  
-            $duration = calc_number($loanAmount, $interestRate, $loanMonthly);
-            $results = [
-                "duration" => $duration,
-                "monthly_no_format" => $loanMonthly,
-                "amount" => number_format($loanAmount, 0, ",", " "),
-                "monthly" => number_format($loanMonthly, 2, ",", " "),
-                "apport_perc" => 0,
-                "apport_total" => 0,
-                "assurance" => 0,
-                "frais_dossier" => 0,
-                "cout" => 0
-            ];
-            echo json_encode($results);
+        case "slider-duration":      
+            $payment = $_POST['ID_MONTHLY'];  
+            $duration = calc_number($principal, $rate, $payment);           
+     
             break;
 
         default:
             break;
     }
+
+    
+
+    $results = [
+        "monthly_no_format" => $payment,
+        "amount" => number_format($principal, 2, ",", " "),
+        "monthly" => number_format($payment, 2, ",", " "),
+        "duration" => $duration,
+        "apport_perc" => 0,
+        "apport_total" => $Apport_Total,
+        "assurance" => $ADI,
+        "frais_dossier" => $FraisDoss,
+        "cout" => 0
+    ];
+
+    echo json_encode($results);
 
 }
 
@@ -56,9 +63,9 @@ if (isset($_POST['ID_SCRIPT'])) {
 //     $monthlyInterestRate = $InterestRate / 100;
 
 
-//     $monthlyPayment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$loanTermInMonths));
+//     $payment = ($principal * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$loanTermInMonths));
 
-//     return $monthlyPayment;
+//     return $payment;
 // }
 
 function calc_payment($pv, $payno, $int, $RV, $accuracy)
@@ -167,5 +174,23 @@ function calc_number($pv, $int, $pmt)
     return $payno;
 } // calc_number =====================================================================
 
+function fetchData($brand, $product, $tariff)
+{
+    global $conn;
+    $query = "SELECT * FROM SLF_TARIFICATION WHERE MARQUE = '$brand' AND PRODUIT = '$product' AND BAREME = '$tariff' ";
+    $result = $conn->query($query);
 
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        
+        $rate = $data['TAUX'];
+        $tariff_id = $data['TARIFF_ID'];
+        $data_dg = $data['TXFD'];
+        $data_ADI = $data['ADI'];
+        $data_Diff = $data['Dif'];
+    }
+
+    return [$tariff_id, $rate, $data_dg, $data_ADI, $data_Diff];
+
+}
 ?>

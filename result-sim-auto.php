@@ -11,8 +11,8 @@ $result_credit = $conn->query($query_credit);
 if ($result_credit->num_rows > 0) {
     $CREDIT = $result_credit->fetch_assoc();
 
-    $TARIFF_ID_UK = $CREDIT['TARIFF_ID'];
-    $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID_UK='$TARIFF_ID_UK'";
+    $TARIFF_ID = $CREDIT['TARIFF_ID'];
+    $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID='$TARIFF_ID'";
     $result_select_tariff = $conn->query($select_tariff);
     $TARIFF = $result_select_tariff->fetch_assoc();
 }

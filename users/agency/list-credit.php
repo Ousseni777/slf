@@ -129,8 +129,8 @@
                         if (count($credits) > 0) {
 
                             foreach ($credits as $credit) {
-                                $TARIFF_ID_UK = $credit['TARIFF_ID'];
-                                $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID_UK='$TARIFF_ID_UK'";
+                                $TARIFF_ID = $credit['TARIFF_ID'];
+                                $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID='$TARIFF_ID'";
                                 $result_select_tariff = $conn->query($select_tariff);
                                 $tariff = $result_select_tariff->fetch_assoc();
                                 ?>

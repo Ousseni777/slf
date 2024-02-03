@@ -64,7 +64,7 @@ if (!empty($_POST['CLIENT_CIN'])) {
             $result_insert = $conn->query($insert_query);
             if (($result_insert)) {
                 
-                $response = array('status' => 'success', 'message' => 'Demande N°: <b>'.$ran_id.' </b> , ajoutée avec succès');                        
+                $response = array('status' => 'success', 'message' => 'Demande N°: <b>'.$ran_id.' </b> , ajoutée avec succès pour le compte du client : <b> '.$CLIENT_CIN.'</b> ');                        
             } else {
                 $response = array('status' => 'error', 'message' => 'Une erreur est survenue, merci de réessayer encore !');                              
             }

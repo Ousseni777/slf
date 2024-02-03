@@ -22,7 +22,8 @@
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->
-                <a href="./sim-cl?tag=chrono" class="btn-close" aria-label="Close"></a>
+                <button type="button" class="btn-close pl-3" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
             </div>
             <div class="modal-body">
 

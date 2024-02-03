@@ -1996,6 +1996,50 @@ if (isset($_SESSION['PROJECT'])) {
         }
     </style>
 
+    <style>
+        .step-class{
+            transition: box-shadow 0.5s ease;
+        }
+        .block .active {
+            background-color: red;
+            transition: box-shadow 0.3s ease;
+            border: 2px solid red;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .categorie {
+            width: 40px;
+            height: 40px;
+            color: red;
+        }
+
+        .categorie-label {
+            border: 2px solid rgba(1, 41, 112, 0.15);
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 25px;
+        }
+
+        .categorie-label:hover {
+            cursor: pointer;
+        }
+
+        .profession-label, .marque-label,
+         .produit-label, .modele-label{
+            margin: 2%;
+            border: 2px solid rgba(1, 41, 112, 0.15);
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 25px;
+        }
+        .profession-label:hover, .marque-label:hover,
+        .produit-label:hover, .modele-label:hover{
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -2113,119 +2157,158 @@ if (isset($_SESSION['PROJECT'])) {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Critère auto</h4>
+                            <h4 class="modal-title" id="critere-auto-title" >Critère auto</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form method="POST" action="#" id="modal-form-auto">
+                        <div class="modal-body d-flex align-items-center justify-content-center">
+                            <form method="POST" class="col-lg-12" action="#" id="modal-form-auto">
                                 <div class="spinner-border text-danger spinner-process" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                                 <div class="error-text col-12"></div>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 step-class" id="step-0">
                                         <div class="card">
-                                            <h2 class="card-title sm-4">Client</h2>
+                                            <h2 class="sm-4 d-none" id="step-0-title">Catégorie client</h2>
                                             <div class="card-body">
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="" name="BRAND" class="form-select">
-                                                            <option value="PP">PP</option>
-                                                            <option value="PP">PM</option>
-                                                            <option value="PP">PR</option>
-                                                        </select>
-                                                        <label for="">-- Sélectionner la catégorie du client --</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="ticket-type" name="PROFESSION" class="form-select">
+                                                <div class="row d-flex align-items-center justify-content-center" id="">
+                                                    <div class="row">
+                                                        <div class="row col-lg-4 p-4 block">
+                                                            <label for="idPP" id="idPP-label"
+                                                                onclick="selectCategorie(this)"
+                                                                class="active p-4 categorie-label">PP</label>
+                                                            <input type="radio" style="display : none;" id="idPP"
+                                                                name="CATEGORIE" class="ms-4 categorie">
 
-                                                            <option value="SALARIE">SALARIE</option>
-                                                            <option value="FONCTIONNAIRE">FONCTIONNAIRE</option>
-                                                            <option value="COMMERCANT">COMMERCANT</option>
-                                                            <option value="SOCIETE">SOCIETE</option>
-                                                        </select> <label for="">-- S'agit t-il d'un ? --</label>
-                                                    </div>
-                                                </div>                                            
+                                                        </div>
+                                                        <div class="row col-lg-4 p-4 block">
+                                                            <label for="idPM" id="idPM-label"
+                                                                onclick="selectCategorie(this)"
+                                                                class="p-4 categorie-label">PM</label>
+                                                            <input type="radio" style="display : none;" id="idPM"
+                                                                name="CATEGORIE" class="ms-4 categorie">
+
+                                                        </div>
+                                                        <div class="row col-lg-4 p-4 block">
+                                                            <label for="idPR" id="idPR-label"
+                                                                onclick="selectCategorie(this)"
+                                                                class="p-4 categorie-label">PR</label>
+                                                            <input type="radio" style="display : none;" id="idPR"
+                                                                name="CATEGORIE" class="ms-4 categorie">
+
+                                                        </div>
+                                                    </div>                                                   
+                                                </div>                                               
+                                                <button class="btn btn-danger float-end"
+                                                    onclick="next(1)">Suivant</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 step-class" id="step-1">
+                                        <div class="card">
+                                            <h2 class="sm-4 d-none"class="sm-4 d-none" id="step-1-title" >Profession</h2>
+                                            <div class="card-body">
+                                                <div class="col-lg-12  block" id="idProfession" >
+                                                    <input type="radio" class="d-none" name="PROFESSION" id="SALARIE">
+                                                    <input type="radio" class="d-none" name="PROFESSION" id="SOCIETE">
+                                                    <input type="radio" class="d-none" name="PROFESSION" id="FONCTIONNAIRE">
+
+                                                    <label onclick="selectProfession(this)" class="profession-label p-4 active" id="SALARIE-label" for="SALARIE">SALARIE</label>
+                                                    <label onclick="selectProfession(this)" class="profession-label p-4" id="SOCIETE-label" for="SOCIETE">SOCIETE</label>
+                                                    <label onclick="selectProfession(this)" class="profession-label p-4" id="FONCTIONNAIRE-label" for="FONCTIONNAIRE">FONCTIONNAIRE</label>
+                                                </div>
+                                         
+                                                <button class="btn btn-warning mt-5" onclick="back(0)">Retour</button>
+                                                <button class="btn btn-danger float-end mt-5" onclick="next(2)">Suivant</button>
 
                                             </div>
                                         </div>
-
-
-                                        <div class="form-group mt-3 d-none">
-                                            <select id="idTariff" name="TARIFF" class="form-select">
-
-                                            </select>
-                                        </div>
                                     </div>
-                                    <div class="col-lg-12">
+
+                                    <div class="col-lg-12 step-class" id="step-2">
                                         <div class="card">
-                                            <h2 class="card-title sm-4">Bien/Service</h2>
+                                            <h2 class="sm-4 d-none"class="sm-4 d-none" id="step-2-title">Type produit</h2>
                                             <div class="card-body">
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="" name="BRAND" class="form-select">
+                                                <div class="col-lg-12  block" id="idProduit" >
+                                                    <input type="radio" class="d-none" name="PRODUIT" id="CA">
+                                                    <input type="radio" class="d-none" name="PRODUIT" id="LOA">
+                                                    <input type="radio" class="d-none" name="PRODUIT" id="OCCASION">
 
-                                                            <option value="">Fourniseur 1</option>
-                                                            <option value="">Fourniseur 2</option>
-                                                            <option value="">Fourniseur 3</option>
-                                                        </select>
-                                                        <label for="idModele">-- Sélectionner le fournisseur --</label>
-                                                    </div>
+                                                    <label onclick="selectProduit(this)" class="produit-label p-4 active" id="CA-label" for="CA">CA</label>
+                                                    <label onclick="selectProduit(this)" class="produit-label p-4" id="LOA-label" for="LOA">LOA</label>
+                                                    <label onclick="selectProduit(this)" class="produit-label p-4" id="OCCASION-label" for="OCCASION">OCCASION</label>
                                                 </div>
-
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="idBrand" name="BRAND" class="form-select"
-                                                            onchange="loadProduct()">
-
-                                                        </select>
-                                                        <label for="idModele">-- Sélectionner la marque --</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="idProduct" name="PRODUCT" class="form-select"
-                                                            onchange="loadTariff()">
-
-                                                        </select>
-                                                        <label for="idModele">-- Sélectionner le produit --</label>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-12" id="">
-                                                    <div class="form-floating mb-3">
-                                                        <select id="" name="MODELE" class="form-select">
-                                                            <option value="Modele"> Modele 1</option>
-                                                            <option value="Modele"> Modele 2</option>
-                                                            <option value="Modele"> Modele 3</option>
-                                                            <option value="Modele"> Modele 4</option>
-                                                            <option value="Modele"> Modele 5</option>
-
-                                                        </select>
-                                                        <label for="idModele">-- Sélectionner le modèle --</label>
-                                                    </div>
-                                                </div>
-
+                                         
+                                                <button class="btn btn-warning mt-5" onclick="back(1)">Retour</button>
+                                                <button class="btn btn-danger float-end mt-5" onclick="next(3)">Suivant</button>
 
                                             </div>
                                         </div>
+                                    </div>
 
-
-                                        <div class="form-group mt-3 d-none">
-                                            <select id="idTariff" name="TARIFF" class="form-select">
-
-                                            </select>
+                                    <div class="col-lg-12 step-class" id="step-4">
+                                        <div class="card">
+                                            <h2 class="sm-4 d-none"class="sm-4 d-none" id="step-4-title">Type modèle</h2>
+                                            <div class="card-body">
+                                                <div class="col-lg-12  block" id="idModele" >
+                                                    <input type="radio" class="d-none" name="MODELE" id="MODELE1">
+                                                    <input type="radio" class="d-none" name="MODELE" id="MODELE2">
+                                                    <input type="radio" class="d-none" name="MODELE" id="MODELE3">
+                                             
+                                                    <label onclick="selectModele(this)" class="modele-label p-4 active" id="MODELE1-label" for="VOLKSWAGEN">CRITERE1</label>                                                    
+                                                    <label onclick="selectModele(this)" class="modele-label p-4" id="MODELE2-label" for="FORD">CRITERE2</label>
+                                                    <label onclick="selectModele(this)" class="modele-label p-4" id="MODELE3-label" for="LAND-ROVER">CRITERE3</label>
+                                                </div>
+                                         
+                                                <button class="btn btn-warning mt-5" onclick="back(3)">Retour</button>
+                                                
+                                                <a href="./sim-fx?tag=fx" class="btn btn-danger float-end mt-5">Passer à la simulation</a>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-12 step-class" id="step-3">
+                                        <div class="card">
+                                            <h2 class="sm-4 d-none"class="sm-4 d-none" id="step-3-title">Marque auto</h2>
+                                            <div class="card-body">
+                                                <div class="col-lg-12  block" id="idMarque" >
+                                                    <input type="radio" class="d-none" name="MARQUE" id="KIA">
+                                                    <input type="radio" class="d-none" name="MARQUE" id="AUDI">
+                                                    <input type="radio" class="d-none" name="MARQUE" id="VOLKSWAGEN">
+
+                                                    <input type="radio" class="d-none" name="MARQUE" id="FIAT">
+                                                    <input type="radio" class="d-none" name="MARQUE" id="FORD">
+                                                    <input type="radio" class="d-none" name="MARQUE" id="LAND-ROVER">
+                                                    
+
+
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4 active" id="KIA-label" for="KIA">KIA</label>
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4" id="AUDI-label" for="AUDI">AUDI</label>
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4" id="FIAT-label" for="FIAT">FIAT</label>
+
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4" id="VOLKSWAGEN-label" for="VOLKSWAGEN">VOLKSWAGEN</label>                                                    
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4" id="FORD-label" for="FORD">FORD</label>
+                                                    <label onclick="selectMarque(this)" class="marque-label p-4" id="LAND-ROVER-label" for="LAND-ROVER">LAND-ROVER</label>
+                                                </div>
+                                         
+                                                <button class="btn btn-warning mt-5" onclick="back(2)">Retour</button>
+                                                <!-- <a href="./sim-fx?tag=fx" class="btn btn-danger float-end mt-5">Passer à la simulation</a> -->
+                                                <button class="btn btn-danger float-end mt-5" onclick="next(4)">Suivant</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 step-class" id="step-4">
+                                        
+                                    </div>                                          
+                                 
 
                                 </div>
-                                <div class="text-center mt-3">
+                                <!-- <div class="text-center mt-3">
                                     <input type="" name="BTN_AUTO" class="btn btn-outline-danger btn-form-auto"
                                         value="Passer à la simulation">
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                     </div><!-- /.modal-content -->
@@ -2473,7 +2556,84 @@ if (isset($_SESSION['PROJECT'])) {
     <script>
         window.addEventListener("load", function () {
             loadBrand();
+            $(".step-class").hide();
+            back(0)
         });
+
+        function selectCategorie(btn) {
+            $(".categorie-label").removeClass('active');
+            var idBtn = "#" + btn.id;
+
+            $(idBtn).addClass('active');
+
+            setTimeout(function () {
+                next(1)
+            }, 500);
+        }
+
+        function selectProfession(btn){
+            $(".profession-label").removeClass('active');
+            var idBtn = "#" + btn.id;
+
+            $(idBtn).addClass('active');
+
+            setTimeout(function () {
+                next(2)
+            }, 500);
+        }
+        function selectProduit(btn){
+            $(".produit-label").removeClass('active');
+            var idBtn = "#" + btn.id;
+
+            $(idBtn).addClass('active');
+
+            setTimeout(function () {
+                next(3)
+            }, 500);
+        }
+
+        function selectModele(btn){
+            $(".modele-label").removeClass('active');
+            var idBtn = "#" + btn.id;
+
+            $(idBtn).addClass('active');
+
+            // setTimeout(function () {
+            //     next(4)
+            // }, 500);
+        }
+
+        function selectMarque(btn){
+            $(".marque-label").removeClass('active');
+            var idBtn = "#" + btn.id;
+
+            $(idBtn).addClass('active');
+
+            setTimeout(function () {
+                next(4)
+            }, 500);
+        }
+
+        function next(id) {
+            let backId = "#step-" + (id - 1);
+            let nextId = "#step-" + id;
+            
+            $(nextId).show();
+            $(backId).hide();
+
+            let titleId = "#step-" + id+"-title";
+            $("#critere-auto-title").text($(titleId).text());
+        }
+
+        function back(id) {
+            let backId = "#step-" + (id);
+            let nextId = "#step-" + (id + 1);
+            $(backId).show();
+            $(nextId).hide();
+
+            let titleId = "#step-" + id+"-title";
+            $("#critere-auto-title").text($(titleId).text());
+        }
 
         const formCheck = document.getElementById("modal-form-check-revcf"),
             btnformCheck = formCheck.querySelector(".btn-check-revcf"),

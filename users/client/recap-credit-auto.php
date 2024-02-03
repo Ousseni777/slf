@@ -16,7 +16,7 @@
             <!-- List group with active and disabled items -->
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                        : </span> <input type="text" name="TARIFF_ID_UK" readonly id="infoTariffID" class="infoR"></li>
+                        : </span> <input type="text" name="TARIFF_ID" readonly id="infoTariffID" class="infoR"></li>
                 <li class="list-group-item"><span class="infoL"> Type de crédit : </span> <input type="text"
                         name="PROJECT" readonly class="infoR" value="auto">
                 </li>

@@ -1792,7 +1792,7 @@
     <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
       <h1 class="mb-4 pb-0">Demander un crédit avec <br><span>Salafin</span> , c'est simple !</h1>
       <p class="mb-4 pb-0">Comment ça marche ?</p>
-      <a href="https://www.youtube.com/watch?v=aGvseOGhWEY" class="glightbox play-btn mb-4"></a>
+      <a href="#" title="En état de construction" class="glightbox play-btn mb-4"></a>
       <a href="#about" class="about-btn scrollto">Je découvre !</a>
     </div>
   </section><!-- End Hero Section -->
@@ -1856,7 +1856,7 @@
           <div class="col-lg-2">
             <h3>Sans engagement</h3>
             <div class="col-md-11">
-              <button class="btn btn-danger" onclick="displayProcessModal()" >Continuer <i class="bi bi-chevron-right"></i> </button>
+              <button class="btn btn-danger" onclick="displayProcessModal()" title="En état de construction" >Continuer <i class="bi bi-chevron-right"></i> </button>
             </div>
           </div>
         </div>
@@ -1873,13 +1873,13 @@
 
         <ul class="nav nav-tabs" role="tablist" data-aos="fade-up" data-aos-delay="100">
           <li class="nav-item">
-             <a class="nav-link d-flex flex-row align-items-center justify-content-center" href="#day-1" role="tab" data-bs-toggle="tab"><i class="bx bx-car" style="font-size : 60px; margin-right: 20px;" ></i>Crédit AUTO</a>
+             <a class="nav-link d-flex flex-row align-items-center justify-content-center" title="En état de construction" href="#day-1" role="tab" data-bs-toggle="tab"><i class="bx bx-car" style="font-size : 60px; margin-right: 20px;" ></i>Crédit AUTO</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link d-flex flex-row align-items-center justify-content-center" href="#day-2" role="tab" data-bs-toggle="tab"><i class="bx bx-donate-blood" style="font-size : 60px; margin-right: 20px;" ></i>Crédit PERSONNEL</a>
+          <a class="nav-link d-flex flex-row align-items-center justify-content-center" title="En état de construction" href="#day-2" role="tab" data-bs-toggle="tab"><i class="bx bx-donate-blood" style="font-size : 60px; margin-right: 20px;" ></i>Crédit PERSONNEL</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link d-flex flex-row align-items-center justify-content-center" href="#day-3" role="tab" data-bs-toggle="tab"><i class="bx bx-refresh" style="font-size : 60px; margin-right: 20px; " ></i>Crédit RENOUVELABLE</a>
+          <a class="nav-link d-flex flex-row align-items-center justify-content-center" title="En état de construction" href="#day-3" role="tab" data-bs-toggle="tab"><i class="bx bx-refresh" style="font-size : 60px; margin-right: 20px; " ></i>Crédit RENOUVELABLE</a>
           </li>
         </ul>
 
@@ -2151,14 +2151,11 @@
   </main><!-- End #main -->
 
   <!-- Modal Order Form -->
-  <div id="process-modal" class="modal fade" data-bs-backdrop="static" aria-hidden="true" data-bs-backdrop="false">
+  <div id="process-modal" class="modal fade">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <h2 id="heading">Projet personnel : Besoin d'argent</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+      <div class="modal-content" style="background-color: rgba(101, 111, 150, 0.6);" >
+     
+        <div class="modal-body" style="background-color: rgba(101, 111, 150, 0.15);">
         <?php include "./sim-cl-perso.php" ?>
         </div>
       </div><!-- /.modal-content -->

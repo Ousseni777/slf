@@ -2,15 +2,24 @@
 
 session_start();
 include '../../connectToDB.php';
-
+$SELLER_ENTITE = $_SESSION['ENTITE'];
 
 // $affiliation = $_SESSION['PRODUCT'];
 
 switch ($_POST['ID_SCRIPT']) {
+
+    case "csp":
+        $tagFAM = $_POST['TAG_FAM'];
+        $csps = fetchCsp();
+        displayCsp($csps);
+        break;
+
     case "brand":
-        $brands = fetchBrand();
+        $tagFAM = $_POST['TAG_FAM'];
+        $brands = fetchBrand($tagFAM);
         displayBrand($brands);
         break;
+
     case "product":
         $IDMARK = $_POST['ID_MARQUE'];
         $products = fetchProduct($IDMARK);
@@ -58,23 +67,59 @@ switch ($_POST['ID_SCRIPT']) {
         break;
 }
 
+
+function fetchCsp()
+{
+    global $conn, $affiliation;
+
+    $query = "SELECT DISTINCT CSP FROM csp";
+
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        $sql = [];
+    }
+    return $sql;
+}
+
+function displayCsp($csps)
+{
+    global $affiliation;
+    $cspOption = '';
+    if (count($csps) > 0) {
+        foreach ($csps as $data) {
+            if (isset($_SESSION['CSP']) && $_SESSION['CSP'] == $data['CSP']) {
+                $cspOption .= '<option selected value="' . $data['CSP'] . '">' . $data['CSP'] . '</option>';
+                // unset($_SESSION['BRAND']);
+            } else {
+                $cspOption .= '<option value="' . $data['CSP'] . '">' . $data['CSP'] . '</option>';
+            }
+        }
+        echo $cspOption;
+    } else {
+        // echo '<option>' . $affiliation . '</option>';
+    }
+}
+
 // *********************************************************     Marques        *************************************************//
 // ----------------------------------------------------------------------------
 //  Recuperer la liste  des marques 
 // ----------------------------------------------------------------------------
 
-function fetchBrand()
+function fetchBrand($tagFAM)
 {
     global $conn, $affiliation;
-    // if (!isset($_SESSION['PRODUCT']) || $_SESSION['PRODUCT'] == 'SALAFIN') {
-    //     $query = "SELECT DISTINCT MARQUE FROM slf_tarification";
+    // if (!isset($_SESSION['ENTITE']) && $_SESSION['PRODUCT'] == 'SALAFIN') {
+    //     $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE FAM = '$tagFAM'";
     // } else {
     //     $affiliation = $_SESSION['PRODUCT'];
     //     $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE MARQUE = '$affiliation'";
 
     // }
 
-    $query = "SELECT DISTINCT MARQUE FROM slf_tarification";
+    $query = "SELECT DISTINCT MARQUE FROM slf_tarification WHERE FAM = '$tagFAM'";
 
     $result = $conn->query($query);
 
@@ -134,7 +179,7 @@ function fetchProduct($IDMARK)
 function displayProduct($products)
 {
     if (count($products) > 0) {
-        $productOption ='';
+        $productOption = '';
         foreach ($products as $data) {
             if (isset($_SESSION['PRODUIT']) && $_SESSION['PRODUIT'] == $data['PRODUIT']) {
                 $productOption .= '<option selected>' . $data['PRODUIT'] . '</option>';
@@ -142,7 +187,7 @@ function displayProduct($products)
             } else {
                 $productOption .= '<option>' . $data['PRODUIT'] . '</option>';
             }
-           
+
         }
 
         echo $productOption;
@@ -159,8 +204,33 @@ function displayProduct($products)
 function fetchTariff($idproduct, $idbrand)
 {
     global $conn;
-    $query = "SELECT DISTINCT BAREME FROM SLF_TARIFICATION WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
+
+    if (isset($_POST['CSP'])) {
+        $CSP = $_POST['ID_CSP'];
+        $query_csp = "SELECT IDCSP FROM csp WHERE CSP = '$CSP'";
+
+        $result_csp = $conn->query($query_csp);
+
+        if ($result_csp->num_rows > 0) {
+            $csp_val = $result_csp->fetch_assoc();
+            $csp_id = $csp_val['IDCSP'];
+            $query = "SELECT b.BAREME as BAREME
+            FROM `csp` c
+            LEFT JOIN `bareme` b ON c.IDCSP = b.IDCSP
+            WHERE c.IDCSP = $csp_id AND b.PRODUIT = '$idproduct';";
+        } else {
+            $query = "SELECT DISTINCT BAREME FROM SLF_TARIFICATION WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
+    
+        }
+    }else {
+        $query = "SELECT DISTINCT BAREME FROM SLF_TARIFICATION WHERE PRODUIT = '$idproduct' AND MARQUE = '$idbrand'";
+
+    }
+
+    
     $result = $conn->query($query);
+
+
 
     if ($result->num_rows > 0) {
         $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -177,7 +247,7 @@ function fetchTariff($idproduct, $idbrand)
 function displayTariff($tariffs)
 {
     if (count($tariffs) > 0) {
-        $tariffOption ='';
+        $tariffOption = '';
         foreach ($tariffs as $data) {
             if (isset($_SESSION['TARIFF']) && $_SESSION['TARIFF'] == $data['BAREME']) {
                 $tariffOption .= '<option selected value="' . $data['BAREME'] . '">' . $data['BAREME'] . '</option>';
@@ -185,7 +255,7 @@ function displayTariff($tariffs)
             } else {
                 $tariffOption .= '<option value="' . $data['BAREME'] . '">' . $data['BAREME'] . '</option>';
             }
-            
+
         }
         echo $tariffOption;
     } else {

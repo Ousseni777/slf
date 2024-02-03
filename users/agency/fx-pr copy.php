@@ -1,36 +1,17 @@
 
+<?php
+    $select_tariff = "SELECT * FROM `slf_tarification` WHERE TARIFF_ID='$TARIFF_ID'";
+    $result_select_tariff = $conn->query($select_tariff);
+    $tariff = $result_select_tariff->fetch_assoc();
+?>
+
 <style>
     /* #displaying{
         display: none;
     } */
-    .label-apport,
-    .label-duration {
-        width: 50%;
-    }
 
-    .label-apport:hover,
-    .label-duration:hover {
-        cursor: pointer;
-    }
-
-    .btn-monthly {
-        width: 100px;
-    }
-
-    .btn-custom {
-        font-size: 15px;
-        border-radius: 50px;
-        padding: 10px 40px;
-        transition: all 0.2s;
-        background-color: #f82249;
-        border: 0;
-        color: #fff;
-    }
-</style>
-
-<style>
     .group-select {
-        padding: 2% 3%;
+        padding: 1px 3% 5% 3%;
         border-radius: 10px;
         box-shadow: 0px 0px 1px 1px rgba(172, 132, 212, 0.2);
         width: 100%;
@@ -49,17 +30,120 @@
         cursor: pointer;
     }
 
+    .block-slider {
+        position: relative;
+        margin-top: 70px;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 12px;
+        outline: none;
+        border-radius: 3px;
+        background-color: rgba(0, 0, 0, .05);
+    }
+
     .slider::-webkit-slider-thumb {
-        margin-top: -5px;
-        width: 20px;
-        height: 20px;
-        background-color: red;
+        -webkit-appearance: none;
+        width: 48px;
+        height: 48px;
+        z-index: 3;
+        position: relative;
+    }
+
+    .selector {
+        height: 104px;
+        width: 48px;
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+
+    }
+
+    .selectBtn {
+        height: 40px;
+        width: 40px;
+
+        background-image: url(assets/img/fleches-gauche-et-droite.png);
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+
+        position: absolute;
+        bottom: 5px;
+        left: 3px;
+    }
+
+    .select-value {
+        width: 48px;
+        height: 40px;
+        position: absolute;
+        color: red;
+        top: 5px;
+        background-color: rgba(232, 130, 92,.05);
+        border-radius: 4px 4px 0 0;
+        text-align: center;
+        line-height: 45px;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    
+
+    .select-value::after {
+        content: '';
+        border-top: 17px solid rgba(232, 130, 92,.05);
+        border-left: 24px solid white;
+        border-right: 24px solid white;
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+
+    }
+
+    .progress-bar {
+        width: 50%;
+        height: 10px;
+        background-color: rgba(232, 130, 92,.8);
+        position: absolute;
+        border-radius: 3px;
+        top: 7px;
+        left: 0;
+    }
+
+    .label-slider {
+        position: absolute;
+        top: 30px;
+        left: 0;
+    }
+
+    .recap-input {
+        height: 55px;
+        text-align: center;
+        color: rgb(232, 130, 92);
+        font-size: 30px;
+        border-radius: 10px;
+        border: 1px rgb(232, 130, 92) solid;
+        font-weight: bold;
+    }
+
+    .btn-custom {
+        font-size: 15px;
+        border-radius: 50px;
+        padding: 10px 40px;
+        transition: all 0.2s;
+        background-color: #f82249;
+        border: 0;
+        color: #fff;
     }
 </style>
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Simulateur <i class="bi bi-chevron-right" style="color: red;"></i> crédit auto</h1>
+        <h1>Simulateur <i class="bi bi-chevron-right" style="color: red;"></i> crédit personnel</h1>
         <nav>
             <ol class="breadcrumb ">
 
@@ -73,10 +157,6 @@
     <section class="section">
         <div class="row">
 
-            <div class="col-md-12 controlAutos" id="idPrint">
-
-            </div>
-
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
@@ -86,116 +166,103 @@
 
                         <div class="row g-3">
 
-                            <?php if (isset($SELLER_ENTITE)) { ?>
+                            <div class="col-md-4 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="" disabled name="PRODUCT" aria-label="State"
+                                        onchange="">
 
-                                <div class="col-md-4 d-none">
-                                    <div class="form-floating mb-3">
-                                        <select id="idProfession" disabled name="BRAND" class="form-select" onchange="loadProduct()">
-                                            <option value="SALARIE">SALARIE</option>
-                                        </select>
-                                        <label for="floatingSelect">Profesion</label>
-                                    </div>
+
+                                        <option value="COMMERCANT" id="RENOUVELABLE">AG. NORMANDI</option>
+
+                                    </select>
+                                    <label for="floatingSelect">AFFECTATION</label>
                                 </div>
+                            </div>
+                            <div class="col-md-4 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="idProject" aria-label="State" onchange="calcFunctionPerso()">
 
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <select id="idBrand" name="BRAND" class="form-select" onchange="loadProduct()">
+                                        <option value="CREDIT PERSONNEL" id="PERSONNEL">CREDIT PERSONNEL</option>
+                                        <option value="CREDIT RENOUVELABLE" id="RENOUVELABLE">CREDIT RENOUVELABLE</option>
 
-                                        </select>
-                                        <label for="floatingSelect">Marque</label>
-                                    </div>
+                                    </select>
+                                    <label for="floatingSelect">TYPE PROJET</label>
                                 </div>
-
-                                <div class="col-md-4 controlAutos" id="controlProduct">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="idProduct" name="ENTITE" aria-label="State"
-                                            onchange="loadTariff()">
-
-                                        </select>
-                                        <label for="floatingSelect">Produit</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-4 " id="">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="idProfession" name="PRODUCT" aria-label="State"
+                                        onchange="calcFunctionPerso()">
+                                        <option value="SALARIE" id="SALARIE">SALARIE</option>
+                                        <option value="FONCTIONNAIRE" id="FONCTIONNAIRE">FONCTIONNAIRE</option>
+                                        <option value="COMMERCANT" id="COMMERCANT">COMMERCANT</option>
+                                        <option value="SOCIETE" id="SOCIETE">SOCIETE</option>
+                                    </select>
+                                    <label for="floatingSelect">PROFESSION</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="idTariff" name="TARIFF" onchange="loadApport()"
-                                            aria-label="State">
+                            </div>
 
-
-                                        </select>
-
-                                        <label for="floatingSelect">Barême</label>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-8">
-                                    <div id="tableId">
-
-                                    </div>
-                                </div>
-
-                            <?php } ?>
-
-
-                            <div class="row mb-5">
+                            <div class="row col-lg-12 flex-column align-items-center justify-content-center">
                                 <!-- <label class="col-sm-2 col-form-label"> Mon choix </label> -->
+
 
                                 <div class="col-sm-12">
                                     <!-- PRIX TTC -->
-                                    <div class="block-field">
+                                    <div class="block-field group-select">
 
-                                        <div class="group-select">
-                                            <label for="rangeInputAmount" class="form-label">PRIX
-                                                TTC</label><br>
-                                            <input type="text" onkeydown="detecteEntree(event)" class="inputFlag"
-                                                id="rangeValueAmount" value="">
-                                            <input type="range" name="AMOUNT" class="slider form-range" min="50"
-                                                max="500000" onchange="calcFunction()" step="1" id="rangeInputAmount">
-
-                                        </div>
-                                    </div>
-                                    <!-- APPORT % -->
-                                    <div class="block-field mt-3">
-                                        <div class="col-sm-10 group-select">
-                                            <span for="" class="form-label">Apport TOTAL (en
-                                                %)</span><br>
-                                            <div class="row controlRadios" id="controlApport">
-
+                                        <div class="col-lg-12 block-slider">
+                                            <input type="range" min="1000" max="300000" value="100000"
+                                                id="slider-amount" oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-amount" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-amount" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-amount" class="progress-bar"></div>
+                                            <label for="slider-amount" class="label-slider">Montant (en DH) </label>
                                         </div>
-
                                     </div>
+
                                     <!-- DUREE -->
-                                    <div class="block-field mt-3">
 
-                                        <div class="col-sm-10 group-select">
-                                            <span for="rangeInputDuration" class="form-label">Durée (en
-                                                mois)</span><br>
-                                            <div class="row controlRadios" id="controlDuration">
 
+                                    <div class="block-field group-select mt-3">
+
+                                        <div class="col-lg-12 block-slider">
+
+                                            <input type="range" min="12" max="100" value="50" id="slider-duration"
+                                                oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-duration" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-duration" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-duration" class="progress-bar"></div>
+                                            <label for="slider-duration" class="label-slider">Durée (en mois) </label>
                                         </div>
                                     </div>
 
-                                    <div class="block-field mt-3">
-                                        <div id="InputMonthly" class="group-select">
-                                            <label for="rangeInputMonthly" class="form-label">Mensualités (en
-                                                DH)</label><br>
-                                            <div class="col-lg-12" id="optionMonthly">
 
+
+                                    <div class="block-field group-select mt-3">
+                                        <div class="col-lg-12 block-slider">
+                                            <input type="range" min="50" max="33848" step="0.01" id="slider-monthly"
+                                                oninput="setSlider(this)" class="slider">
+                                            <div id="selector-slider-monthly" class="selector">
+                                                <div class="selectBtn"> </div>
+                                                <div id="select-value-slider-monthly" class="select-value"> </div>
                                             </div>
-
+                                            <div id="progress-bar-slider-monthly" class="progress-bar"></div>
+                                            <label for="slider-monthly" class="label-slider">Mensualité (en DH) </label>
                                         </div>
+
                                     </div>
+
 
                                 </div>
                             </div>
 
-                            <div class=" align-items-center justify-content-center">
+                            <div class=" align-items-center justify-content-center mt-5">
 
-                                <button type="button" class="ms-2 btn-custom" onclick="shareLink()">Partager</button>
+                                <button type="button" class="ms-4 btn-custom" onclick="shareLink()">Partager</button>
 
 
                             </div>
@@ -210,21 +277,7 @@
                 <form action="#" method="post" id="form" autocomplete="off">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <h5 class="card-title col-lg-10">Pour quel client ?</h5>
-                                <div class="filter mt-3 col-lg-2">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Rechercher par:</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">CIN CLIENT</a></li>
-                                        <li><a class="dropdown-item" href="#">REF CREDIT</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <h5 class="card-title">Pour quel client ?</h5>
                             <div class="row">
                                 <div class="col-12">
 
@@ -243,9 +296,9 @@
                                                     placeholder="Saisir la (CIN) ici... " class="form-control">
                                             <?php }
                                         } else { ?>
-                                            <input type="text" style="display: none;" name="CREDIT_ID" value="">
-                                            <input type="text" id="mySearchInput" name="CLIENT_CIN"
-                                                placeholder="Saisir la (CIN) ici... " class="form-control">
+                                                <input type="text" style="display: none;" name="CREDIT_ID" value="">
+                                                <input type="text" id="mySearchInput" name="CLIENT_CIN"
+                                                    placeholder="Saisir la (CIN) ici... " class="form-control">
                                         <?php } ?>
 
                                         <div class="row col-lg-12" id="displaying">
@@ -272,27 +325,26 @@
                         <div class="card-body">
 
                             <h5 class="card-title">Détails du crédit</h5>
-                            <!-- List group with active and disabled items -->
+            
                             <ul class="list-group list-group-flush">
 
-                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-tariff"> <i
-                                        class="bi bi-chevron-down bi-subtile-tariff"></i> Tarification</h6>
-
-                                <li class="list-group-item" style="display: none;"><span class="infoL">Tariff ID
-                                        : </span> <input type="text" name="TARIFF_ID" readonly id="infoTariffID"
-                                        class="infoR"></li>
+                           
                                 <li class="list-group-item" style="display: none;"><span class="infoL">TAUXINT
                                         : </span> <input type="text" name="TAUXINT" readonly id="infoTAUXINT"
                                         class="infoR"></li>
-                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Marque auto : </span>
-                                    <input type="text" id="infoBrand" name="BRAND" readonly class="infoR">
+
+                                <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-projet"> <i
+                                        class="bi bi-chevron-down bi-subtile-projet"></i> Projet</h6>
+
+
+                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Type projet : </span>
+                                    <input type="text" id="infoProject" name="PROJECT" readonly class="infoR">
                                 </li>
-                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Type produit :
-                                    </span> <input type="text" id="infoProduct" name="ENTITE" readonly class="infoR">
+                                <li class="list-group-item li-subtile-projet"><span class="infoL"> Profession :
+                                    </span> <input type="text" id="infoProfession" name="PROFESSION" readonly
+                                        class="infoR">
                                 </li>
-                                <li class="list-group-item li-subtile-tariff"><span class="infoL"> Barême : </span>
-                                    <input type="text" id="infoTariff" name="TARIFF" readonly class="infoR infoBareme">
-                                </li>
+
 
                                 <h6 class="ms-0 subtile active" onclick="controlSubtile(this)" id="subtile-credit"><i
                                         class="bi bi-chevron-down bi-subtile-credit"></i>Crédit simulé</h6>
@@ -385,25 +437,12 @@
         <div class="modal-content">
             <div class="row modal-header" style="text-align: center;">
                 <i class="col-12 bi bi-check-circle" style="font-size: 100px;"></i>
-                <div class="col-lg-12">
+                <div class="col-12">
                     <div class="row">
                         <p class="info-dialog" id="successMessage"> </p>
                     </div>
-                    <div class=" align-items-center justify-content-center">
 
-                        <!-- <button type="button" class="ms-2 btn-custom" onclick="shareLink()">Partager</button> -->
-
-                        <a href="#" class="btn btn-warning btn-custom" id="update-client">Mettre à jour les infos du
-                            client</a>
-                    </div>
-                    <div class=" align-items-center justify-content-center mt-3">
-
-
-                        <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-danger  btn-custom"
-                            id="back">Enregistrer et
-                            quitter</a>
-                    </div>
-
+                    <a href="<?php echo $_SESSION['page'] ?>" class="btn btn-secondary" id="back">OK</a>
 
                 </div>
 
@@ -427,27 +466,71 @@
 
 <script>
 
-    function controlSubtile(title) {
-        let myLiClasses = ".li-" + title.id;
+
+    function setParam() {
+        var selectElement = document.getElementById("idProfession");
+        selectElement.value = "<?php echo $_SESSION['PROFESSION'] ?>";
+
+        var AMOUNT = document.getElementById("slider-amount");
+        AMOUNT.value = "<?php echo $_SESSION['AMOUNT'] ?>";
+
+        var DURATION = document.getElementById("slider-duration");
+        DURATION.value = "<?php echo $_SESSION['DURATION'] ?>";
+    }
 
 
-        icone = ".bi-" + title.id;
-        if ($(title).hasClass("active")) {
-            $(myLiClasses).hide();
-            $(title).removeClass('active');
-            $(icone).removeClass('bi-chevron-down');
-            $(icone).addClass('bi-chevron-right');
 
-        } else {
-            $(myLiClasses).show();
-            $(title).addClass('active');
-            $(icone).removeClass('bi-chevron-right');
-            $(icone).addClass('bi-chevron-down');
+    function setProgressBar() {
 
+        let amount = document.getElementById("slider-amount");
+        let duration = document.getElementById("slider-duration");
+        let monthly = document.getElementById("slider-monthly");
 
-        }
+        var percentAmount = (amount.value - amount.min) / (amount.max - amount.min) * 100;
+        var percentDuration = (duration.value - duration.min) / (duration.max - duration.min) * 100;
+        var percentMonthly = (monthly.value - monthly.min) / (monthly.max - monthly.min) * 100;
+
+        document.getElementById("progress-bar-slider-amount").style.width = percentAmount + "%";
+        document.getElementById("progress-bar-slider-duration").style.width = percentDuration + "%";
+        document.getElementById("progress-bar-slider-monthly").style.width = percentMonthly + "%";
+
+        document.getElementById("selector-slider-amount").style.left = percentAmount + "%";
+        document.getElementById("selector-slider-duration").style.left = percentDuration + "%";
+        document.getElementById("selector-slider-monthly").style.left = percentMonthly + "%";
 
     }
+
+
+    function setSlider(btn) {
+
+        let selectorId = "selector-" + btn.id;
+        let progressBarId = "progress-bar-" + btn.id;
+        let selectValueId = "select-value-" + btn.id;
+        // let inputRecapId = "input-" + btn.id;
+
+        let selector = document.getElementById(selectorId);
+        let progressBar = document.getElementById(progressBarId);
+        let selectValue = document.getElementById(selectValueId);
+        // let inputRecap = document.getElementById(inputRecapId);
+
+        var percent = (btn.value - btn.min) / (btn.max - btn.min) * 100;
+
+        selector.style.left = percent + "%";
+        progressBar.style.width = percent + "%";
+        selectValue.innerHTML = btn.value;
+        // inputRecap.value = btn.value;
+
+        if (btn.id == "slider-amount" || btn.id == "slider-duration") {
+            calcFunctionPerso("slider-monthly");
+        } else {
+            calcFunctionPerso("slider-duration");
+        }
+    }
+
+    function shareLink() {
+        $("#share-link-modal").modal("show");
+    }
+
 
 
     const form = document.getElementById("form"),
@@ -467,7 +550,7 @@
         setTimeout(function () {
             $('#mainPreloaderCredit').hide();
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "users/agency/save-credit-auto.php", true);
+            xhr.open("POST", "users/agency/save-credit-perso.php", true);
             xhr.onload = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
@@ -476,8 +559,6 @@
                         if (data === "success") {
                             $("#successMessage").html(responseData.message);
                             $("#feedbackModal").modal("show");
-                            let updateBtn = document.getElementById("update-client");
-                            updateBtn.href = "./detail-cl?edit=1&id=" + $("#mySearchInput").val();
                         } else {
                             errorTextCredit.style.display = "block";
                             errorTextCredit.innerHTML = responseData.message;
@@ -494,7 +575,6 @@
     }
 
 
-
     const btnCreditShareLink = form.querySelector(".btn-credit-share-link"),
         errorTextCreditShare = form.querySelector(".error-text-share-link");
 
@@ -506,7 +586,7 @@
 
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "phpMailer/share-link-sim-credit-auto.php", true);
+        xhr.open("POST", "phpMailer/share-link-sim-credit-perso.php", true);
         xhr.onload = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
@@ -519,7 +599,6 @@
                             $('#preloaderShareLink').hide();
                             $("#share-link-modal").modal("hide");
                             $("#successMessage").html(responseData.message);
-                            $("#update-client").hide();
                             $("#feedbackModal").modal("show");
                         }, 20);
                     } else {
@@ -540,10 +619,6 @@
         xhr.send(formData);
 
     }
-
-
-
-
 
 
     $('#mySearchInput').typeahead({
@@ -571,6 +646,7 @@
     });
 
 
+
     function controlDisplayOption(cin) {
         $.ajax({
             url: "users/agency/data_retriever.php",
@@ -588,143 +664,74 @@
         });
     }
 
-    function shareLink() {
-        $("#share-link-modal").modal("show");
-    }
+    function controlSubtile(title) {
+        let myLiClasses = ".li-" + title.id;
 
-    function loadBrand() {
+
+        icone = ".bi-" + title.id;
+        if ($(title).hasClass("active")) {
+            $(myLiClasses).hide();
+            $(title).removeClass('active');
+            $(icone).removeClass('bi-chevron-down');
+            $(icone).addClass('bi-chevron-right');
+
+        } else {
+            $(myLiClasses).show();
+            $(title).addClass('active');
+            $(icone).removeClass('bi-chevron-right');
+            $(icone).addClass('bi-chevron-down');
+
+
+        }
+
+    }
+    function calcFunctionPerso(target = "slider-monthly") {
+
+        
+        ProjectID = $("#idProject");
+        ProfessionID = $("#idProfession");
+        AmountID = $("#slider-amount");
+        DurationValue = $("#slider-duration");
+        Monthly = $("#slider-monthly");
+      
+        
 
         $.ajax({
-            url: "users/agency/data_retriever.php",
+            url: "./users/agency/calc-fx_perso.php",
             method: "POST",
             data: {
-                ID_SCRIPT: 'brand',
-                TAG_FAM: "FA"
-            },
-            success: function (data) {
-                $("#idBrand").html(data);
-                loadProduct();
-            }
-        });
-    }
-
-    function loadProduct() {
-        BrandID = $("#idBrand");
-        $.ajax({
-            url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'product', ID_MARQUE: BrandID.val() },
-            success: function (data) {
-                $("#idProduct").html(data);
-                loadTariff();
-            }
-        });
-
-    }
-
-    function loadTariff() {
-        const BrandID = $("#idBrand").val();
-        const ProductID = $("#idProduct").val();
-        $.ajax({
-            url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'tariff', ID_PRODUCT: ProductID, ID_BRAND: BrandID },
-            success: function (data) {
-                $("#idTariff").html(data);
-
-                loadApport();
-            }
-        });
-    }
-
-    function loadApport() {
-        BrandID = $("#idBrand");
-        ProductID = $("#idProduct");
-        const TariffID = $("#idTariff").val();
-
-        $.ajax({
-            url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'apport', ID_PRODUCT: ProductID.val(), ID_BRAND: BrandID.val(), ID_TARIFF: TariffID },
-            success: (data) => {
-                $("#controlApport").html(data);
-
-                loadDuration();
-            },
-            error: (error) => {
-                console.error("Une erreur s'est produite :", error);
-            }
-        });
-    }
-
-    function loadDuration() {
-
-        BrandID = $("#idBrand").val();
-        ProductID = $("#idProduct").val();
-        const TariffID = $("#idTariff").val();
-
-        const ApportValue = $("input[name='apportName']:checked").val();
-        $.ajax({
-            url: "users/agency/data_retriever.php",
-            method: "POST",
-            data: { ID_SCRIPT: 'duration', ID_PRODUCT: ProductID, ID_BRAND: BrandID, ID_TARIFF: TariffID, ID_APPORT: ApportValue },
-            success: (data) => {
-                $("#controlDuration").html(data);
-                calcFunction();
-            },
-            error: (error) => {
-                console.error("Une erreur s'est produite :", error);
-            }
-        });
-    }
-
-
-
-
-    function calcFunction() {
-
-        BrandID = $("#idBrand");
-        ProductID = $("#idProduct");
-        const TariffID = $("#idTariff").val();
-        AmountID = $("#rangeInputAmount");
-
-
-        const DurationValue = $("input[name='durationName']:checked").val();
-        const ApportValue = $("input[name='apportName']:checked").val();
-
-        $.ajax({
-            url: "users/agency/calc-fx.php",
-            method: "POST",
-            data: {
+                ID_SCRIPT: target,
                 ID_AMOUNT: AmountID.val(),
-                ID_DURATION: DurationValue,
-                ID_APPORT: ApportValue,
-                ID_TARIFF: TariffID,
-                ID_PRODUCT: ProductID.val(),
-                ID_BRAND: BrandID.val()
+                ID_DURATION: DurationValue.val(),
+                ID_MONTHLY: Monthly.val(),
+                ID_PROFESSION: ProfessionID.val()
+
             },
             success: (data) => {
                 var result = JSON.parse(data);
 
-                $("#rangeValueAmount").val(result.TTC);
+                document.getElementById("select-value-slider-amount").innerHTML = result.amount;
+                document.getElementById("select-value-slider-duration").innerHTML = result.duration;
+                document.getElementById("select-value-slider-monthly").innerHTML = result.monthly;
 
-                $("#infoAmount").val(result.TTC);
-                $("#infoDuration").val(DurationValue);
+                $("#infoAmount").val(result.amount);
+                $("#infoDuration").val(result.duration);
+                $("#infoMonthly").val(result.monthly);
+                $("#infoApportPerc").val(result.apport_perc);
+                $("#infoApport").val(result.apport_total);
+                $("#infoADI").val(result.assurance);           
+                $("#infoFD").val(result.frais_dossier);
+                $("#infoCHAD").val(result.cout);    
+                $("#infoProfession").val(ProfessionID.val());
+                $("#infoProject").val(ProjectID.val());    
 
-                // $("#rangeValueMonthly").val(result.payment);
-                $("#infoMonthly").val(result.payment);
-                $("#infoApportPerc").val(ApportValue);
-                $("#infoApport").val(result.Apport_Total);
-                $("#infoADI").val(result.Assurance);
-                $("#infoTariffID").val(result.tariff_id);
-                $("#infoTAUXINT").val(result.TAUXINT);
-                $("#infoFD").val(result.FraisDossier);
-                $("#infoCHAD").val(result.Cout);
-                $("#infoBrand").val(result.Marque);
-                $("#infoProduct").val(result.Produit);
-                $("#infoTariff").val(result.Bareme);
-                $("#idPrint").html(result.RecapSim);
-                $("#optionMonthly").html(result.OptionMonthly);
+                if (target === "slider-monthly") {
+                    Monthly.val(result.monthly_no_format);
+                    // console.log(result.monthly_no_format);
+                } else {
+                    DurationValue.val(result.duration);
+                }
+                setProgressBar();
             }
         });
     }

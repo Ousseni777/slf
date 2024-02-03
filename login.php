@@ -1658,7 +1658,7 @@
   </style>
 
   <style>
-      #logo h1 {
+    #logo h1 {
       background-color: rgba(255, 250, 200, .1);
       padding: 1% 5%;
       width: 200px;
@@ -1666,13 +1666,15 @@
       border-radius: 20px;
       border-bottom: 1px solid red;
     }
+
     .section-login {
       border: 1px solid red;
       padding: 2% 5% 1% 5%;
     }
 
     .option-login {
-      width: 40%;
+      width: 45%;
+      font-size: 14px;
     }
 
     #register-form {
@@ -1699,7 +1701,7 @@
       display: none;
     }
 
-    .success-text{
+    .success-text {
       display: none;
     }
   </style>
@@ -1719,7 +1721,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="./#hero">SALAFIN</a></li>
+          <li><a class="nav-link scrollto" href="./#hero">SALAFIN</a></li>
 
           <li><a class="nav-link scrollto" href="./#schedule">Besoin d'argent</a></li>
           <li><a class="nav-link glightbox play-btn" href="./#hero">Comment ça
@@ -1802,7 +1804,7 @@
                 <button class="btn btn-outline-danger ms-2 active option-login" id="btn-login"
                   onclick="displayControl(this)">Déjà utilisateur</button>
                 <button class="btn btn-outline-danger ms-2 option-login" id="btn-signup"
-                  onclick="displayControl(this)">Inscrivez-vous</button>
+                  onclick="displayControl(this)">Activer mon compte</button>
               </h2>
               <form action="#" method="POST" id="login-form" class="row g-3 needs-validation">
                 <div class="error-text col-12"></div>
@@ -1841,10 +1843,15 @@
                   <input type="email" name="EMAIL" placeholder="Votre adresse mail" class="form-control" id="yourEmail">
                   <label for="yourEmail" class="form-label">Votre adresse mail</label>
                 </div>
-                <div class="col-12 form-floating mb-3 mt-3">
+                <div class="col-12 form-floating mb-3 mt-1">
                   <input type="text" name="PHONE" class="form-control" placeholder="Votre N° Téléphone" id="phone">
                   <label for="phone" class="form-label">Votre N° Téléphone</label>
                 </div>
+                <div class="col-12 form-floating mb-3 mt-1">
+                  <input type="text" name="CIN" placeholder="Votre CIN" class="form-control" id="yourCIN">
+                  <label for="yourCIN" class="form-label">Votre CIN</label>
+                </div>
+
 
                 <!-- <div class="col-12">
                       <div class="form-check" style="width:80%;">
@@ -1855,7 +1862,7 @@
                       </div>
                     </div> -->
                 <div class="col-12">
-                  <button class="btn btn-danger w-100 btn-register mt-5" type="submit">Activer mon compte</button>
+                  <button class="btn btn-danger w-100 btn-register mt-1" type="submit">J'active mon compte</button>
                 </div>
 
               </form>
@@ -1945,37 +1952,38 @@
       errorTextRegister.style.display = "none";
       formRegister.style.opacity = 0.5;
 
-      setTimeout(function () {
-        $('#mainPreloader').hide();
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "./phpMailer/send-verif-mail.php", true);
 
-        xhr.onload = () => {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              console.log(xhr.responseText);
-              let responseData = JSON.parse(xhr.responseText);
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "./phpMailer/send-verif-mail.php", true);
 
-              if (responseData.status === "success") {
-                if (responseData.message !== "CLIENT") {
-                  location.href = "acceuil";
-                } else if (responseData.message === "CLIENT") {
-                  location.href = "sim-cl?tag=chrono";
-                }
+      xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            let responseData = JSON.parse(xhr.responseText);
 
-              } else {
+            if (responseData.status === "success") {
+              setTimeout(function () {
+                $('#mainPreloader').hide();
+                $(".success-text").show();
+
+              }, 20);
+
+            } else {
+              setTimeout(function () {
+                $('#mainPreloader').hide();
                 formRegister.style.pointerEvents = "all";
                 formRegister.style.opacity = 1;
                 errorTextRegister.style.display = "block";
                 errorTextRegister.innerHTML = responseData.message;
-              }
+              }, 2000);
             }
           }
-        };
+        }
+      };
 
-        let formData = new FormData(formRegister);
-        xhr.send(formData);
-      }, 2000);
+      let formData = new FormData(formRegister);
+      xhr.send(formData);
     };
 
     function displayControl(btn) {
